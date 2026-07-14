@@ -4575,10 +4575,17 @@ async function sbCargarTodo() {
     rCaja.forEach(f => { if (f.adjunto_path) CAJA_ADJ[f.id] = { nombre: f.adjunto_path.split('/').slice(1).join('/'), path: f.adjunto_path, url: sbPubUrl(f.adjunto_path) }; });
     if (typeof saveCajaLocal === 'function') saveCajaLocal(); }
 
-    // Config compartida (dólar, uma)
+    // Config compartida (dólar, uma, feriados, ferias)
     const cfg = {}; (rCfg || []).forEach(x => cfg[x.clave] = x.valor);
     if (cfg.dolar) appStore.setItem(DOLAR_KEY, cfg.dolar);
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
+    // Feriados y ferias: lo que está en la nube manda (es compartido por todo el estudio)
+    if (cfg.feriados) {
+      try { const arr = JSON.parse(cfg.feriados); if (Array.isArray(arr)) { FERIADOS = arr; appStore.setItem(FER_KEY, cfg.feriados); __ferSet = null; } } catch (e) {}
+    }
+    if (cfg.ferias) {
+      try { const arr = JSON.parse(cfg.ferias); if (Array.isArray(arr)) { FERIAS = arr; appStore.setItem(FERIAS_KEY, cfg.ferias); } } catch (e) {}
+    }
 
     // Agenda (tareas + audiencias manuales)
     if (rTareas && typeof TAREAS !== 'undefined') {
@@ -4594,11 +4601,55 @@ async function sbCargarTodo() {
 
     // Reconciliar pagos de caja con clientes del CRM (vincular por nombre los que no tienen clienteId)
     try { reconciliarPagosClientes(); } catch (e) {}
+    // Limpiar planes de cuotas cuyos pagos ya no existen
+    try { limpiarPlanesHuerfanos(); } catch (e) {}
 
     return true;
   } catch (e) {
     sbAvisarError(e);
     return false;
+  }
+}
+
+// Limpia planes huérfanos: los que no tienen NINGÚN pago que los referencie
+// (quedan así si se borró el pago antes de que existiera la desvinculación automática).
+// También sincroniza "pagadas" con los pagos que realmente existen.
+function limpiarPlanesHuerfanos() {
+  if (typeof PLANES === 'undefined' || !PLANES.length) return 0;
+  const pagos = (typeof CAJA_TODAS === 'function') ? CAJA_TODAS() : [];
+  let cambios = 0;
+  const vivos = [];
+  PLANES.forEach(plan => {
+    const suyos = pagos.filter(p => p.planId != null && String(p.planId) === String(plan.id));
+    if (!suyos.length) {
+      // Ningún pago lo respalda: el plan es huérfano
+      if (typeof sbDelPlan === 'function') sbDelPlan(plan.id);
+      cambios++;
+      return; // no se conserva
+    }
+    // Sincronizar las cuotas pagadas con los pagos que existen de verdad
+    const realmente = [...new Set(suyos.map(p => Number(p.nroCuota)).filter(n => n > 0))].sort((a,b)=>a-b);
+    const antes = (plan.pagadas || []).slice().sort((a,b)=>a-b).join(',');
+    if (antes !== realmente.join(',')) { plan.pagadas = realmente; cambios++; if (typeof sbPushPlan === 'function') sbPushPlan(plan); }
+    vivos.push(plan);
+  });
+  if (cambios) { PLANES = vivos; savePlanesLocal(); }
+  return cambios;
+}
+
+// Al eliminar un pago que era una cuota: desmarcar esa cuota del plan.
+// Si el plan queda sin cuotas pagadas, se elimina (era huérfano).
+function desvincularCuotaDePlan(planId, nroCuota) {
+  const plan = planPorId(planId);
+  if (!plan) return;
+  plan.pagadas = (plan.pagadas || []).filter(n => Number(n) !== Number(nroCuota));
+  if (!plan.pagadas.length) {
+    // Nadie pagó nada del plan: no tiene sentido mantenerlo
+    PLANES = (PLANES || []).filter(p => String(p.id) !== String(plan.id));
+    savePlanesLocal();
+    if (typeof sbDelPlan === 'function') sbDelPlan(plan.id);
+  } else {
+    savePlanes();
   }
 }
 
@@ -4717,7 +4768,7 @@ const FERIADOS_2026_DEFAULT = [
 ];
 const FERIAS_DEFAULT = [
   { nombre:'Feria judicial de enero', desde:'2026-01-01', hasta:'2026-01-31' },
-  { nombre:'Feria de invierno (verificá la acordada)', desde:'2026-07-13', hasta:'2026-07-24' }
+  { nombre:'Feria judicial de invierno', desde:'2026-07-20', hasta:'2026-07-31' }
 ];
 
 var FERIADOS = [];
@@ -4732,10 +4783,31 @@ function loadConfig() {
   catch(e) { FERIAS = FERIAS_DEFAULT.map(f=>({...f})); }
   try { TAREAS = JSON.parse(appStore.getItem(TAREAS_KEY) || '[]'); }
   catch(e) { TAREAS = []; }
+  migrarFeriaInvierno2026();
   __ferSet = null;
 }
-function saveFeriados(){ appStore.setItem(FER_KEY, JSON.stringify(FERIADOS)); __ferSet = null; }
-function saveFerias(){ appStore.setItem(FERIAS_KEY, JSON.stringify(FERIAS)); }
+// La feria de invierno 2026 se había cargado con fechas provisorias (13→24/07).
+// Las reales son 20/07 al 31/07 inclusive. Corrige el registro viejo una sola vez.
+function migrarFeriaInvierno2026() {
+  let cambio = false;
+  (FERIAS || []).forEach(f => {
+    if (f && f.desde === '2026-07-13' && f.hasta === '2026-07-24') {
+      f.desde = '2026-07-20'; f.hasta = '2026-07-31';
+      if (/verific/i.test(f.nombre || '')) f.nombre = 'Feria judicial de invierno';
+      cambio = true;
+    }
+  });
+  if (cambio) { appStore.setItem(FERIAS_KEY, JSON.stringify(FERIAS)); }
+  return cambio;
+}
+function saveFeriados(){
+  appStore.setItem(FER_KEY, JSON.stringify(FERIADOS)); __ferSet = null;
+  if (typeof sbPushConfig === 'function') sbPushConfig('feriados', JSON.stringify(FERIADOS));
+}
+function saveFerias(){
+  appStore.setItem(FERIAS_KEY, JSON.stringify(FERIAS));
+  if (typeof sbPushConfig === 'function') sbPushConfig('ferias', JSON.stringify(FERIAS));
+}
 function saveTareasLocal(){ appStore.setItem(TAREAS_KEY, JSON.stringify(TAREAS)); }
 function saveTareas(){ saveTareasLocal(); if (typeof sbPushTarea === 'function') (TAREAS||[]).forEach(sbPushTarea); }
 
@@ -6097,14 +6169,18 @@ function eliminarMovSoc(id) {
   CAJASOC = CAJASOC.filter(m => m.id !== id);
   delete CAJASOC_ADJ[id];
   saveCajaSoc(); saveCajaSocAdj(); sbDelMovSoc(id);
-  // Si era un ingreso vinculado a un cliente y se había sumado como servicio, quitarlo
-  if (mov && mov.tipo === 'ingreso' && mov.concepto && typeof quitarServicioContratado === 'function') {
+  if (mov && mov.tipo === 'ingreso') {
     const cid = mov.clienteId != null ? mov.clienteId : __clienteIdPorNombre(mov.contraparte);
-    if (cid != null) {
-      // Si era una cuota, el servicio se guardó con el sufijo "(plan N cuotas)"
-      let etiqueta = mov.concepto;
-      if (mov.planId) { const pl = planPorId(mov.planId); if (pl) etiqueta = pl.concepto + ' (plan ' + pl.total + ' cuotas)'; }
-      quitarServicioContratado(cid, etiqueta);
+    // Si era una cuota: desmarcarla del plan (y borrar el plan si queda vacío)
+    if (mov.planId) {
+      const pl = planPorId(mov.planId);
+      const etiqueta = pl ? pl.concepto + ' (plan ' + pl.total + ' cuotas)' : null;
+      desvincularCuotaDePlan(mov.planId, mov.nroCuota);
+      if (etiqueta && !planPorId(mov.planId) && cid != null && typeof quitarServicioContratado === 'function') {
+        quitarServicioContratado(cid, etiqueta);
+      }
+    } else if (mov.concepto && cid != null && typeof quitarServicioContratado === 'function') {
+      quitarServicioContratado(cid, mov.concepto);
     }
   }
   renderCajaSoc();
@@ -6702,8 +6778,17 @@ function eliminarPago(id) {
   CAJA = CAJA.filter(x => x.id !== id);
   if (CAJA_ADJ[id]) { delete CAJA_ADJ[id]; saveCajaAdj(); }
   saveCaja(); sbDelPago(id);
-  // Si el pago estaba vinculado a un cliente y se había registrado como servicio, quitarlo también
-  if (pago && pago.clienteId && pago.concepto && typeof quitarServicioContratado === 'function') {
+  // Si era una cuota de un plan, desmarcarla (y borrar el plan si queda vacío)
+  if (pago && pago.planId) {
+    const plan = planPorId(pago.planId);
+    const etiqueta = plan ? plan.concepto + ' (plan ' + plan.total + ' cuotas)' : null;
+    desvincularCuotaDePlan(pago.planId, pago.nroCuota);
+    // Si el plan desapareció, quitar también el servicio contratado que lo reflejaba
+    if (etiqueta && !planPorId(pago.planId) && pago.clienteId && typeof quitarServicioContratado === 'function') {
+      quitarServicioContratado(pago.clienteId, etiqueta);
+    }
+  } else if (pago && pago.clienteId && pago.concepto && typeof quitarServicioContratado === 'function') {
+    // Pago suelto: quitar el servicio contratado que se había sumado desde él
     quitarServicioContratado(pago.clienteId, pago.concepto);
   }
   renderCaja();
