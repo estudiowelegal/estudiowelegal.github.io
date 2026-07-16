@@ -735,6 +735,36 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-alerta.ini{background:#eef1f6;border:1px solid #d2dae8}.crm-alerta.ini .a-lbl,.crm-alerta.ini b{color:#4a5b78}
 .crm-right .ult{font-size:11px;color:var(--tinta-suave)}.crm-right .ult b{color:var(--tinta)}
 .crm-prox{font-size:11px;font-weight:600;color:var(--crm-azul);background:var(--crm-azul-bg);padding:2px 8px;border-radius:5px}
+/* Trámite en curso — píldora champán, una línea, sin alarma */
+.venc-tag.tram{background:#f8f1de;color:#8a6d1f}
+.crm-tram{display:inline-flex;align-items:center;gap:6px;background:#f8f1de;border:1px solid #e6d3a0;border-radius:20px;padding:4px 12px;max-width:250px}
+.crm-tram .ico{font-size:11px;flex-shrink:0;line-height:1}
+.crm-tram .que{font-size:11px;font-weight:700;color:#8a6d1f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.02em}
+.crm-tram .sep{color:#d8c48a;flex-shrink:0}
+.crm-tram .plz{font-size:10.5px;color:#8a6d1f;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
+/* Panel de estado actual en la ficha */
+.tram-panel{background:#fbfaf7;border:1px solid var(--filo);border-left:3px solid var(--tinta);border-radius:10px;padding:13px 15px;margin-bottom:14px}
+.tram-tit{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta);margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tram-cnt{font-weight:400;text-transform:none;letter-spacing:0;font-size:10.5px;color:var(--tinta-suave)}
+.tram-fila{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-top:1px solid var(--filo-suave)}
+.tram-fila:first-of-type{border-top:none}
+.tram-info{flex:1;min-width:0}
+.tram-que{font-size:13px;font-weight:600;color:var(--tinta)}
+.tram-meta{font-size:11px;color:var(--tinta-suave);margin-top:2px}
+.tram-acc{display:flex;gap:5px;flex-shrink:0}
+.tram-btn{font-size:10.5px;padding:4px 9px;border-radius:6px;border:1px solid var(--filo);background:#fff;color:var(--tinta-suave);cursor:pointer;font-family:inherit;font-weight:600}
+.tram-btn:hover{border-color:#b9b2a2}
+.tram-btn.ok{background:var(--crm-verde);color:#fff;border-color:var(--crm-verde)}
+.tram-btn.del{color:var(--crm-rojo);border-color:#e6c4c0}
+.tram-vacio{font-size:12px;color:var(--tinta-suave);font-style:italic;padding:3px 0}
+.tram-add{font-size:11.5px;background:none;border:1px dashed #c9c4b8;color:var(--tinta-suave);padding:5px 12px;border-radius:6px;cursor:pointer;font-family:inherit;margin-top:8px}
+.tram-add:hover{border-color:#a8a294}
+.tram-form{background:#fff;border:1px solid var(--filo);border-radius:8px;padding:12px;margin-top:9px}
+.tram-form-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:9px}
+.tram-f{flex:1;min-width:120px}
+.tram-f label{font-size:10px;font-weight:600;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:3px}
+.tram-f input{font-family:inherit;font-size:12.5px;padding:7px 9px;border:1px solid var(--filo);border-radius:7px;width:100%;background:#fff}
+.tram-hint{font-size:10.5px;color:var(--tinta-suave)}
 .crm-prox.vencido{color:var(--crm-rojo);background:var(--crm-rojo-bg)}
 @media(max-width:700px){
   .crm-row{grid-template-columns:1fr}
@@ -793,6 +823,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-item-del:hover{background:var(--crm-rojo-bg)}
 .crm-add-fila{background:var(--laurel);border:1px dashed var(--sello);color:var(--sello);border-radius:8px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px}
 .crm-serv-label{font-size:11px;font-weight:600;color:var(--tinta-suave);margin:12px 0 8px}
+.serv-tram{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:#f8f1de;color:#8a6d1f;padding:1px 6px;border-radius:4px;margin-left:6px}
 .crm-serv-del{background:none;border:none;color:#b3372a;cursor:pointer;font-size:12px;padding:0 4px;margin-left:6px;flex-shrink:0;opacity:.65}
 .crm-serv-del:hover{opacity:1}
 .crm-tabla{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--carta);border:1px solid var(--filo);border-radius:8px;overflow:hidden}
@@ -4497,7 +4528,7 @@ function clienteAFila(c) {
     reuniones: c.reuniones || [],
     ultimo_contacto: c.ultimoContacto || null, proximo_contacto: c.proximoContacto || null,
     proximo_nota: c.proximoNota || null, bitacora: c.bitacora || [],
-    servicios: c.servicios || [], observaciones: c.observaciones || null
+    servicios: c.servicios || [], tramites: c.tramites || [], observaciones: c.observaciones || null
   };
 }
 function filaACliente(f) {
@@ -4516,7 +4547,7 @@ function filaACliente(f) {
     reuniones: f.reuniones || [],
     ultimoContacto: f.ultimo_contacto || '', proximoContacto: f.proximo_contacto || '',
     proximoNota: f.proximo_nota || '', bitacora: f.bitacora || [],
-    servicios: f.servicios || [], observaciones: f.observaciones || ''
+    servicios: f.servicios || [], tramites: f.tramites || [], observaciones: f.observaciones || ''
   };
 }
 function sbPushCliente(c) { if (SB_ON) sbUpsert('clientes', clienteAFila(c)).catch(sbAvisarError); }
@@ -5039,6 +5070,13 @@ function renderInicio() {
   const items = [];
   tareasPend.forEach(t => { if (t.fecha) items.push({ fecha: t.fecha, t: t.titulo, s: 'Prioridad ' + (t.prio||'media'), tag: 'tarea', cls:'', go: 'agenda' }); });
   getAudienciasProximas(true).forEach(a => items.push({ fecha: a.fecha, t: 'Audiencia testimonial — ' + (a.testigo||'testigo') + (a.hora ? ' · ' + a.hora + ' h' : ''), s: a.exp.caratula, tag: 'aud', go: 'expedientes', expId: a.exp.id }));
+  // Trámites del CRM con plazo estimado: recordar que hay que actualizar el estado
+  (typeof CLIENTES !== 'undefined' ? CLIENTES : []).forEach(c => {
+    (Array.isArray(c.tramites) ? c.tramites : []).forEach(t => {
+      if (!t.vence) return;
+      items.push({ fecha: t.vence, t: 'Trámite — ' + (t.que || ''), s: c.entidad + (c.encargada ? ' · ' + c.encargada : ''), tag: 'tram', go: 'crm', cliId: c.id });
+    });
+  });
   getAudienciasManuales().forEach(a => { if (a.fecha) items.push({ fecha: a.fecha, t: 'Audiencia — ' + a.titulo + (a.hora ? ' · ' + a.hora + ' h' : ''), s: a.asignada ? 'Asignada a ' + a.asignada : 'Cargada en la agenda', tag: 'aud', go: 'agenda' }); });
   oficios.forEach(o => { if (o.vencimiento) items.push({ fecha: o.vencimiento, t: 'Control de oficio — ' + (o.oficio.entidad||''), s: o.exp.caratula, tag: 'ofi', go: 'expedientes', expId: o.exp.id }); });
   items.sort((a,b) => a.fecha.localeCompare(b.fecha));
@@ -5054,9 +5092,10 @@ function renderInicio() {
     const rest = diasHabilesRestantes(i.fecha);
     const vencido = i.fecha < hoy;
     const cls = vencido ? 'overdue' : (rest <= 3 ? 'soon' : '');
-    const tagCls = i.tag === 'aud' ? 'aud' : i.tag === 'ofi' ? 'ofi' : '';
-    const tagTxt = i.tag === 'aud' ? 'Audiencia' : i.tag === 'ofi' ? 'Oficio' : 'Tarea';
-    return `<div class="venc-item ${cls}" onclick="${i.expId ? `verCausa(${i.expId})` : `navTo('${i.go}')`}">
+    const tagCls = i.tag === 'aud' ? 'aud' : i.tag === 'ofi' ? 'ofi' : i.tag === 'tram' ? 'tram' : '';
+    const tagTxt = i.tag === 'aud' ? 'Audiencia' : i.tag === 'ofi' ? 'Oficio' : i.tag === 'tram' ? 'Trámite' : 'Tarea';
+    const irA = i.expId ? `verCausa(${i.expId})` : (i.cliId ? `navTo('crm');setTimeout(()=>abrirClienteDetalle(${i.cliId}),80)` : `navTo('${i.go}')`);
+    return `<div class="venc-item ${cls}" onclick="${irA}">
       <span class="venc-date">${formatFechaCorta(i.fecha)}${pillDias(i.fecha)}</span>
       <div class="venc-txt"><div class="t">${esc(i.t)}</div><div class="s">${esc(i.s)}</div></div>
       <span class="venc-tag ${tagCls}">${tagTxt}</span>
@@ -7625,7 +7664,7 @@ function clienteVacio() {
     docPendiente: false, docPendienteQue: '',
     reuniones: [],
     ultimoContacto: '', proximoContacto: '', proximoNota: '', bitacora: [],
-    servicios: [], observaciones: ''
+    servicios: [], tramites: [], observaciones: ''
   };
 }
 
@@ -7677,6 +7716,78 @@ function agregarNotaBitacora(id, fecha, nota) {
   cli.ultimoContacto = calcularUltimoContacto(cli);
   saveClientesLocal();
   if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+}
+
+// ══════════ TRÁMITES EN CURSO (estado actual del cliente) ══════════
+// Cada trámite: { id, fecha (ISO, desde cuándo), que (texto), vence (ISO, estimado) }
+// Al completarse, baja a servicios contratados y sale de acá.
+function tramitesDe(c) {
+  return (c && Array.isArray(c.tramites) ? c.tramites : []).slice()
+    .sort((a, b) => (a.vence || '9999').localeCompare(b.vence || '9999'));
+}
+function agregarTramite(id, datos) {
+  const cli = clientePorId(id);
+  if (!cli) return;
+  if (!cli.tramites) cli.tramites = [];
+  cli.tramites.push({
+    id: Date.now() + Math.floor(Math.random() * 1000),
+    fecha: datos.fecha || hoyISO(),
+    que: (datos.que || '').trim(),
+    vence: datos.vence || null
+  });
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  refrescarFichaSi(id);
+  if (typeof renderCRM === 'function') renderCRM();
+  if (typeof renderInicioVencimientos === 'function') { try { renderInicioVencimientos(); } catch (e) {} }
+}
+function completarTramite(id, tid) {
+  const cli = clientePorId(id);
+  if (!cli || !cli.tramites) return;
+  const i = cli.tramites.findIndex(t => String(t.id) === String(tid));
+  if (i < 0) return;
+  const t = cli.tramites[i];
+  cli.tramites.splice(i, 1);
+  // Baja al historial de servicios contratados, marcado como trámite gestionado
+  if (!cli.servicios) cli.servicios = [];
+  cli.servicios.unshift({ concepto: t.que, fecha: hoyISO(), tramite: true });
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  refrescarFichaSi(id);
+  if (typeof renderCRM === 'function') renderCRM();
+  if (typeof renderInicioVencimientos === 'function') { try { renderInicioVencimientos(); } catch (e) {} }
+}
+function eliminarTramite(id, tid) {
+  const cli = clientePorId(id);
+  if (!cli || !cli.tramites) return;
+  const t = cli.tramites.find(x => String(x.id) === String(tid));
+  if (!confirm('¿Quitar «' + ((t && t.que) || 'este trámite') + '» del estado actual?\n(No baja al historial de servicios.)')) return;
+  cli.tramites = cli.tramites.filter(x => String(x.id) !== String(tid));
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  refrescarFichaSi(id);
+  if (typeof renderCRM === 'function') renderCRM();
+}
+function refrescarFichaSi(id) {
+  if (typeof refrescarFicha !== 'function') return;
+  const ov = document.getElementById('crmFichaOverlay');
+  if (ov && ov.classList.contains('on') && String(ov.dataset.cliId) === String(id)) refrescarFicha(id);
+}
+// Días que faltan para una fecha ISO (negativo si ya pasó)
+function diasHastaISO(iso) {
+  if (!iso) return null;
+  const a = parseISO(iso), b = parseISO(hoyISO());
+  return Math.round((a - b) / 86400000);
+}
+// Texto corto del plazo para la preview
+function plazoCorto(vence) {
+  const d = diasHastaISO(vence);
+  if (d === null) return '';
+  if (d < 0) return 'vencido';
+  if (d === 0) return 'hoy';
+  if (d < 30) return '~' + d + ' d';
+  const m = Math.round(d / 30);
+  return '~' + m + ' mes' + (m !== 1 ? 'es' : '');
 }
 
 // ── Servicios contratados (se suman desde caja) ──
@@ -7864,6 +7975,18 @@ function renderCRM() {
     else if (c.packSituacion === 'finalizado') chips += `<span class="cchip pack-fin">● Finalizado</span>`;
     if (c.docPendiente) chips += `<span class="cchip doc-si">⚠ Doc. pendiente${c.docPendienteQue ? ': ' + esc(c.docPendienteQue.slice(0, 24)) : ''}</span>`;
 
+    // Trámite en curso (el más próximo a vencer) — píldora champán, sin alarma
+    let tramHtml = '';
+    const trs = tramitesDe(c);
+    if (trs.length) {
+      const t0 = trs[0];
+      const plz = plazoCorto(t0.vence);
+      const mas = trs.length > 1 ? ` +${trs.length - 1}` : '';
+      tramHtml = `<div class="crm-tram" title="${esc(t0.que)}${plz ? ' · ' + plz : ''}${trs.length > 1 ? ' · y ' + (trs.length-1) + ' más' : ''}">
+        <span class="ico">🔄</span><span class="que">${esc(t0.que)}</span>${plz ? `<span class="sep">·</span><span class="plz">${plz}${mas}</span>` : (mas ? `<span class="plz">${mas}</span>` : '')}
+      </div>`;
+    }
+
     // Próximo contacto
     let proxHtml = '';
     if (c.proximoContacto) {
@@ -7880,12 +8003,13 @@ function renderCRM() {
           ${exCliente ? '<span class="tag excliente">Ex cliente</span>' : ''}
         </div>
         <div class="crm-sub">
-          ${c.referente || c.telefono ? `<span>${esc([c.referente, c.telefono].filter(Boolean).join(' · '))}</span>` : ''}
+          ${c.referente ? `<span>${esc(c.referente)}</span>` : ''}
         </div>
         ${nota ? `<div class="crm-nota">📝 <b>${fmtFechaCortaCRM(nota.fecha)}:</b> ${esc(nota.nota)}</div>` : ''}
         ${chips ? `<div class="crm-chips">${chips}</div>` : ''}
       </div>
       <div class="crm-right">
+        ${tramHtml}
         <div class="repro ${rp.cls}"><span class="dot"></span>${rp.txt}</div>
         <div class="ult">Últ.: <b>${fmtFechaCortaCRM(ult)}</b></div>
         ${proxHtml}
@@ -8293,6 +8417,60 @@ function crmEliminarCliente(id) {
 }
 
 // ══════════════ HTML de la ficha ══════════════
+// Panel "Estado actual": qué trámites está atravesando el cliente
+function panelTramites(c) {
+  const trs = tramitesDe(c);
+  const filas = trs.length ? trs.map(t => {
+    const d = diasHastaISO(t.vence);
+    const plz = t.vence
+      ? (d < 0 ? `debería haber terminado hace ${-d} d` : d === 0 ? 'debería estar listo hoy' : `~${d} día${d !== 1 ? 's' : ''}`)
+      : 'sin plazo estimado';
+    return `<div class="tram-fila">
+      <div class="tram-info">
+        <div class="tram-que">${esc(t.que)}</div>
+        <div class="tram-meta">desde ${fD(t.fecha)}${t.vence ? ` · ⏱ ${plz} (${fD(t.vence)})` : ' · sin plazo estimado'}</div>
+      </div>
+      <div class="tram-acc">
+        <button class="tram-btn ok" onclick="completarTramite(${c.id},'${t.id}')">✓ Completado</button>
+        <button class="tram-btn del" onclick="eliminarTramite(${c.id},'${t.id}')" title="Quitar sin archivar">✕</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="tram-vacio">Sin trámites en curso. Agregá uno para que el resto del estudio sepa en qué anda este cliente.</div>';
+
+  return `<div class="tram-panel">
+    <div class="tram-tit"><span>🔄 Estado actual — en qué anda el cliente</span><span class="tram-cnt">${trs.length ? trs.length + ' en curso' : ''}</span></div>
+    ${filas}
+    <button class="tram-add" onclick="mostrarFormTramite(${c.id})">+ Agregar trámite</button>
+    <div class="tram-form oculto" id="tramForm${c.id}">
+      <div class="tram-form-row">
+        <div class="tram-f" style="flex:0 0 128px"><label>Desde</label><input type="date" id="trFecha${c.id}" value="${hoyISO()}"></div>
+        <div class="tram-f" style="flex:2;min-width:180px"><label>¿Qué está haciendo?</label><input id="trQue${c.id}" placeholder="Ej: Cambio de autoridades" onkeydown="if(event.key==='Enter')guardarTramiteNuevo(${c.id})"></div>
+        <div class="tram-f" style="flex:0 0 148px"><label>Debería estar listo</label><input type="date" id="trVence${c.id}"></div>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center">
+        <button class="crm-btn-nuevo" style="padding:7px 14px;font-size:12px" onclick="guardarTramiteNuevo(${c.id})">Agregar</button>
+        <button class="tram-btn" onclick="document.getElementById('tramForm${c.id}').classList.add('oculto')">Cancelar</button>
+        <span class="tram-hint">El plazo sirve para avisarte en el inicio cuando se acerque, así el CRM no queda desactualizado.</span>
+      </div>
+    </div>
+  </div>`;
+}
+function mostrarFormTramite(id) {
+  const f = document.getElementById('tramForm' + id);
+  if (!f) return;
+  f.classList.remove('oculto');
+  const q = document.getElementById('trQue' + id); if (q) q.focus();
+}
+function guardarTramiteNuevo(id) {
+  const que = (document.getElementById('trQue' + id) || {}).value || '';
+  if (!que.trim()) { const q = document.getElementById('trQue' + id); if (q) q.focus(); return; }
+  agregarTramite(id, {
+    fecha: (document.getElementById('trFecha' + id) || {}).value || hoyISO(),
+    que,
+    vence: (document.getElementById('trVence' + id) || {}).value || null
+  });
+}
+
 function htmlFichaCliente(c) {
   const id = c.id;
   const ed = s => secEnEdicion(id, s);
@@ -8315,6 +8493,7 @@ function htmlFichaCliente(c) {
     </div>
     <div class="crm-modal-body">
       ${alertas}
+      ${panelTramites(c)}
 
       ${accProximo(c, ed('prox'))}
       ${accIdentidad(c, ed('identidad'))}
@@ -8526,7 +8705,7 @@ function accPagos(c) {
 
   // Bloque de servicios contratados
   body += `<div class="crm-serv-label">Servicios contratados</div>`;
-  body += servs.length ? `<div class="crm-lista-items">${servs.map((s, si) => `<div class="crm-item-linea ok"><span>\u2713</span><span style="flex:1">${esc(s.concepto || s.nombre || '')}</span><span class="crm-item-fecha">${s.fecha ? fmtFechaCortaCRM(s.fecha) : ''}</span><button class="crm-serv-del" title="Quitar servicio" onclick="eliminarServicioContratado(${id},${si})">\u2715</button></div>`).join('')}</div>`
+  body += servs.length ? `<div class="crm-lista-items">${servs.map((s, si) => `<div class="crm-item-linea ok"><span>\u2713</span><span style="flex:1">${esc(s.concepto || s.nombre || '')}${s.tramite ? ' <span class="serv-tram">trámite</span>' : ''}</span><span class="crm-item-fecha">${s.fecha ? fmtFechaCortaCRM(s.fecha) : ''}</span><button class="crm-serv-del" title="Quitar servicio" onclick="eliminarServicioContratado(${id},${si})">\u2715</button></div>`).join('')}</div>`
     : '<div class="crm-vacio">Sin servicios registrados. Al cargar un pago en Caja podés sumarlo acá.</div>';
 
   return `<div class="${accCls(id,'pagos',false)}">${accHead(id, 'pagos', 'HISTORIAL DE PAGOS \u00b7 SERVICIOS CONTRATADOS', resumen, false)}<div class="acc-body">${body}</div></div>`;
