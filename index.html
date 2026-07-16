@@ -1103,7 +1103,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
             <div id="inicioContactar"></div>
           </div>
           <div class="panel" id="panelInicioPacks">
-            <div class="panel-h"><h3>Packs por finalizar</h3><span class="mini" id="packsVencerMini"></span></div>
+            <div class="panel-h"><h3>Packs a renovar</h3><span class="mini" id="packsVencerMini"></span></div>
             <div id="inicioPacksVencer"></div>
           </div>
         </div>
@@ -5154,9 +5154,10 @@ function renderContactarInicio() {
   }).join('') : '<div class="panel-empty">Nada pendiente: ningún contacto agendado ni trámites por vencer.</div>';
 }
 
-// ── Packs por finalizar (vencimiento a 30 días o menos) ──
-function packVencimiento(c) {
-  if (!c || c.packSituacion !== 'vigente') return '';
+// ── Packs a renovar: vencen en los próximos 30 días o vencieron en los últimos 60 ──
+function packVencimiento(c, incluirFinalizados) {
+  if (!c) return '';
+  if (!incluirFinalizados && c.packSituacion !== 'vigente') return '';
   // 1) campo explícito de fecha (el que carga el usuario en la ficha)
   if (c.packVence && /^\d{4}-\d{2}-\d{2}$/.test(c.packVence)) return c.packVence;
   // 2) fallback: parsear del texto de detalle
@@ -5177,16 +5178,24 @@ function renderPacksVencerInicio() {
   if (!cont || typeof CLIENTES === 'undefined') return;
   const hoy = hoyISO();
   const dias = v => Math.round((new Date(v + 'T00:00:00') - new Date(hoy + 'T00:00:00')) / 86400000);
-  const items = CLIENTES.map(c => ({ c, venc: packVencimiento(c) }))
-    .filter(x => x.venc && dias(x.venc) <= 30)
+  // Ventana: los que vencen en los próximos 30 días + los que vencieron en los últimos 60.
+  // Así la lista se limpia sola: pasados los 60 días, el pack sale del panel.
+  const items = CLIENTES.map(c => ({ c, venc: packVencimiento(c, true) }))
+    .filter(x => { if (!x.venc) return false; const d = dias(x.venc); return d <= 30 && d >= -60; })
     .sort((a, b) => a.venc.localeCompare(b.venc));
+  const porVencer = items.filter(x => dias(x.venc) >= 0).length;
+  const vencidos = items.length - porVencer;
   const mini = document.getElementById('packsVencerMini');
-  if (mini) mini.textContent = items.length ? items.length + ' pack' + (items.length !== 1 ? 's' : '') + ' en 30 días' : '';
+  if (mini) mini.textContent = items.length
+    ? [porVencer ? porVencer + ' por vencer' : '', vencidos ? vencidos + ' vencido' + (vencidos !== 1 ? 's' : '') : ''].filter(Boolean).join(' · ')
+    : '';
   cont.innerHTML = items.length ? items.slice(0, 8).map(x => {
-    const venc = x.venc < hoy;
-    return `<div class="venc-item ${venc ? 'overdue' : ''}" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${x.c.id}),80)">
+    const yaVencio = x.venc < hoy;
+    const fin = x.c.packSituacion === 'finalizado';
+    const sub = 'Pack ' + esc(x.c.packTipo || '—') + (x.c.encargada ? ' · ' + esc(x.c.encargada) : '') + (fin ? ' · finalizado' : '');
+    return `<div class="venc-item ${yaVencio ? 'overdue' : ''}" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${x.c.id}),80)">
       <span class="venc-date">${formatFechaCorta(x.venc)}${pillDias(x.venc)}</span>
-      <div class="venc-txt"><div class="t">${esc(x.c.entidad)}</div><div class="s">Pack ${esc(x.c.packTipo || '—')}${x.c.encargada ? ' · ' + esc(x.c.encargada) : ''}</div></div>
+      <div class="venc-txt"><div class="t">${esc(x.c.entidad)}</div><div class="s">${sub}</div></div>
     </div>`;
   }).join('') : '<div class="panel-empty">Ningún pack vence en los próximos 30 días.</div>';
 }
@@ -7989,7 +7998,10 @@ function renderCRM() {
     if (c.packSituacion === 'vigente') {
       const vp = packVencimiento(c);
       const vencido = vp && vp < hoy;
-      chips += `<span class="cchip ${vencido ? 'pack-venc' : 'pack'}">● Vigente${vp ? (vencido ? ' · venció ' : ' · hasta ') + fmtFechaCortaCRM(vp) : ''}</span>`;
+      // Si la fecha ya pasó no tiene sentido decir "Vigente": el pack está vencido y hay que resolverlo
+      chips += vencido
+        ? `<span class="cchip pack-venc">● Vencido · ${fmtFechaCortaCRM(vp)}</span>`
+        : `<span class="cchip pack">● Vigente${vp ? ' · hasta ' + fmtFechaCortaCRM(vp) : ''}</span>`;
     }
     else if (c.packSituacion === 'finalizado') chips += `<span class="cchip pack-fin">● Finalizado</span>`;
     if (c.docPendiente) chips += `<span class="cchip doc-si">⚠ Doc. pendiente${c.docPendienteQue ? ': ' + esc(c.docPendienteQue.slice(0, 24)) : ''}</span>`;
