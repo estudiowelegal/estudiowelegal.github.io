@@ -736,12 +736,12 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-right .ult{font-size:11px;color:var(--tinta-suave)}.crm-right .ult b{color:var(--tinta)}
 .crm-prox{font-size:11px;font-weight:600;color:var(--crm-azul);background:var(--crm-azul-bg);padding:2px 8px;border-radius:5px}
 /* Trámite en curso — píldora champán, una línea, sin alarma */
-.venc-tag.tram{background:#f8f1de;color:#8a6d1f}
-.crm-tram{display:inline-flex;align-items:center;gap:6px;background:#f8f1de;border:1px solid #e6d3a0;border-radius:20px;padding:4px 12px;max-width:250px}
+.venc-tag.tram{background:#f2eef8;color:#5b3d8c}
+.crm-tram{display:inline-flex;align-items:center;gap:6px;background:#f2eef8;border:1px solid #d8cbe9;border-radius:20px;padding:4px 12px;max-width:250px}
 .crm-tram .ico{font-size:11px;flex-shrink:0;line-height:1}
-.crm-tram .que{font-size:11px;font-weight:700;color:#8a6d1f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.02em}
-.crm-tram .sep{color:#d8c48a;flex-shrink:0}
-.crm-tram .plz{font-size:10.5px;color:#8a6d1f;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
+.crm-tram .que{font-size:11px;font-weight:700;color:#5b3d8c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.02em}
+.crm-tram .sep{color:#b9a5d4;flex-shrink:0}
+.crm-tram .plz{font-size:10.5px;color:#5b3d8c;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
 /* Panel de estado actual en la ficha */
 .tram-panel{background:#fbfaf7;border:1px solid var(--filo);border-left:3px solid var(--tinta);border-radius:10px;padding:13px 15px;margin-bottom:14px}
 .tram-tit{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta);margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -823,7 +823,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-item-del:hover{background:var(--crm-rojo-bg)}
 .crm-add-fila{background:var(--laurel);border:1px dashed var(--sello);color:var(--sello);border-radius:8px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px}
 .crm-serv-label{font-size:11px;font-weight:600;color:var(--tinta-suave);margin:12px 0 8px}
-.serv-tram{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:#f8f1de;color:#8a6d1f;padding:1px 6px;border-radius:4px;margin-left:6px}
+.serv-tram{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:#f2eef8;color:#5b3d8c;padding:1px 6px;border-radius:4px;margin-left:6px}
 .crm-serv-del{background:none;border:none;color:#b3372a;cursor:pointer;font-size:12px;padding:0 4px;margin-left:6px;flex-shrink:0;opacity:.65}
 .crm-serv-del:hover{opacity:1}
 .crm-tabla{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--carta);border:1px solid var(--filo);border-radius:8px;overflow:hidden}
@@ -1098,7 +1098,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
             <div id="inicioOficios"></div>
           </div>
           <div class="panel" id="panelInicioContactar">
-            <div class="panel-h"><h3>Clientes a contactar</h3><span class="mini" id="crmContactarMini"></span></div>
+            <div class="panel-h"><h3>A contactar / trámites a actualizar</h3><span class="mini" id="crmContactarMini"></span></div>
             <div id="inicioContactar"></div>
           </div>
           <div class="panel" id="panelInicioPacks">
@@ -5070,13 +5070,6 @@ function renderInicio() {
   const items = [];
   tareasPend.forEach(t => { if (t.fecha) items.push({ fecha: t.fecha, t: t.titulo, s: 'Prioridad ' + (t.prio||'media'), tag: 'tarea', cls:'', go: 'agenda' }); });
   getAudienciasProximas(true).forEach(a => items.push({ fecha: a.fecha, t: 'Audiencia testimonial — ' + (a.testigo||'testigo') + (a.hora ? ' · ' + a.hora + ' h' : ''), s: a.exp.caratula, tag: 'aud', go: 'expedientes', expId: a.exp.id }));
-  // Trámites del CRM con plazo estimado: recordar que hay que actualizar el estado
-  (typeof CLIENTES !== 'undefined' ? CLIENTES : []).forEach(c => {
-    (Array.isArray(c.tramites) ? c.tramites : []).forEach(t => {
-      if (!t.vence) return;
-      items.push({ fecha: t.vence, t: 'Trámite — ' + (t.que || ''), s: c.entidad + (c.encargada ? ' · ' + c.encargada : ''), tag: 'tram', go: 'crm', cliId: c.id });
-    });
-  });
   getAudienciasManuales().forEach(a => { if (a.fecha) items.push({ fecha: a.fecha, t: 'Audiencia — ' + a.titulo + (a.hora ? ' · ' + a.hora + ' h' : ''), s: a.asignada ? 'Asignada a ' + a.asignada : 'Cargada en la agenda', tag: 'aud', go: 'agenda' }); });
   oficios.forEach(o => { if (o.vencimiento) items.push({ fecha: o.vencimiento, t: 'Control de oficio — ' + (o.oficio.entidad||''), s: o.exp.caratula, tag: 'ofi', go: 'expedientes', expId: o.exp.id }); });
   items.sort((a,b) => a.fecha.localeCompare(b.fecha));
@@ -5121,18 +5114,43 @@ function renderContactarInicio() {
   const cont = document.getElementById('inicioContactar');
   if (!cont || typeof CLIENTES === 'undefined') return;
   const hoy = hoyISO();
-  const conFecha = CLIENTES.filter(c => c.proximoContacto).slice();
-  conFecha.sort((a, b) => (a.proximoContacto || '').localeCompare(b.proximoContacto || ''));
+  // Cada encargada ve lo suyo; Kevin e Ivana ven toda la cartera
+  const miEnc = (typeof encargadaActual === 'function') ? encargadaActual() : '';
+  const todos = (typeof veTodaLaCartera === 'function') ? veTodaLaCartera() : true;
+  const esMio = c => todos || !miEnc || (c.encargada || '').trim().toUpperCase() === miEnc;
+
+  const items = [];
+  // a) Clientes con próximo contacto agendado
+  CLIENTES.filter(c => c.proximoContacto && esMio(c)).forEach(c => {
+    items.push({ tipo: 'contacto', fecha: c.proximoContacto, cli: c,
+      t: c.entidad, s: [c.encargada, c.proximoNota].filter(Boolean).join(' · ') });
+  });
+  // b) Trámites cuyo plazo estimado se acerca: hay que actualizar el estado en el CRM
+  CLIENTES.filter(esMio).forEach(c => {
+    (Array.isArray(c.tramites) ? c.tramites : []).forEach(t => {
+      if (!t.vence) return;
+      const d = diasHastaISO(t.vence);
+      if (d === null || d > 15) return;   // solo los que están por caer (o ya cayeron)
+      items.push({ tipo: 'tramite', fecha: t.vence, cli: c,
+        t: c.entidad, s: '🔄 ' + (t.que || '') + (c.encargada ? ' · ' + c.encargada : '') });
+    });
+  });
+  items.sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
+
+  const nTram = items.filter(i => i.tipo === 'tramite').length;
   const mini = document.getElementById('crmContactarMini');
-  if (mini) mini.textContent = conFecha.length ? conFecha.length + ' pendiente' + (conFecha.length !== 1 ? 's' : '') : '';
-  cont.innerHTML = conFecha.length ? conFecha.slice(0, 8).map(c => {
-    const venc = c.proximoContacto < hoy;
-    const sub = [c.encargada, c.proximoNota].filter(Boolean).join(' · ');
-    return `<div class="venc-item ${venc ? 'overdue' : ''}" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${c.id}),80)">
-      <span class="venc-date">${formatFechaCorta(c.proximoContacto)}${pillDias(c.proximoContacto)}</span>
-      <div class="venc-txt"><div class="t">${esc(c.entidad)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div>
+  if (mini) mini.textContent = items.length
+    ? items.length + ' pendiente' + (items.length !== 1 ? 's' : '') + (nTram ? ' · ' + nTram + ' trámite' + (nTram !== 1 ? 's' : '') : '')
+    : '';
+
+  cont.innerHTML = items.length ? items.slice(0, 8).map(i => {
+    const venc = i.fecha < hoy;
+    return `<div class="venc-item ${venc ? 'overdue' : ''}" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${i.cli.id}),80)">
+      <span class="venc-date">${formatFechaCorta(i.fecha)}${pillDias(i.fecha)}</span>
+      <div class="venc-txt"><div class="t">${esc(i.t)}</div>${i.s ? `<div class="s">${esc(i.s)}</div>` : ''}</div>
+      ${i.tipo === 'tramite' ? '<span class="venc-tag tram">Actualizar</span>' : ''}
     </div>`;
-  }).join('') : '<div class="panel-empty">Ningún cliente con próximo contacto programado.</div>';
+  }).join('') : '<div class="panel-empty">Nada pendiente: ningún contacto agendado ni trámites por vencer.</div>';
 }
 
 // ── Packs por finalizar (vencimiento a 30 días o menos) ──
@@ -8232,6 +8250,19 @@ var __crmSecAbierta = {}; // { clienteId: { seccion: true } } — recuerda qué 
 const REPRO_LABEL = { 'no_iniciado': 'Sin iniciar', 'en_tramite': 'En trámite', 'aprobado': 'Aprobado', 'rechazado': 'Rechazado', 'no_aplica': 'No aplica' };
 const REGISTRO_OP = ['IGJ', 'DPPJ', 'INAES', 'Otro'];
 const ENCARGADAS = ['SOFI G', 'SOFI T', 'ORI', 'NAZA'];
+// Cómo se llama en el CRM la encargada correspondiente a cada usuario del sistema
+const USUARIO_A_ENCARGADA = { ivana: 'IVANA', brenda: 'BRENDA', ori: 'ORI', sofig: 'SOFI G', sofit: 'SOFI T', naza: 'NAZA' };
+// Encargada del usuario logueado ('' para Kevin/Ivana, que ven todo)
+function encargadaActual() {
+  const u = (typeof usuarioActual === 'function') ? usuarioActual() : null;
+  return u ? (USUARIO_A_ENCARGADA[u] || '') : '';
+}
+// ¿El usuario ve la cartera completa en el panel de contactar/trámites?
+// (Kevin, Ivana y Brenda coordinan el CRM y necesitan ver todos los clientes)
+function veTodaLaCartera() {
+  const u = (typeof usuarioActual === 'function') ? usuarioActual() : null;
+  return u === 'kevindaich' || u === 'ivana' || u === 'brenda';
+}
 // Genera <option>s para un select de encargada, incluyendo la actual aunque no esté en la lista
 function opcionesEncargada(actual) {
   const set = ENCARGADAS.slice();
