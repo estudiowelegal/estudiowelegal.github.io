@@ -234,6 +234,7 @@ body.inicio-crm-first .quick-ivana{display:flex}
 .cuota-hint{font-size:11.5px;color:var(--champan-oscuro);margin-top:8px;background:#fdf6e0;border-radius:6px;padding:7px 10px}
 .cuota-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:#f8f1de;color:var(--champan-oscuro);white-space:nowrap;letter-spacing:.03em}
 .cuota-tot{font-weight:500;opacity:.85;text-transform:none;letter-spacing:0}
+.desglose-linea{font-size:10.5px;color:#6a6858;margin-top:3px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cuotas-pend-tile{background:var(--carta);border:1px solid #cdd9ea;border-left:3px solid var(--champan);border-radius:9px;padding:11px 13px}
 .cuotas-pend-tile .num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 .cuotas-pend-tile .lbl{font-size:10px;color:var(--tinta-suave)}
@@ -6523,8 +6524,18 @@ function __socDatosMes(mes) {
   const ingresos = movs.filter(m => m.tipo === 'ingreso' || !m.tipo);
   const gastosOrd = movs.filter(m => m.tipo === 'gasto');
   const gastosEsc = movs.filter(m => m.tipo === 'gasto_esc');
-  const t = { inArs: 0, inUsd: 0, goArs: 0, goUsd: 0, geArs: 0, geUsd: 0 };
-  ingresos.forEach(m => { if (m.moneda === 'USD') t.inUsd += m.monto; else t.inArs += m.monto; });
+  const t = { inArs: 0, inUsd: 0, goArs: 0, goUsd: 0, geArs: 0, geUsd: 0,
+              honArs: 0, honUsd: 0, gincArs: 0, gincUsd: 0, nDesglose: 0 };
+  ingresos.forEach(m => {
+    if (m.moneda === 'USD') t.inUsd += m.monto; else t.inArs += m.monto;
+    // Desglose honorarios / gastos incluidos en el ingreso
+    const tieneDes = m.gastosIncl > 0;
+    if (tieneDes) t.nDesglose++;
+    const hon = tieneDes ? (m.honorarios || 0) : m.monto;
+    const ginc = tieneDes ? m.gastosIncl : 0;
+    if (m.moneda === 'USD') { t.honUsd += hon; t.gincUsd += ginc; }
+    else { t.honArs += hon; t.gincArs += ginc; }
+  });
   gastosOrd.forEach(m => { if (m.moneda === 'USD') t.goUsd += m.monto; else t.goArs += m.monto; });
   gastosEsc.forEach(m => { if (m.moneda === 'USD') t.geUsd += m.monto; else t.geArs += m.monto; });
   return { movs, ingresos, gastosOrd, gastosEsc, t };
@@ -6547,12 +6558,15 @@ function renderCajaSoc() {
   const pesif = document.getElementById('csPesificar')?.checked && dolar > 0;
   const { movs, ingresos, gastosOrd, gastosEsc, t } = __socDatosMes(mes);
   const inPes = t.inArs + t.inUsd * dolar, goPes = t.goArs + t.goUsd * dolar, gePes = t.geArs + t.geUsd * dolar;
+  const honPes = t.honArs + t.honUsd * dolar, gincPes = t.gincArs + t.gincUsd * dolar;
   document.getElementById('csTiles').innerHTML = pesif ? `
     <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(inPes)}</div><div class="lbl">Ingresos pesificados</div><div class="sub">$ ${fmtNumStr(t.inArs)} + u$s ${fmtNumStr(t.inUsd)} × ${fmtNumStr(dolar)}</div></div>
+    ${gincPes > 0 ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">$ ${fmtNumStr(gincPes)}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: $ ${fmtNumStr(honPes)} · ${t.nDesglose} pago${t.nDesglose !== 1 ? 's' : ''} con gastos</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(goPes)}</div><div class="lbl">G. ordinarios pesificados</div><div class="sub">$ ${fmtNumStr(t.goArs)} + u$s ${fmtNumStr(t.goUsd)} × ${fmtNumStr(dolar)}</div></div>
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(gePes)}</div><div class="lbl">G. escribanía pesificados</div><div class="sub">$ ${fmtNumStr(t.geArs)} + u$s ${fmtNumStr(t.geUsd)} × ${fmtNumStr(dolar)}</div></div>
     <div class="tile"><div class="num">${movs.length}</div><div class="lbl">Movimientos</div><div class="sub">${movs.filter(m => CAJASOC_ADJ[m.id]).length} con comprobante</div></div>` : `
     <div class="tile"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(t.inArs)}</div><div class="lbl">Ingresos</div><div class="sub">u$s ${fmtNumStr(t.inUsd)} en dólares · ${ingresos.length} mov.</div></div>
+    ${(t.gincArs > 0 || t.gincUsd > 0) ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">${t.gincArs ? '$ ' + fmtNumStr(t.gincArs) : ''}${t.gincArs && t.gincUsd ? ' · ' : ''}${t.gincUsd ? 'u$s ' + fmtNumStr(t.gincUsd) : ''}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: ${t.honArs ? '$ ' + fmtNumStr(t.honArs) : ''}${t.honArs && t.honUsd ? ' · ' : ''}${t.honUsd ? 'u$s ' + fmtNumStr(t.honUsd) : ''}</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(t.goArs)}</div><div class="lbl">Gastos ordinarios</div><div class="sub">u$s ${fmtNumStr(t.goUsd)} en dólares · ${gastosOrd.length} mov.</div></div>
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(t.geArs)}</div><div class="lbl">Gastos escribanía</div><div class="sub">u$s ${fmtNumStr(t.geUsd)} en dólares · ${gastosEsc.length} mov.</div></div>
     <div class="tile"><div class="num">${movs.length}</div><div class="lbl">Movimientos</div><div class="sub">${movs.filter(m => CAJASOC_ADJ[m.id]).length} con comprobante</div></div>`;
@@ -6563,7 +6577,7 @@ function renderCajaSoc() {
     return `<tr>
       <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
       <td style="font-weight:600">${esc(m.contraparte || '—')}</td>
-      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}</td>
+      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.honorarios || 0)} honorarios · ${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.gastosIncl)} gastos</div>` : ''}</td>
       <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
       <td style="font-size:11.5px">${met}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
       <td>${CAJASOC_ADJ[m.id]
