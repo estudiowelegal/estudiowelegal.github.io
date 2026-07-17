@@ -6758,7 +6758,7 @@ function labelReceptor() {
 }
 let __cjSugSel = -1;
 function cjSugItems(q) {
-  q = (q || '').trim().toLowerCase();
+  q = __normBusqueda(q).trim();
   const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).map(c => ({ n: c.entidad, tipo: c.tipo || '', enc: c.encargada || '', crm: true }));
   const crmSet = new Set(crm.map(c => c.n.trim().toUpperCase()));
   const hist = [...new Set(CAJA.map(x => (x.cliente || '').trim()).filter(Boolean))]
@@ -6767,8 +6767,8 @@ function cjSugItems(q) {
   let todos = [...crm, ...hist];
   if (q) {
     // primero los que empiezan con la búsqueda, después los que la contienen
-    const emp = todos.filter(c => c.n.toLowerCase().startsWith(q));
-    const cont = todos.filter(c => !c.n.toLowerCase().startsWith(q) && c.n.toLowerCase().includes(q));
+    const emp = todos.filter(c => __normBusqueda(c.n).startsWith(q));
+    const cont = todos.filter(c => !__normBusqueda(c.n).startsWith(q) && __normBusqueda(c.n).includes(q));
     todos = [...emp, ...cont];
   } else {
     todos.sort((a, b) => a.n.localeCompare(b.n));
@@ -6817,15 +6817,15 @@ document.addEventListener('click', function(e) {
 // Autocompletado de cliente/proveedor en caja societaria (mismos clientes del CRM + históricos propios)
 let __csSugSel = -1;
 function csSugItems(q) {
-  q = (q || '').trim().toLowerCase();
+  q = __normBusqueda(q).trim();
   const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).map(c => ({ n: c.entidad }));
   const crmSet = new Set(crm.map(c => c.n.trim().toUpperCase()));
   const hist = [...new Set((CAJASOC || []).map(x => (x.contraparte || '').trim()).filter(Boolean))]
     .filter(n => !crmSet.has(n.toUpperCase())).map(n => ({ n }));
   let todos = [...crm, ...hist];
   if (q) {
-    const emp = todos.filter(c => c.n.toLowerCase().startsWith(q));
-    const cont = todos.filter(c => !c.n.toLowerCase().startsWith(q) && c.n.toLowerCase().includes(q));
+    const emp = todos.filter(c => __normBusqueda(c.n).startsWith(q));
+    const cont = todos.filter(c => !__normBusqueda(c.n).startsWith(q) && __normBusqueda(c.n).includes(q));
     todos = [...emp, ...cont];
   } else todos.sort((a, b) => a.n.localeCompare(b.n));
   return todos.slice(0, 8);
@@ -8024,9 +8024,9 @@ function clientePorId(id) { return (CLIENTES || []).find(c => c.id === id); }
 
 // Buscar clientes por nombre (para el autocompletado de caja)
 function buscarClientes(texto) {
-  const t = (texto || '').toLowerCase().trim();
+  const t = __normBusqueda(texto).trim();
   if (!t) return [];
-  return (CLIENTES || []).filter(c => (c.entidad || '').toLowerCase().includes(t)).slice(0, 8);
+  return (CLIENTES || []).filter(c => __normBusqueda(c.entidad).includes(t)).slice(0, 8);
 }
 
 // ── Alta / edición ──
@@ -8176,6 +8176,138 @@ function quitarServicioContratado(id, concepto) {
   }
 }
 
+// ── Depuración de mails pegados al nombre de la entidad (bug de migración del Excel) ──
+// Los mails quedaron SIEMPRE al final del nombre. Puede haber más de uno.
+const __RE_MAIL_FINAL = /(?:[\s,;|/·-]*[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})+\s*$/;
+const __RE_MAIL_TOKEN = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+
+// Analiza UN nombre. Devuelve null si no hay nada que limpiar.
+function analizarMailEnNombre(entidad) {
+  const orig = (entidad || '').toString();
+  if (orig.indexOf('@') < 0) return null;
+  const m = orig.match(__RE_MAIL_FINAL);
+  if (!m) return null;                              // hay @ pero no es un mail al final
+  const mails = m[0].match(__RE_MAIL_TOKEN) || [];
+  if (!mails.length) return null;
+  const limpio = orig.slice(0, m.index).replace(/[\s,;|/·-]+$/, '').trim();
+  if (!limpio) return null;                         // el nombre era SOLO el mail: no tocar
+  if (limpio === orig.trim()) return null;
+  return { original: orig, nombre: limpio, mails: mails };
+}
+
+// Recorre CLIENTES y devuelve el plan de limpieza, SIN escribir nada.
+function auditarMailsEnNombres() {
+  const filas = [];
+  (CLIENTES || []).forEach(c => {
+    const a = analizarMailEnNombre(c.entidad);
+    if (!a) return;
+    const previos = (c.mail || '').split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+    const nuevos = a.mails.filter(x => !previos.some(p => p.toLowerCase() === x.toLowerCase()));
+    filas.push({
+      id: c.id,
+      original: a.original,
+      nombre: a.nombre,
+      mailsExtraidos: a.mails,
+      mailPrevio: c.mail || '',
+      mailFinal: previos.concat(nuevos).join(', '),
+      duplicados: a.mails.filter(x => previos.some(p => p.toLowerCase() === x.toLowerCase())),
+      pagosVinculados: (typeof pagosDeCliente === 'function') ? (pagosDeCliente(c.id) || []).length : null
+    });
+  });
+  return filas;
+}
+
+// Aplica la limpieza. dryRun=true por defecto: NO escribe.
+function depurarMailsEnNombres(dryRun) {
+  if (dryRun !== false) dryRun = true;
+  const filas = auditarMailsEnNombres();
+  if (!dryRun) {
+    filas.forEach(f => {
+      const cli = clientePorId(f.id);
+      if (!cli) return;
+      cli.entidad = f.nombre;
+      cli.mail = f.mailFinal;
+      // NO se anota en bitácora: la bitácora es registro de contactos con el cliente,
+      // no log técnico. Además la nota pisaría ultimoContacto al recalcularse.
+    });
+    if (filas.length) {
+      saveClientesLocal();
+      if (typeof sbPushCliente === 'function') filas.forEach(f => { const c = clientePorId(f.id); if (c) sbPushCliente(c); });
+      if (typeof reconciliarPagosClientes === 'function') reconciliarPagosClientes();
+      if (typeof renderCRM === 'function') renderCRM();
+    }
+  }
+  return filas;
+}
+
+// Borra las notas de bitácora que dejó la depuración (no eran contactos con el cliente)
+// y recalcula el último contacto real. dryRun=true por defecto: NO escribe.
+const __NOTA_DEPURACION = 'Depuración de migración: se quitó el mail del nombre de la entidad y se pasó al campo Mail.';
+function limpiarNotasDepuracion(dryRun) {
+  if (dryRun !== false) dryRun = true;
+  const afectados = [];
+  (CLIENTES || []).forEach(c => {
+    if (!c.bitacora || !c.bitacora.length) return;
+    const quedan = c.bitacora.filter(b => (b.nota || '') !== __NOTA_DEPURACION);
+    if (quedan.length === c.bitacora.length) return;
+    const previo = c.ultimoContacto || '';
+    const simulado = Object.assign({}, c, { bitacora: quedan });
+    afectados.push({
+      id: c.id,
+      entidad: c.entidad,
+      notasBorradas: c.bitacora.length - quedan.length,
+      ultimoContactoAntes: previo,
+      ultimoContactoDespues: calcularUltimoContacto(simulado)
+    });
+    if (!dryRun) {
+      c.bitacora = quedan;
+      c.ultimoContacto = calcularUltimoContacto(c);
+    }
+  });
+  if (!dryRun && afectados.length) {
+    saveClientesLocal();
+    if (typeof sbPushCliente === 'function') afectados.forEach(a => { const c = clientePorId(a.id); if (c) sbPushCliente(c); });
+    if (typeof renderCRM === 'function') renderCRM();
+  }
+  return afectados;
+}
+
+// Imprime en consola qué notas de depuración se borrarían y cómo queda el último contacto.
+function verNotasDepuracion() {
+  const a = limpiarNotasDepuracion(true);
+  if (!a.length) { console.log('No hay notas de depuración en ninguna bitácora.'); return a; }
+  console.log(a.length + ' cliente(s) con nota de depuración:');
+  console.table(a.map(x => ({
+    id: x.id,
+    entidad: x.entidad,
+    'notas a borrar': x.notasBorradas,
+    'últ. contacto ahora': x.ultimoContactoAntes || '(vacío)',
+    'últ. contacto real': x.ultimoContactoDespues || '(vacío)'
+  })));
+  return a;
+}
+
+// Imprime la auditoría en consola, legible.
+function verMailsEnNombres() {
+  const filas = auditarMailsEnNombres();
+  if (!filas.length) { console.log('No hay clientes con mail pegado al nombre.'); return filas; }
+  console.log(filas.length + ' cliente(s) afectado(s):');
+  console.table(filas.map(f => ({
+    id: f.id,
+    'nombre actual': f.original,
+    'quedaría': f.nombre,
+    'mail actual': f.mailPrevio || '(vacío)',
+    'mail quedaría': f.mailFinal,
+    'pagos': f.pagosVinculados
+  })));
+  return filas;
+}
+
+// Normaliza texto para buscar: sin acentos/diacríticos, minúsculas. Conserva puntuación y espacios.
+function __normBusqueda(s) {
+  return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
 // Normaliza un nombre para comparar: sin acentos, sin puntuación, espacios colapsados, minúsculas
 function __normNombre(s) {
   return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -8248,7 +8380,7 @@ function packVenceEsteMes(c) {
 function clientesFiltrados() {
   let arr = (CLIENTES || []).slice();
   const f = __crmFiltros;
-  if (f.texto) { const t = f.texto.toLowerCase(); arr = arr.filter(c => (c.entidad || '').toLowerCase().includes(t)); }
+  if (f.texto) { const t = __normBusqueda(f.texto).trim(); if (t) arr = arr.filter(c => __normBusqueda(c.entidad).includes(t)); }
   if (f.tipo) arr = arr.filter(c => (c.tipo || '') === f.tipo);
   if (f.encargada) arr = arr.filter(c => (c.encargada || '') === f.encargada);
   if (f.repro) arr = arr.filter(c => (c.reproTienen || 'no_aplica') === f.repro);
