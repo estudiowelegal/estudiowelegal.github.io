@@ -105,9 +105,8 @@ button{font-family:var(--f-ui);}
 /* Ivana: inicio simplificado — dos tablas arriba (packs / contactar), accesos rápidos ampliados debajo */
 body.inicio-crm-first #inicioGrid2{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:16px}
 body.inicio-crm-first #inicioColDer{display:contents}
-body.inicio-crm-first #panelInicioPacks{order:1;grid-column:1;grid-row:1}
-body.inicio-crm-first #panelInicioContactar{order:2;grid-column:2;grid-row:1}
-body.inicio-crm-first #panelInicioQuick{order:3;grid-column:1 / span 2;grid-row:2}
+body.inicio-crm-first #panelInicioContactar{order:1;grid-column:1 / span 2;grid-row:1}
+body.inicio-crm-first #panelInicioQuick{order:2;grid-column:1 / span 2;grid-row:2}
 body.inicio-crm-first #panelInicioVenc,body.inicio-crm-first #panelInicioOficios{display:none !important}
 body.inicio-crm-first #panelInicioQuick .quick-grid{grid-template-columns:repeat(4,1fr)}
 @media (max-width:900px){body.inicio-crm-first #panelInicioQuick .quick-grid{grid-template-columns:repeat(2,1fr)}}
@@ -123,8 +122,7 @@ body.sin-jud #quickBuscarCliente{display:flex !important}
 body.sin-jud #inicioGrid2{grid-template-columns:minmax(240px,0.7fr) 1.3fr}
 body.sin-jud #panelInicioQuick{grid-column:1;grid-row:1 / span 2}
 body.sin-jud #panelInicioQuick .quick-grid{grid-template-columns:1fr}
-body.sin-jud #panelInicioContactar{grid-column:2;grid-row:1}
-body.sin-jud #panelInicioPacks{grid-column:2;grid-row:2}
+body.sin-jud #panelInicioContactar{grid-column:2;grid-row:1 / span 2}
 
 /* Modo Ori en caja judicial: solo cargar pagos + sus comisiones */
 body.caja-ori #paginaCaja .page-head button{display:none}
@@ -229,11 +227,13 @@ body.inicio-crm-first .quick-ivana{display:flex}
 .btn-primary:hover{background:var(--sello-osc);}
 .btn-ghost{background:transparent;color:var(--tinta-suave);border:1px solid var(--filo);border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .15s;}
 .oculto{display:none !important}
+.campo-fijo{background:#f4f2ec !important;color:#6a6858 !important;cursor:not-allowed;border-style:dashed !important}
 .cuota-box{background:#faf9f5;border:1px solid var(--filo);border-left:3px solid var(--champan);border-radius:10px;padding:13px;margin:8px 0 2px}
 .cuota-box .montos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:9px}
 .cuota-box .montos-grid label{font-size:10px}
 .cuota-hint{font-size:11.5px;color:var(--champan-oscuro);margin-top:8px;background:#fdf6e0;border-radius:6px;padding:7px 10px}
 .cuota-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:#f8f1de;color:var(--champan-oscuro);white-space:nowrap;letter-spacing:.03em}
+.cuota-tot{font-weight:500;opacity:.85;text-transform:none;letter-spacing:0}
 .cuotas-pend-tile{background:var(--carta);border:1px solid #cdd9ea;border-left:3px solid var(--champan);border-radius:9px;padding:11px 13px}
 .cuotas-pend-tile .num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 .cuotas-pend-tile .lbl{font-size:10px;color:var(--tinta-suave)}
@@ -737,6 +737,13 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-prox{font-size:11px;font-weight:600;color:var(--crm-azul);background:var(--crm-azul-bg);padding:2px 8px;border-radius:5px}
 /* Trámite en curso — píldora champán, una línea, sin alarma */
 .venc-tag.tram{background:#f2eef8;color:#5b3d8c}
+.pack-acc{display:flex;gap:5px;flex-shrink:0;margin-left:auto}
+.pack-btn{font-size:10px;font-weight:700;padding:4px 9px;border-radius:6px;border:1px solid var(--filo);background:#fff;cursor:pointer;font-family:inherit;white-space:nowrap}
+.pack-btn:hover{border-color:#b9b2a2}
+.pack-btn.ok{background:var(--crm-verde-bg);color:var(--crm-verde);border-color:#b9dcc8}
+.pack-btn.ok:hover{background:var(--crm-verde);color:#fff}
+.pack-btn.no{color:var(--tinta-suave)}
+.pack-btn.no:hover{background:#f4f2ec}
 .crm-tram{display:inline-flex;align-items:center;gap:6px;background:#f2eef8;border:1px solid #d8cbe9;border-radius:20px;padding:4px 12px;max-width:250px}
 .crm-tram .ico{font-size:11px;flex-shrink:0;line-height:1}
 .crm-tram .que{font-size:11px;font-weight:700;color:#5b3d8c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.02em}
@@ -1102,11 +1109,13 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
             <div class="panel-h"><h3>A contactar / trámites a actualizar</h3><span class="mini" id="crmContactarMini"></span></div>
             <div id="inicioContactar"></div>
           </div>
-          <div class="panel" id="panelInicioPacks">
-            <div class="panel-h"><h3>Packs a renovar</h3><span class="mini" id="packsVencerMini"></span></div>
-            <div id="inicioPacksVencer"></div>
-          </div>
         </div>
+      </div>
+
+      <!-- Packs a renovar: a lo ancho, debajo del grid (necesita espacio para los botones) -->
+      <div class="panel" id="panelInicioPacks" style="margin-top:16px">
+        <div class="panel-h"><h3>Packs a renovar</h3><span class="mini" id="packsVencerMini"></span></div>
+        <div id="inicioPacksVencer"></div>
       </div>
     </div>
   </div>
@@ -1426,7 +1435,12 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
             </div>
             <label class="check-row" style="margin:0 0 8px"><input type="checkbox" id="cjComOri"> Comisión de Ori</label>
           </div>
-          <label class="check-row" style="margin:2px 0 0;color:var(--champan-oscuro,#8a6d1f)"><input type="checkbox" id="cjEsCuota" onchange="cjToggleCuota('jud')"> 💳 Este pago es una cuota de un plan de pagos</label>
+          <div class="lq-rubros" style="grid-template-columns:1fr 1fr;margin:10px 0 0">
+            <label class="lq-rubro">
+              <input type="checkbox" id="cjEsCuota" onchange="cjToggleCuota('jud')">
+              <span class="tx"><b>💳 Es una cuota de un plan</b><small>Vincular el pago a un plan de cuotas, nuevo o existente.</small></span>
+            </label>
+          </div>
           <div class="cuota-box oculto" id="cjCuotaBox">
             <div class="f-row" style="margin-bottom:0;align-items:end">
               <div class="f-col" style="flex:0 0 250px"><label>Plan de pago</label>
@@ -1548,19 +1562,39 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
             <div class="f-col" style="flex:0 0 150px"><label id="csReceptorLabel">Recibió el efectivo</label><input id="csReceptor" placeholder="Kevin / Ivana" list="csReceptoresList"></div>
             <button class="btn-ghost" style="margin-bottom:2px" id="csAdjBtn" onclick="document.getElementById('csAdjInput').click()">📎 Adjuntar foto / PDF</button>
           </div>
-          <label class="check-row" id="csCuotaChkWrap" style="margin:2px 0 0;color:var(--champan-oscuro,#8a6d1f)"><input type="checkbox" id="csEsCuota" onchange="cjToggleCuota('soc')"> 💳 Este ingreso es una cuota de un plan de pagos</label>
+          <div class="lq-rubros" id="csOpcionesWrap" style="grid-template-columns:1fr 1fr;margin:10px 0 0">
+            <label class="lq-rubro" id="csDesgloseChkWrap">
+              <input type="checkbox" id="csTieneGastos" onchange="csToggleDesglose()">
+              <span class="tx"><b>🧾 Este pago incluye gastos</b><small>Desglosar cuánto es de honorarios y cuánto de gastos adelantados.</small></span>
+            </label>
+            <label class="lq-rubro" id="csCuotaChkWrap">
+              <input type="checkbox" id="csEsCuota" onchange="cjToggleCuota('soc')">
+              <span class="tx"><b>💳 Es una cuota de un plan</b><small>Vincular el pago a un plan de cuotas, nuevo o existente.</small></span>
+            </label>
+          </div>
+          <div class="cuota-box oculto" id="csDesgloseBox" style="border-left-color:#2b6cb0">
+            <div class="f-row" style="margin-bottom:0;align-items:end">
+              <div class="f-col" style="flex:0 0 160px"><label>Honorarios</label>
+                <input type="text" inputmode="decimal" id="csHonorarios" oninput="fmtMiles(this);csChequearDesglose()" placeholder="500.000"></div>
+              <div class="f-col" style="flex:0 0 160px"><label>Gastos</label>
+                <input type="text" inputmode="decimal" id="csGastos" oninput="fmtMiles(this);csChequearDesglose()" placeholder="100.000"></div>
+              <div class="f-col"><div class="cuota-hint" id="csDesgloseHint" style="margin:0"></div></div>
+            </div>
+          </div>
           <div class="cuota-box oculto" id="csCuotaBox">
             <div class="f-row" style="margin-bottom:0;align-items:end">
               <div class="f-col" style="flex:0 0 250px"><label>Plan de pago</label>
                 <select id="csPlan" onchange="cjPlanChange('soc')"><option value="__nuevo">➕ Plan nuevo para este cliente</option></select>
               </div>
-              <div class="f-col" style="flex:0 0 135px" id="csWrapTotal"><label>Cantidad de cuotas</label>
+              <div class="f-col" style="flex:0 0 175px" id="csWrapTotalServ"><label>Total del servicio</label>
+                <input type="text" inputmode="decimal" id="csTotalServ" oninput="fmtMiles(this);cjRenderCuotaUI('soc')" placeholder="1.000"></div>
+              <div class="f-col" style="flex:0 0 105px" id="csWrapMonPlan"><label>Moneda</label>
+                <select id="csMonPlan" onchange="cjRenderCuotaUI('soc')"><option value="USD">u$s USD</option><option value="ARS">$ ARS</option></select></div>
+              <div class="f-col" style="flex:0 0 125px" id="csWrapTotal"><label>Cuotas</label>
                 <select id="csTotal" onchange="cjRenderCuotaUI('soc')"><option>2</option><option>3</option><option selected>4</option></select>
               </div>
               <div class="f-col" style="flex:0 0 170px"><label>¿Qué cuota paga?</label><select id="csNro"></select></div>
             </div>
-            <label class="check-row" id="csWrapPers" style="margin-top:10px"><input type="checkbox" id="csPers" onchange="cjRenderCuotaUI('soc')"> Las cuotas tienen distinto monto (ej: la 1ª más alta)</label>
-            <div class="montos-grid oculto" id="csMontosGrid"></div>
             <div class="cuota-hint" id="csCuotaHint"></div>
           </div>
           <div style="margin-top:12px"><button class="btn-primary" style="margin-bottom:2px" onclick="registrarMovSoc()">+ Registrar</button></div>
@@ -1733,6 +1767,36 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 
 
 <!-- Modal vinculación Cámara -->
+<!-- Modal: renovar pack (con qué pack y hasta cuándo) -->
+<div class="modal-overlay" id="packRenovarOverlay" onclick="if(event.target===this)cerrarPackRenovar()">
+  <div class="modal" style="max-width:440px">
+    <h2 style="margin-bottom:2px">Renovar pack</h2>
+    <div style="font-size:14px;font-weight:700;color:#1a241d" id="prTitulo"></div>
+    <div style="font-size:12px;color:#6a6858;margin-bottom:16px" id="prActual"></div>
+    <div class="f-row" style="margin-bottom:12px">
+      <div class="f-col"><label>¿Con qué pack renovó?</label>
+        <select id="prTipo" onchange="prTipoChange()"></select>
+      </div>
+      <div class="f-col" style="flex:0 0 150px"><label>Vigente hasta</label>
+        <input type="date" id="prVence">
+      </div>
+    </div>
+    <div class="f-row" id="prOtroWrap" style="display:none;margin-bottom:12px">
+      <div class="f-col"><label>¿Qué contrató?</label>
+        <input id="prOtro" placeholder="Ej: Abono mensual, Consultas por WhatsApp"
+          onkeydown="if(event.key==='Enter')confirmarPackRenovar()">
+      </div>
+    </div>
+    <div style="font-size:11.5px;color:#6a6858;background:#f4f2ec;border-radius:6px;padding:8px 11px;margin-bottom:14px">
+      Si cambió de pack, queda anotado en la bitácora del cliente.
+    </div>
+    <div class="modal-footer" style="border-top:none;padding-top:0;display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn-cancel" onclick="cerrarPackRenovar()">Cancelar</button>
+      <button class="btn-primary" onclick="confirmarPackRenovar()">Confirmar renovación</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="vinculoOverlay">
   <div class="modal" style="max-width:520px">
     <h2>Fallo de Cámara detectado</h2>
@@ -5154,6 +5218,79 @@ function renderContactarInicio() {
   }).join('') : '<div class="panel-empty">Nada pendiente: ningún contacto agendado ni trámites por vencer.</div>';
 }
 
+// ── Acciones rápidas sobre un pack desde el panel del inicio ──
+// Renovó: abre un modal para elegir CON QUÉ pack renovó y hasta cuándo.
+const PACK_TIPOS = ['PS', 'PF', 'PFCS', 'AM'];
+function packRenovado(id) {
+  const cli = clientePorId(id);
+  if (!cli) return;
+  const actual = packVencimiento(cli, true);
+  const sugIso = actual && actual >= hoyISO() ? sumarMesesISO(actual, 12) : sumarMesesISO(hoyISO(), 12);
+  const ov = document.getElementById('packRenovarOverlay');
+  document.getElementById('prTitulo').textContent = cli.entidad;
+  document.getElementById('prActual').textContent = (cli.packTipo ? 'Pack ' + cli.packTipo : 'sin pack') + (actual ? ' · vencía el ' + formatFechaCorta(actual) : '');
+  const sel = document.getElementById('prTipo');
+  sel.innerHTML = PACK_TIPOS.map(p => `<option value="${p}"${cli.packTipo === p ? ' selected' : ''}>${p}</option>`).join('')
+    + '<option value="__otro">Otro (escribir)…</option>';
+  document.getElementById('prOtroWrap').style.display = 'none';
+  document.getElementById('prOtro').value = '';
+  document.getElementById('prVence').value = sugIso;
+  ov.dataset.cliId = String(id);
+  ov.classList.add('open');
+  setTimeout(() => sel.focus(), 40);
+}
+function prTipoChange() {
+  const esOtro = document.getElementById('prTipo').value === '__otro';
+  document.getElementById('prOtroWrap').style.display = esOtro ? '' : 'none';
+  if (esOtro) document.getElementById('prOtro').focus();
+}
+function cerrarPackRenovar() { document.getElementById('packRenovarOverlay').classList.remove('open'); }
+function confirmarPackRenovar() {
+  const ov = document.getElementById('packRenovarOverlay');
+  const id = Number(ov.dataset.cliId);
+  const cli = clientePorId(id);
+  if (!cli) return;
+  let tipo = document.getElementById('prTipo').value;
+  if (tipo === '__otro') {
+    tipo = (document.getElementById('prOtro').value || '').trim();
+    if (!tipo) { document.getElementById('prOtro').focus(); return; }
+  }
+  const vence = document.getElementById('prVence').value;
+  if (!vence) { document.getElementById('prVence').focus(); return; }
+  const anterior = cli.packTipo || '';
+  cli.packTipo = tipo;
+  cli.packVence = vence;
+  cli.packSituacion = 'vigente';
+  // Dejar constancia del cambio de pack en la bitácora
+  if (anterior && anterior !== tipo && typeof agregarNotaBitacora === 'function') {
+    agregarNotaBitacora(cli.id, hoyISO(), 'Renovó: pasó de ' + anterior + ' a ' + tipo + ' (hasta ' + formatFechaCorta(vence) + ')');
+  }
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  cerrarPackRenovar();
+  renderPacksVencerInicio();
+  if (typeof renderCRM === 'function') renderCRM();
+  refrescarFichaSi(cli.id);
+}
+// No renueva: el pack pasa a finalizado (queda en el panel hasta que salga por la ventana de 60 días)
+function packNoRenueva(id) {
+  const cli = clientePorId(id);
+  if (!cli) return;
+  if (!confirm('¿Marcar el pack de ' + cli.entidad + ' como finalizado?\n\nDeja de figurar como vigente en el CRM.')) return;
+  cli.packSituacion = 'finalizado';
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  renderPacksVencerInicio();
+  if (typeof renderCRM === 'function') renderCRM();
+  refrescarFichaSi(id);
+}
+// Suma meses a una fecha ISO (para sugerir el vencimiento de la renovación)
+function sumarMesesISO(iso, meses) {
+  const d = new Date((iso || hoyISO()) + 'T12:00:00');
+  d.setMonth(d.getMonth() + meses);
+  return d.toISOString().slice(0, 10);
+}
+
 // ── Packs a renovar: vencen en los próximos 30 días o vencieron en los últimos 60 ──
 function packVencimiento(c, incluirFinalizados) {
   if (!c) return '';
@@ -5193,9 +5330,13 @@ function renderPacksVencerInicio() {
     const yaVencio = x.venc < hoy;
     const fin = x.c.packSituacion === 'finalizado';
     const sub = 'Pack ' + esc(x.c.packTipo || '—') + (x.c.encargada ? ' · ' + esc(x.c.encargada) : '') + (fin ? ' · finalizado' : '');
-    return `<div class="venc-item ${yaVencio ? 'overdue' : ''}" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${x.c.id}),80)">
-      <span class="venc-date">${formatFechaCorta(x.venc)}${pillDias(x.venc)}</span>
-      <div class="venc-txt"><div class="t">${esc(x.c.entidad)}</div><div class="s">${sub}</div></div>
+    return `<div class="venc-item ${yaVencio ? 'overdue' : ''}">
+      <span class="venc-date" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${x.c.id}),80)" style="cursor:pointer">${formatFechaCorta(x.venc)}${pillDias(x.venc)}</span>
+      <div class="venc-txt" onclick="navTo('crm');setTimeout(()=>abrirClienteDetalle(${x.c.id}),80)" style="cursor:pointer"><div class="t">${esc(x.c.entidad)}</div><div class="s">${sub}</div></div>
+      <div class="pack-acc">
+        <button class="pack-btn ok" onclick="event.stopPropagation();packRenovado(${x.c.id})" title="El cliente renovó: cargar la fecha nueva">✓ Renovó</button>
+        <button class="pack-btn no" onclick="event.stopPropagation();packNoRenueva(${x.c.id})" title="El cliente no renueva: marcar el pack como finalizado">✕ No renueva</button>
+      </div>
     </div>`;
   }).join('') : '<div class="panel-empty">Ningún pack vence en los próximos 30 días.</div>';
 }
@@ -6063,13 +6204,37 @@ function filaAPlan(f) {
 function sbPushPlan(p) { if (SB_ON) sbUpsert('planes_cuotas', planAFila(p)).catch(sbAvisarError); }
 function sbDelPlan(id) { if (SB_ON) sbDelete('planes_cuotas', id).catch(sbAvisarError); }
 function planPorId(id) { return (PLANES||[]).find(p => String(p.id) === String(id)); }
+// Etiqueta para la tabla: "CUOTA 1/3 · de u$s 800" (el total del plan da contexto)
+function etiquetaCuota(planId, nroCuota) {
+  const p = planPorId(planId);
+  if (!p) return `<span class="cuota-tag">CUOTA ${nroCuota}/?</span>`;
+  const total = (p.montos || []).reduce((a, b) => a + (Number(b) || 0), 0);
+  const sim = p.moneda === 'USD' ? 'u$s ' : '$ ';
+  const tot = total > 0 ? ` <span class="cuota-tot">de ${sim}${fmtNumStr(total)}</span>` : '';
+  return `<span class="cuota-tag">CUOTA ${nroCuota}/${p.total}${tot}</span>`;
+}
 // Suma meses a una fecha ISO; si cae sábado o domingo, corre al viernes anterior
 function fechaCuotaProx(baseISO, meses) {
   const d = new Date((baseISO||hoyISO()) + 'T12:00:00');
+  const mesOriginal = d.getMonth();
   d.setMonth(d.getMonth() + meses);
+  // Si el día no existe en el mes destino (31 → mes de 30), setMonth desborda al mes siguiente.
+  // Ej: 31/01 + 1 mes = 03/03. Corregimos al último día del mes que corresponde.
+  const mesEsperado = (mesOriginal + meses) % 12;
+  if (d.getMonth() !== ((mesEsperado + 12) % 12)) d.setDate(0);
+  // Fin de semana: se corre al viernes anterior, PERO sin salirse del mes de la cuota
+  // (una cuota de agosto no puede cobrarse el 31/07: es plata del mes siguiente).
   const dow = d.getDay();
-  if (dow === 6) d.setDate(d.getDate() - 1);
-  else if (dow === 0) d.setDate(d.getDate() - 2);
+  if (dow === 6 || dow === 0) {
+    const mesCuota = d.getMonth();
+    const atras = new Date(d);
+    atras.setDate(atras.getDate() - (dow === 6 ? 1 : 2));
+    if (atras.getMonth() === mesCuota) {
+      d.setTime(atras.getTime());          // el viernes anterior sigue en el mismo mes
+    } else {
+      d.setDate(d.getDate() + (dow === 6 ? 2 : 1)); // si no, al lunes siguiente
+    }
+  }
   return d.toISOString().slice(0, 10);
 }
 // Cuotas pendientes de todos los planes activos (ambas cajas), proyectadas a futuro
@@ -6127,12 +6292,12 @@ function saveCajaSocAdj() { appStore.setItem(CAJASOC_ADJ_KEY, JSON.stringify(CAJ
 function movAFila(m) {  /* incluye plan de cuotas */
   return { id: m.id, fecha: m.fecha, tipo: m.tipo, contraparte: m.contraparte || '',
     concepto: m.concepto || '', monto: m.monto, moneda: m.moneda, metodo: m.metodo || '',
-    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
+    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
 }
 function filaAMov(f) {
   return { id: f.id, fecha: f.fecha, tipo: f.tipo, contraparte: f.contraparte || '',
     concepto: f.concepto || '', monto: Number(f.monto) || 0, moneda: f.moneda || 'ARS',
-    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null };
+    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null };
 }
 function sbPushMovSoc(m) { if (SB_ON) sbUpsert('caja_soc', movAFila(m)).catch(sbAvisarError); }
 function sbDelMovSoc(id) { if (SB_ON) sbDelete('caja_soc', id).catch(sbAvisarError); }
@@ -6204,6 +6369,39 @@ function initCajaSoc() {
   labelReceptorSoc();
   renderCajaSocDatalists();
 }
+// ── Desglose honorarios / gastos (solo caja societaria) ──
+// Un mismo ingreso puede traer honorarios del estudio + reintegro de gastos.
+function csToggleDesglose() {
+  const on = document.getElementById('csTieneGastos').checked;
+  document.getElementById('csDesgloseBox').classList.toggle('oculto', !on);
+  if (on) {
+    // Precargar honorarios con el total si está vacío, para que solo haya que separar los gastos
+    const tot = numDe((document.getElementById('csMonto') || {}).value);
+    const hon = document.getElementById('csHonorarios');
+    if (hon && !hon.value && tot > 0) hon.value = fmtNumStr(tot);
+    csChequearDesglose();
+  }
+}
+function csChequearDesglose() {
+  const hint = document.getElementById('csDesgloseHint');
+  if (!hint) return;
+  const tot = numDe((document.getElementById('csMonto') || {}).value);
+  const hon = numDe((document.getElementById('csHonorarios') || {}).value);
+  const gas = numDe((document.getElementById('csGastos') || {}).value);
+  const suma = hon + gas;
+  const mon = (document.getElementById('csMoneda') || {}).value === 'USD' ? 'u$s ' : '$ ';
+  if (!tot) { hint.textContent = 'Cargá primero el monto total recibido.'; hint.style.color = ''; return; }
+  if (Math.abs(suma - tot) < 1) {
+    hint.innerHTML = `✓ Honorarios ${mon}${fmtNumStr(hon)} + gastos ${mon}${fmtNumStr(gas)} = <b>${mon}${fmtNumStr(tot)}</b>`;
+    hint.style.color = '#1e7a48';
+  } else {
+    const dif = tot - suma;
+    hint.innerHTML = dif > 0
+      ? `Faltan asignar <b>${mon}${fmtNumStr(dif)}</b> (el total es ${mon}${fmtNumStr(tot)})`
+      : `Te pasaste por <b>${mon}${fmtNumStr(-dif)}</b> (el total es ${mon}${fmtNumStr(tot)})`;
+    hint.style.color = '#b3372a';
+  }
+}
 function csToggleDolarDia() {
   const mon = document.getElementById('csMoneda').value;
   const wrap = document.getElementById('csDolarDiaWrap');
@@ -6218,10 +6416,16 @@ function csToggleDolarDia() {
 }
 function csToggleCuotaVisibilidad() {
   const tipo = document.getElementById('csTipo').value;
-  const wrap = document.getElementById('csCuotaChkWrap');
   const esIngreso = tipo === 'ingreso';
-  if (wrap) wrap.style.display = esIngreso ? '' : 'none';
-  if (!esIngreso) { const chk = document.getElementById('csEsCuota'); if (chk) chk.checked = false; cjResetCuota('soc'); }
+  // Las dos opciones (desglose y cuotas) solo tienen sentido en un ingreso
+  const wrap = document.getElementById('csOpcionesWrap');
+  if (wrap) wrap.style.display = esIngreso ? 'grid' : 'none';
+  if (!esIngreso) {
+    const chk = document.getElementById('csEsCuota'); if (chk) chk.checked = false;
+    const chkG = document.getElementById('csTieneGastos'); if (chkG) chkG.checked = false;
+    cjResetCuota('soc');
+    const box = document.getElementById('csDesgloseBox'); if (box) box.classList.add('oculto');
+  }
 }
 function registrarMovSoc() {
   const fecha = document.getElementById('csFecha').value;
@@ -6238,8 +6442,15 @@ function registrarMovSoc() {
     const dd = numDe((document.getElementById('csDolarDia') || {}).value);
     if (dd > 0) m.dolarDia = dd;
   }
+  // Desglose honorarios / gastos (un mismo ingreso puede traer las dos cosas)
+  const chkDes = document.getElementById('csTieneGastos');
+  if (tipo === 'ingreso' && chkDes && chkDes.checked) {
+    const hon = numDe((document.getElementById('csHonorarios') || {}).value);
+    const gas = numDe((document.getElementById('csGastos') || {}).value);
+    if (gas > 0) { m.honorarios = hon; m.gastosIncl = gas; }
+  }
   // Cuotas (solo ingresos): crear/actualizar plan y linkear
-  let cliIdSoc = null, esCuotaSoc = false;
+  let cliIdSoc = null, esCuotaSoc = false, etiquetaServ = '';
   if (tipo === 'ingreso') {
     if (typeof CLIENTES !== 'undefined') { const mm = CLIENTES.find(c => (c.entidad||'').trim().toLowerCase() === contraparte.toLowerCase()); if (mm) cliIdSoc = mm.id; }
     if (cliIdSoc != null) m.clienteId = cliIdSoc;
@@ -6248,18 +6459,18 @@ function registrarMovSoc() {
       esCuotaSoc = true;
       m.planId = infoCuota.planId; m.nroCuota = infoCuota.nroCuota;
       const plan = planPorId(infoCuota.planId);
-      if (cliIdSoc && plan && (plan.pagadas||[]).length === 1 && typeof agregarServicioContratado === 'function') {
-        agregarServicioContratado(cliIdSoc, plan.concepto + ' (plan ' + plan.total + ' cuotas)', fecha);
-      }
+      // Solo se ofrece al crear el plan (con la 1ra cuota), no en cada cuota siguiente
+      if (plan && (plan.pagadas||[]).length === 1) etiquetaServ = plan.concepto + ' (plan ' + plan.total + ' cuotas)';
     }
   }
   CAJASOC.push(m); saveCajaSoc(); sbPushMovSoc(m);
-  // Ingreso normal (no cuota) vinculado a un cliente del CRM: ofrecer registrarlo como servicio contratado
-  if (tipo === 'ingreso' && cliIdSoc && concepto && !esCuotaSoc && typeof agregarServicioContratado === 'function') {
+  // Ofrecer sumarlo al historial de servicios del cliente (sea pago suelto o plan de cuotas)
+  const conceptoServSoc = esCuotaSoc ? etiquetaServ : concepto;
+  if (tipo === 'ingreso' && cliIdSoc && conceptoServSoc && typeof agregarServicioContratado === 'function') {
     setTimeout(() => {
       const cli = clientePorId(cliIdSoc);
-      if (cli && confirm('¿Registrar «' + concepto + '» como servicio contratado de ' + cli.entidad + '?')) {
-        agregarServicioContratado(cliIdSoc, concepto, fecha);
+      if (cli && confirm('¿Registrar «' + conceptoServSoc + '» como servicio contratado de ' + cli.entidad + '?')) {
+        agregarServicioContratado(cliIdSoc, conceptoServSoc, fecha);
       }
     }, 100);
   }
@@ -6270,7 +6481,9 @@ function registrarMovSoc() {
       saveCajaSocAdj(); sbPushMovSoc(m); renderCajaSoc();
     }).catch(e => sbAvisarError(e));
   }
-  ['csContra','csConcepto','csMonto','csReceptor','csDolarDia'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  ['csContra','csConcepto','csMonto','csReceptor','csDolarDia','csHonorarios','csGastos'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const cd = document.getElementById('csTieneGastos'); if (cd) cd.checked = false;
+  const db = document.getElementById('csDesgloseBox'); if (db) db.classList.add('oculto');
   cjResetCuota('soc');
   const b = document.getElementById('csAdjBtn'); if (b) b.textContent = '📎 Adjuntar foto / PDF';
   document.getElementById('csMes').value = fecha.slice(0, 7);
@@ -6350,8 +6563,8 @@ function renderCajaSoc() {
     return `<tr>
       <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
       <td style="font-weight:600">${esc(m.contraparte || '—')}</td>
-      <td>${esc(m.concepto || '—')}${m.planId ? ' <span class="cuota-tag">CUOTA ' + m.nroCuota + '/' + ((planPorId(m.planId)||{}).total||'?') + '</span>' : ''}</td>
-      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave)">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
+      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}</td>
+      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
       <td style="font-size:11.5px">${met}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
       <td>${CAJASOC_ADJ[m.id]
         ? `<button class="mini-btn" onclick="verComprobanteSoc(${m.id})" title="${esc(CAJASOC_ADJ[m.id].nombre)}">📄 Ver</button>`
@@ -6405,6 +6618,17 @@ function descargarReporteCajaSoc() {
     if (m.dolarDia && m.dolarDia > 0) dolarizacion += m.monto / m.dolarDia;
     else ingresosPesosSinDolar++;
   });
+  // Desglose honorarios vs gastos: cuando un ingreso trae gastos, se separan;
+  // si no, el ingreso entero cuenta como honorarios.
+  let honArs = 0, honUsd = 0, gasIncArs = 0, gasIncUsd = 0, conDesglose = 0;
+  ingresos.forEach(m => {
+    const tieneDes = m.gastosIncl > 0;
+    if (tieneDes) conDesglose++;
+    const hon = tieneDes ? (m.honorarios || 0) : m.monto;
+    const gas = tieneDes ? m.gastosIncl : 0;
+    if (m.moneda === 'USD') { honUsd += hon; gasIncUsd += gas; }
+    else { honArs += hon; gasIncArs += gas; }
+  });
   const fmtBal = (v, sim) => (v < 0 ? '−' : '') + sim + fmtNumStr(Math.abs(v));
   const filaR = m => {
     const sim = m.moneda === 'USD' ? 'u$s ' : '$ ';
@@ -6444,7 +6668,7 @@ h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:30px 0 10
 table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
 th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--suave);text-align:left;border-bottom:1.5px solid var(--tinta);padding:6px 8px}
 td{padding:7px 8px;border-bottom:1px solid #eceada}
-td.der{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+td.der{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
 .comps{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
 .comps figure{margin:0;width:210px;border:1px solid var(--filo);border-radius:10px;overflow:hidden;background:#fdfdfb}
 .comps img{width:100%;height:150px;object-fit:cover;display:block}
@@ -6469,6 +6693,9 @@ td.der{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
   <div class="ficha hi"><span>Balance neto en dólares</span><b>${fmtBal(balUsd, 'u$s ')}</b><i>ingresos − g. ordinarios − g. escribanía</i></div>
   ${dolar > 0 ? `<div class="ficha hi"><span>Balance neto pesificado</span><b>${fmtBal(balPes, '$ ')}</b><i>dólar a $ ${fmtNumStr(dolar)}</i></div>` : ''}
   <div class="ficha hi" style="border-color:#c9a961;background:#fdf9ee"><span>Dolarización de ingresos</span><b>u$s ${fmtNumStr(Math.round(dolarizacion))}</b><i>USD del mes + pesos ÷ dólar del día de cada pago${ingresosPesosSinDolar ? ` · ${ingresosPesosSinDolar} sin dólar cargado` : ''}</i></div>
+  ${(gasIncArs || gasIncUsd) ? `
+  <div class="ficha" style="border-color:#9db9dd;background:#f7fafd"><span>De los ingresos: honorarios</span><b>${honArs ? '$ ' + fmtNumStr(honArs) : ''}${honArs && honUsd ? ' · ' : ''}${honUsd ? 'u$s ' + fmtNumStr(honUsd) : ''}</b><i>lo que factura el estudio</i></div>
+  <div class="ficha" style="border-color:#d9b8a8;background:#fdf8f5"><span>De los ingresos: gastos</span><b>${gasIncArs ? '$ ' + fmtNumStr(gasIncArs) : ''}${gasIncArs && gasIncUsd ? ' · ' : ''}${gasIncUsd ? 'u$s ' + fmtNumStr(gasIncUsd) : ''}</b><i>reintegro de gastos adelantados · ${conDesglose} pago${conDesglose !== 1 ? 's' : ''} desglosado${conDesglose !== 1 ? 's' : ''}</i></div>` : ''}
 </div>
 <h2>Servicios más vendidos</h2>
 <table><thead><tr><th style="width:26px">#</th><th>Concepto / servicio</th><th style="text-align:right">Total</th></tr></thead><tbody>${rServ.map(filaRk).join('') || '<tr><td colspan="3">Sin ingresos.</td></tr>'}</tbody></table>
@@ -6678,6 +6905,7 @@ function __cuotaIds(caja) {
   const p = caja === 'soc' ? 'cs' : 'cj';
   return { es:p+'EsCuota', box:p+'CuotaBox', plan:p+'Plan', total:p+'Total', wrapTotal:p+'WrapTotal',
     nro:p+'Nro', pers:p+'Pers', wrapPers:p+'WrapPers', grid:p+'MontosGrid', hint:p+'CuotaHint',
+    totalServ:p+'TotalServ', wrapTotalServ:p+'WrapTotalServ', monPlan:p+'MonPlan', wrapMonPlan:p+'WrapMonPlan',
     cliente: caja === 'soc' ? 'csContra' : 'cjCliente', concepto: caja === 'soc' ? 'csConcepto' : 'cjConcepto',
     monto: caja === 'soc' ? 'csMonto' : 'cjMonto', moneda: caja === 'soc' ? 'csMoneda' : 'cjMoneda' };
 }
@@ -6697,16 +6925,48 @@ function cjRefrescarPlanes(caja) {
 }
 function cjPlanChange(caja) {
   const id = __cuotaIds(caja);
-  const nuevo = document.getElementById(id.plan).value === '__nuevo';
-  document.getElementById(id.wrapTotal).classList.toggle('oculto', !nuevo);
-  document.getElementById(id.wrapPers).classList.toggle('oculto', !nuevo);
-  if (!nuevo) { document.getElementById(id.pers).checked = false; document.getElementById(id.grid).classList.add('oculto'); }
+  const sel = document.getElementById(id.plan).value;
+  const nuevo = sel === '__nuevo';
+  // Cantidad de cuotas: solo se define al crear el plan
+  const wt = document.getElementById(id.wrapTotal);
+  if (wt) wt.classList.toggle('oculto', !nuevo);
+  // La societaria no usa montos personalizados: el plan se define por total + moneda
+  const wp = document.getElementById(id.wrapPers);
+  if (wp) {
+    wp.classList.toggle('oculto', !nuevo);
+    if (!nuevo) { const p = document.getElementById(id.pers); if (p) p.checked = false; const g = document.getElementById(id.grid); if (g) g.classList.add('oculto'); }
+  }
+  // Total del servicio y moneda: al elegir un plan existente se traen de ese plan y quedan bloqueados
+  const elTS = document.getElementById(id.totalServ), elMP = document.getElementById(id.monPlan);
+  if (elTS || elMP) {
+    if (nuevo) {
+      if (elTS) { elTS.value = ''; elTS.readOnly = false; elTS.classList.remove('campo-fijo'); elTS.title = ''; }
+      if (elMP) { elMP.disabled = false; elMP.classList.remove('campo-fijo'); elMP.title = ''; }
+    } else {
+      const plan = planPorId(sel);
+      if (plan) {
+        const totalPlan = (plan.montos || []).reduce((a, b) => a + (Number(b) || 0), 0);
+        if (elTS) {
+          elTS.value = fmtNumStr(totalPlan);
+          elTS.readOnly = true; elTS.classList.add('campo-fijo');
+          elTS.title = 'Viene del plan que elegiste; para cambiarlo, editá el plan.';
+        }
+        if (elMP) {
+          elMP.value = plan.moneda || 'ARS';
+          elMP.disabled = true; elMP.classList.add('campo-fijo');
+          elMP.title = 'La moneda la define el plan.';
+        }
+      }
+    }
+  }
   cjRenderCuotaUI(caja);
 }
 function cjRenderCuotaUI(caja) {
   const id = __cuotaIds(caja);
+  const esSoc = caja === 'soc';
   const v = document.getElementById(id.plan).value, sel = document.getElementById(id.nro);
-  if (v === '__nuevo') {
+  const nuevo = v === '__nuevo';
+  if (nuevo) {
     const total = parseInt(document.getElementById(id.total).value);
     sel.innerHTML = ''; for (let i=1;i<=total;i++) sel.innerHTML += `<option value="${i}">Cuota ${i} de ${total}</option>`;
   } else {
@@ -6714,14 +6974,39 @@ function cjRenderCuotaUI(caja) {
     for (let i=1;i<=p.total;i++){ const pg=(p.pagadas||[]).includes(i); sel.innerHTML += `<option value="${i}" ${pg?'disabled':''}>Cuota ${i} de ${p.total}${pg?' (paga)':''}</option>`; }
     const prox = [...Array(p.total).keys()].map(i=>i+1).find(i=>!(p.pagadas||[]).includes(i)); if (prox) sel.value = prox;
   }
-  const pers = document.getElementById(id.pers).checked, grid = document.getElementById(id.grid), nuevo = v === '__nuevo';
+  // Societaria: el plan se define por el TOTAL del servicio y su moneda (el presupuesto suele ser en USD)
+  if (esSoc) {
+    const wT = document.getElementById('csWrapTotalServ'), wM = document.getElementById('csWrapMonPlan');
+    if (wT) wT.style.display = nuevo ? '' : 'none';
+    if (wM) wM.style.display = nuevo ? '' : 'none';
+    const h = document.getElementById(id.hint);
+    if (nuevo) {
+      const tot = numDe((document.getElementById('csTotalServ') || {}).value);
+      const n = parseInt(document.getElementById(id.total).value) || 1;
+      const mon = (document.getElementById('csMonPlan') || {}).value || 'USD';
+      const sim = mon === 'USD' ? 'u$s ' : '$ ';
+      h.innerHTML = tot > 0
+        ? `El plan queda en <b>${sim}${fmtNumStr(tot)}</b> · ${n} cuotas de <b>${sim}${fmtNumStr(tot / n)}</b>.<br>Abajo cargá <b>lo que entró hoy</b>, en la moneda que haya pagado. La cuota se marca como saldada por completo.`
+        : 'Cargá el total del servicio (ej: el presupuesto en dólares). Lo que entró hoy va en el campo Monto de arriba, en la moneda que el cliente haya pagado.';
+    } else {
+      const p = planPorId(v);
+      const f = p.total - (p.pagadas||[]).length - 1;
+      const sim = p.moneda === 'USD' ? 'u$s ' : '$ ';
+      const cuota = (p.montos || [])[0] || 0;
+      h.innerHTML = `Cuota de <b>${sim}${fmtNumStr(cuota)}</b> (plan de ${sim}${fmtNumStr(cuota * p.total)}).<br>`
+        + (f > 0 ? `Tras registrar esta, quedarán <b>${f}</b> por cobrar (${sim}${fmtNumStr(cuota * f)}).` : 'Es la última cuota: el plan queda saldado.');
+    }
+    return;
+  }
+  // Judicial: montos por cuota (comportamiento original)
+  const pers = document.getElementById(id.pers).checked, grid = document.getElementById(id.grid);
   grid.classList.toggle('oculto', !(pers && nuevo));
   if (pers && nuevo) {
     const total = parseInt(document.getElementById(id.total).value); grid.innerHTML = '';
     for (let i=1;i<=total;i++) grid.innerHTML += `<div><label>Cuota ${i}</label><input type="text" inputmode="decimal" id="${id.grid}_${i}" placeholder="monto" oninput="fmtMiles(this)"></div>`;
   }
   const h = document.getElementById(id.hint);
-  if (v === '__nuevo') h.textContent = 'Al registrar se crea el plan y podés agendar en Calendar todas las cuotas siguientes con un botón (si una cae fin de semana, se corre al viernes anterior).';
+  if (nuevo) h.textContent = 'Al registrar se crea el plan y podés agendar en Calendar todas las cuotas siguientes con un botón (si una cae fin de semana, se corre al viernes anterior).';
   else { const p = planPorId(v); const f = p.total - (p.pagadas||[]).length - 1; h.textContent = f>0 ? `Después de esta cuota quedarán ${f} pendientes en el plan.` : 'Es la última cuota: el plan queda saldado y sale de pendientes.'; }
 }
 // Procesa la parte de cuotas al registrar un pago. Devuelve {planId, nroCuota} o null si no es cuota.
@@ -6731,24 +7016,38 @@ function cjProcesarCuota(caja, datosPago) {
   const chk = document.getElementById(id.es);
   if (!chk || !chk.checked) return null;
   const monto = datosPago.monto;
-  let nro = parseInt(document.getElementById(id.nro).value);
+  const nro = parseInt(document.getElementById(id.nro).value);
   const sel = document.getElementById(id.plan).value;
+  const esSoc = caja === 'soc';
   let plan;
   if (sel === '__nuevo') {
     const total = parseInt(document.getElementById(id.total).value);
-    const pers = document.getElementById(id.pers).checked;
-    const montos = [];
-    for (let i=1;i<=total;i++) {
-      const el = document.getElementById(id.grid + '_' + i);
-      montos.push(pers && el ? (numDe(el.value) || monto) : monto);
+    let montos, monedaPlan;
+    if (esSoc) {
+      // El plan vive en la moneda del PRESUPUESTO (normalmente USD), sin importar
+      // en qué moneda se pague cada cuota. Cuotas iguales: total / cantidad.
+      monedaPlan = (document.getElementById('csMonPlan') || {}).value || 'USD';
+      const totalServ = numDe((document.getElementById('csTotalServ') || {}).value);
+      const porCuota = totalServ > 0 ? totalServ / total : monto;
+      montos = Array.from({ length: total }, () => porCuota);
+    } else {
+      monedaPlan = datosPago.moneda || 'ARS';
+      const pers = document.getElementById(id.pers) && document.getElementById(id.pers).checked;
+      montos = [];
+      for (let i = 1; i <= total; i++) {
+        const el = document.getElementById(id.grid + '_' + i);
+        montos.push(pers && el ? (numDe(el.value) || monto) : monto);
+      }
+      montos[nro-1] = monto;
     }
-    montos[nro-1] = monto;
     plan = { id: Date.now() + Math.floor(Math.random()*1000), caja, cliente: datosPago.cliente, clienteId: datosPago.clienteId || null,
-      concepto: datosPago.concepto || 'Plan de pago', moneda: datosPago.moneda || 'ARS', total, montos, pagadas: [] };
+      concepto: datosPago.concepto || 'Plan de pago', moneda: monedaPlan, total, montos, pagadas: [] };
     PLANES.push(plan);
   } else {
     plan = planPorId(sel);
-    plan.montos[nro-1] = monto;
+    // En societaria NO se pisa el monto de la cuota: la deuda sigue siendo la del plan
+    // (ej: USD 250) aunque el cliente pague en pesos. La cuota se marca saldada y listo.
+    if (!esSoc) plan.montos[nro-1] = monto;
     if (!plan.clienteId && datosPago.clienteId) plan.clienteId = datosPago.clienteId;
   }
   if (!(plan.pagadas||[]).includes(nro)) plan.pagadas.push(nro);
@@ -6786,10 +7085,14 @@ function renderCuotasPendientes(suf) {
   let totArs = 0, totUsd = 0, esteMesArs = 0;
   const ym = hoyISO().slice(0, 7);
   items.forEach(x => { if (x.moneda === 'USD') totUsd += x.monto; else { totArs += x.monto; if (x.fecha.slice(0,7) === ym) esteMesArs += x.monto; } });
+  // Cada moneda por separado: no se convierte nada (el plan en USD se debe en USD)
+  let esteMesUsd = 0;
+  items.forEach(x => { if (x.moneda === 'USD' && x.fecha.slice(0,7) === ym) esteMesUsd += x.monto; });
+  const dosMonedas = (v1, v2) => [v1 ? '$ ' + fmtNumStr(v1) : '', v2 ? 'u$s ' + fmtNumStr(v2) : ''].filter(Boolean).join(' · ') || '—';
   if (tiles) tiles.innerHTML = `
-    <div class="cuotas-pend-tile"><div class="num">$ ${fmtNumStr(totArs)}${totUsd ? ' · u$s ' + fmtNumStr(totUsd) : ''}</div><div class="lbl">Total por cobrar</div></div>
+    <div class="cuotas-pend-tile"><div class="num">${dosMonedas(totArs, totUsd)}</div><div class="lbl">Total por cobrar</div></div>
     <div class="cuotas-pend-tile"><div class="num">${items.length}</div><div class="lbl">Cuotas pendientes</div></div>
-    <div class="cuotas-pend-tile"><div class="num">$ ${fmtNumStr(esteMesArs)}</div><div class="lbl">A cobrar este mes (ARS)</div></div>`;
+    <div class="cuotas-pend-tile"><div class="num">${dosMonedas(esteMesArs, esteMesUsd)}</div><div class="lbl">A cobrar este mes</div></div>`;
   const cab = '<thead><tr><th>Cobrar el</th><th>Cliente</th><th>Concepto</th><th>Cuota</th><th style="text-align:right">Monto</th><th></th></tr></thead>';
   let filas = '', mesAct = '';
   items.forEach(x => {
@@ -6801,7 +7104,7 @@ function renderCuotasPendientes(suf) {
       <td style="font-weight:600">${esc(x.cliente)}</td>
       <td>${esc(x.concepto)}</td>
       <td><b>${x.nro}/${x.total}</b></td>
-      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">${sim}${fmtNumStr(x.monto)}</td>
+      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap">${sim}${fmtNumStr(x.monto)}</td>
       <td><button class="mini-btn" onclick="window.open(calendarURLCuota(planPorId('${x.plan.id}'),${x.nro},'${x.fecha}'),'_blank')">📅 Agendar</button></td>
     </tr>`;
   });
@@ -6851,22 +7154,22 @@ function registrarPago() {
   };
   // Cuotas: si el pago es parte de un plan, crear/actualizar el plan y linkear
   const infoCuota = cjProcesarCuota('jud', { cliente, clienteId, concepto, monto, moneda: pago.moneda });
+  let etiquetaServJud = '';
   if (infoCuota) {
     pago.planId = infoCuota.planId; pago.nroCuota = infoCuota.nroCuota;
     const plan = planPorId(infoCuota.planId);
-    // Reflejar el plan como servicio contratado del cliente (una sola vez, al crearse)
-    if (clienteId && plan && (plan.pagadas||[]).length === 1 && typeof agregarServicioContratado === 'function') {
-      agregarServicioContratado(clienteId, plan.concepto + ' (plan ' + plan.total + ' cuotas)', fecha);
-    }
+    // Solo se ofrece al crear el plan (con la 1ra cuota), no en cada cuota siguiente
+    if (plan && (plan.pagadas||[]).length === 1) etiquetaServJud = plan.concepto + ' (plan ' + plan.total + ' cuotas)';
   }
   CAJA.unshift(pago); saveCaja();
   sbPushPago(pago);
-  // Si quedó vinculado a un cliente y hay concepto (y NO es cuota), ofrecer registrarlo como servicio contratado
-  if (clienteId && concepto && !infoCuota && typeof agregarServicioContratado === 'function') {
+  // Ofrecer sumarlo al historial de servicios del cliente (sea pago suelto o plan de cuotas)
+  const conceptoServJud = infoCuota ? etiquetaServJud : concepto;
+  if (clienteId && conceptoServJud && typeof agregarServicioContratado === 'function') {
     setTimeout(() => {
       const cli = clientePorId(clienteId);
-      if (cli && confirm('¿Registrar «' + concepto + '» como servicio contratado de ' + cli.entidad + '?')) {
-        agregarServicioContratado(clienteId, concepto, fecha);
+      if (cli && confirm('¿Registrar «' + conceptoServJud + '» como servicio contratado de ' + cli.entidad + '?')) {
+        agregarServicioContratado(clienteId, conceptoServJud, fecha);
       }
     }, 100);
   }
@@ -6971,7 +7274,7 @@ function renderCaja() {
       return `<tr>
         <td style="white-space:nowrap">${formatFechaCorta(p.fecha)}</td>
         <td style="font-weight:600">${esc(p.cliente)}${p.comisionOri ? ' <span class="chip-ori">Ori</span>' : ''}</td>
-        <td>${esc(p.concepto || '—')}${p.planId ? ` <span class="cuota-tag">CUOTA ${p.nroCuota}/${(planPorId(p.planId)||{}).total||'?'}</span>` : ''}</td>
+        <td>${esc(p.concepto || '—')}${p.planId ? ' ' + etiquetaCuota(p.planId, p.nroCuota) : ''}</td>
         <td class="monto ${p.moneda === 'USD' ? 'usd' : ''}">${montoTxt(p)}${pesif && p.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave)">≈ $ ${fmtNumStr(p.monto * dolar)}</span>` : ''}</td>
         <td style="font-size:11.5px">${met}${p.receptor ? ' → ' + esc(p.receptor) : ''}</td>
         <td class="monto">${sim}${fmtNumStr(c.k)}</td>
