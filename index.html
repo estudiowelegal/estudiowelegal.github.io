@@ -232,6 +232,12 @@ body.inicio-crm-first .quick-ivana{display:flex}
 .cuota-box .montos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:9px}
 .cuota-box .montos-grid label{font-size:10px}
 .cuota-hint{font-size:11.5px;color:var(--champan-oscuro);margin-top:8px;background:#fdf6e0;border-radius:6px;padding:7px 10px}
+.cuota-aviso{margin-top:9px;padding:9px 12px;border-radius:6px;font-size:12.5px;line-height:1.5;background:#f9e3df;color:#b3372a;border:1px solid #e8c4bd}
+.cuota-aviso b{color:#8f2a20}
+.cuota-aviso .acc{margin-top:8px;display:flex;gap:8px}
+.cuota-aviso .acc button{font-size:12px;padding:6px 13px;border-radius:5px;cursor:pointer;font-weight:600;border:0;font-family:inherit}
+.cuota-aviso .btn-si{background:#b3372a;color:#fff}
+.cuota-aviso .btn-no{background:#fff;color:#6b7280;border:1px solid #d9b6b0}
 .cuota-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:#f8f1de;color:var(--champan-oscuro);white-space:nowrap;letter-spacing:.03em}
 .cuota-tot{font-weight:500;opacity:.85;text-transform:none;letter-spacing:0}
 .desglose-linea{font-size:10.5px;color:#6a6858;margin-top:3px;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -1589,16 +1595,22 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
               </div>
               <div class="f-col" style="flex:0 0 175px" id="csWrapTotalServ"><label>Total del servicio</label>
                 <input type="text" inputmode="decimal" id="csTotalServ" oninput="fmtMiles(this);cjRenderCuotaUI('soc')" placeholder="1.000"></div>
-              <div class="f-col" style="flex:0 0 105px" id="csWrapMonPlan"><label>Moneda</label>
+              <div class="f-col" style="flex:0 0 105px" id="csWrapMonPlan"><label>Moneda del plan</label>
                 <select id="csMonPlan" onchange="cjRenderCuotaUI('soc')"><option value="USD">u$s USD</option><option value="ARS">$ ARS</option></select></div>
               <div class="f-col" style="flex:0 0 125px" id="csWrapTotal"><label>Cuotas</label>
                 <select id="csTotal" onchange="cjRenderCuotaUI('soc')"><option>2</option><option>3</option><option selected>4</option></select>
               </div>
-              <div class="f-col" style="flex:0 0 170px"><label>¿Qué cuota paga?</label><select id="csNro"></select></div>
+              <div class="f-col" style="flex:0 0 170px"><label>¿Qué cuota paga?</label><select id="csNro" onchange="cjRenderCuotaUI('soc')"></select></div>
+            </div>
+            <div class="f-row" style="margin:8px 0 0;align-items:end" id="csWrapPrim">
+              <label class="lq-rubro" style="flex:0 0 auto;margin:0"><input type="checkbox" id="csPrim" onchange="cjRenderCuotaUI('soc')"> La 1ª cuota es más alta que el resto</label>
+              <div class="f-col" style="flex:0 0 175px;display:none" id="csWrapPrimMonto"><label>Monto de la 1ª cuota</label>
+                <input type="text" inputmode="decimal" id="csPrimMonto" oninput="fmtMiles(this);cjRenderCuotaUI('soc')" placeholder="400"></div>
             </div>
             <div class="cuota-hint" id="csCuotaHint"></div>
+            <div id="csAvisoExceso"></div>
           </div>
-          <div style="margin-top:12px"><button class="btn-primary" style="margin-bottom:2px" onclick="registrarMovSoc()">+ Registrar</button></div>
+          <div style="margin-top:12px"><button class="btn-primary" id="csBtnRegistrar" style="margin-bottom:2px" onclick="registrarMovSoc()">+ Registrar</button></div>
         </div>
       </div>
 
@@ -6205,6 +6217,108 @@ function filaAPlan(f) {
 function sbPushPlan(p) { if (SB_ON) sbUpsert('planes_cuotas', planAFila(p)).catch(sbAvisarError); }
 function sbDelPlan(id) { if (SB_ON) sbDelete('planes_cuotas', id).catch(sbAvisarError); }
 function planPorId(id) { return (PLANES||[]).find(p => String(p.id) === String(id)); }
+
+// ═══ Motor de saldo para planes SOCIETARIOS (el plan vive en USD) ═══════════
+// El judicial NO usa esto: conserva su lógica de montos fijos personalizados.
+// Regla: la deuda es total − lo que realmente entró (convertido a USD). Las cuotas
+// que faltan se reparten el saldo en partes iguales, redondeando para cerrar exacto.
+
+// Redondeo a 2 decimales estable
+function __r2(n) { return Math.round((n + Number.EPSILON) * 100) / 100; }
+
+// Cuánto valió un pago EN LA MONEDA DEL PLAN. Si el pago vino en otra moneda,
+// se convierte con el dólar del día cargado en ese movimiento (m.dolarDia).
+// Sin dólar del día cuando hace falta convertir → 0 (no se puede imputar).
+function pagoEnMonedaPlan(m, monedaPlan) {
+  if (!m) return 0;
+  const monto = Number(m.monto) || 0;
+  const monPago = m.moneda || 'ARS';
+  monedaPlan = monedaPlan || 'USD';
+  if (monPago === monedaPlan) return __r2(monto);
+  const dd = Number(m.dolarDia) || 0;
+  if (dd <= 0) return 0;
+  // USD ↔ ARS usando el dólar del día
+  if (monPago === 'ARS' && monedaPlan === 'USD') return __r2(monto / dd);
+  if (monPago === 'USD' && monedaPlan === 'ARS') return __r2(monto * dd);
+  return __r2(monto);
+}
+
+// Todos los pagos (de cualquier caja) imputados a un plan, ordenados por cuota
+function pagosDePlan(planId) {
+  return CAJA_TODAS()
+    .filter(x => String(x.planId) === String(planId))
+    .sort((a, b) => (Number(a.nroCuota) || 0) - (Number(b.nroCuota) || 0));
+}
+
+// Reparto ORIGINAL del plan al crearse: si la 1ª es más alta, el resto divide el remanente.
+// Devuelve un array de n montos que suman el total (la última come el redondeo).
+function montosOrigPlan(total, n, montoPrim) {
+  total = Number(total) || 0; n = parseInt(n) || 1;
+  const arr = []; let acum = 0;
+  if (montoPrim && montoPrim > 0 && n > 1) {
+    arr.push(__r2(montoPrim)); acum = __r2(montoPrim);
+    const resto = __r2((total - montoPrim) / (n - 1));
+    for (let i = 2; i <= n; i++) { if (i < n) { arr.push(resto); acum = __r2(acum + resto); } else arr.push(__r2(total - acum)); }
+  } else {
+    const base = __r2(total / n);
+    for (let i = 1; i <= n; i++) { if (i < n) { arr.push(base); acum = __r2(acum + base); } else arr.push(__r2(total - acum)); }
+  }
+  return arr;
+}
+
+// Estado vivo de un plan societario, calculado desde los pagos reales.
+// { cobrado, saldo, cerrado, excedido, cuotas:[{nro,pagada,original,actual,recalculada}] }
+// El plan societario nuevo separa: montoTotal (USD) y nCuotas (cantidad).
+function estadoPlanSoc(planId) {
+  const plan = planPorId(planId);
+  if (!plan) return null;
+  return __estadoPlanSocCalc(plan);
+}
+
+// Cálculo real (recibe el objeto plan directo, para poder testear sin tocar PLANES).
+// El plan societario se guarda con el reparto original en montos[] (que ya viaja a Supabase):
+//   montoTotal = suma de montos · nCuotas = montos.length · moneda siempre USD.
+// Así no hacen falta columnas nuevas en la tabla planes_cuotas.
+function __estadoPlanSocCalc(plan) {
+  const monedaPlan = plan.moneda || 'USD';
+  const montosOrig = (plan.montos || []).map(Number);
+  const montoTotal = __r2(montosOrig.reduce((a, b) => a + (b || 0), 0));
+  const nCuotas = montosOrig.length || 1;
+
+  const pagos = pagosDePlan(plan.id);
+  const cobrado = __r2(pagos.reduce((a, m) => a + pagoEnMonedaPlan(m, monedaPlan), 0));
+  const saldo = __r2(montoTotal - cobrado);
+  const pagadasNros = [...new Set(pagos.map(m => Number(m.nroCuota)).filter(Boolean))];
+
+  const orig = montosOrig.length ? montosOrig : montosOrigPlan(montoTotal, nCuotas, null);
+
+  // Cuotas no pagadas reparten el saldo (>=0) en partes iguales, redondeado
+  const restantes = [];
+  for (let i = 1; i <= nCuotas; i++) if (!pagadasNros.includes(i)) restantes.push(i);
+  const nuevo = {};
+  if (restantes.length) {
+    const base = __r2(Math.max(0, saldo) / restantes.length);
+    let acum = 0;
+    restantes.forEach((nro, idx) => {
+      if (idx < restantes.length - 1) { nuevo[nro] = base; acum = __r2(acum + base); }
+      else nuevo[nro] = __r2(Math.max(0, saldo) - acum);
+    });
+  }
+
+  const cuotas = [];
+  for (let i = 1; i <= nCuotas; i++) {
+    const pagada = pagadasNros.includes(i);
+    const entroEnEsta = __r2(pagos.filter(m => Number(m.nroCuota) === i).reduce((a, m) => a + pagoEnMonedaPlan(m, monedaPlan), 0));
+    cuotas.push({
+      nro: i, pagada,
+      original: orig[i - 1],
+      actual: pagada ? entroEnEsta : (nuevo[i] != null ? nuevo[i] : 0),
+      recalculada: !pagada && Math.abs((nuevo[i] != null ? nuevo[i] : 0) - orig[i - 1]) > 0.005
+    });
+  }
+  return { cobrado, saldo, cuotas, cerrado: saldo <= 0.005, excedido: saldo < -0.005 };
+}
+
 // Etiqueta para la tabla: "CUOTA 1/3 · de u$s 800" (el total del plan da contexto)
 function etiquetaCuota(planId, nroCuota) {
   const p = planPorId(planId);
@@ -6216,7 +6330,9 @@ function etiquetaCuota(planId, nroCuota) {
 }
 // Suma meses a una fecha ISO; si cae sábado o domingo, corre al viernes anterior
 function fechaCuotaProx(baseISO, meses) {
+  meses = Number(meses); if (!Number.isFinite(meses)) meses = 1;
   const d = new Date((baseISO||hoyISO()) + 'T12:00:00');
+  if (isNaN(d.getTime())) return hoyISO();
   const mesOriginal = d.getMonth();
   d.setMonth(d.getMonth() + meses);
   // Si el día no existe en el mes destino (31 → mes de 30), setMonth desborda al mes siguiente.
@@ -6246,12 +6362,18 @@ function cuotasPendientesTodas(cajaFiltro) {
     if ((plan.pagadas||[]).length >= plan.total) return;
     const pagosPlan = (CAJA_TODAS()).filter(p => String(p.planId) === String(plan.id)).sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
     const ult = pagosPlan[pagosPlan.length - 1];
-    const base = ult ? ult.fecha : hoyISO();
-    const ultNro = ult ? ult.nroCuota : 0;
+    const base = (ult && ult.fecha) ? ult.fecha : hoyISO();
+    const ultNro = (ult && Number(ult.nroCuota)) ? Number(ult.nroCuota) : 0;
+    // En societaria el monto de cada cuota pendiente es el RECALCULADO por el motor
+    // de saldo (no el original de montos[]). En judicial se conserva montos[].
+    const stSoc = plan.caja === 'soc' ? estadoPlanSoc(plan.id) : null;
     for (let i = 1; i <= plan.total; i++) {
       if ((plan.pagadas||[]).includes(i)) continue;
       const fecha = fechaCuotaProx(base, Math.max(1, i - ultNro));
-      items.push({ fecha, cliente: plan.cliente, concepto: plan.concepto, caja: plan.caja, moneda: plan.moneda, nro: i, total: plan.total, monto: (plan.montos||[])[i-1] || 0, plan });
+      const monto = stSoc
+        ? (((stSoc.cuotas || []).find(c => c.nro === i) || {}).actual || 0)
+        : ((plan.montos||[])[i-1] || 0);
+      items.push({ fecha, cliente: plan.cliente, concepto: plan.concepto, caja: plan.caja, moneda: plan.moneda, nro: i, total: plan.total, monto, plan });
     }
   });
   items.sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
@@ -6428,6 +6550,73 @@ function csToggleCuotaVisibilidad() {
     const box = document.getElementById('csDesgloseBox'); if (box) box.classList.add('oculto');
   }
 }
+// Flag: el usuario ya confirmó registrar un pago que excede el saldo del plan.
+var __excesoSocConfirmado = false;
+
+// Valida los datos propios de una cuota societaria antes de registrar.
+// Retorna true si se puede seguir; false si hay que frenar (falta dato o pide confirmar exceso).
+function __validarCuotaSoc(tipo, monto) {
+  const chk = document.getElementById('csEsCuota');
+  // Solo aplica a ingresos marcados como cuota
+  if (tipo !== 'ingreso' || !chk || !chk.checked) { __limpiarAvisoExceso(); return true; }
+
+  const monedaPago = document.getElementById('csMoneda').value;
+  const selPlan = document.getElementById('csPlan').value;
+  const nuevo = selPlan === '__nuevo';
+  const monedaPlan = nuevo
+    ? ((document.getElementById('csMonPlan') || {}).value || 'USD')
+    : ((planPorId(selPlan) || {}).moneda || 'USD');
+
+  // Si el pago viene en otra moneda que el plan, el dólar del día es OBLIGATORIO
+  if (monedaPago !== monedaPlan) {
+    const dd = numDe((document.getElementById('csDolarDia') || {}).value);
+    if (!(dd > 0)) {
+      const sp = monedaPlan === 'USD' ? 'dólares' : 'pesos';
+      alert('El plan está en ' + sp + ' y el pago viene en otra moneda. Cargá el valor del dólar del día para poder imputarlo al saldo.');
+      return false;
+    }
+  }
+
+  // Chequeo de exceso: solo tiene sentido sobre un plan EXISTENTE con saldo conocido
+  if (!nuevo && !__excesoSocConfirmado) {
+    const plan = planPorId(selPlan);
+    const st = plan ? estadoPlanSoc(plan.id) : null;
+    if (st) {
+      const dd = numDe((document.getElementById('csDolarDia') || {}).value);
+      const pagoEnPlan = pagoEnMonedaPlan({ monto, moneda: monedaPago, dolarDia: dd }, monedaPlan);
+      const exceso = __r2(pagoEnPlan - st.saldo);
+      if (exceso > 0.005) {
+        __mostrarAvisoExceso(monedaPlan, st.saldo, pagoEnPlan, exceso);
+        return false;   // frena hasta que el usuario decida
+      }
+    }
+  }
+  return true;
+}
+
+function __mostrarAvisoExceso(monedaPlan, saldo, pago, exceso) {
+  const sim = monedaPlan === 'USD' ? 'u$s ' : '$ ';
+  const z = document.getElementById('csAvisoExceso');
+  if (!z) return;
+  z.innerHTML = '<div class="cuota-aviso">'
+    + '<b>El pago supera el saldo del plan.</b> Debe ' + sim + fmtNumStr(saldo)
+    + ' y estás cargando ' + sim + fmtNumStr(pago) + '. '
+    + 'Si lo registrás, el plan queda saldado y quedan <b>' + sim + fmtNumStr(exceso) + '</b> a favor del cliente.'
+    + '<div class="acc">'
+    + '<button class="btn-si" onclick="__confirmarExcesoSoc()">Sí, queda a favor</button>'
+    + '<button class="btn-no" onclick="__limpiarAvisoExceso()">No, me confundí</button>'
+    + '</div></div>';
+}
+function __confirmarExcesoSoc() {
+  __excesoSocConfirmado = true;
+  __limpiarAvisoExceso();
+  registrarMovSoc();   // reintenta; ahora el gate lo deja pasar
+}
+function __limpiarAvisoExceso() {
+  const z = document.getElementById('csAvisoExceso');
+  if (z) z.innerHTML = '';
+}
+
 function registrarMovSoc() {
   const fecha = document.getElementById('csFecha').value;
   const tipo = document.getElementById('csTipo').value;
@@ -6435,11 +6624,16 @@ function registrarMovSoc() {
   const concepto = document.getElementById('csConcepto').value.trim();
   const monto = numDe(document.getElementById('csMonto').value);
   if (!fecha || !monto || (!contraparte && !concepto)) { alert('Completá fecha, monto y cliente/proveedor o concepto.'); return; }
+  // Chequeos propios de una cuota de plan societario (moneda del pago, dólar del día, exceso de saldo).
+  // Devuelve false para frenar el registro (falta un dato o el usuario tiene que confirmar el exceso).
+  if (!__validarCuotaSoc(tipo, monto)) return;
   const m = { id: Date.now(), fecha, tipo, contraparte, concepto, monto,
     moneda: document.getElementById('csMoneda').value, metodo: document.getElementById('csMetodo').value,
     receptor: document.getElementById('csReceptor').value.trim() };
-  // Valor del dólar del día (solo para pagos en pesos, para la dolarización del balance)
-  if (m.moneda === 'ARS') {
+  // Valor del dólar del día: se guarda siempre que esté cargado. Sirve para la
+  // dolarización del balance (pagos en ARS) y para convertir un pago a la moneda del
+  // plan cuando difieren (ej: plan en ARS y pago en USD, o viceversa).
+  {
     const dd = numDe((document.getElementById('csDolarDia') || {}).value);
     if (dd > 0) m.dolarDia = dd;
   }
@@ -6975,11 +7169,83 @@ function cjPlanChange(caja) {
   }
   cjRenderCuotaUI(caja);
 }
+// Render de la UI de cuotas societaria (modelo de saldo).
+// nuevo = ¿es plan nuevo?  v = valor del select de plan  sel = <select> "¿qué cuota paga?"
+function cjRenderCuotaSoc(nuevo, v, sel) {
+  const wT = document.getElementById('csWrapTotalServ');
+  const wM = document.getElementById('csWrapMonPlan');
+  const wPrim = document.getElementById('csWrapPrim');
+  const wPrimMonto = document.getElementById('csWrapPrimMonto');
+  const chkPrim = document.getElementById('csPrim');
+  const h = document.getElementById('csCuotaHint');
+  // Total, moneda, cuotas y "1ª más alta" solo se definen al CREAR el plan
+  if (wT) wT.style.display = nuevo ? '' : 'none';
+  if (wM) wM.style.display = nuevo ? '' : 'none';
+  if (wPrim) wPrim.style.display = nuevo ? '' : 'none';
+  if (wPrimMonto) wPrimMonto.style.display = (nuevo && chkPrim && chkPrim.checked) ? '' : 'none';
+
+  const sim = mon => mon === 'USD' ? 'u$s ' : '$ ';
+
+  if (nuevo) {
+    const total = numDe((document.getElementById('csTotalServ') || {}).value);
+    const n = parseInt(document.getElementById('csTotal').value) || 1;
+    const mon = (document.getElementById('csMonPlan') || {}).value || 'USD';
+    const prim = (chkPrim && chkPrim.checked) ? numDe((document.getElementById('csPrimMonto') || {}).value) : null;
+    // Vista previa del reparto
+    let reparto = [];
+    if (total > 0) reparto = montosOrigPlan(total, n, prim);
+    // Poblar "¿qué cuota paga?" con el reparto previsto
+    sel.innerHTML = '';
+    for (let i = 1; i <= n; i++) {
+      const m = reparto[i-1] || 0;
+      sel.innerHTML += `<option value="${i}">Cuota ${i} de ${n}${m ? ' · ' + sim(mon) + fmtNumStr(m) : ''}</option>`;
+    }
+    if (total > 0) {
+      const detalle = reparto.map((m,i) => `${i+1}ª ${sim(mon)}${fmtNumStr(m)}`).join(' · ');
+      h.innerHTML = `Plan de <b>${sim(mon)}${fmtNumStr(total)}</b> en ${n} cuotas: ${detalle}.<br>`
+        + `Abajo cargá <b>lo que entró hoy</b>, en la moneda que haya pagado. Si entra distinto a lo previsto, las cuotas que falten se recalculan solas.`;
+    } else {
+      h.innerHTML = 'Cargá el total del servicio y la moneda del plan. Lo que entró hoy va en el campo Monto de arriba, en la moneda en que el cliente pagó.';
+    }
+    return;
+  }
+
+  // Plan existente: leer estado vivo desde el motor
+  const plan = planPorId(v);
+  const st = plan ? estadoPlanSoc(plan.id) : null;
+  const mon = plan ? (plan.moneda || 'USD') : 'USD';
+  sel.innerHTML = '';
+  if (st) {
+    st.cuotas.forEach(c => {
+      const dis = c.pagada ? 'disabled' : '';
+      const et = c.pagada
+        ? `Cuota ${c.nro} · pagada`
+        : `Cuota ${c.nro} · ${sim(mon)}${fmtNumStr(c.actual)}`;
+      sel.innerHTML += `<option value="${c.nro}" ${dis}>${et}</option>`;
+    });
+    const prox = st.cuotas.find(c => !c.pagada);
+    if (prox) sel.value = prox.nro;
+    // Hint con saldo
+    if (st.cerrado) {
+      h.innerHTML = `Este plan ya está <b>saldado</b>${st.excedido ? ` (con ${sim(mon)}${fmtNumStr(-st.saldo)} a favor del cliente)` : ''}. No quedan cuotas por cobrar.`;
+    } else {
+      const recalc = st.cuotas.filter(c => c.recalculada).length;
+      h.innerHTML = `Saldo del plan: <b>${sim(mon)}${fmtNumStr(st.saldo)}</b> de ${sim(mon)}${fmtNumStr(plan.montos.reduce((a,b)=>a+(+b||0),0))}.<br>`
+        + `Cargá abajo lo que entró hoy${recalc ? '; las cuotas que faltan ya están recalculadas' : ''}.`;
+    }
+  }
+}
+
 function cjRenderCuotaUI(caja) {
   const id = __cuotaIds(caja);
   const esSoc = caja === 'soc';
   const v = document.getElementById(id.plan).value, sel = document.getElementById(id.nro);
   const nuevo = v === '__nuevo';
+
+  // ── Societaria: modelo de saldo (el plan vive en su moneda; las cuotas se recalculan) ──
+  if (esSoc) { cjRenderCuotaSoc(nuevo, v, sel); return; }
+
+  // Judicial y demás: poblado clásico de "¿qué cuota paga?"
   if (nuevo) {
     const total = parseInt(document.getElementById(id.total).value);
     sel.innerHTML = ''; for (let i=1;i<=total;i++) sel.innerHTML += `<option value="${i}">Cuota ${i} de ${total}</option>`;
@@ -6987,30 +7253,6 @@ function cjRenderCuotaUI(caja) {
     const p = planPorId(v); sel.innerHTML = '';
     for (let i=1;i<=p.total;i++){ const pg=(p.pagadas||[]).includes(i); sel.innerHTML += `<option value="${i}" ${pg?'disabled':''}>Cuota ${i} de ${p.total}${pg?' (paga)':''}</option>`; }
     const prox = [...Array(p.total).keys()].map(i=>i+1).find(i=>!(p.pagadas||[]).includes(i)); if (prox) sel.value = prox;
-  }
-  // Societaria: el plan se define por el TOTAL del servicio y su moneda (el presupuesto suele ser en USD)
-  if (esSoc) {
-    const wT = document.getElementById('csWrapTotalServ'), wM = document.getElementById('csWrapMonPlan');
-    if (wT) wT.style.display = nuevo ? '' : 'none';
-    if (wM) wM.style.display = nuevo ? '' : 'none';
-    const h = document.getElementById(id.hint);
-    if (nuevo) {
-      const tot = numDe((document.getElementById('csTotalServ') || {}).value);
-      const n = parseInt(document.getElementById(id.total).value) || 1;
-      const mon = (document.getElementById('csMonPlan') || {}).value || 'USD';
-      const sim = mon === 'USD' ? 'u$s ' : '$ ';
-      h.innerHTML = tot > 0
-        ? `El plan queda en <b>${sim}${fmtNumStr(tot)}</b> · ${n} cuotas de <b>${sim}${fmtNumStr(tot / n)}</b>.<br>Abajo cargá <b>lo que entró hoy</b>, en la moneda que haya pagado. La cuota se marca como saldada por completo.`
-        : 'Cargá el total del servicio (ej: el presupuesto en dólares). Lo que entró hoy va en el campo Monto de arriba, en la moneda que el cliente haya pagado.';
-    } else {
-      const p = planPorId(v);
-      const f = p.total - (p.pagadas||[]).length - 1;
-      const sim = p.moneda === 'USD' ? 'u$s ' : '$ ';
-      const cuota = (p.montos || [])[0] || 0;
-      h.innerHTML = `Cuota de <b>${sim}${fmtNumStr(cuota)}</b> (plan de ${sim}${fmtNumStr(cuota * p.total)}).<br>`
-        + (f > 0 ? `Tras registrar esta, quedarán <b>${f}</b> por cobrar (${sim}${fmtNumStr(cuota * f)}).` : 'Es la última cuota: el plan queda saldado.');
-    }
-    return;
   }
   // Judicial: montos por cuota (comportamiento original)
   const pers = document.getElementById(id.pers).checked, grid = document.getElementById(id.grid);
@@ -7038,12 +7280,14 @@ function cjProcesarCuota(caja, datosPago) {
     const total = parseInt(document.getElementById(id.total).value);
     let montos, monedaPlan;
     if (esSoc) {
-      // El plan vive en la moneda del PRESUPUESTO (normalmente USD), sin importar
-      // en qué moneda se pague cada cuota. Cuotas iguales: total / cantidad.
+      // El plan vive en su moneda (USD o ARS). montos[] guarda el reparto ORIGINAL:
+      // partes iguales, o con la 1ª más alta si se tildó. El saldo real lo calcula
+      // el motor cruzando con los pagos, así que acá NO se pisa nada al pagar.
       monedaPlan = (document.getElementById('csMonPlan') || {}).value || 'USD';
       const totalServ = numDe((document.getElementById('csTotalServ') || {}).value);
-      const porCuota = totalServ > 0 ? totalServ / total : monto;
-      montos = Array.from({ length: total }, () => porCuota);
+      const chkPrim = document.getElementById('csPrim');
+      const prim = (chkPrim && chkPrim.checked) ? numDe((document.getElementById('csPrimMonto') || {}).value) : null;
+      montos = totalServ > 0 ? montosOrigPlan(totalServ, total, prim) : Array.from({ length: total }, () => monto);
     } else {
       monedaPlan = datosPago.moneda || 'ARS';
       const pers = document.getElementById(id.pers) && document.getElementById(id.pers).checked;
@@ -7059,6 +7303,7 @@ function cjProcesarCuota(caja, datosPago) {
     PLANES.push(plan);
   } else {
     plan = planPorId(sel);
+    if (!plan) return null;   // el plan referido no existe: no se puede imputar la cuota
     // En societaria NO se pisa el monto de la cuota: la deuda sigue siendo la del plan
     // (ej: USD 250) aunque el cliente pague en pesos. La cuota se marca saldada y listo.
     if (!esSoc) plan.montos[nro-1] = monto;
@@ -7073,13 +7318,21 @@ function cjResetCuota(caja) {
   const id = __cuotaIds(caja);
   const chk = document.getElementById(id.es); if (chk) chk.checked = false;
   const box = document.getElementById(id.box); if (box) box.classList.add('oculto');
+  if (caja === 'soc') {
+    __excesoSocConfirmado = false;
+    __limpiarAvisoExceso();
+    const p = document.getElementById('csPrim'); if (p) p.checked = false;
+    const pm = document.getElementById('csPrimMonto'); if (pm) pm.value = '';
+  }
 }
 function calendarURLCuota(plan, nro, fechaISO) {
   const d0 = fechaISO.replace(/-/g,'');
   const d1 = new Date(fechaISO + 'T12:00:00'); d1.setDate(d1.getDate()+1);
   const d1s = d1.toISOString().slice(0,10).replace(/-/g,'');
   const txt = `Cobrar cuota ${nro}/${plan.total} — ${plan.concepto} — ${plan.cliente}`;
-  const det = `Cuota ${nro} de ${plan.total} del plan "${plan.concepto}".\nCliente: ${plan.cliente}\nCaja: ${plan.caja==='soc'?'Societaria':'Judicial'}\nMonto estimado: ${(plan.moneda==='USD'?'u$s ':'$ ')+fmtNumStr((plan.montos||[])[nro-1]||0)}`;
+  let montoEst = (plan.montos||[])[nro-1] || 0;
+  if (plan.caja === 'soc') { const st = estadoPlanSoc(plan.id); if (st) { const c = (st.cuotas||[]).find(x => x.nro === nro); if (c) montoEst = c.actual; } }
+  const det = `Cuota ${nro} de ${plan.total} del plan "${plan.concepto}".\nCliente: ${plan.cliente}\nCaja: ${plan.caja==='soc'?'Societaria':'Judicial'}\nMonto estimado: ${(plan.moneda==='USD'?'u$s ':'$ ')+fmtNumStr(montoEst)}`;
   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(txt)
     + '&dates=' + d0 + '/' + d1s + '&details=' + encodeURIComponent(det) + '&ctz=America/Argentina/Buenos_Aires';
 }
