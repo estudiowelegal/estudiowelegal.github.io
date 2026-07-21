@@ -1033,6 +1033,8 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .cb-resumen{font-size:13px;color:var(--tinta);padding:10px 2px 12px;border-bottom:1px solid var(--filo-suave);margin-bottom:6px}
 .cb-result{margin-top:14px}
 .cb-panel .panel-h h3{display:inline-flex;align-items:center;gap:6px}
+.aric-ta{font-family:var(--f-ui);font-size:13px;padding:8px 11px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta);color:var(--tinta);resize:vertical;line-height:1.45}
+.aric-ta:focus{outline:none;border-color:var(--sello)}
 </style>
 </head>
 <body>
@@ -5314,7 +5316,7 @@ function aricAFilas(){
       estado: l.estado || 'en_tramite', fecha_aprob: l.fechaAprob || '', fecha_rechazo: l.fechaRechazo || '',
       fecha_cancel: l.fechaCancel || '', fecha_subs_pedido: l.fechaSubsPedido || '',
       arancel: l.arancel || '', comprobante: l.comprobante || '', comprobante_path: l.comprobantePath || '',
-      coment: l.coment || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
+      coment: l.coment || '', subs_detalle: l.subsDetalle || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
     });
   }));
   return filas;
@@ -5328,7 +5330,7 @@ function aricUnaFila(c, l){
     estado: l.estado || 'en_tramite', fecha_aprob: l.fechaAprob || '', fecha_rechazo: l.fechaRechazo || '',
     fecha_cancel: l.fechaCancel || '', fecha_subs_pedido: l.fechaSubsPedido || '',
     arancel: l.arancel || '', comprobante: l.comprobante || '', comprobante_path: l.comprobantePath || '',
-    coment: l.coment || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
+    coment: l.coment || '', subs_detalle: l.subsDetalle || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
   };
 }
 // Reconstruye el modelo agrupado por cliente a partir de filas planas
@@ -5343,7 +5345,7 @@ function aricDeFilas(filas){
       fechaAprob:f.fecha_aprob||'', fechaRechazo:f.fecha_rechazo||'', fechaCancel:f.fecha_cancel||'',
       fechaSubsPedido:f.fecha_subs_pedido||'', arancel:f.arancel||'', comprobante:f.comprobante||'',
       comprobantePath:f.comprobante_path||'',
-      coment:f.coment||'', hist:Array.isArray(f.hist)?f.hist:[], dj:Array.isArray(f.dj)?f.dj:[],
+      coment:f.coment||'', subsDetalle:f.subs_detalle||'', hist:Array.isArray(f.hist)?f.hist:[], dj:Array.isArray(f.dj)?f.dj:[],
       pagosAnuales:Array.isArray(f.pagos)?f.pagos:[]
     });
   });
@@ -5515,6 +5517,7 @@ function aricPintarDrawer(){
   ${l.estado==='cancelada'?`<div class="aric-fld"><label>Fecha de cancelación</label><input type="date" id="aeFCanc" value="${l.fechaCancel||''}"></div>`:''}
   ${l.estado==='a_subsanar'?`<div class="aric-fld"><label>Fecha del pedido de subsanación</label><input type="date" id="aeFSubPed" value="${l.fechaSubsPedido||''}"></div>
   <div class="aric-fld"><label>Fecha en que se subsanó <span style="color:var(--tinta-suave);font-weight:400;text-transform:none">(opcional)</span></label><input type="date" id="aeFSubHecho" value=""></div>
+  <div class="aric-fld full"><label>¿Qué hay que subsanar?</label><textarea id="aeSubsDetalle" class="aric-ta" rows="3" placeholder="Detallá acá lo que pide ARICCAME que se corrija/complete...">${aricEsc(l.subsDetalle||'')}</textarea></div>
   <div class="aric-fld full"><div class="aric-subshint">Al cargar la fecha de subsanación, la licencia vuelve a <b>En trámite</b> y ambos hitos quedan en el historial.</div></div>`:''}
   <div class="aric-fld"><label>Fecha de inicio</label><input type="date" id="aeInicio" value="${l.inicio||''}"></div>
   <div class="aric-fld full"><label>Nº de expediente</label><input id="aeExp" value="${aricEsc(l.exp)}"></div>
@@ -5565,10 +5568,11 @@ async function aricGuardarDrawer(){
   const fc=document.getElementById('aeFCanc'); if(fc) l.fechaCancel=fc.value;
   if(l.estado==='a_subsanar'){
     const fped=document.getElementById('aeFSubPed'); if(fped) l.fechaSubsPedido=fped.value;
+    const det=document.getElementById('aeSubsDetalle'); if(det) l.subsDetalle=det.value.trim();
     const fhecho=document.getElementById('aeFSubHecho')?document.getElementById('aeFSubHecho').value:'';
     if(l.fechaSubsPedido && !l.hist.some(h=>h.includes('Pedido de subsanación')&&h.includes(aricFdmy(l.fechaSubsPedido))))
-      l.hist.push(aricFdmy(l.fechaSubsPedido)+' — Pedido de subsanación');
-    if(fhecho){ l.hist.push(aricFdmy(fhecho)+' — Subsanación presentada. Vuelve a trámite.'); l.estado='en_tramite'; l.fechaSubsPedido=''; }
+      l.hist.push(aricFdmy(l.fechaSubsPedido)+' — Pedido de subsanación'+(l.subsDetalle?': '+l.subsDetalle:''));
+    if(fhecho){ l.hist.push(aricFdmy(fhecho)+' — Subsanación presentada. Vuelve a trámite.'); l.estado='en_tramite'; l.fechaSubsPedido=''; l.subsDetalle=''; }
   }
   // Comprobante → Supabase Storage (bucket aric)
   if(l._comprobFile){
