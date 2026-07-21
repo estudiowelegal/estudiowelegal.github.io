@@ -830,7 +830,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-dato a{color:var(--crm-azul);text-decoration:none}
 .crm-lista-items{display:flex;flex-direction:column;gap:5px;background:#fbfaf6;border:1px solid var(--filo);border-radius:9px;padding:11px 13px}
 .crm-item-linea{display:flex;align-items:center;gap:9px;font-size:12.5px}
-.crm-item-linea.ok{color:var(--crm-verde)}.crm-item-linea.pend{color:var(--crm-rojo);font-weight:600}
+.crm-item-linea.ok{color:var(--crm-verde)}.crm-item-linea.pend{color:var(--crm-rojo);font-weight:600}.crm-item-linea.cli{color:var(--tinta-suave)}
 .crm-item-fecha{margin-left:auto;font-size:11px;color:var(--tinta-suave);font-weight:400}
 .crm-item-edit{display:flex;gap:7px;align-items:center;margin-bottom:7px;flex-wrap:wrap}
 .crm-item-edit input,.crm-item-edit select{padding:7px 9px;border:1px solid var(--filo);border-radius:7px;font-size:12px;font-family:inherit;background:var(--carta);min-width:0}
@@ -9112,7 +9112,7 @@ function quitarFila(btn) { const row = btn.closest('[data-serv-row],[data-reu-ro
 
 function servRowHTML(s) {
   return `<input data-serv-nombre value="${esc(s.nombre || '')}" placeholder="Servicio" style="flex:1">
-    <select data-serv-estado><option value="enviado"${s.estado === 'enviado' ? ' selected' : ''}>✅ Enviado</option><option value="pendiente"${s.estado !== 'enviado' ? ' selected' : ''}>⏳ Pendiente</option></select>
+    <select data-serv-estado><option value="enviado"${s.estado === 'enviado' ? ' selected' : ''}>✅ Enviado</option><option value="pendiente"${s.estado !== 'enviado' && s.estado !== 'cliente' ? ' selected' : ''}>⏳ Pendiente</option><option value="cliente"${s.estado === 'cliente' ? ' selected' : ''}>🤝 Lo hace el cliente</option></select>
     <button class="crm-item-del" onclick="quitarFila(this)">✕</button>`;
 }
 function reuRowHTML(r) {
@@ -9421,7 +9421,7 @@ function accRepro(c, editar) {
 function accPack(c, editar) {
   const id = c.id;
   const servs = c.packServicios || [];
-  const pend = servs.filter(s => s.estado !== 'enviado').length;
+  const pend = servs.filter(s => s.estado !== 'enviado' && s.estado !== 'cliente').length;
   const resumen = (c.packTipo || 's/pack') + (c.packSituacion ? ' · ' + (c.packSituacion === 'vigente' ? 'Vigente' : 'Finalizado') : '') + (pend ? ' · ' + pend + ' pend.' : '');
   let body;
   if (editar) {
@@ -9442,7 +9442,7 @@ function accPack(c, editar) {
         <div class="crm-dato"><span>Vigente hasta</span><b>${c.packVence ? fmtFechaCortaCRM(c.packVence) : '—'}</b></div>
         ${c.packEstadoTxt ? `<div class="crm-dato full" style="grid-column:1/-1"><span>Estado (detalle)</span><b>${esc(c.packEstadoTxt)}</b></div>` : ''}
       </div>
-      ${servs.length ? `<div class="crm-lista-items">${servs.map(s => `<div class="crm-item-linea ${s.estado === 'enviado' ? 'ok' : 'pend'}"><span>${s.estado === 'enviado' ? '✅' : '⏳'}</span>${esc(s.nombre)}</div>`).join('')}</div>` : '<div class="crm-vacio">Sin servicios cargados.</div>'}`;
+      ${servs.length ? `<div class="crm-lista-items">${servs.map(s => `<div class="crm-item-linea ${s.estado === 'enviado' ? 'ok' : (s.estado === 'cliente' ? 'cli' : 'pend')}"><span>${s.estado === 'enviado' ? '✅' : (s.estado === 'cliente' ? '🤝' : '⏳')}</span>${esc(s.nombre)}${s.estado === 'cliente' ? ' <span class="crm-item-fecha">lo hace el cliente</span>' : ''}</div>`).join('')}</div>` : '<div class="crm-vacio">Sin servicios cargados.</div>'}`;
   }
   return `<div class="${accCls(id,'pack',false)}">${accHead(id, 'pack', 'PACK CONTRATADO', resumen, true)}<div class="acc-body">${body}</div></div>`;
 }
