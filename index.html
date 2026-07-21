@@ -5814,7 +5814,7 @@ function aricToast(m){ let t=document.getElementById('aricToast'); if(!t) return
 
 // ═══ MÓDULO ARICCAME (fin) ═══
 
-function navTo(p) {
+function __navToInterno(p) {
   if (!PAGE_IDS[p]) p = 'inicio';
   if (typeof permisoPagina === 'function' && !permisoPagina(p)) p = 'inicio';
   Object.values(PAGE_IDS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
@@ -5832,6 +5832,36 @@ function navTo(p) {
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
 }
+
+// ── Navegación con soporte del botón "atrás" del navegador (History API) ──
+// __navToInterno hace el trabajo real (mostrar la página). navTo agrega, además,
+// una entrada en el historial para que las flechas atrás/adelante funcionen.
+// Todo está envuelto en try/catch: si el historial fallara, la navegación normal
+// sigue intacta.
+let __navHistOn = true;   // se apaga momentáneamente al navegar desde popstate
+function navTo(p) {
+  if (!PAGE_IDS[p]) p = 'inicio';
+  if (typeof permisoPagina === 'function' && !permisoPagina(p)) p = 'inicio';
+  __navToInterno(p);
+  if (__navHistOn) {
+    try {
+      const st = history.state;
+      // Evitar apilar dos veces la misma página (ej: click repetido en el mismo módulo)
+      if (!st || st.jcPage !== p) {
+        history.pushState({ jcPage: p }, '', '#' + p);
+      }
+    } catch (e) { /* si el historial no está disponible, seguimos sin él */ }
+  }
+}
+// Botón atrás / adelante del navegador
+try {
+  window.addEventListener('popstate', function (ev) {
+    const p = (ev.state && ev.state.jcPage) ? ev.state.jcPage : 'inicio';
+    __navHistOn = false;          // no volver a apilar mientras respondemos al historial
+    try { __navToInterno(p); } catch (e) { console.error(e); }
+    __navHistOn = true;
+  });
+} catch (e) {}
 
 // ── Recolectores para el tablero ──
 function getOficiosPendientes() {
@@ -9000,6 +9030,37 @@ function copiarReferencia(id, btn) {
 // Aviso honesto: en un HTML estático esto es una tranquera, no una caja fuerte. Cualquiera que
 // lea el código fuente puede saltearla. Sirve para que un visitante casual no entre, nada más.
 const AUTH_KEY = 'jc-auth-v1';
+// ── Timeout de sesión ──
+// Doble control: absoluto (3hs desde el login) e inactividad (3hs sin usar el sitio).
+// Vence lo que ocurra primero. Al vencer, se cierra sesión y vuelve al login.
+const SESION_TTL_ABS = 3 * 60 * 60 * 1000;   // 3 horas desde el login
+const SESION_TTL_INACT = 3 * 60 * 60 * 1000; // 3 horas sin actividad
+const AUTH_T0_KEY = 'jc-auth-t0';            // timestamp del login
+const AUTH_TA_KEY = 'jc-auth-ta';            // timestamp de la última actividad
+function __sesionMarcarLogin() {
+  const ahora = Date.now();
+  try { appStore.setItem(AUTH_T0_KEY, String(ahora)); appStore.setItem(AUTH_TA_KEY, String(ahora)); } catch (e) {}
+}
+function __sesionRenovarActividad() {
+  // Solo renueva si hay sesión viva; no reactiva una sesión ya vencida.
+  try {
+    if (!appStore.getItem(AUTH_KEY)) return;
+    appStore.setItem(AUTH_TA_KEY, String(Date.now()));
+  } catch (e) {}
+}
+// Devuelve true si la sesión venció (por absoluto o por inactividad).
+function __sesionVencida() {
+  try {
+    const t0 = parseInt(appStore.getItem(AUTH_T0_KEY) || '0', 10);
+    const ta = parseInt(appStore.getItem(AUTH_TA_KEY) || '0', 10);
+    const ahora = Date.now();
+    // Sesión sin marcas (ej: login previo al timeout): la sembramos y la damos por válida.
+    if (!t0 || !ta) { __sesionMarcarLogin(); return false; }
+    if (ahora - t0 >= SESION_TTL_ABS) return true;      // venció el absoluto
+    if (ahora - ta >= SESION_TTL_INACT) return true;    // venció por inactividad
+    return false;
+  } catch (e) { return false; }
+}
 // ── Usuarios y perfiles de acceso ──
 // cajaJud: 'full' (todo) | 'ori' (solo cargar pagos + ver sus comisiones) | false (sin acceso)
 const PERFILES = {
@@ -9026,6 +9087,9 @@ function __hashCred(txt) {
 function usuarioActual() {
   try {
     const v = appStore.getItem(AUTH_KEY) || '';
+    if (!v) return null;
+    // Si la sesión venció, la limpiamos y no hay usuario.
+    if (__sesionVencida()) { try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {} return null; }
     if (v === 'mfwagv') return 'kevindaich'; // sesión previa al sistema de usuarios
     if (v.startsWith('u:') && USUARIOS[v.slice(2)]) return v.slice(2);
   } catch (e) {}
@@ -9041,6 +9105,7 @@ function loginCon(u, p) {
   const reg = USUARIOS[u];
   if (reg && __hashCred(u + ':' + (p || '')) === reg.h) {
     try { appStore.setItem(AUTH_KEY, 'u:' + u); } catch (e) {}
+    __sesionMarcarLogin();
     document.body.classList.remove('locked');
     aplicarPermisos();
     try { navTo('inicio'); } catch (e) {}
@@ -9049,7 +9114,7 @@ function loginCon(u, p) {
   return false;
 }
 function cerrarSesion() {
-  try { appStore.removeItem(AUTH_KEY); } catch (e) {}
+  try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {}
   document.body.classList.add('locked');
   document.body.classList.remove('caja-ori');
   document.body.classList.remove('sin-jud');
@@ -9157,11 +9222,52 @@ document.querySelectorAll('.ribbon').forEach(r => {
   r.appendChild(b);
 });
 if (sesionActiva()) aplicarPermisos();
-navTo('inicio');
+// Arranque de la navegación con historial: si la URL trae un #modulo válido y el
+// usuario tiene permiso, arrancamos ahí; si no, en inicio. Sembramos el estado con
+// replaceState para que el primer "atrás" tenga a dónde volver.
+(function () {
+  let inicial = 'inicio';
+  try {
+    const hash = (location.hash || '').replace('#', '');
+    if (hash && PAGE_IDS[hash] && (typeof permisoPagina !== 'function' || permisoPagina(hash)) && sesionActiva()) {
+      inicial = hash;
+    }
+  } catch (e) {}
+  try { history.replaceState({ jcPage: inicial }, '', '#' + inicial); } catch (e) {}
+  __navToInterno(inicial);
+})();
 if (!sesionActiva()) {
   document.body.classList.add('locked');
   setTimeout(() => { const u = document.getElementById('loginUser'); if (u) u.focus(); }, 60);
 }
+
+// ── Vigilante del timeout de sesión ──
+// Si la sesión se vence mientras el sitio está abierto (por absoluto o inactividad),
+// cerramos sesión y volvemos al login, aunque el usuario no toque nada.
+function __chequearSesion() {
+  try {
+    if (document.body.classList.contains('locked')) return; // ya está en login
+    if (!sesionActiva()) {                                  // sesionActiva() ya evalúa el vencimiento
+      try { cerrarSesion(); } catch (e) {}
+      setTimeout(() => { const u = document.getElementById('loginUser'); if (u) u.focus(); }, 60);
+    }
+  } catch (e) {}
+}
+// Renovar actividad ante interacción real del usuario (con throttle para no escribir en cada evento)
+let __ultRenov = 0;
+function __actividadUsuario() {
+  const ahora = Date.now();
+  if (ahora - __ultRenov < 30000) return; // como mucho, una escritura cada 30s
+  __ultRenov = ahora;
+  __sesionRenovarActividad();
+}
+['click', 'keydown', 'mousemove', 'touchstart', 'scroll'].forEach(ev => {
+  try { window.addEventListener(ev, __actividadUsuario, { passive: true }); } catch (e) {}
+});
+// Chequeo periódico (cada 30s) para cerrar la sesión vencida sin depender de un click
+try { setInterval(__chequearSesion, 30000); } catch (e) {}
+// Y al volver a la pestaña (por si estuvo en segundo plano varias horas)
+try { document.addEventListener('visibilitychange', () => { if (!document.hidden) __chequearSesion(); }); } catch (e) {}
 if (typeof appStore !== 'undefined' && appStore.__mem) {
   const b = document.createElement('div');
   b.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#7a5a10;color:#fff;font:12px/1.5 Inter,system-ui,sans-serif;padding:9px 34px 9px 14px;text-align:center';
