@@ -1035,6 +1035,11 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .cb-panel .panel-h h3{display:inline-flex;align-items:center;gap:6px}
 .aric-ta{font-family:var(--f-ui);font-size:13px;padding:8px 11px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta);color:var(--tinta);resize:vertical;line-height:1.45}
 .aric-ta:focus{outline:none;border-color:var(--sello)}
+.chip-com{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:4px;background:#efe7f7;color:#5b3d8c;text-transform:uppercase;letter-spacing:.3px}
+.com-linea{font-size:11px;color:#5b3d8c;font-weight:600;margin-top:3px}
+.com-linea-info{color:var(--tinta-suave);font-weight:500;font-style:italic}
+.chip-com-info{font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--filo-suave);color:var(--tinta-suave)}
+#csComDetalleTabla tfoot td{border-top:2px solid var(--filo)}
 </style>
 </head>
 <body>
@@ -1776,6 +1781,16 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
               <span class="tx"><b>💳 Es una cuota de un plan</b><small>Vincular el pago a un plan de cuotas, nuevo o existente.</small></span>
             </label>
           </div>
+          <div class="f-row" style="margin:10px 0 0;align-items:end" id="csComisionWrap">
+            <div class="f-col" style="flex:0 0 250px"><label>Asignar comisión a</label>
+              <select id="csComisionPara">
+                <option value="">— Sin comisión —</option>
+                <option value="naza">Naza</option>
+                <option value="sofig">Sofi G</option>
+                <option value="sofit">Sofi T</option>
+              </select></div>
+            <div class="f-col"><div class="cuota-hint" id="csComisionHint" style="margin:0">La comisión se calcula sobre la venta total (menos gastos): cada 200 USD = $10.000. En planes de cuotas se imputa en la 1ª cuota, sobre el total del plan.</div></div>
+          </div>
           <div class="cuota-box oculto" id="csDesgloseBox" style="border-left-color:#2b6cb0">
             <div class="f-row" style="margin-bottom:0;align-items:end">
               <div class="f-col" style="flex:0 0 160px"><label>Honorarios</label>
@@ -1827,6 +1842,27 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
         <div class="panel-h"><h3>▼ Gastos escribanía</h3><span class="mini" id="csMiniEsc"></span></div>
         <div style="overflow-x:auto"><table class="tabla-caja" id="csTablaEsc"></table></div>
         <div class="panel-empty" id="csVaciaEsc" style="display:none">Sin gastos de escribanía este mes.</div>
+      </div>
+
+      <!-- Comisiones del mes (societario) -->
+      <div class="panel lista-amplia" style="margin-top:16px">
+        <div class="panel-h"><h3>💸 Comisiones del mes</h3><span class="mini">sobre la venta total menos gastos · cada 200 USD = $10.000</span></div>
+        <div style="padding:14px 16px">
+          <div class="stat-tiles" id="csComisiones" style="margin-bottom:8px"></div>
+          <div class="cs-com-detalle">
+            <div class="f-row" style="align-items:end;margin-bottom:12px">
+              <div class="f-col" style="flex:0 0 220px"><label>Ver detalle de</label>
+                <select id="csComDetallePers" onchange="renderComisionesDetalle()">
+                  <option value="">— Elegí una persona —</option>
+                  <option value="naza">Naza</option>
+                  <option value="sofig">Sofi G</option>
+                  <option value="sofit">Sofi T</option>
+                </select></div>
+            </div>
+            <div style="overflow-x:auto"><table class="tabla-caja" id="csComDetalleTabla"></table></div>
+            <div class="panel-empty" id="csComDetalleVacia" style="display:none">Elegí una persona para ver el detalle de sus comisiones del mes.</div>
+          </div>
+        </div>
       </div>
 
       <!-- Balance de cuotas pendientes (junta ambas cajas) -->
@@ -7192,12 +7228,12 @@ function saveCajaSocAdj() { appStore.setItem(CAJASOC_ADJ_KEY, JSON.stringify(CAJ
 function movAFila(m) {  /* incluye plan de cuotas */
   return { id: m.id, fecha: m.fecha, tipo: m.tipo, contraparte: m.contraparte || '',
     concepto: m.concepto || '', monto: m.monto, moneda: m.moneda, metodo: m.metodo || '',
-    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
+    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, comision_para: m.comisionPara || null, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
 }
 function filaAMov(f) {
   return { id: f.id, fecha: f.fecha, tipo: f.tipo, contraparte: f.contraparte || '',
     concepto: f.concepto || '', monto: Number(f.monto) || 0, moneda: f.moneda || 'ARS',
-    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null };
+    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, comisionPara: f.comision_para || '' };
 }
 function sbPushMovSoc(m) { if (SB_ON) sbUpsert('caja_soc', movAFila(m)).catch(sbAvisarError); }
 function sbDelMovSoc(id) { if (SB_ON) sbDelete('caja_soc', id).catch(sbAvisarError); }
@@ -7421,6 +7457,11 @@ function registrarMovSoc() {
     const gas = numDe((document.getElementById('csGastos') || {}).value);
     if (gas > 0) { m.honorarios = hon; m.gastosIncl = gas; }
   }
+  // Comisión asignada (solo ingresos)
+  if (tipo === 'ingreso') {
+    const cp = (document.getElementById('csComisionPara') || {}).value || '';
+    if (cp) m.comisionPara = cp;
+  }
   // Cuotas (solo ingresos): crear/actualizar plan y linkear
   let cliIdSoc = null, esCuotaSoc = false, etiquetaServ = '';
   if (tipo === 'ingreso') {
@@ -7454,6 +7495,7 @@ function registrarMovSoc() {
     }).catch(e => sbAvisarError(e));
   }
   ['csContra','csConcepto','csMonto','csReceptor','csDolarDia','csHonorarios','csGastos'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const cp = document.getElementById('csComisionPara'); if (cp) cp.value = '';
   const cd = document.getElementById('csTieneGastos'); if (cd) cd.checked = false;
   const db = document.getElementById('csDesgloseBox'); if (db) db.classList.add('oculto');
   cjResetCuota('soc');
@@ -7520,6 +7562,64 @@ function __socRank(lista, campo, fallback, dolar) {
   });
   return Object.entries(g).map(([nombre, v]) => ({ nombre, ...v, clave: v.ars + v.usd * (dolar || 1) })).sort((a, b) => b.clave - a.clave);
 }
+// ═══════════════════════════════════════════════════════════════════
+// COMISIONES CAJA SOCIETARIA
+// Escalonado por venta en USD (valor total menos gastos):
+//   ≤200→$10.000 · ≤400→$20.000 · ≤600→$30.000 · ≤800→$40.000
+//   y sigue: cada 200 USD adicionales suma $10.000 (progresivo).
+// La venta se toma completa (no por cuota): si es un plan, la base es
+// el total del plan y la comisión se imputa en la 1ra cuota.
+// Base = honorarios si el pago tiene desglose de gastos; si no, el total.
+// Personas asignables: Naza, Sofi G, Sofi T.
+// ═══════════════════════════════════════════════════════════════════
+const COM_SOC_PERSONAS = [
+  { id: 'naza',  nombre: 'Naza' },
+  { id: 'sofig', nombre: 'Sofi G' },
+  { id: 'sofit', nombre: 'Sofi T' }
+];
+function comSocNombre(pid){ const p = COM_SOC_PERSONAS.find(x => x.id === pid); return p ? p.nombre : ''; }
+
+// Escalón de comisión en pesos a partir de la venta en USD
+function comSocEscalon(ventaUsd){
+  if (!(ventaUsd > 0)) return 0;
+  const tramos = Math.ceil(ventaUsd / 200);      // 1..4 para la tabla, y sigue
+  return tramos * 10000;
+}
+
+// Base de la venta EN USD para un movimiento dado.
+// dolarRef: valor de referencia del dólar (campo "Valor actual del dólar")
+// para convertir pagos en pesos cuando el mov no trae dólar del día propio.
+function comSocVentaUsd(m, dolarRef){
+  // Si el pago es una cuota de un plan, la venta es el TOTAL del plan (en USD).
+  if (m.planId != null) {
+    const plan = (typeof planPorId === 'function') ? planPorId(m.planId) : null;
+    if (plan) {
+      const montos = (plan.montos || []).map(Number);
+      const totalPlan = montos.reduce((a, b) => a + (b || 0), 0);      // planes soc: montos en USD
+      const monedaPlan = plan.moneda || 'USD';
+      if (monedaPlan === 'USD') return totalPlan;
+      // plan en ARS: convertir con el dólar del mov o el de referencia
+      const dd = (m.dolarDia && m.dolarDia > 0) ? m.dolarDia : dolarRef;
+      return dd > 0 ? totalPlan / dd : 0;
+    }
+  }
+  // Pago suelto: base = honorarios si hay desglose de gastos, si no el monto total
+  const base = (m.gastosIncl > 0) ? (m.honorarios || 0) : m.monto;
+  if (m.moneda === 'USD') return base;
+  const dd = (m.dolarDia && m.dolarDia > 0) ? m.dolarDia : dolarRef;
+  return dd > 0 ? base / dd : 0;
+}
+
+// Comisión (en $) de un movimiento. Devuelve 0 si no tiene persona asignada,
+// si es gasto, o si es una cuota que NO es la primera del plan (se cobra una sola vez).
+function comisionSocDe(m, dolarRef){
+  if (!m || !m.comisionPara) return 0;
+  if (m.tipo && m.tipo !== 'ingreso') return 0;
+  if (m.planId != null && Number(m.nroCuota) !== 1) return 0;   // sólo en la 1ra cuota
+  const ventaUsd = comSocVentaUsd(m, dolarRef);
+  return comSocEscalon(ventaUsd);
+}
+
 function renderCajaSoc() {
   const mesEl = document.getElementById('csMes');
   if (!mesEl) return;
@@ -7545,10 +7645,13 @@ function renderCajaSoc() {
     const sim = m.moneda === 'USD' ? 'u$s ' : '$ ';
     const met = m.metodo === 'efectivo' ? 'Efectivo' : m.metodo === 'transferencia' ? 'Transf.' : m.metodo === 'cripto' ? 'Cripto' : 'Otro';
     const gasto = m.tipo !== 'ingreso' && m.tipo;
+    const comMonto = comisionSocDe(m, dolar);
+    const comChip = m.comisionPara ? ` <span class="chip-com">${esc(comSocNombre(m.comisionPara))}</span>` : '';
+    const comLinea = (m.comisionPara && comMonto > 0) ? `<div class="com-linea">Comisión ${esc(comSocNombre(m.comisionPara))}: $ ${fmtNumStr(comMonto)}</div>` : (m.comisionPara && m.planId != null && Number(m.nroCuota) !== 1 ? `<div class="com-linea com-linea-info">Comisión ${esc(comSocNombre(m.comisionPara))} (imputada en la 1ª cuota)</div>` : '');
     return `<tr>
       <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
-      <td style="font-weight:600">${esc(m.contraparte || '—')}</td>
-      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.honorarios || 0)} honorarios · ${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.gastosIncl)} gastos</div>` : ''}</td>
+      <td style="font-weight:600">${esc(m.contraparte || '—')}${comChip}</td>
+      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.honorarios || 0)} honorarios · ${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.gastosIncl)} gastos</div>` : ''}${comLinea}</td>
       <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
       <td style="font-size:11.5px">${met}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
       <td>${CAJASOC_ADJ[m.id]
@@ -7585,7 +7688,53 @@ function renderCajaSoc() {
   if (eServ) eServ.innerHTML = rServ.length ? rServ.slice(0, 8).map((r, i) => filaRankS(r, i, maxS)).join('') : '<div class="panel-empty">Sin ingresos este mes.</div>';
   const eCli = document.getElementById('csRankingCli');
   if (eCli) eCli.innerHTML = rCli.length ? rCli.slice(0, 8).map((r, i) => filaRankS(r, i, maxC)).join('') : '<div class="panel-empty">Sin ingresos este mes.</div>';
+  // ── Panel de comisiones del mes (societario) ──
+  const comCont = document.getElementById('csComisiones');
+  if (comCont) {
+    const porPers = {};
+    COM_SOC_PERSONAS.forEach(p => porPers[p.id] = { nombre: p.nombre, total: 0, n: 0 });
+    ingresos.forEach(m => {
+      const v = comisionSocDe(m, dolar);
+      if (m.comisionPara && v > 0 && porPers[m.comisionPara]) { porPers[m.comisionPara].total += v; porPers[m.comisionPara].n++; }
+    });
+    const totalMes = Object.values(porPers).reduce((a, p) => a + p.total, 0);
+    comCont.innerHTML = COM_SOC_PERSONAS.map(p => {
+      const d = porPers[p.id];
+      return `<div class="tile ${d.total > 0 ? 'tile-destacada' : ''}"><div class="num">$ ${fmtNumStr(d.total)}</div><div class="lbl">Comisión ${esc(p.nombre)}</div><div class="sub">${d.n} venta${d.n !== 1 ? 's' : ''} con comisión</div></div>`;
+    }).join('') + `<div class="tile"><div class="num">$ ${fmtNumStr(totalMes)}</div><div class="lbl">Total comisiones del mes</div><div class="sub">${mesLargo(mes)}</div></div>`;
+  }
+  try { renderComisionesDetalle(); } catch(e) {}
   renderCuotasPendientes('Soc');
+}
+
+function renderComisionesDetalle() {
+  const sel = document.getElementById('csComDetallePers');
+  const tabla = document.getElementById('csComDetalleTabla');
+  const vacia = document.getElementById('csComDetalleVacia');
+  if (!sel || !tabla) return;
+  const pid = sel.value;
+  if (!pid) { tabla.innerHTML = ''; if (vacia) vacia.style.display = 'block'; return; }
+  const mes = (document.getElementById('csMes') || {}).value || hoyISO().slice(0, 7);
+  const dolar = valorDolarSoc();
+  const { ingresos } = __socDatosMes(mes);
+  const filas = ingresos.filter(m => m.comisionPara === pid && comisionSocDe(m, dolar) > 0);
+  if (!filas.length) { tabla.innerHTML = ''; if (vacia) { vacia.style.display = 'block'; vacia.textContent = 'Sin comisiones para ' + comSocNombre(pid) + ' en ' + mesLargo(mes) + '.'; } return; }
+  if (vacia) vacia.style.display = 'none';
+  let total = 0;
+  tabla.innerHTML = '<thead><tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th style="text-align:right">Venta (USD)</th><th style="text-align:right">Comisión</th></tr></thead><tbody>'
+    + filas.map(m => {
+        const ventaUsd = comSocVentaUsd(m, dolar);
+        const com = comisionSocDe(m, dolar); total += com;
+        const esPlan = m.planId != null;
+        return `<tr>
+          <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
+          <td style="font-weight:600">${esc(m.contraparte || '—')}</td>
+          <td>${esc(m.concepto || '—')}${esPlan ? ' <span class="chip-com-info">venta total del plan</span>' : (m.gastosIncl > 0 ? ' <span class="chip-com-info">sobre honorarios</span>' : '')}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums">u$s ${fmtNumStr(Math.round(ventaUsd))}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700">$ ${fmtNumStr(com)}</td>
+        </tr>`;
+      }).join('')
+    + `</tbody><tfoot><tr><td colspan="4" style="text-align:right;font-weight:700;padding-top:8px">Total ${esc(comSocNombre(pid))}:</td><td style="text-align:right;font-weight:800;padding-top:8px">$ ${fmtNumStr(total)}</td></tr></tfoot>`;
 }
 
 function descargarReporteCajaSoc() {
@@ -7614,6 +7763,14 @@ function descargarReporteCajaSoc() {
     if (m.moneda === 'USD') { honUsd += hon; gasIncUsd += gas; }
     else { honArs += hon; gasIncArs += gas; }
   });
+  // Comisiones del mes por persona (base ya descuenta gastos: usa honorarios cuando hay desglose)
+  const comPorPers = {};
+  COM_SOC_PERSONAS.forEach(p => comPorPers[p.id] = { nombre: p.nombre, total: 0, n: 0 });
+  ingresos.forEach(m => {
+    const v = comisionSocDe(m, dolar);
+    if (m.comisionPara && v > 0 && comPorPers[m.comisionPara]) { comPorPers[m.comisionPara].total += v; comPorPers[m.comisionPara].n++; }
+  });
+  const comTotalMes = Object.values(comPorPers).reduce((a, p) => a + p.total, 0);
   const fmtBal = (v, sim) => (v < 0 ? '−' : '') + sim + fmtNumStr(Math.abs(v));
   const filaR = m => {
     const sim = m.moneda === 'USD' ? 'u$s ' : '$ ';
@@ -7681,6 +7838,11 @@ td.der{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-
   ${(gasIncArs || gasIncUsd) ? `
   <div class="ficha" style="border-color:#9db9dd;background:#f7fafd"><span>De los ingresos: honorarios</span><b>${honArs ? '$ ' + fmtNumStr(honArs) : ''}${honArs && honUsd ? ' · ' : ''}${honUsd ? 'u$s ' + fmtNumStr(honUsd) : ''}</b><i>lo que factura el estudio</i></div>
   <div class="ficha" style="border-color:#d9b8a8;background:#fdf8f5"><span>De los ingresos: gastos</span><b>${gasIncArs ? '$ ' + fmtNumStr(gasIncArs) : ''}${gasIncArs && gasIncUsd ? ' · ' : ''}${gasIncUsd ? 'u$s ' + fmtNumStr(gasIncUsd) : ''}</b><i>reintegro de gastos adelantados · ${conDesglose} pago${conDesglose !== 1 ? 's' : ''} desglosado${conDesglose !== 1 ? 's' : ''}</i></div>` : ''}
+</div>
+<h2>Comisiones del mes</h2>
+<div class="fichas">
+  ${COM_SOC_PERSONAS.map(p => `<div class="ficha${comPorPers[p.id].total > 0 ? ' hi' : ''}"><span>Comisión ${esc(p.nombre)}</span><b>$ ${fmtNumStr(comPorPers[p.id].total)}</b><i>${comPorPers[p.id].n} venta${comPorPers[p.id].n !== 1 ? 's' : ''} con comisión</i></div>`).join('')}
+  <div class="ficha" style="border-color:#c9a961;background:#fdf9ee"><span>Total comisiones</span><b>$ ${fmtNumStr(comTotalMes)}</b><i>${mesLargo(mes)}</i></div>
 </div>
 <h2>Servicios más vendidos</h2>
 <table><thead><tr><th style="width:26px">#</th><th>Concepto / servicio</th><th style="text-align:right">Total</th></tr></thead><tbody>${rServ.map(filaRk).join('') || '<tr><td colspan="3">Sin ingresos.</td></tr>'}</tbody></table>
