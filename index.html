@@ -866,6 +866,173 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-btn-eliminar{background:var(--carta);border:1px solid #e6b8b8;color:var(--crm-rojo);border-radius:9px;padding:9px 16px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit}
 .crm-btn-eliminar:hover{background:var(--crm-rojo-bg)}
 
+
+/* ═══════════ MÓDULO ARICCAME ═══════════ */
+.aric-hero{background:#14294a;border-bottom:2px solid #c9a961;border-radius:var(--radio) var(--radio) 0 0;padding:20px 26px;margin-bottom:0}
+.aric-hero h1{color:#fff;font-size:24px;font-weight:800;margin:0 0 3px;letter-spacing:-.4px}
+.aric-hero span{color:#c9d4e6;font-size:12.5px;font-weight:500}
+.aric-subtabs{display:flex;gap:2px;background:var(--carta);border:1px solid var(--filo);border-top:none;border-radius:0 0 var(--radio) var(--radio);padding:8px 10px;margin-bottom:22px}
+.aric-subtabs button{background:transparent;border:none;font-family:var(--f-ui);font-size:13px;font-weight:600;color:var(--tinta-suave);padding:9px 18px;border-radius:var(--radio-s);cursor:pointer;transition:.13s}
+.aric-subtabs button:hover{background:var(--papel);color:var(--tinta)}
+.aric-subtabs button.on{background:var(--sello);color:#fff}
+/* Tiles métricas */
+.aric-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.aric-tile{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio);padding:15px 16px;cursor:pointer;transition:.14s;position:relative;overflow:hidden}
+.aric-tile::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--filo)}
+.aric-tile:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(20,41,74,.08)}
+.aric-tile.on{border-color:var(--sello);box-shadow:0 0 0 1px var(--sello)}
+.aric-tile .num{font-size:26px;font-weight:800;color:var(--tinta);line-height:1}
+.aric-tile .lbl{font-size:11.5px;font-weight:600;color:var(--tinta-suave);margin-top:4px;text-transform:uppercase;letter-spacing:.3px}
+.aric-tile.t-tram::after{background:var(--info)} .aric-tile.t-tram .num{color:var(--info)}
+.aric-tile.t-obs::after{background:var(--warn)} .aric-tile.t-obs .num{color:var(--warn)}
+.aric-tile.t-apro::after{background:var(--ok)} .aric-tile.t-apro .num{color:var(--ok)}
+.aric-tile.t-dj::after{background:var(--oro)} .aric-tile.t-dj .num{color:var(--oro)}
+/* Toolbar */
+.aric-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.aric-toolbar input,.aric-toolbar select{font-family:var(--f-ui);font-size:13px;padding:9px 12px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta);color:var(--tinta)}
+.aric-toolbar input{flex:1;min-width:220px}
+.aric-toolbar input:focus,.aric-toolbar select:focus{outline:none;border-color:var(--sello)}
+.aric-sel-cli{max-width:220px}
+.aric-count{font-size:12px;color:var(--tinta-suave);margin-bottom:14px;font-weight:500}
+/* Cards de cliente — 2 por fila */
+.aric-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.aric-ccard{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio);overflow:hidden;transition:.14s}
+.aric-ccard:hover{box-shadow:0 4px 16px rgba(20,41,74,.07)}
+.aric-cchead{padding:13px 16px 11px;border-bottom:1px solid var(--filo-suave)}
+.aric-cctop{display:flex;align-items:center;gap:9px;margin-bottom:9px;cursor:pointer}
+.aric-ccnom{text-transform:uppercase;color:var(--tinta);font-weight:700;font-size:13.5px;letter-spacing:.2px;border-bottom:2px solid #c9a961;padding-bottom:1px;cursor:pointer}
+.aric-ccnom:hover{color:var(--sello)}
+.aric-multi{font-size:10.5px;font-weight:700;color:var(--sello);background:var(--laurel);padding:2px 7px;border-radius:20px}
+.aric-icobtn{margin-left:auto;background:transparent;border:none;font-size:15px;cursor:pointer;opacity:.65;padding:2px 4px;border-radius:6px}
+.aric-icobtn:hover{opacity:1;background:var(--papel)}
+.aric-fisc{display:flex;gap:7px;flex-wrap:wrap}
+.aric-chip{font-family:ui-monospace,monospace;font-size:11px;color:var(--tinta);background:var(--filo-suave);padding:3px 9px;border-radius:6px;cursor:pointer;display:inline-flex;gap:5px;align-items:center;transition:.12s}
+.aric-chip:hover{background:var(--laurel)}
+.aric-chip small{font-size:8.5px;font-weight:700;color:var(--tinta-suave);letter-spacing:.4px}
+/* Tabla licencias dentro del card */
+.aric-lictabla{width:100%;border-collapse:collapse}
+.aric-lictabla tr{cursor:pointer;transition:.1s;border-bottom:1px solid var(--filo-suave)}
+.aric-lictabla tr:last-child{border-bottom:none}
+.aric-lictabla tr:hover{background:var(--papel)}
+.aric-lictabla td{padding:9px 8px;vertical-align:middle;font-size:12.5px}
+.aric-cbarra{width:6px;padding:0!important}
+.aric-cbarra i{display:block;width:4px;height:34px;border-radius:3px;margin:0 auto}
+.aric-b-en_tramite{background:var(--info)} .aric-b-a_subsanar{background:var(--warn)}
+.aric-b-aprobada{background:var(--ok)} .aric-b-rechazada{background:var(--mal)} .aric-b-cancelada{background:var(--tinta-suave)}
+.aric-ctipo{width:104px}
+.aric-estline{font-size:10.5px;color:var(--tinta-suave);margin-top:3px}
+.aric-cdj{text-align:right;white-space:nowrap}
+/* Pills */
+.aric-pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.aric-p-tipo{background:var(--filo-suave);color:var(--tinta-suave)}
+.aric-p-en_tramite{background:var(--info-bg);color:var(--info)}
+.aric-p-a_subsanar{background:var(--warn-bg);color:var(--warn)}
+.aric-p-aprobada{background:var(--ok-bg);color:var(--ok)}
+.aric-p-rechazada{background:var(--mal-bg);color:var(--mal)}
+.aric-p-cancelada{background:var(--filo-suave);color:var(--tinta-suave)}
+.aric-dj-na{font-size:11px;color:var(--tinta-suave);font-style:italic}
+.aric-dj-alert{font-size:11px;font-weight:700;color:var(--mal)}
+.aric-dj-soon{font-size:11px;font-weight:600;color:var(--warn)}
+.aric-dj-ok{font-size:11px;color:var(--ok);font-weight:600}
+.aric-empty{text-align:center;color:var(--tinta-suave);padding:30px;font-size:13px;grid-column:1/-1}
+/* Períodos (DJ / pagos) */
+.aric-pergrid{display:flex;gap:11px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px}
+.aric-percard{flex:0 0 168px;background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio);padding:13px 15px;cursor:pointer;transition:.14s}
+.aric-percard:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(20,41,74,.08)}
+.aric-percard.on{border-color:var(--sello);box-shadow:0 0 0 1px var(--sello)}
+.aric-percard h3{font-size:13px;font-weight:700;color:var(--tinta);margin:0 0 9px;text-transform:capitalize;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.aric-pbar{height:6px;background:var(--filo-suave);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.aric-pbar i{display:block;height:100%;background:var(--ok);border-radius:4px;transition:width .3s}
+.aric-percard small{font-size:11px;color:var(--tinta-suave)}
+.aric-bv{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
+.aric-bv-open{background:var(--warn-bg);color:var(--warn)}
+.aric-bv-cerr{background:var(--filo-suave);color:var(--tinta-suave)}
+.aric-bv-fut{background:var(--info-bg);color:var(--info)}
+/* Panel + tabla */
+.aric-panel{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio);overflow:hidden;margin-bottom:16px}
+.aric-panelh{background:#14294a;border-bottom:2px solid #c9a961;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+.aric-panelh h3{color:#fff;font-size:14px;font-weight:700;margin:0}
+.aric-panelh .mini{color:#c9d4e6;font-size:11.5px;font-weight:500}
+.aric-tabla{width:100%;border-collapse:collapse;font-size:12.5px}
+.aric-tabla th{text-align:left;padding:10px 14px;font-size:10.5px;font-weight:700;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--filo);background:var(--papel)}
+.aric-tabla td{padding:10px 14px;border-bottom:1px solid var(--filo-suave);vertical-align:middle}
+.aric-tabla tr:last-child td{border-bottom:none}
+.aric-td-cli{color:var(--tinta)}
+.aric-mono{font-family:ui-monospace,monospace;font-size:11px;color:var(--tinta-suave)}
+.aric-stok{color:var(--ok);font-weight:600} .aric-stpend{color:var(--mal);font-weight:600}
+.aric-lnk{color:var(--sello);font-weight:600;cursor:pointer;font-size:12px}
+.aric-lnk:hover{text-decoration:underline}
+/* Botones */
+.aric-btn{background:var(--sello);color:#fff;border:none;font-family:var(--f-ui);font-size:13px;font-weight:600;padding:9px 16px;border-radius:var(--radio-s);cursor:pointer;transition:.13s}
+.aric-btn:hover{background:var(--sello-osc)}
+.aric-btn-ghost{background:var(--carta);color:var(--tinta);border:1px solid var(--filo);font-family:var(--f-ui);font-size:13px;font-weight:600;padding:9px 16px;border-radius:var(--radio-s);cursor:pointer}
+.aric-btn-ghost:hover{background:var(--papel)}
+.aric-btn-del{background:var(--mal-bg);color:var(--mal);border:1px solid #eab8b0;font-family:var(--f-ui);font-size:12px;font-weight:600;padding:8px 12px;border-radius:var(--radio-s);cursor:pointer}
+.aric-btn-del:hover{background:#f5d3cd}
+/* Overlay + Drawer */
+.aric-overlay{display:none;position:fixed;inset:0;background:rgba(12,20,15,.42);backdrop-filter:blur(2px);z-index:300}
+.aric-overlay.open{display:block;animation:fadeIn .18s ease}
+.aric-drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:560px;max-width:94vw;background:var(--papel);z-index:301;flex-direction:column;box-shadow:-8px 0 34px rgba(12,20,15,.2)}
+.aric-drawer.open{display:flex;animation:aricSlide .22s cubic-bezier(.4,0,.2,1)}
+@keyframes aricSlide{from{transform:translateX(40px);opacity:.4}to{transform:translateX(0);opacity:1}}
+.aric-drhead{background:#14294a;border-bottom:2px solid #c9a961;padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
+.aric-drhead h2{color:#fff;font-size:18px;font-weight:800;margin:0}
+.aric-drhead .sub{color:#c9d4e6;font-size:12px;margin-top:3px}
+.aric-drhead .x{color:#c9d4e6;font-size:20px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:6px}
+.aric-drhead .x:hover{background:rgba(255,255,255,.12);color:#fff}
+.aric-drbody{flex:1;overflow-y:auto;padding:20px 22px}
+.aric-sec{margin-bottom:22px}
+.aric-sec h4{font-size:11px;font-weight:700;color:var(--sello);text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--filo)}
+.aric-fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.aric-fld{display:flex;flex-direction:column;gap:5px}
+.aric-fld.full{grid-column:1/-1}
+.aric-fld label{font-size:11px;font-weight:600;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.3px}
+.aric-fld input,.aric-fld select{font-family:var(--f-ui);font-size:13px;padding:8px 11px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta);color:var(--tinta)}
+.aric-fld input:focus,.aric-fld select:focus{outline:none;border-color:var(--sello)}
+.aric-estsel{display:flex;gap:6px;flex-wrap:wrap}
+.aric-estsel button{font-family:var(--f-ui);font-size:12px;font-weight:600;padding:7px 13px;border:1px solid var(--filo);border-radius:20px;background:var(--carta);color:var(--tinta-suave);cursor:pointer;transition:.12s}
+.aric-estsel button:hover{border-color:var(--sello)}
+.aric-estsel button.sel-en_tramite{background:var(--info-bg);color:var(--info);border-color:var(--info)}
+.aric-estsel button.sel-a_subsanar{background:var(--warn-bg);color:var(--warn);border-color:var(--warn)}
+.aric-estsel button.sel-aprobada{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
+.aric-estsel button.sel-rechazada{background:var(--mal-bg);color:var(--mal);border-color:var(--mal)}
+.aric-estsel button.sel-cancelada{background:var(--filo-suave);color:var(--tinta);border-color:var(--tinta-suave)}
+.aric-subshint{font-size:11.5px;color:var(--warn);background:var(--warn-bg);padding:8px 11px;border-radius:var(--radio-s);line-height:1.4}
+.aric-comprob{display:flex;align-items:center;gap:9px}
+.aric-comprob-ok{font-size:12px;color:var(--ok);font-weight:600}
+.aric-liceltab{display:flex;gap:5px;margin-bottom:16px}
+.aric-liceltab button{font-family:var(--f-ui);font-size:12px;font-weight:600;padding:7px 14px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta);color:var(--tinta-suave);cursor:pointer}
+.aric-liceltab button.on{background:var(--sello);color:#fff;border-color:var(--sello)}
+.aric-djnabox,.aric-djmini{font-size:12px}
+.aric-djnabox{color:var(--tinta-suave);background:var(--papel);padding:9px 12px;border-radius:var(--radio-s);margin-bottom:10px;font-style:italic}
+.aric-djline{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--filo-suave);text-transform:capitalize}
+.aric-djline .ok{color:var(--ok);font-weight:600} .aric-djline .pend{color:var(--mal)} .aric-djline .soon{color:var(--warn)}
+.aric-tl{display:flex;flex-direction:column;gap:0}
+.aric-tlitem{font-size:12px;color:var(--tinta);padding:7px 0 7px 16px;border-left:2px solid var(--filo);position:relative}
+.aric-tlitem::before{content:'';position:absolute;left:-4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--sello)}
+.aric-tladd{display:flex;gap:7px;margin-top:11px}
+.aric-tladd input{flex:1;font-family:var(--f-ui);font-size:12.5px;padding:8px 11px;border:1px solid var(--filo);border-radius:var(--radio-s);background:var(--carta)}
+.aric-drfoot{border-top:1px solid var(--filo);padding:14px 22px;display:flex;align-items:center;gap:9px;background:var(--carta);flex-shrink:0;flex-wrap:wrap}
+/* Toast */
+.aric-toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--tinta);color:#fff;font-size:13px;font-weight:600;padding:11px 20px;border-radius:var(--radio-s);z-index:400;opacity:0;pointer-events:none;transition:.25s}
+.aric-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Hints CRM en modal nueva licencia */
+.aric-crmhint{margin:0}
+.aric-crmhit-t{font-size:11.5px;color:var(--ok);font-weight:600;margin:8px 0 6px}
+.aric-crmhit{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;border:1px solid var(--ok-bg);background:var(--ok-bg);border-radius:var(--radio-s);cursor:pointer;margin-bottom:5px;transition:.12s}
+.aric-crmhit:hover{border-color:var(--ok)}
+.aric-crmhit b{font-size:12.5px;color:var(--tinta)} .aric-crmhit span{font-size:11px;color:var(--tinta-suave)}
+.aric-crmnohit{font-size:11.5px;color:var(--info);background:var(--info-bg);padding:8px 11px;border-radius:var(--radio-s);margin-top:8px}
+@media(max-width:820px){
+  .aric-tiles{grid-template-columns:repeat(2,1fr)}
+  .aric-cards{grid-template-columns:1fr}
+  .aric-fg{grid-template-columns:1fr}
+  .aric-drawer{width:100vw}
+}
+
+.cb-resumen{font-size:13px;color:var(--tinta);padding:10px 2px 12px;border-bottom:1px solid var(--filo-suave);margin-bottom:6px}
+.cb-result{margin-top:14px}
+.cb-panel .panel-h h3{display:inline-flex;align-items:center;gap:6px}
 </style>
 </head>
 <body>
@@ -1414,6 +1581,20 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 
       <div class="stat-tiles" id="cajaTiles"></div>
 
+      <div class="panel cb-panel" style="margin-top:16px">
+        <div class="panel-h"><h3>🔎 Búsqueda histórica</h3><span class="mini">en todos los pagos registrados, sin importar el mes</span></div>
+        <div class="panel-b">
+          <div class="f-row" style="align-items:end;margin-bottom:0">
+            <div class="f-col" style="flex:1;min-width:220px"><label>Buscar por cliente, concepto/servicio o fecha</label>
+              <input id="cajaBuscarInput" placeholder="Ej: contrato autocultivadores" autocomplete="off" oninput="cajaBuscarRender()"></div>
+            <div class="f-col" style="flex:0 0 230px"><label>Filtrar resultados por mes</label>
+              <select id="cajaBuscarMes" onchange="cajaBuscarMesChange()"><option value="">Todos los meses</option></select></div>
+            <button class="btn-ghost" style="margin-bottom:2px" onclick="cajaBuscarLimpiar()">Limpiar</button>
+          </div>
+          <div id="cajaBuscarResult" class="cb-result"><div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en todo el historial.</div></div>
+        </div>
+      </div>
+
       <div class="panel">
         <div class="panel-h"><h3>Registrar pago</h3><span class="mini">quedará en el mes de la fecha del pago</span></div>
         <div class="panel-b">
@@ -1542,6 +1723,20 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
       </div>
 
       <div class="stat-tiles" id="csTiles"></div>
+
+      <div class="panel cb-panel" style="margin-top:16px">
+        <div class="panel-h"><h3>🔎 Búsqueda histórica</h3><span class="mini">en todos los movimientos registrados, sin importar el mes</span></div>
+        <div class="panel-b">
+          <div class="f-row" style="align-items:end;margin-bottom:0">
+            <div class="f-col" style="flex:1;min-width:220px"><label>Buscar por cliente/proveedor, concepto o fecha</label>
+              <input id="csBuscarInput" placeholder="Ej: honorarios constitución SA" autocomplete="off" oninput="cajaSocBuscarRender()"></div>
+            <div class="f-col" style="flex:0 0 230px"><label>Filtrar resultados por mes</label>
+              <select id="csBuscarMes" onchange="cajaSocBuscarMesChange()"><option value="">Todos los meses</option></select></div>
+            <button class="btn-ghost" style="margin-bottom:2px" onclick="cajaSocBuscarLimpiar()">Limpiar</button>
+          </div>
+          <div id="csBuscarResult" class="cb-result"><div class="panel-empty">Escribí un cliente/proveedor, concepto o fecha para buscar en todo el historial.</div></div>
+        </div>
+      </div>
 
       <div class="panel">
         <div class="panel-h"><h3>Registrar movimiento</h3><span class="mini">ingreso o gasto — queda en el mes de la fecha</span></div>
@@ -1774,6 +1969,83 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
       <!-- Listado -->
       <div id="crmLista" class="crm-lista"></div>
 
+    </div>
+  </div>
+</div>
+<!-- ═══════════ PÁGINA ARICCAME (Cáñamo / Cannabis) ═══════════ -->
+<div id="paginaAriccame" class="page-shell">
+  <div class="ribbon">
+    <div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-sub">Estudio WE Legal</div>
+    </div>
+    <div class="ribbon-sep"></div>
+    <nav class="ribbon-nav" data-navbar>
+      <button class="pill-nav" data-nav="inicio" onclick="navTo('inicio')">🏠 Inicio</button>
+      <button class="pill-nav" data-nav="jurisprudencia" onclick="navTo('jurisprudencia')">⚖ Jurisprudencia</button>
+      <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
+      <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
+      <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
+      <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-inner">
+      <div id="aricPanel"></div>
+    </div>
+  </div>
+</div>
+<!-- Overlay + Drawer de edición de licencia -->
+<div id="aricOverlay" class="aric-overlay" onclick="aricCerrarDrawer()"></div>
+<div id="aricDrawer" class="aric-drawer"></div>
+<!-- Toast -->
+<div id="aricToast" class="aric-toast"></div>
+<!-- Modal registrar DJ -->
+<div class="modal-overlay aric-modal" id="aricModalDJ" onclick="if(event.target===this)aricCerrarModalDJ()">
+  <div class="modal" style="max-width:440px">
+    <h2 id="amTitulo" style="margin-bottom:14px">Registrar DJ presentada</h2>
+    <div class="f-row" style="margin-bottom:11px">
+      <div class="f-col"><label>Cliente</label><select id="amCli"></select></div>
+      <div class="f-col" style="max-width:130px"><label>Tipo</label>
+        <select id="amTipo"><option>Agricola</option><option>Industrial</option></select></div>
+    </div>
+    <div class="f-row" style="margin-bottom:11px">
+      <div class="f-col"><label>Período</label><select id="amPer"></select></div>
+      <div class="f-col"><label>Fecha de presentación</label><input type="date" id="amFecha"></div>
+    </div>
+    <div class="f-row" style="margin-bottom:18px">
+      <div class="f-col"><label>Nº de expediente (opcional)</label><input id="amExp" placeholder="EX-..."></div>
+    </div>
+    <div style="display:flex;gap:9px;justify-content:flex-end">
+      <button class="aric-btn-ghost" onclick="aricCerrarModalDJ()">Cancelar</button>
+      <button class="aric-btn" onclick="aricGuardarModalDJ()">Registrar DJ</button>
+    </div>
+  </div>
+</div>
+<!-- Modal nueva licencia -->
+<div class="modal-overlay aric-modal" id="aricModalLic" onclick="if(event.target===this)aricCerrarModalLic()">
+  <div class="modal" style="max-width:460px">
+    <h2 style="margin-bottom:14px">Nueva licencia</h2>
+    <div class="f-row" style="margin-bottom:4px">
+      <div class="f-col"><label>Cliente</label>
+        <input id="amlNom" placeholder="Razón social..." oninput="aricOnNomLic()" autocomplete="off"></div>
+    </div>
+    <div id="amlCrmHint" class="aric-crmhint"></div>
+    <div class="f-row" style="margin:11px 0">
+      <div class="f-col"><label>CUIT</label><input id="amlCuit" placeholder="30-..."></div>
+      <div class="f-col"><label>Clave fiscal</label><input id="amlClave"></div>
+    </div>
+    <div class="f-row" style="margin-bottom:11px">
+      <div class="f-col"><label>Carpeta de Drive (link)</label><input id="amlDrive" placeholder="https://drive.google.com/..."></div>
+    </div>
+    <div class="f-row" style="margin-bottom:18px" id="amlTipoWrap">
+      <div class="f-col"><label>Tipo de licencia</label>
+        <select id="amlTipo"><option>Agricola</option><option>Industrial</option></select></div>
+    </div>
+    <div style="display:flex;gap:9px;justify-content:flex-end">
+      <button class="aric-btn-ghost" onclick="aricCerrarModalLic()">Cancelar</button>
+      <button class="aric-btn" onclick="aricGuardarModalLic()">Crear licencia</button>
     </div>
   </div>
 </div>
@@ -4635,7 +4907,7 @@ function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarEr
 async function sbCargarTodo() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -4643,11 +4915,15 @@ async function sbCargarTodo() {
       sbSelect('tareas').catch(() => null),
       sbSelect('clientes').catch(() => null),
       sbSelect('caja_soc').catch(() => null),
-      sbSelect('planes_cuotas').catch(() => null)
+      sbSelect('planes_cuotas').catch(() => null),
+      sbSelect('aric_licencias').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
     if (rPlanes) { PLANES = rPlanes.map(filaAPlan); savePlanesLocal(); }
+
+    // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
+    if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
 
     // Caja societaria
     if (rCajaSoc) {
@@ -4991,7 +5267,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', herramientas:'paginaHerramientas'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -5002,6 +5278,502 @@ function verCausa(id) {
   if (jur !== jurisdiccionActual) setModuloExp(jur === 'PBA' ? 'expedientes-pba' : 'expedientes-caba');
   setTimeout(() => { try { abrirCausaDetalle(id); } catch(e) { console.error(e); } }, 80);
 }
+// ═══ MÓDULO ARICCAME (inicio) ═══
+// ═══════════════════════════════════════════════════════════════════════════
+// MÓDULO ARICCAME — licencias de cáñamo (Res. 1/2024) y cannabis (Res. 41/2026)
+// Persistencia: tabla Supabase `aric_licencias` (una fila por licencia).
+// Storage de comprobantes: bucket `aric` (mismo patrón que caja_soc).
+// ═══════════════════════════════════════════════════════════════════════════
+const ARIC_KEY = 'jc-aric-v1';
+var ARIC = [];               // modelo agrupado por cliente (para la UI)
+let ARIC_VIEW = 'canamo', ARIC_TAB = 'solic', ARIC_Q = '', ARIC_FEST = '',
+    ARIC_FTIPO = '', ARIC_FTIPODJ = '', ARIC_FCLIDJ = '', ARIC_PER = '',
+    ARIC_PAGOANIO = null, ARIC_EDIT = null, ARIC_EDITLIC = 0, ARIC_MDJ = null;
+
+function aricNorm(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+function aricFdmy(f){return f?String(f).split('-').reverse().join('/'):'';}
+function aricEsc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+
+// ── localStorage ──
+const ARIC_SEED=[{"id":"ac0","submodulo":"canamo","nombre":"Sintropia","cuit":"27947904006","clave":"BeltranPau25","drive":"","clienteId":null,"licencias":[{"id":"acl0_0","tipo":"Agricola","inicio":"2024-11-22","exp":"EX-2024-128393860- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"cancelada","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"","comprobante":"","comprobantePath":"","coment":"(iniciado como persona fisica, MAL)","hist":["Solicitada la cancelación IF-2024-128417434-APN-DTD#JGM"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55242821- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl0_1","tipo":"Agricola","inicio":"2024-11-22","exp":"Número de trámite: EX-2024-128416924- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-02-13","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 13/02/2025","hist":["03/02/2025 presentada la subsanación","14/04/2025 presentada nueva subsanacion, pidieron otra DJ"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55242821- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl0_2","tipo":"Industrial","inicio":"2024-11-27","exp":"Número de trámite: EX-2024-130028913- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 07/04/2025","hist":["18/02/2025 presentada la subsanación","11/03/2025 nos piden otra subsanación, completar una ddjj","18/03/2025 presentamos la subsanación","14/04/2025 presentada nueva subsanacion, pidieron otra DJ"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55240802- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac1","submodulo":"canamo","nombre":"Ivo W","cuit":"20389966100","clave":"Omsh4nt111@","drive":"","clienteId":null,"licencias":[{"id":"acl1_0","tipo":"Industrial","inicio":"2025-02-04","exp":"EX-2025-12194389- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"21/05/2025 pagó el arancel","comprobante":"","comprobantePath":"","coment":"Aprobada el 7/04/2025","hist":["17/06/205 informamos el pago en el expte administrativo"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-22","exp":"EX-2025-54679122- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120725199- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-20","exp":"EX-2026-50417933- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl1_1","tipo":"Agricola","inicio":"2025-02-17","exp":"EX-2025-17022326- -APN-ARICCAME#MEC","plazo":"","estado":"a_subsanar","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["18/06/2025 mandamos la subsanación, le pidieron ddjj"],"dj":[]}]},{"id":"ac2","submodulo":"canamo","nombre":"Facundo Noriega","cuit":"20292481897","clave":"kre74139SK","drive":"","clienteId":null,"licencias":[{"id":"acl2_0","tipo":"Agricola","inicio":"2025-02-10","exp":"EX-2025-14291044- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-12-19","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 19/12/2025","hist":["Pidieron subsanacion por error en el codigo de geo","06/05/2025 Presentamos la geo de nuevo subanando","21/05/2025 otra subsanación mas pidieron, presentada este dia","28/05/2025, presentada subsanación","29/05/2026 Presentada la DDJJ EX-2026-53520194- -APN-ARICCAME#MEC"],"dj":[{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53520194- -APN-ARICCAME#MEC","presentada":true}]},{"id":"acl2_1","tipo":"Industrial","inicio":"2025-02-17","exp":"EX-2025-17045064- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Pagó 07/07/2025","comprobante":"","comprobantePath":"","coment":"Aprobada el 07/04/2025","hist":["29/05/2026 Presentada la DDJJ EX-2026-53522635- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55027904- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120947498- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53522635- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac3","submodulo":"canamo","nombre":"Ignacio","cuit":"20271950870","clave":"Luciana135","drive":"","clienteId":null,"licencias":[{"id":"acl3_0","tipo":"Agricola","inicio":"2025-03-11","exp":"EX-2025-25093563- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-09-10","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 10/09/2025","hist":["12/06/2025 presentada subsanación","presentada la subsanación 23/06/2025","Presentada DDJJ EX-2026-53505448- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120784628- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53505448- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl3_1","tipo":"Industrial","inicio":"2025-03-11","exp":"EX-2025-25102062- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-06-23","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"30/06/2025 pagó","comprobante":"","comprobantePath":"","coment":"Aprobada el 23/06/2025","hist":["Presentada DDJJ EX-2026-53507175- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120792907- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53507175- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac4","submodulo":"canamo","nombre":"Uboas","cuit":"27947904006","clave":"BeltranPau25","drive":"","clienteId":null,"licencias":[{"id":"acl4_0","tipo":"Industrial","inicio":"2025-03-12","exp":"EX-2025-25553881- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"ac5","submodulo":"canamo","nombre":"Gonzalo Garcia (Mangona)","cuit":"20257911536","clave":"EstudioINB206","drive":"","clienteId":null,"licencias":[{"id":"acl5_0","tipo":"Agricola","inicio":"2025-04-01","exp":"EX-2025-33607695- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 Presentamos pronto despacho: RE-2026-36302188-APN-DTD#JGM","15/07/2026 presentamos ratificacion de interes: : RE-2026-68775878-APN-DTD#JGM"],"dj":[]},{"id":"acl5_1","tipo":"Industrial","inicio":"2025-11-14","exp":"EX-2025-126913867- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 Presentamos pronto despacho : RE-2026-36303712-APN-DTD#JGM","15/07/2026 Presentamos ratificacion de interes: RE-2026-68812423-APN-DTD#JGM"],"dj":[]}]},{"id":"ac6","submodulo":"canamo","nombre":"MATILDE PAZ","cuit":"23384251579","clave":"Fortnit31205","drive":"","clienteId":null,"licencias":[{"id":"acl6_0","tipo":"Industrial","inicio":"2025-06-03","exp":"EX-2025-59363922- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 PRESENTAMOS PROONTO DESPACHO: IF-2026-36344830-APN-DTD#JGM","Presentamos ratificacion de interes: IF-2026-68796430-APN-DTD#JGM"],"dj":[]},{"id":"acl6_1","tipo":"Agricola","inicio":"2025-06-03","exp":"EX-2025-59369968- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["EX-2025-58726616- -APN-ARICCAME#MEC","10/04/2026 presentamos pronto despacho: IF-2026-36345914-APN-DTD#JGM","15/07/2026 Presentamos ratificacion de interes: IF-2026-68794770-APN-DTD#JGM"],"dj":[]}]},{"id":"ac7","submodulo":"canamo","nombre":"Martin Oubiña","cuit":"20284629958","clave":"Harumi3125","drive":"","clienteId":null,"licencias":[{"id":"acl7_0","tipo":"Industrial","inicio":"2025-12-01","exp":"EX-2025-132900581- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["15/07/2026 Presentamos ratificacion de interes: IF-2026-68801000-APN-DTD#JGM"],"dj":[]},{"id":"acl7_1","tipo":"Agricola","inicio":"2025-12-04","exp":"EX-2025-134453494- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["15/07/2026 Presentamos ratificacion de interes: IF-2026-68799336-APN-DTD#JGM"],"dj":[]}]},{"id":"ac8","submodulo":"canamo","nombre":"Biocann","cuit":"20324213997","clave":"Leonardo800","drive":"","clienteId":null,"licencias":[{"id":"acl8_0","tipo":"Industrial","inicio":"2025-05-08","exp":"EX-2025-48136133- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["01/04/26 presentados los recursos - RE-2026-33197918-APN-DTD#JGM - IF-2026-33195734-APN-DTD#JGM - IF-2026-33197790-APN-DTD#JGM - IF-2026-33197908-APN-DTD#JGM"],"dj":[]},{"id":"acl8_1","tipo":"Agricola","inicio":"2025-05-08","exp":"EX-2025-48150075- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["02/03/26 presentado los recursos - RE-2026-21377242-APN-DTD#JGM - RE-2026-21377361-APN-DTD#JGM - IF-2026-21376910-APN-DTD#JGM - IF-2026-21377643-APN-DTD#JGM - RE-2026-21377660-APN-DTD#JGM","16/07/2026 pedido pronto despacho RE-2026-69184164-APN-DTD#JGM"],"dj":[]}]},{"id":"ac9","submodulo":"canamo","nombre":"Juan Ignacio","cuit":"20368852180","clave":"Etiketa2104","drive":"","clienteId":null,"licencias":[{"id":"acl9_0","tipo":"Agricola","inicio":"2026-03-31","exp":"EX-2026-32568629- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]},{"id":"acl9_1","tipo":"Industrial","inicio":"2026-03-31","exp":"EX-2026-32579127- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"ac10","submodulo":"canamo","nombre":"Chiurco Emiliano","cuit":"20357220077","clave":"Chiurco2026","drive":"","clienteId":null,"licencias":[{"id":"acl10_0","tipo":"Agricola","inicio":"2026-05-29","exp":"EX-2026-53431454- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]},{"id":"acl10_1","tipo":"Industrial","inicio":"2026-05-29","exp":"EX-2026-53425795- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"acn0","submodulo":"cannabis","nombre":"Verdemar Cultivos SA","cuit":"30716544021","clave":"Verdemar2026","drive":"","clienteId":null,"licencias":[{"id":"acnl0_0","tipo":"Cannabis","inicio":"2026-06-10","exp":"EX-2026-61200345- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Pagó","comprobante":"comprobante_solicitud.pdf","comprobantePath":"","coment":"Arancel abonado junto con la solicitud","hist":["10/06/2026 presentada la solicitud con arancel"],"dj":[],"pagosAnuales":[]}]}];
+function loadAric(){ const raw=appStore.getItem(ARIC_KEY);
+  if(raw===null||raw===undefined){ ARIC = JSON.parse(JSON.stringify(ARIC_SEED)); saveAricLocal(); return; }
+  try{ ARIC = JSON.parse(raw); }catch(e){ ARIC = []; }
+  if(!Array.isArray(ARIC)) ARIC=[]; }
+function saveAricLocal(){ appStore.setItem(ARIC_KEY, JSON.stringify(ARIC)); }
+
+// ── conversión modelo agrupado ⇆ filas planas de Supabase ──
+function aricAFilas(){
+  const filas = [];
+  (ARIC||[]).forEach(c => (c.licencias||[]).forEach(l => {
+    filas.push({
+      id: l.id, submodulo: c.submodulo || 'canamo',
+      cliente_nombre: c.nombre || '', cuit: c.cuit || '', clave: c.clave || '', drive: c.drive || '',
+      cliente_id: c.clienteId || null,
+      tipo: l.tipo || '', inicio: l.inicio || '', exp: l.exp || '', plazo: l.plazo || '',
+      estado: l.estado || 'en_tramite', fecha_aprob: l.fechaAprob || '', fecha_rechazo: l.fechaRechazo || '',
+      fecha_cancel: l.fechaCancel || '', fecha_subs_pedido: l.fechaSubsPedido || '',
+      arancel: l.arancel || '', comprobante: l.comprobante || '', comprobante_path: l.comprobantePath || '',
+      coment: l.coment || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
+    });
+  }));
+  return filas;
+}
+function aricUnaFila(c, l){
+  return {
+    id: l.id, submodulo: c.submodulo || 'canamo',
+    cliente_nombre: c.nombre || '', cuit: c.cuit || '', clave: c.clave || '', drive: c.drive || '',
+    cliente_id: c.clienteId || null,
+    tipo: l.tipo || '', inicio: l.inicio || '', exp: l.exp || '', plazo: l.plazo || '',
+    estado: l.estado || 'en_tramite', fecha_aprob: l.fechaAprob || '', fecha_rechazo: l.fechaRechazo || '',
+    fecha_cancel: l.fechaCancel || '', fecha_subs_pedido: l.fechaSubsPedido || '',
+    arancel: l.arancel || '', comprobante: l.comprobante || '', comprobante_path: l.comprobantePath || '',
+    coment: l.coment || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
+  };
+}
+// Reconstruye el modelo agrupado por cliente a partir de filas planas
+function aricDeFilas(filas){
+  const porCli = {};
+  (filas||[]).forEach(f => {
+    const k = (f.submodulo||'canamo') + '|' + aricNorm(f.cliente_nombre) + '|' + (f.cuit||'');
+    if(!porCli[k]) porCli[k] = { id:'ac'+Object.keys(porCli).length, submodulo:f.submodulo||'canamo',
+      nombre:f.cliente_nombre, cuit:f.cuit||'', clave:f.clave||'', drive:f.drive||'', clienteId:f.cliente_id||null, licencias:[] };
+    porCli[k].licencias.push({
+      id: f.id, tipo:f.tipo, inicio:f.inicio, exp:f.exp, plazo:f.plazo, estado:f.estado||'en_tramite',
+      fechaAprob:f.fecha_aprob||'', fechaRechazo:f.fecha_rechazo||'', fechaCancel:f.fecha_cancel||'',
+      fechaSubsPedido:f.fecha_subs_pedido||'', arancel:f.arancel||'', comprobante:f.comprobante||'',
+      comprobantePath:f.comprobante_path||'',
+      coment:f.coment||'', hist:Array.isArray(f.hist)?f.hist:[], dj:Array.isArray(f.dj)?f.dj:[],
+      pagosAnuales:Array.isArray(f.pagos)?f.pagos:[]
+    });
+  });
+  return Object.values(porCli);
+}
+// push de una licencia puntual y borrado
+function sbPushAric(c, l){ if(SB_ON) sbUpsert('aric_licencias', aricUnaFila(c,l)).catch(sbAvisarError); }
+function sbDelAric(id){ if(SB_ON) sbDelete('aric_licencias', id).catch(sbAvisarError); }
+function saveAric(){ saveAricLocal(); (ARIC||[]).forEach(c=>c.licencias.forEach(l=>sbPushAric(c,l))); }
+
+// ── HOY (fecha real del sistema) ──
+function aricHoy(){ return new Date(); }
+
+// ── Estados ──
+const ARIC_ESTADOS = { en_tramite:'En trámite', a_subsanar:'A subsanar', aprobada:'Aprobada', rechazada:'Rechazada', cancelada:'Cancelada' };
+const ARIC_ESEQ = ['en_tramite','a_subsanar','aprobada','rechazada','cancelada'];
+
+// ── Ventana de vencimiento de DJ (mayo/octubre; avisar 20 días antes) ──
+function aricFinPeriodo(sem,anio){ return sem==='mayo'?new Date(anio,4,31):new Date(anio,9,31); }
+function aricDiasHasta(f){ return Math.ceil((f-aricHoy())/86400000); }
+function aricDjVentana(d){
+  if(d.presentada) return 'ok';
+  const dias = aricDiasHasta(aricFinPeriodo(d.sem,d.anio));
+  if(dias>20) return 'futura'; if(dias>=0) return 'soon'; return 'vencida';
+}
+function aricDjCuenta(l){ if(l.estado!=='aprobada') return 0;
+  return (l.dj||[]).filter(d=>{const v=aricDjVentana(d);return v==='soon'||v==='vencida';}).length; }
+
+// Genera períodos de DJ desde la aprobación en adelante
+function aricGenerarDJ(l){
+  if(l.estado!=='aprobada'||!l.fechaAprob) return;
+  const fa=new Date(l.fechaAprob), desde=fa.getFullYear(), hasta=aricHoy().getFullYear()+1;
+  l.dj=l.dj||[];
+  const tiene=(s,a)=>l.dj.some(d=>d.sem===s&&+d.anio===a);
+  for(let a=desde;a<=hasta;a++){
+    [['mayo',4],['octubre',9]].forEach(([sem,mes])=>{
+      if(new Date(a,mes,31)>=fa && !tiene(sem,a)) l.dj.push({sem,anio:a,fecha:'',exp:'',presentada:false});
+    });
+  }
+  l.dj.sort((x,y)=>x.anio!==y.anio?x.anio-y.anio:(x.sem==='mayo'?0:1)-(y.sem==='mayo'?0:1));
+}
+
+// ── datos de la vista actual (canamo/cannabis) ──
+function aricData(){ return (ARIC||[]).filter(c=>(c.submodulo||'canamo')===ARIC_VIEW); }
+function aricLicFlat(){ const o=[]; aricData().forEach(c=>c.licencias.forEach(l=>o.push({c,l}))); return o; }
+function aricBuscarLic(id){ for(const c of ARIC) for(let j=0;j<c.licencias.length;j++) if(c.licencias[j].id===id) return {c,l:c.licencias[j],idx:j}; return null; }
+
+// ── Búsqueda permisiva en el CRM real (clientes del sistema) ──
+function aricBuscarCRM(txt){
+  const t=aricNorm(txt).trim(); if(!t) return [];
+  const lista = (typeof CLIENTES!=='undefined' && Array.isArray(CLIENTES)) ? CLIENTES : [];
+  return lista.filter(c=>{
+    const nom=aricNorm(c.entidad||c.nombre||'');
+    const cuit=(c.cuit||'').toString();
+    return nom.includes(t) || t.includes(nom.split(' ')[0]) || cuit.includes(t);
+  }).slice(0,6);
+}
+
+// ═══ RENDER ═══
+function renderAric(){
+  const p=document.getElementById('aricPanel'); if(!p) return;
+  if(ARIC_VIEW==='cannabis'){
+    p.innerHTML = `<div class="aric-hero"><h1>Cannabis</h1><span>ARICCAME · Res. 41/2026 · arancel con la solicitud · pagos anuales junio–julio</span></div>
+    <div class="aric-subtabs">
+    <button class="${ARIC_TAB==='solic'?'on':''}" onclick="ARIC_TAB='solic';renderAric()">Solicitudes de licencia</button>
+    <button class="${ARIC_TAB==='pagos'?'on':''}" onclick="ARIC_TAB='pagos';renderAric()">Pagos anuales</button></div>
+    ${ARIC_TAB==='solic'?aricSolicHTML():aricPagosHTML()}`;
+  } else {
+    p.innerHTML = `<div class="aric-hero"><h1>Cáñamo</h1><span>ARICCAME · Res. 1/2024 · DJ semestrales mayo y octubre</span></div>
+    <div class="aric-subtabs">
+    <button class="${ARIC_TAB==='solic'?'on':''}" onclick="ARIC_TAB='solic';renderAric()">Solicitudes de licencia</button>
+    <button class="${ARIC_TAB==='dj'?'on':''}" onclick="ARIC_TAB='dj';renderAric()">Declaraciones juradas</button></div>
+    ${ARIC_TAB==='solic'?aricSolicHTML():aricDjHTML()}`;
+  }
+  if(ARIC_TAB==='solic'&&ARIC_Q){ const i=p.querySelector('.aric-toolbar input'); if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length);} }
+}
+
+function aricMetsHTML(){
+  const all=aricLicFlat(); const n=e=>all.filter(x=>x.l.estado===e).length;
+  const djp=aricData().reduce((a,c)=>a+c.licencias.reduce((b,l)=>b+aricDjCuenta(l),0),0);
+  const t=(k,cls,val,lbl)=>`<div class="aric-tile ${cls} ${ARIC_FEST===k?'on':''}" onclick="ARIC_FEST=ARIC_FEST==='${k}'?'':'${k}';renderAric()"><div class="num">${val}</div><div class="lbl">${lbl}</div></div>`;
+  return `<div class="aric-tiles">
+  ${t('en_tramite','t-tram',n('en_tramite'),'En trámite')}
+  ${t('a_subsanar','t-obs',n('a_subsanar'),'A subsanar')}
+  ${t('aprobada','t-apro',n('aprobada'),'Aprobadas')}
+  ${t('__dj','t-dj',djp,'DJ por vencer')}</div>`;
+}
+
+function aricLicFila(c,l){
+  const vencidas=(l.dj||[]).filter(d=>aricDjVentana(d)==='vencida').length;
+  const soon=(l.dj||[]).filter(d=>aricDjVentana(d)==='soon').length;
+  let djcell;
+  if(l.estado!=='aprobada') djcell='<span class="aric-dj-na">no corresponde aún</span>';
+  else if(vencidas) djcell=`<span class="aric-dj-alert">${vencidas} DJ vencida${vencidas>1?'s':''}</span>`;
+  else if(soon) djcell='<span class="aric-dj-soon">DJ por vencer</span>';
+  else djcell='<span class="aric-dj-ok">al día</span>';
+  return `<tr onclick="aricAbrirDrawer('${l.id}')">
+  <td class="aric-cbarra"><i class="aric-b-${l.estado}"></i></td>
+  <td class="aric-ctipo"><span class="aric-pill aric-p-tipo">${l.tipo}</span></td>
+  <td class="aric-cestado"><span class="aric-pill aric-p-${l.estado}">${ARIC_ESTADOS[l.estado]}${l.estado==='aprobada'&&l.fechaAprob?' · '+aricFdmy(l.fechaAprob):''}</span>
+  <div class="aric-estline">Inicio ${aricFdmy(l.inicio)||'—'}</div></td>
+  <td class="aric-cdj">${djcell}</td></tr>`;
+}
+
+function aricCliCard(c){
+  const n=c.licencias.length;
+  return `<div class="aric-ccard">
+  <div class="aric-cchead">
+  <div class="aric-cctop" onclick="aricAbrirDrawer('${c.licencias[0].id}')"><span class="aric-ccnom">${aricEsc(c.nombre)}</span>${n>1?`<span class="aric-multi">${n} lic.</span>`:''}
+  <button class="aric-icobtn" title="Carpeta de Drive" onclick="event.stopPropagation();aricAbrirDrive('${c.id}')">📁</button></div>
+  <div class="aric-fisc">
+  <span class="aric-chip" onclick="aricCopiar('${aricEsc(c.cuit)}',event)"><small>CUIT</small>${c.cuit||'—'}</span>
+  <span class="aric-chip" onclick="aricCopiar('${aricEsc(c.clave)}',event)"><small>CLAVE</small>${c.clave||'—'}</span>
+  </div></div>
+  <table class="aric-lictabla"><tbody>${c.licencias.map(l=>aricLicFila(c,l)).join('')}</tbody></table></div>`;
+}
+
+function aricFiltrarClientes(){
+  return aricData().map(c=>{
+    let lics=c.licencias;
+    if(ARIC_FTIPO) lics=lics.filter(l=>aricNorm(l.tipo).startsWith(ARIC_FTIPO));
+    if(ARIC_FEST==='__dj') lics=lics.filter(l=>aricDjCuenta(l)>0);
+    else if(ARIC_FEST) lics=lics.filter(l=>l.estado===ARIC_FEST);
+    return {...c,licencias:lics};
+  }).filter(c=>c.licencias.length && (!ARIC_Q||aricNorm(c.nombre).includes(ARIC_Q)||aricNorm(c.cuit).includes(ARIC_Q)));
+}
+function aricSolicHTML(){
+  const cli=aricFiltrarClientes();
+  const tot=cli.reduce((a,c)=>a+c.licencias.length,0);
+  const filtroTipo = ARIC_VIEW==='canamo' ? `<select onchange="ARIC_FTIPO=this.value;renderAric()">
+  <option value="">Todos los tipos</option>
+  <option value="agri" ${ARIC_FTIPO==='agri'?'selected':''}>Solo Agrícola</option>
+  <option value="indu" ${ARIC_FTIPO==='indu'?'selected':''}>Solo Industrial</option></select>` : '';
+  return `${aricMetsHTML()}
+  <div class="aric-toolbar">
+  <input placeholder="Buscar por cliente o CUIT..." value="${aricEsc(ARIC_Q)}" oninput="ARIC_Q=aricNorm(this.value);aricRefrescar()">
+  ${filtroTipo}
+  <button class="aric-btn" onclick="aricAbrirModalLic()">+ Nueva licencia</button></div>
+  <div class="aric-count">${cli.length} cliente(s) · ${tot} licencia(s)</div>
+  <div class="aric-cards" id="aricLista">${cli.map(aricCliCard).join('')||'<div class="aric-empty">Sin resultados</div>'}</div>`;
+}
+function aricRefrescar(){ const cli=aricFiltrarClientes(); const el=document.getElementById('aricLista');
+  if(el) el.innerHTML=cli.map(aricCliCard).join('')||'<div class="aric-empty">Sin resultados</div>'; }
+
+// ═══ DRAWER de edición ═══
+function aricAbrirDrawer(id){ const r=aricBuscarLic(id); if(!r) return; ARIC_EDIT=r.c; ARIC_EDITLIC=r.idx; aricPintarDrawer();
+  document.getElementById('aricOverlay').classList.add('open'); document.getElementById('aricDrawer').classList.add('open'); }
+function aricCerrarDrawer(){ document.getElementById('aricOverlay').classList.remove('open'); document.getElementById('aricDrawer').classList.remove('open'); ARIC_EDIT=null; }
+function aricPintarDrawer(){
+  const c=ARIC_EDIT, l=c.licencias[ARIC_EDITLIC];
+  const selLic = c.licencias.length>1 ? `<div class="aric-liceltab">${c.licencias.map((lx,i)=>`<button class="${i===ARIC_EDITLIC?'on':''}" onclick="ARIC_EDITLIC=${i};aricPintarDrawer()">${lx.tipo}</button>`).join('')}</div>` : '';
+  document.getElementById('aricDrawer').innerHTML = `
+  <div class="aric-drhead"><div><h2>${aricEsc(c.nombre)}</h2><div class="sub">Licencia ${l.tipo} · ${ARIC_ESTADOS[l.estado]}</div></div>
+  <span class="x" onclick="aricCerrarDrawer()">✕</span></div>
+  <div class="aric-drbody">
+  <div class="aric-sec"><h4>Datos del cliente</h4><div class="aric-fg">
+  <div class="aric-fld full"><label>Nombre</label><input id="aeNom" value="${aricEsc(c.nombre)}"></div>
+  <div class="aric-fld"><label>CUIT</label><input id="aeCuit" value="${aricEsc(c.cuit)}"></div>
+  <div class="aric-fld"><label>Clave fiscal</label><input id="aeClave" value="${aricEsc(c.clave)}"></div>
+  <div class="aric-fld full"><label>Carpeta de Drive (link)</label><input id="aeDrive" placeholder="https://drive.google.com/..." value="${aricEsc(c.drive)}"></div>
+  </div></div>
+  ${selLic}
+  <div class="aric-sec"><h4>Licencia ${l.tipo}</h4>
+  <div class="aric-fld" style="margin-bottom:9px"><label>Estado</label>
+  <div class="aric-estsel">${ARIC_ESEQ.map(e=>`<button class="${l.estado===e?'sel-'+e:''}" onclick="aricSetEstado('${e}')">${ARIC_ESTADOS[e]}</button>`).join('')}</div></div>
+  <div class="aric-fg">
+  ${l.estado==='aprobada'?`<div class="aric-fld"><label>Fecha de aprobación</label><input type="date" id="aeFAprob" value="${l.fechaAprob||''}"></div>`:''}
+  ${l.estado==='rechazada'?`<div class="aric-fld"><label>Fecha de rechazo</label><input type="date" id="aeFRech" value="${l.fechaRechazo||''}"></div>`:''}
+  ${l.estado==='cancelada'?`<div class="aric-fld"><label>Fecha de cancelación</label><input type="date" id="aeFCanc" value="${l.fechaCancel||''}"></div>`:''}
+  ${l.estado==='a_subsanar'?`<div class="aric-fld"><label>Fecha del pedido de subsanación</label><input type="date" id="aeFSubPed" value="${l.fechaSubsPedido||''}"></div>
+  <div class="aric-fld"><label>Fecha en que se subsanó <span style="color:var(--tinta-suave);font-weight:400;text-transform:none">(opcional)</span></label><input type="date" id="aeFSubHecho" value=""></div>
+  <div class="aric-fld full"><div class="aric-subshint">Al cargar la fecha de subsanación, la licencia vuelve a <b>En trámite</b> y ambos hitos quedan en el historial.</div></div>`:''}
+  <div class="aric-fld"><label>Fecha de inicio</label><input type="date" id="aeInicio" value="${l.inicio||''}"></div>
+  <div class="aric-fld full"><label>Nº de expediente</label><input id="aeExp" value="${aricEsc(l.exp)}"></div>
+  <div class="aric-fld"><label>Arancel</label><select id="aeAr" onchange="aricToggleComprob()">
+  <option value="">—</option>
+  <option value="debe" ${aricNorm(l.arancel).includes('debe')?'selected':''}>Adeuda</option>
+  <option value="pago" ${aricNorm(l.arancel).includes('pag')?'selected':''}>Pagado</option>
+  <option value="nc" ${aricNorm(l.arancel).includes('no corresponde')?'selected':''}>No corresponde</option></select></div>
+  <div class="aric-fld full" id="aricWrapComprob" style="${aricNorm(l.arancel).includes('pag')?'':'display:none'}"><label>Comprobante de pago</label>
+  <div class="aric-comprob">${l.comprobante?`<span class="aric-comprob-ok">📎 ${aricEsc(l.comprobante)}</span> <button class="aric-btn-ghost" style="padding:4px 10px" onclick="aricQuitarComprob()">Quitar</button>`:`<input type="file" id="aeComprob" accept="image/*,application/pdf" onchange="aricOnComprob(this)">`}</div></div>
+  </div></div>
+  ${ARIC_VIEW==='canamo'?`<div class="aric-sec"><h4>Declaraciones juradas</h4>
+  ${l.estado!=='aprobada'?'<div class="aric-djnabox">Todavía no corresponde presentar DJ: la licencia no está aprobada.</div>':''}
+  <div class="aric-djmini">${(l.dj||[]).map(d=>{const v=aricDjVentana(d);
+  const et=d.presentada?'<span class="ok">✓ '+aricFdmy(d.fecha)+'</span>':(v==='vencida'?'<span class="pend">○ vencida</span>':v==='soon'?'<span class="soon">○ por vencer</span>':'<span style="color:var(--tinta-suave)">○ futura</span>');
+  return `<div class="aric-djline"><span>${d.sem} ${d.anio}</span>${et}</div>`;}).join('')||'<span style="color:var(--tinta-suave);font-size:12px">Sin DJ registradas</span>'}</div></div>`:''}
+  <div class="aric-sec"><h4>Historial</h4>
+  <div class="aric-tl">${(l.hist||[]).map(h=>`<div class="aric-tlitem">${aricEsc(h)}</div>`).join('')||'<div class="aric-tlitem" style="color:var(--tinta-suave)">Sin entradas</div>'}</div>
+  <div class="aric-tladd"><input id="aeNota" placeholder="Agregar entrada al historial..."><button class="aric-btn" style="padding:6px 12px" onclick="aricAddNota()">+</button></div></div>
+  </div>
+  <div class="aric-drfoot">
+  <div style="display:flex;gap:7px">
+  <button class="aric-btn-del" onclick="aricEliminarLicencia()">🗑 Eliminar licencia</button>
+  ${c.licencias.length<=1?`<button class="aric-btn-del" onclick="aricEliminarCliente()">Eliminar cliente</button>`:''}</div>
+  <div style="display:flex;gap:9px;margin-left:auto">
+  <button class="aric-btn-ghost" onclick="aricCerrarDrawer()">Cancelar</button>
+  <button class="aric-btn" onclick="aricGuardarDrawer()">💾 Guardar cambios</button></div></div>`;
+}
+function aricSetEstado(e){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.estado=e;
+  if(e==='a_subsanar'&&!l.fechaSubsPedido) l.fechaSubsPedido=new Date().toISOString().slice(0,10); aricPintarDrawer(); }
+function aricAddNota(){ const v=document.getElementById('aeNota').value.trim(); if(!v) return;
+  const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.hist=l.hist||[]; l.hist.push(new Date().toLocaleDateString('es-AR')+' — '+v); aricPintarDrawer(); }
+function aricToggleComprob(){ const w=document.getElementById('aricWrapComprob'); if(w) w.style.display=document.getElementById('aeAr').value==='pago'?'':'none'; }
+function aricOnComprob(inp){ const f=inp.files&&inp.files[0]; if(!f) return;
+  const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l._comprobFile=f; l._comprobPend=f.name; aricToast('Comprobante listo: '+f.name); }
+function aricQuitarComprob(){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.comprobante=''; l.comprobantePath=''; l._comprobPend=''; l._comprobFile=null; aricPintarDrawer(); }
+
+async function aricGuardarDrawer(){
+  const c=ARIC_EDIT, l=c.licencias[ARIC_EDITLIC];
+  c.nombre=document.getElementById('aeNom').value.trim(); c.cuit=document.getElementById('aeCuit').value.trim();
+  c.clave=document.getElementById('aeClave').value.trim(); c.drive=document.getElementById('aeDrive').value.trim();
+  l.inicio=document.getElementById('aeInicio').value; l.exp=document.getElementById('aeExp').value.trim();
+  const ar=document.getElementById('aeAr').value;
+  l.arancel = ar==='debe'?'Debe abonar':ar==='pago'?'Pagó':ar==='nc'?'No corresponde abonar':'';
+  l.hist=l.hist||[];
+  const fa=document.getElementById('aeFAprob'); if(fa) l.fechaAprob=fa.value;
+  const fr=document.getElementById('aeFRech'); if(fr) l.fechaRechazo=fr.value;
+  const fc=document.getElementById('aeFCanc'); if(fc) l.fechaCancel=fc.value;
+  if(l.estado==='a_subsanar'){
+    const fped=document.getElementById('aeFSubPed'); if(fped) l.fechaSubsPedido=fped.value;
+    const fhecho=document.getElementById('aeFSubHecho')?document.getElementById('aeFSubHecho').value:'';
+    if(l.fechaSubsPedido && !l.hist.some(h=>h.includes('Pedido de subsanación')&&h.includes(aricFdmy(l.fechaSubsPedido))))
+      l.hist.push(aricFdmy(l.fechaSubsPedido)+' — Pedido de subsanación');
+    if(fhecho){ l.hist.push(aricFdmy(fhecho)+' — Subsanación presentada. Vuelve a trámite.'); l.estado='en_tramite'; l.fechaSubsPedido=''; }
+  }
+  // Comprobante → Supabase Storage (bucket aric)
+  if(l._comprobFile){
+    try{
+      const nombre = 'aric-'+l.id+'-'+l._comprobFile.name.replace(/[^\w.\-]/g,'_');
+      const path = await sbUploadFile('aric', nombre, l._comprobFile);
+      l.comprobantePath = path; l.comprobante = l._comprobFile.name;
+    }catch(e){ l.comprobante=l._comprobPend||l.comprobante; sbAvisarError(e); }
+    l._comprobFile=null; l._comprobPend='';
+  }
+  aricGenerarDJ(l);
+  saveAricLocal(); sbPushAric(c,l);
+  aricCerrarDrawer(); renderAric(); aricToast('Cambios guardados');
+}
+function aricEliminarLicencia(){
+  const c=ARIC_EDIT, l=c.licencias[ARIC_EDITLIC];
+  if(!confirm('¿Eliminar la licencia '+l.tipo+' de '+c.nombre+'? No se puede deshacer.')) return;
+  sbDelAric(l.id);
+  c.licencias.splice(ARIC_EDITLIC,1);
+  if(c.licencias.length===0){ const i=ARIC.indexOf(c); if(i>=0) ARIC.splice(i,1); saveAricLocal(); aricCerrarDrawer(); renderAric(); aricToast('Licencia y cliente eliminados'); return; }
+  ARIC_EDITLIC=0; saveAricLocal(); aricPintarDrawer(); renderAric(); aricToast('Licencia eliminada');
+}
+function aricEliminarCliente(){
+  const c=ARIC_EDIT;
+  if(!confirm('¿Eliminar al cliente '+c.nombre+' y todas sus licencias? No se puede deshacer.')) return;
+  c.licencias.forEach(l=>sbDelAric(l.id));
+  const i=ARIC.indexOf(c); if(i>=0) ARIC.splice(i,1); saveAricLocal(); aricCerrarDrawer(); renderAric(); aricToast('Cliente eliminado');
+}
+function aricAbrirDrive(cid){ const c=ARIC.find(x=>x.id===cid);
+  if(c&&c.drive) window.open(c.drive,'_blank'); else aricToast('Sin carpeta de Drive — cargala editando la licencia'); }
+
+// ═══ DECLARACIONES JURADAS (cáñamo) ═══
+function aricPeriodos(){
+  const set=new Set();
+  aricData().forEach(c=>c.licencias.forEach(l=>(l.dj||[]).forEach(d=>set.add(d.sem+' '+d.anio))));
+  return [...set].sort((a,b)=>{const [sa,ya]=a.split(' '),[sb,yb]=b.split(' ');
+    if(ya!==yb) return yb-ya; return (sb==='mayo'?0:1)-(sa==='mayo'?0:1);});
+}
+function aricDjDe(per){ const [sem,anio]=per.split(' '); const out=[];
+  aricData().forEach(c=>c.licencias.forEach(l=>(l.dj||[]).forEach(d=>{ if(d.sem===sem&&String(d.anio)===anio) out.push({c,l,d}); }))); return out; }
+function aricBadgeVenc(per){ const [sem,anio]=per.split(' '); const dias=aricDiasHasta(aricFinPeriodo(sem,+anio));
+  if(dias<0) return '<span class="aric-bv aric-bv-cerr">cerrado</span>';
+  if(dias<=20) return '<span class="aric-bv aric-bv-open">vence en '+dias+'d</span>';
+  return '<span class="aric-bv aric-bv-fut">abre '+(dias-20)+'d</span>'; }
+function aricDjHTML(){
+  const pers=aricPeriodos(); if(!ARIC_PER||!pers.includes(ARIC_PER)) ARIC_PER=pers[0]||'';
+  const cards=pers.map(p=>{const its=aricDjDe(p); const ok=its.filter(x=>x.d.presentada).length;
+    return `<div class="aric-percard ${ARIC_PER===p?'on':''}" onclick="ARIC_PER='${p}';renderAric()">
+    <h3>${p}${aricBadgeVenc(p)}</h3><div class="aric-pbar"><i style="width:${its.length?Math.round(ok/its.length*100):0}%"></i></div>
+    <small>${ok} de ${its.length} presentadas</small></div>`;}).join('');
+  const clientesConDJ=[...new Set([].concat(...aricData().map(c=>c.licencias.filter(l=>(l.dj||[]).length).map(()=>c.nombre))))].sort();
+  const filtro=`<div class="aric-toolbar" style="margin-bottom:14px"><span style="font-size:12px;color:var(--tinta-suave)">Filtrar:</span>
+  <select onchange="ARIC_FTIPODJ=this.value;renderAric()">
+  <option value="">Todos los tipos</option>
+  <option value="agri" ${ARIC_FTIPODJ==='agri'?'selected':''}>Solo Agrícola</option>
+  <option value="indu" ${ARIC_FTIPODJ==='indu'?'selected':''}>Solo Industrial</option></select>
+  <select class="aric-sel-cli" onchange="ARIC_FCLIDJ=this.value;renderAric()">
+  <option value="">Todos los clientes</option>
+  ${clientesConDJ.map(n=>`<option ${ARIC_FCLIDJ===n?'selected':''}>${aricEsc(n)}</option>`).join('')}</select></div>`;
+  let its=aricDjDe(ARIC_PER);
+  if(ARIC_FTIPODJ) its=its.filter(x=>aricNorm(x.l.tipo).startsWith(ARIC_FTIPODJ));
+  if(ARIC_FCLIDJ) its=its.filter(x=>x.c.nombre===ARIC_FCLIDJ);
+  const filas=its.map(x=>{const v=aricDjVentana(x.d);
+    const est=x.d.presentada?'<span class="aric-stok">✓ Presentada</span>':(v==='vencida'?'<span class="aric-stpend">○ Vencida</span>':v==='soon'?'<span style="color:var(--warn);font-weight:600">○ Por vencer</span>':'<span style="color:var(--tinta-suave)">○ Futura</span>');
+    return `<tr><td class="aric-td-cli" style="font-weight:600">${aricEsc(x.c.nombre)}</td>
+    <td><span class="aric-pill aric-p-tipo">${x.l.tipo}</span></td>
+    <td>${est}</td><td>${aricFdmy(x.d.fecha)||'—'}</td><td class="aric-mono">${x.d.exp||'—'}</td>
+    <td>${x.d.presentada?'':`<span class="aric-lnk" onclick="aricAbrirModalDJ('${x.l.id}','${x.d.sem}',${x.d.anio})">registrar →</span>`}</td></tr>`;}).join('');
+  return `<div class="aric-pergrid">${cards}</div>${filtro}
+  <div class="aric-panel"><div class="aric-panelh"><h3 style="text-transform:capitalize">${ARIC_PER}</h3>
+  <span class="mini">${its.filter(x=>x.d.presentada).length}/${its.length} presentadas</span></div>
+  <div style="overflow-x:auto"><table class="aric-tabla">
+  <thead><tr><th>Cliente</th><th>Tipo</th><th>Estado</th><th>Fecha</th><th>Expediente</th><th></th></tr></thead>
+  <tbody>${filas||'<tr><td colspan="6" class="aric-empty">Sin DJ en este período</td></tr>'}</tbody></table></div></div>
+  <button class="aric-btn" onclick="aricAbrirModalDJ()">+ Registrar DJ presentada</button>`;
+}
+function aricAbrirModalDJ(lid,sem,anio){
+  ARIC_MDJ=lid?{lid,sem,anio}:null;
+  const selC=document.getElementById('amCli'), selP=document.getElementById('amPer');
+  selC.innerHTML=aricData().map(c=>`<option value="${c.id}">${aricEsc(c.nombre)}</option>`).join('');
+  const pers=[...aricPeriodos()]; ['mayo 2027','octubre 2027'].forEach(p=>{if(!pers.includes(p))pers.unshift(p);});
+  selP.innerHTML=pers.map(p=>`<option>${p}</option>`).join('');
+  if(ARIC_MDJ){ const x=aricBuscarLic(lid); selC.value=x.c.id; document.getElementById('amTipo').value=x.l.tipo; selP.value=sem+' '+anio;
+    selC.disabled=true; document.getElementById('amTipo').disabled=true; selP.disabled=true;
+    document.getElementById('amTitulo').textContent='Registrar DJ — '+x.c.nombre+' · '+sem+' '+anio;
+  } else { selC.disabled=false; document.getElementById('amTipo').disabled=false; selP.disabled=false;
+    document.getElementById('amTitulo').textContent='Registrar DJ presentada'; }
+  document.getElementById('amFecha').value=new Date().toISOString().slice(0,10); document.getElementById('amExp').value='';
+  document.getElementById('aricModalDJ').classList.add('open');
+}
+function aricCerrarModalDJ(){ document.getElementById('aricModalDJ').classList.remove('open'); ARIC_MDJ=null; }
+function aricGuardarModalDJ(){
+  let c,l;
+  if(ARIC_MDJ){ const x=aricBuscarLic(ARIC_MDJ.lid); c=x.c; l=x.l; }
+  else { c=aricData().find(x=>x.id===document.getElementById('amCli').value); l=c&&c.licencias.find(x=>aricNorm(x.tipo)===aricNorm(document.getElementById('amTipo').value));
+    if(!l){ aricToast('Ese cliente no tiene licencia '+document.getElementById('amTipo').value); return; } }
+  const [sem,anio]=document.getElementById('amPer').value.split(' ');
+  const f=document.getElementById('amFecha').value, e=document.getElementById('amExp').value.trim();
+  if(!f){ aricToast('Cargá la fecha'); return; }
+  l.dj=l.dj||[]; const ex=l.dj.find(d=>d.sem===sem&&String(d.anio)===String(anio));
+  if(ex){ ex.presentada=true; ex.fecha=f; ex.exp=e; } else l.dj.push({sem,anio:+anio,fecha:f,exp:e,presentada:true});
+  saveAricLocal(); sbPushAric(c,l);
+  aricCerrarModalDJ(); renderAric(); aricToast('DJ registrada');
+}
+
+// ═══ PAGOS ANUALES (cannabis) ═══
+function aricPagosHTML(){
+  const anios=[]; for(let a=aricHoy().getFullYear()+1;a>=2026;a--) anios.push(a);
+  if(ARIC_PAGOANIO===null||!anios.includes(ARIC_PAGOANIO)) ARIC_PAGOANIO=anios.find(a=>a===aricHoy().getFullYear())||anios[0];
+  const cards=anios.map(a=>{
+    const lics=aricData().filter(c=>c.licencias[0]).map(c=>c.licencias[0]);
+    const pagas=lics.filter(l=>(l.pagosAnuales||[]).some(x=>x.anio===a)).length;
+    const dias=Math.ceil((new Date(a,6,31)-aricHoy())/86400000);
+    let badge; if(dias<0) badge='<span class="aric-bv aric-bv-cerr">cerrada</span>';
+    else if(dias<=60) badge='<span class="aric-bv aric-bv-open">abierta</span>'; else badge='<span class="aric-bv aric-bv-fut">futura</span>';
+    return `<div class="aric-percard ${ARIC_PAGOANIO===a?'on':''}" onclick="ARIC_PAGOANIO=${a};renderAric()">
+    <h3>Año ${a} ${badge}</h3><div class="aric-pbar"><i style="width:${lics.length?Math.round(pagas/lics.length*100):0}%"></i></div>
+    <small>${pagas} de ${lics.length} abonaron</small></div>`;}).join('');
+  const a=ARIC_PAGOANIO;
+  const filas=aricData().map(c=>{const l=c.licencias[0]; if(!l) return '';
+    const pg=(l.pagosAnuales||[]).find(x=>x.anio===a);
+    const est=pg?'<span class="aric-stok">✓ Pagado '+aricFdmy(pg.fecha)+'</span>':'<span class="aric-stpend">○ Pendiente</span>';
+    return `<tr><td class="aric-td-cli" style="font-weight:600">${aricEsc(c.nombre)}</td><td class="aric-mono">${l.exp||'—'}</td>
+    <td>${est}</td><td>${pg?`<span class="aric-mono">📎 ${aricEsc(pg.comprobante||'—')}</span>`:`<span class="aric-lnk" onclick="aricMarcarPagoAnual('${l.id}',${a})">registrar →</span>`}</td></tr>`;}).join('');
+  return `<div class="aric-pergrid">${cards}</div>
+  <div class="aric-panel"><div class="aric-panelh"><h3>Pago anual ${a}</h3><span class="mini">ventana junio–julio</span></div>
+  <div style="overflow-x:auto"><table class="aric-tabla"><thead><tr><th>Cliente</th><th>Expediente</th><th>Estado</th><th>Comprobante</th></tr></thead>
+  <tbody>${filas||'<tr><td colspan=4 class=aric-empty>Sin licencias</td></tr>'}</tbody></table></div></div>`;
+}
+function aricMarcarPagoAnual(lid,anio){
+  const r=aricBuscarLic(lid); if(!r) return;
+  const f=new Date().toISOString().slice(0,10);
+  r.l.pagosAnuales=r.l.pagosAnuales||[]; r.l.pagosAnuales.push({anio,fecha:f,comprobante:'comprobante_'+anio+'.pdf'});
+  saveAricLocal(); sbPushAric(r.c,r.l); renderAric(); aricToast('Pago anual '+anio+' registrado');
+}
+
+// ═══ MODAL NUEVA LICENCIA (con match CRM) ═══
+function aricAbrirModalLic(){
+  document.getElementById('amlNom').value=''; document.getElementById('amlCuit').value='';
+  document.getElementById('amlClave').value=''; if(document.getElementById('amlDrive')) document.getElementById('amlDrive').value='';
+  document.getElementById('amlTipo').value = ARIC_VIEW==='cannabis'?'Cannabis':'Agricola';
+  document.getElementById('amlTipoWrap').style.display = ARIC_VIEW==='cannabis'?'none':'';
+  document.getElementById('amlCrmHint').innerHTML=''; ARIC_ML_CRMID=null;
+  document.getElementById('aricModalLic').classList.add('open');
+}
+function aricCerrarModalLic(){ document.getElementById('aricModalLic').classList.remove('open'); }
+var ARIC_ML_CRMID=null;
+function aricOnNomLic(){
+  const t=document.getElementById('amlNom').value; const box=document.getElementById('amlCrmHint');
+  if(t.length<2){ box.innerHTML=''; return; }
+  const hits=aricBuscarCRM(t);
+  if(hits.length){
+    box.innerHTML='<div class="aric-crmhit-t">✓ Coincide con cliente del CRM:</div>'+hits.map(h=>{
+      const nom=aricEsc(h.entidad||h.nombre||''); const cuit=h.cuit||'';
+      return `<div class="aric-crmhit" onclick="aricUsarCRM('${nom}','${cuit}','${h.id}')"><b>${nom}</b><span>CUIT ${cuit||'—'}</span></div>`;
+    }).join('');
+  } else box.innerHTML='<div class="aric-crmnohit">Cliente nuevo — se creará una ficha simplificada en el CRM al guardar.</div>';
+}
+function aricUsarCRM(nom,cuit,id){ document.getElementById('amlNom').value=nom; document.getElementById('amlCuit').value=cuit;
+  ARIC_ML_CRMID=id; document.getElementById('amlCrmHint').innerHTML='<div class="aric-crmhit-t">✓ Vinculado a <b>'+nom+'</b> del CRM</div>'; }
+function aricGuardarModalLic(){
+  const nom=document.getElementById('amlNom').value.trim(); if(!nom){ aricToast('Poné el nombre del cliente'); return; }
+  const cuit=document.getElementById('amlCuit').value.trim(), clave=document.getElementById('amlClave').value.trim();
+  const drive=(document.getElementById('amlDrive')||{}).value||'';
+  const tipo=ARIC_VIEW==='cannabis'?'Cannabis':document.getElementById('amlTipo').value;
+  // ¿existe ya en ARIC (misma vista)?
+  let c=aricData().find(x=>(cuit&&x.cuit===cuit)||aricNorm(x.nombre)===aricNorm(nom));
+  const hayCRM=aricBuscarCRM(nom).length>0 || ARIC_ML_CRMID;
+  if(!c){ c={id:'ac'+Date.now(), submodulo:ARIC_VIEW, nombre:nom, cuit, clave, drive, clienteId:ARIC_ML_CRMID||null, licencias:[] }; ARIC.push(c); }
+  else if(drive&&!c.drive) c.drive=drive;
+  const nueva={ id:'al'+Date.now(), tipo, inicio:new Date().toISOString().slice(0,10), exp:'', plazo:'60 días habiles administrativos',
+    estado:'en_tramite', fechaAprob:'', fechaRechazo:'', fechaCancel:'', fechaSubsPedido:'', arancel:'', comprobante:'', comprobantePath:'',
+    coment:'', hist:['Licencia creada '+new Date().toLocaleDateString('es-AR')], dj:[] };
+  if(ARIC_VIEW==='cannabis') nueva.pagosAnuales=[];
+  c.licencias.push(nueva);
+  // Vincular/crear ficha en el CRM real
+  aricVincularCRM(c, hayCRM);
+  saveAricLocal(); sbPushAric(c,nueva);
+  aricCerrarModalLic(); renderAric();
+  aricToast(hayCRM?'Licencia creada y vinculada al CRM':'Licencia creada + ficha nueva en CRM');
+}
+// Crea o vincula la ficha del cliente en el CRM real, y le agrega el servicio "Licencia ARICCAME"
+function aricVincularCRM(c, existiaCRM){
+  if(typeof CLIENTES==='undefined'||!Array.isArray(CLIENTES)) return;
+  let cli=null;
+  if(c.clienteId) cli=CLIENTES.find(x=>String(x.id)===String(c.clienteId));
+  if(!cli) cli=CLIENTES.find(x=>aricNorm(x.entidad||x.nombre||'')===aricNorm(c.nombre) || (c.cuit&&x.cuit===c.cuit));
+  if(!cli){
+    // ficha simplificada nueva
+    cli={ id:Date.now(), entidad:c.nombre, tipo:'', cuit:c.cuit||'', mail:'', tel:'', estado:'activo',
+      etiquetas:['ARICCAME'], packServicios:[], bitacora:[], servicios:[], tramites:[], reuniones:[],
+      notas:'Ficha creada desde el módulo ARICCAME' };
+    CLIENTES.push(cli);
+    if(typeof saveClientesLocal==='function') saveClientesLocal();
+    if(typeof sbPushCliente==='function') sbPushCliente(cli);
+  }
+  c.clienteId=cli.id;
+}
+
+// ── util UI ──
+function aricCopiar(txt,ev){ ev.stopPropagation(); try{ navigator.clipboard.writeText(txt); }catch(e){} aricToast('Copiado: '+txt); }
+function aricToast(m){ let t=document.getElementById('aricToast'); if(!t) return; t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1500); }
+
+// ═══ MÓDULO ARICCAME (fin) ═══
+
 function navTo(p) {
   if (!PAGE_IDS[p]) p = 'inicio';
   if (typeof permisoPagina === 'function' && !permisoPagina(p)) p = 'inicio';
@@ -5016,6 +5788,7 @@ function navTo(p) {
     if (p === 'caja') { initCaja(); renderCaja(); }
     if (p === 'cajasoc') { initCajaSoc(); renderCajaSoc(); }
     if (p === 'crm') { renderCRM(); }
+    if (p === 'ariccame') { renderAric(); }
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
 }
@@ -7476,6 +8249,106 @@ function eliminarPago(id) {
   }
   renderCaja();
 }
+// ═══════════════════════════════════════════════════════════════════
+// BÚSQUEDA HISTÓRICA de pagos/movimientos (ambas cajas)
+// Busca en TODO el historial (no sólo el mes vigente) por fecha,
+// cliente o concepto, de forma permisiva (subcadenas, sin tildes).
+// Luego permite filtrar los resultados por mes de pago.
+// ═══════════════════════════════════════════════════════════════════
+function cbNorm(s){ return String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+// Match permisivo: cada palabra del query debe aparecer como subcadena en el texto
+function cbMatch(texto, q){
+  const t=cbNorm(texto); const palabras=cbNorm(q).split(/\s+/).filter(Boolean);
+  if(!palabras.length) return true;
+  return palabras.every(w=>t.includes(w));
+}
+// Estado de cada buscador
+let CJ_BUSQ='', CJ_BUSQ_MES='';
+let CS_BUSQ='', CS_BUSQ_MES='';
+
+// ── Caja judicial ──
+function cajaBuscarRender(){
+  const cont=document.getElementById('cajaBuscarResult'); if(!cont) return;
+  const q=(document.getElementById('cajaBuscarInput')||{}).value||''; CJ_BUSQ=q;
+  if(!q.trim()){ cont.innerHTML='<div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en todo el historial.</div>';
+    const selm=document.getElementById('cajaBuscarMes'); if(selm) selm.innerHTML='<option value="">Todos los meses</option>'; return; }
+  // texto de búsqueda combina cliente + concepto + fecha (dd/mm/aaaa y aaaa-mm-dd)
+  let hits=CAJA.filter(p=>{
+    const fechaTxt=(p.fecha||'')+' '+formatFechaCorta(p.fecha||'');
+    return cbMatch(p.cliente,q)||cbMatch(p.concepto,q)||cbMatch(fechaTxt,q)
+      ||cbMatch((p.cliente||'')+' '+(p.concepto||''),q);
+  });
+  // meses presentes en los resultados
+  const meses=[...new Set(hits.map(p=>(p.fecha||'').slice(0,7)).filter(Boolean))].sort().reverse();
+  const selMes=document.getElementById('cajaBuscarMes');
+  const mesSel=CJ_BUSQ_MES && meses.includes(CJ_BUSQ_MES)?CJ_BUSQ_MES:'';
+  CJ_BUSQ_MES=mesSel;
+  if(selMes) selMes.innerHTML='<option value="">Todos los meses ('+hits.length+')</option>'+
+    meses.map(m=>`<option value="${m}" ${m===mesSel?'selected':''}>${mesLargo(m)} (${hits.filter(p=>(p.fecha||'').slice(0,7)===m).length})</option>`).join('');
+  if(mesSel) hits=hits.filter(p=>(p.fecha||'').slice(0,7)===mesSel);
+  hits.sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||''));
+  if(!hits.length){ cont.innerHTML='<div class="panel-empty">Sin resultados para "'+esc(q)+'".</div>'; return; }
+  const dolar=valorDolar();
+  let sumaArs=0,sumaUsd=0; hits.forEach(p=>{ if(p.moneda==='USD')sumaUsd+=p.monto; else sumaArs+=p.monto; });
+  cont.innerHTML=`<div class="cb-resumen">${hits.length} pago${hits.length!==1?'s':''} encontrado${hits.length!==1?'s':''}`+
+    ` · <b>$ ${fmtNumStr(sumaArs)}</b>${sumaUsd?` · <b>u$s ${fmtNumStr(sumaUsd)}</b>`:''}</div>`+
+    `<div style="overflow-x:auto"><table class="tabla-caja"><thead><tr>
+      <th>Fecha</th><th>Cliente</th><th>Concepto</th><th style="text-align:right">Monto</th><th>Método</th><th>Comprob.</th></tr></thead><tbody>`+
+    hits.map(p=>{
+      const met=p.metodo==='efectivo'?'Efectivo':p.metodo==='transferencia'?'Transf.':p.metodo==='cripto'?'Cripto':'Otro';
+      return `<tr>
+        <td style="white-space:nowrap">${formatFechaCorta(p.fecha)}</td>
+        <td style="font-weight:600">${esc(p.cliente)}${p.comisionOri?' <span class="chip-ori">Ori</span>':''}</td>
+        <td>${esc(p.concepto||'—')}${p.planId?' '+etiquetaCuota(p.planId,p.nroCuota):''}</td>
+        <td class="monto ${p.moneda==='USD'?'usd':''}">${montoTxt(p)}</td>
+        <td style="font-size:11.5px">${met}${p.receptor?' → '+esc(p.receptor):''}</td>
+        <td>${CAJA_ADJ[p.id]?`<button class="mini-btn" onclick="verComprobante(${p.id})">📄 Ver</button>`:'<span style="color:var(--tinta-suave);font-size:11px">—</span>'}</td>
+      </tr>`;}).join('')+'</tbody></table></div>';
+}
+function cajaBuscarMesChange(){ CJ_BUSQ_MES=(document.getElementById('cajaBuscarMes')||{}).value||''; cajaBuscarRender(); }
+function cajaBuscarLimpiar(){ const i=document.getElementById('cajaBuscarInput'); if(i)i.value=''; CJ_BUSQ=''; CJ_BUSQ_MES=''; cajaBuscarRender(); }
+
+// ── Caja societaria ──
+function cajaSocBuscarRender(){
+  const cont=document.getElementById('csBuscarResult'); if(!cont) return;
+  const q=(document.getElementById('csBuscarInput')||{}).value||''; CS_BUSQ=q;
+  if(!q.trim()){ cont.innerHTML='<div class="panel-empty">Escribí un cliente/proveedor, concepto o fecha para buscar en todo el historial.</div>';
+    const selm=document.getElementById('csBuscarMes'); if(selm) selm.innerHTML='<option value="">Todos los meses</option>'; return; }
+  let hits=CAJASOC.filter(m=>{
+    const fechaTxt=(m.fecha||'')+' '+formatFechaCorta(m.fecha||'');
+    return cbMatch(m.contraparte,q)||cbMatch(m.concepto,q)||cbMatch(fechaTxt,q)
+      ||cbMatch((m.contraparte||'')+' '+(m.concepto||''),q);
+  });
+  const meses=[...new Set(hits.map(m=>(m.fecha||'').slice(0,7)).filter(Boolean))].sort().reverse();
+  const selMes=document.getElementById('csBuscarMes');
+  const mesSel=CS_BUSQ_MES && meses.includes(CS_BUSQ_MES)?CS_BUSQ_MES:'';
+  CS_BUSQ_MES=mesSel;
+  if(selMes) selMes.innerHTML='<option value="">Todos los meses ('+hits.length+')</option>'+
+    meses.map(m=>`<option value="${m}" ${m===mesSel?'selected':''}>${mesLargo(m)} (${hits.filter(x=>(x.fecha||'').slice(0,7)===m).length})</option>`).join('');
+  if(mesSel) hits=hits.filter(m=>(m.fecha||'').slice(0,7)===mesSel);
+  hits.sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||''));
+  if(!hits.length){ cont.innerHTML='<div class="panel-empty">Sin resultados para "'+esc(q)+'".</div>'; return; }
+  cont.innerHTML=`<div class="cb-resumen">${hits.length} movimiento${hits.length!==1?'s':''} encontrado${hits.length!==1?'s':''}</div>`+
+    `<div style="overflow-x:auto"><table class="tabla-caja"><thead><tr>
+      <th>Fecha</th><th>Cliente / proveedor</th><th>Concepto</th><th style="text-align:right">Monto</th><th>Tipo</th><th>Método</th><th>Comprob.</th></tr></thead><tbody>`+
+    hits.map(m=>{
+      const met=m.metodo==='efectivo'?'Efectivo':m.metodo==='transferencia'?'Transf.':m.metodo==='cripto'?'Cripto':'Otro';
+      const sim=m.moneda==='USD'?'u$s ':'$ ';
+      const gasto=m.tipo!=='ingreso'&&m.tipo;
+      const tipoTxt=m.tipo==='gasto'?'Gasto ord.':m.tipo==='gasto_esc'?'G. escribanía':'Ingreso';
+      return `<tr>
+        <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
+        <td style="font-weight:600">${esc(m.contraparte||'—')}</td>
+        <td>${esc(m.concepto||'—')}${m.planId?' '+etiquetaCuota(m.planId,m.nroCuota):''}</td>
+        <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto?'#b3372a':'#1e7a48'}">${sim}${fmtNumStr(m.monto)}</td>
+        <td style="font-size:11.5px">${tipoTxt}</td>
+        <td style="font-size:11.5px">${met}${m.receptor?' → '+esc(m.receptor):''}</td>
+        <td>${CAJASOC_ADJ[m.id]?`<button class="mini-btn" onclick="verComprobanteSoc(${m.id})">📄 Ver</button>`:'<span style="color:var(--tinta-suave);font-size:11px">—</span>'}</td>
+      </tr>`;}).join('')+'</tbody></table></div>';
+}
+function cajaSocBuscarMesChange(){ CS_BUSQ_MES=(document.getElementById('csBuscarMes')||{}).value||''; cajaSocBuscarRender(); }
+function cajaSocBuscarLimpiar(){ const i=document.getElementById('csBuscarInput'); if(i)i.value=''; CS_BUSQ=''; CS_BUSQ_MES=''; cajaSocBuscarRender(); }
+
 function pagosDelMes(mes) {
   return CAJA.filter(p => (p.fecha||'').slice(0, 7) === mes).sort((a, b) => (a.fecha||'').localeCompare(b.fecha||''));
 }
@@ -8020,11 +8893,13 @@ function cerrarSesion() {
   const err = document.getElementById('loginError'); if (err) err.textContent = '';
   try { navTo('inicio'); } catch (e) {}
 }
+const ARIC_USERS = ['naza', 'kevindaich', 'sofig', 'ivana'];
 function permisoPagina(p) {
   const pf = perfilActual();
   if (p === 'expedientes') return !!pf.expedientes;
   if (p === 'caja') return pf.cajaJud !== false;
   if (p === 'cajasoc') return !!pf.cajaSoc;
+  if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
   return true;
 }
 function aplicarPermisos() {
@@ -8042,6 +8917,9 @@ function aplicarPermisos() {
   document.body.classList.toggle('caja-ori', pf.cajaJud === 'ori');
   document.body.classList.toggle('sin-jud', !pf.inicioJud);
   document.body.classList.toggle('inicio-crm-first', usuarioActual() === 'ivana');
+  // ARICCAME: visible sólo para NAZA, KEVIN, SOFI G e IVANA
+  const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
   if (optAud) { optAud.hidden = !pf.inicioJud; optAud.disabled = !pf.inicioJud; }
@@ -8063,6 +8941,7 @@ loadConfig();
 loadCaja();
 loadCajaSoc();
 loadPlanes();
+loadAric();
 try { sembrarUmaSiFalta(); actualizarUmaDesdeCPACF(); } catch (e) {}
 // Botón de caja societaria + menú combinado "Cajas" en todas las barras
 document.querySelectorAll('[data-navbar]').forEach(nav => {
@@ -8087,6 +8966,20 @@ document.querySelectorAll('[data-navbar]').forEach(nav => {
     if (ref) ref.before(wrap); else nav.appendChild(wrap);
   }
 });
+// Menú desplegable ARICCAME (Cáñamo / Cannabis) en todas las barras
+document.querySelectorAll('[data-navbar]').forEach(nav => {
+  if (nav.querySelector('[data-nav-aric]')) return;
+  const ref = nav.querySelector('[data-nav="crm"]') || nav.querySelector('[data-nav="herramientas"]');
+  const wrap = document.createElement('div');
+  wrap.className = 'nav-cajas'; wrap.setAttribute('data-nav-aric', '');
+  wrap.innerHTML = '<button class="pill-nav nav-cajas-btn" type="button">🌿 ARICCAME <span class="nav-caret">▾</span></button>'
+    + '<div class="nav-cajas-menu"><div class="nav-cajas-inner">'
+    + '<button class="nav-cajas-item" onclick="aricIr(\'canamo\')">🌱 Cáñamo <small style="opacity:.6;font-weight:400">Res. 1/2024</small></button>'
+    + '<button class="nav-cajas-item" onclick="aricIr(\'cannabis\')">🌿 Cannabis <small style="opacity:.6;font-weight:400">Res. 41/2026</small></button>'
+    + '</div></div>';
+  if (ref) ref.after(wrap); else nav.appendChild(wrap);
+});
+function aricIr(vista){ ARIC_VIEW = vista; ARIC_TAB = 'solic'; ARIC_FEST=''; ARIC_Q=''; navTo('ariccame'); }
 // Botón de cerrar sesión en todos los ribbons (tamaño uniforme)
 document.querySelectorAll('.ribbon').forEach(r => {
   if (r.querySelector('[data-logout]')) return;
