@@ -903,7 +903,9 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .aric-ccnom{text-transform:uppercase;color:var(--tinta);font-weight:700;font-size:13.5px;letter-spacing:.2px;border-bottom:2px solid #c9a961;padding-bottom:1px;cursor:pointer}
 .aric-ccnom:hover{color:var(--sello)}
 .aric-multi{font-size:10.5px;font-weight:700;color:var(--sello);background:var(--laurel);padding:2px 7px;border-radius:20px}
-.aric-icobtn{margin-left:auto;background:transparent;border:none;font-size:15px;cursor:pointer;opacity:.65;padding:2px 4px;border-radius:6px}
+.aric-icobtn{background:transparent;border:none;font-size:15px;cursor:pointer;opacity:.65;padding:2px 4px;border-radius:6px}
+.aric-cctop{justify-content:flex-start}
+.aric-cctop .aric-ccnom{margin-right:auto}
 .aric-icobtn:hover{opacity:1;background:var(--papel)}
 .aric-fisc{display:flex;gap:7px;flex-wrap:wrap}
 .aric-chip{font-family:ui-monospace,monospace;font-size:11px;color:var(--tinta);background:var(--filo-suave);padding:3px 9px;border-radius:6px;cursor:pointer;display:inline-flex;gap:5px;align-items:center;transition:.12s}
@@ -915,13 +917,14 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .aric-lictabla tr:last-child{border-bottom:none}
 .aric-lictabla tr:hover{background:var(--papel)}
 .aric-lictabla td{padding:9px 8px;vertical-align:middle;font-size:12.5px}
-.aric-cbarra{width:6px;padding:0!important}
-.aric-cbarra i{display:block;width:4px;height:34px;border-radius:3px;margin:0 auto}
+.aric-cbarra{width:6px;padding:0 0 0 6px!important}
+.aric-cbarra i{display:block;width:4px;height:28px;border-radius:3px;margin:0 auto}
 .aric-b-en_tramite{background:var(--info)} .aric-b-a_subsanar{background:var(--warn)}
 .aric-b-aprobada{background:var(--ok)} .aric-b-rechazada{background:var(--mal)} .aric-b-cancelada{background:var(--tinta-suave)}
-.aric-ctipo{width:104px}
-.aric-estline{font-size:10.5px;color:var(--tinta-suave);margin-top:3px}
-.aric-cdj{text-align:right;white-space:nowrap}
+.aric-ctipo{width:33%;text-align:left}
+.aric-cestado{width:34%;text-align:center}
+.aric-cinicio{width:33%;text-align:right;white-space:nowrap;font-size:11.5px;color:var(--tinta-suave)}
+.aric-inicio-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--tinta-suave);opacity:.7}
 /* Pills */
 .aric-pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
 .aric-p-tipo{background:var(--filo-suave);color:var(--tinta-suave)}
@@ -1040,6 +1043,35 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .com-linea-info{color:var(--tinta-suave);font-weight:500;font-style:italic}
 .chip-com-info{font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--filo-suave);color:var(--tinta-suave)}
 #csComDetalleTabla tfoot td{border-top:2px solid var(--filo)}
+/* ── Borde de las cards de cliente (ARICCAME) — mismo estilo que el listado del CRM ── */
+.aric-ccard.aric-borde-crm{border:1px solid transparent;background:linear-gradient(var(--carta),var(--carta)) padding-box,linear-gradient(135deg,#7fa3d4,#dbe5f2 40%,#b9cce6 75%,#5b86bf) border-box;transition:all .22s ease;box-shadow:0 1px 2px rgba(14,25,18,.03)}
+.aric-ccard.aric-borde-crm:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,58,107,.14);background:linear-gradient(var(--carta),var(--carta)) padding-box,linear-gradient(135deg,#3b6db3,#9db9dd 45%,#3b6db3) border-box}
+.aric-djwarn{margin-left:auto;font-size:25px;line-height:1;color:var(--mal);cursor:default;filter:drop-shadow(0 1px 1px rgba(179,55,42,.25))}
+.aric-djwarn + .aric-icobtn{margin-left:8px}
+.aric-djwarn-leyenda{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--mal);background:var(--mal-bg);border:1px solid #eab8b0;padding:9px 12px;border-radius:var(--radio-s);margin-bottom:10px;line-height:1.4}
+.aric-djwarn-leyenda .aric-djwarn{font-size:16px;margin:0;flex:0 0 auto}
+/* ── Inicio de Sofi G: sin accesos rápidos; columna derecha ordenada ── */
+body.inicio-sofig #panelInicioQuick{display:none !important}
+body.inicio-sofig #inicioColDer{display:flex !important;flex-direction:column;gap:16px}
+body.inicio-sofig #inicioGrid2{align-items:start}
+body.inicio-sofig #inicioColDer>.panel{margin:0}
+body.inicio-kevin #inicioColDer{display:flex !important;flex-direction:column;gap:16px}
+body.inicio-kevin #inicioGrid2{align-items:start}
+body.inicio-kevin #inicioColDer>.panel{margin:0}
+body.inicio-kevin #panelInicioQuick{display:none !important}
+body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{display:none !important}
+/* ── Mensajes de recordatorio ARICCAME (texto) ── */
+#inicioAricMsgs{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+#inicioAricMsgs:empty{display:none}
+.aric-msg{display:flex;align-items:center;gap:10px;padding:11px 15px;background:var(--carta);border:2px solid #1a241d;border-radius:var(--radio);font-size:13px;color:#1a241d;line-height:1.4}
+.aric-msg-ico{font-size:18px;flex:0 0 auto}
+.aric-msg b{font-weight:800}
+/* Panel sin-movimiento: header azul como el resto */
+.panel-aric.aric-sinmov .panel-h{background:#14294a;border-bottom:2px solid #c9a961;display:flex;align-items:center;justify-content:space-between}
+.panel-aric.aric-sinmov .panel-h h3{color:#fff;font-size:14px}
+.panel-aric.aric-sinmov .panel-h .mini{color:#e7ddc4;font-weight:600}
+/* Nombre de cliente en sin-movimiento: negrita + mayúsculas */
+.venc-txt .t.sinmov-cli{font-weight:800;text-transform:uppercase;letter-spacing:.2px}
 </style>
 </head>
 <body>
@@ -1236,6 +1268,9 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
         <div id="inicioFeria"></div>
       </div>
 
+      <!-- Mensajes de recordatorio ARICCAME (texto, según el mes) — debajo de la feria, arriba de las píldoras -->
+      <div id="inicioAricMsgs"></div>
+
       <div class="stat-tiles" id="inicioTiles"></div>
 
       <div class="grid-2" id="inicioGrid2">
@@ -1285,6 +1320,10 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
           <div class="panel" id="panelInicioOficios">
             <div class="panel-h"><h3>Oficios sin contestar</h3><span class="mini" id="ofiMini"></span></div>
             <div id="inicioOficios"></div>
+          </div>
+          <div class="panel panel-aric aric-sinmov" id="panelSinMovimiento" style="display:none">
+            <div class="panel-h"><h3>🕓 Licencias sin movimiento</h3><span class="mini" id="sinMovMini"></span></div>
+            <div id="inicioSinMovimiento"></div>
           </div>
           <div class="panel" id="panelInicioContactar">
             <div class="panel-h"><h3>A contactar / trámites a actualizar</h3><span class="mini" id="crmContactarMini"></span></div>
@@ -5471,26 +5510,19 @@ function aricMetsHTML(){
 }
 
 function aricLicFila(c,l){
-  const vencidas=(l.dj||[]).filter(d=>aricDjVentana(d)==='vencida').length;
-  const soon=(l.dj||[]).filter(d=>aricDjVentana(d)==='soon').length;
-  let djcell;
-  if(l.estado!=='aprobada') djcell='<span class="aric-dj-na">no corresponde aún</span>';
-  else if(vencidas) djcell=`<span class="aric-dj-alert">${vencidas} DJ vencida${vencidas>1?'s':''}</span>`;
-  else if(soon) djcell='<span class="aric-dj-soon">DJ por vencer</span>';
-  else djcell='<span class="aric-dj-ok">al día</span>';
   return `<tr onclick="aricAbrirDrawer('${l.id}')">
   <td class="aric-cbarra"><i class="aric-b-${l.estado}"></i></td>
   <td class="aric-ctipo"><span class="aric-pill aric-p-tipo">${l.tipo}</span></td>
-  <td class="aric-cestado"><span class="aric-pill aric-p-${l.estado}">${ARIC_ESTADOS[l.estado]}${l.estado==='aprobada'&&l.fechaAprob?' · '+aricFdmy(l.fechaAprob):''}</span>
-  <div class="aric-estline">Inicio ${aricFdmy(l.inicio)||'—'}</div></td>
-  <td class="aric-cdj">${djcell}</td></tr>`;
+  <td class="aric-cestado"><span class="aric-pill aric-p-${l.estado}">${ARIC_ESTADOS[l.estado]}${l.estado==='aprobada'&&l.fechaAprob?' · '+aricFdmy(l.fechaAprob):''}</span></td>
+  <td class="aric-cinicio"><span class="aric-inicio-lbl">Inicio</span> ${aricFdmy(l.inicio)||'—'}</td></tr>`;
 }
 
-function aricCliCard(c){
+function aricCliCard(c, idx){
   const n=c.licencias.length;
-  return `<div class="aric-ccard">
+  return `<div class="aric-ccard aric-borde-crm">
   <div class="aric-cchead">
   <div class="aric-cctop" onclick="aricAbrirDrawer('${c.licencias[0].id}')"><span class="aric-ccnom">${aricEsc(c.nombre)}</span>${n>1?`<span class="aric-multi">${n} lic.</span>`:''}
+  ${(function(){const djDebe=c.licencias.reduce((a,l)=>a+aricDjCuenta(l),0);return djDebe>0?`<span class="aric-djwarn" title="Debe ${djDebe} declaración jurada${djDebe>1?'s':''} (por vencer o vencida${djDebe>1?'s':''})">⚠</span>`:'';})()}
   <button class="aric-icobtn" title="Carpeta de Drive" onclick="event.stopPropagation();aricAbrirDrive('${c.id}')">📁</button></div>
   <div class="aric-fisc">
   <span class="aric-chip" onclick="aricCopiar('${aricEsc(c.cuit)}',event)"><small>CUIT</small>${c.cuit||'—'}</span>
@@ -5567,6 +5599,7 @@ function aricPintarDrawer(){
   </div></div>
   ${ARIC_VIEW==='canamo'?`<div class="aric-sec"><h4>Declaraciones juradas</h4>
   ${l.estado!=='aprobada'?'<div class="aric-djnabox">Todavía no corresponde presentar DJ: la licencia no está aprobada.</div>':''}
+  ${aricDjCuenta(l)>0?`<div class="aric-djwarn-leyenda"><span class="aric-djwarn">⚠</span> Este licenciatario <b>debe ${aricDjCuenta(l)} declaración jurada${aricDjCuenta(l)>1?'s':''}</b> (por vencer o vencida${aricDjCuenta(l)>1?'s':''}). El símbolo ⚠ rojo en el panel señala a los clientes con DJ pendientes.</div>`:''}
   <div class="aric-djmini">${(l.dj||[]).map(d=>{const v=aricDjVentana(d);
   const et=d.presentada?'<span class="ok">✓ '+aricFdmy(d.fecha)+'</span>':(v==='vencida'?'<span class="pend">○ vencida</span>':v==='soon'?'<span class="soon">○ por vencer</span>':'<span style="color:var(--tinta-suave)">○ futura</span>');
   return `<div class="aric-djline"><span>${d.sem} ${d.anio}</span>${et}</div>`;}).join('')||'<span style="color:var(--tinta-suave);font-size:12px">Sin DJ registradas</span>'}</div></div>`:''}
@@ -5933,6 +5966,107 @@ function getAudienciasManuales() {
 }
 
 // ── Tablero de Inicio ──
+// ═══════════════════════════════════════════════════════════════════
+// ALERTAS PRIORITARIAS del inicio (por ahora, solo para Kevin).
+// Tres disparadores ARICCAME:
+//  1) DJ por presentar — todo mayo y todo octubre (licencias aprobadas de cáñamo).
+//  2) Arancel de renovación — todo junio y julio.
+//  3) Licencia sin movimiento hace 60 días (según la última entrada del historial;
+//     se excluyen las aprobadas y rechazadas).
+// ═══════════════════════════════════════════════════════════════════
+const ALERTA_SIN_MOV_DIAS = 60;
+const ALERTA_PREVIEW = false; // modo previsualización desactivado
+
+// Convierte "dd/mm/aaaa — texto" (o "dd/mm/aaaa") a Date; null si no hay fecha reconocible.
+function __alertaFechaDeHist(entrada) {
+  const m = String(entrada || '').match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+  if (!m) return null;
+  let [, d, mes, a] = m; a = a.length === 2 ? '20' + a : a;
+  const dt = new Date(+a, +mes - 1, +d);
+  return isNaN(dt) ? null : dt;
+}
+// Última fecha de movimiento de una licencia (máxima fecha en su historial).
+function __alertaUltMovimiento(l) {
+  let ult = null;
+  (l.hist || []).forEach(e => { const f = __alertaFechaDeHist(e); if (f && (!ult || f > ult)) ult = f; });
+  return ult;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CUADROS DE RECORDATORIOS ARICCAME en el inicio (solo Kevin).
+// Respetan la estética del sistema: panel con header de color y filas.
+//  1) DJ de cáñamo por presentar — activo en mayo y octubre.
+//  2) Arancel de licencias cannabis — activo en junio y julio.
+//  3) Licencias sin movimiento hace 60 días (excluye aprobadas/rechazadas).
+// El modo preview (ALERTA_PREVIEW) fuerza los tres como si estuvieran activos.
+// ═══════════════════════════════════════════════════════════════════
+
+// Licencias sin movimiento hace ALERTA_SIN_MOV_DIAS días (excluye aprobadas y rechazadas).
+function calcularSinMovimiento() {
+  const hoy = new Date();
+  const aric = (typeof ARIC !== 'undefined' && Array.isArray(ARIC)) ? ARIC : [];
+  const out = [];
+  aric.forEach(c => {
+    c.licencias.forEach(l => {
+      if (l.estado === 'aprobada' || l.estado === 'rechazada') return;
+      const ult = __alertaUltMovimiento(l);
+      if (!ult) return;
+      const dias = Math.floor((hoy - ult) / 86400000);
+      if (ALERTA_PREVIEW || dias >= ALERTA_SIN_MOV_DIAS) out.push({ nombre: c.nombre, tipo: l.tipo, estado: l.estado, dias, desde: ult, id: l.id });
+    });
+  });
+  out.sort((a, b) => b.dias - a.dias);
+  return out;
+}
+
+function renderAlertasInicio() {
+  const __u = (typeof usuarioActual === 'function') ? usuarioActual() : null;
+  const puedeAlertas = (__u === 'kevindaich' || __u === 'sofig'); // Kevin y Sofi G ven las alertas ARICCAME
+
+  const hoy = new Date();
+  const mes = hoy.getMonth(); // 4=mayo 5=jun 6=jul 9=oct
+
+  // ── Mensajes de recordatorio (texto, según el mes) ──
+  const cont = document.getElementById('inicioAricMsgs');
+  if (cont) {
+    if (!puedeAlertas) { cont.innerHTML = ''; }
+    else {
+      const msgs = [];
+      // DJ de cáñamo: todo mayo y todo octubre
+      if (ALERTA_PREVIEW || mes === 4 || mes === 9) {
+        const per = (mes === 9 && !ALERTA_PREVIEW) ? 'octubre' : 'mayo';
+        msgs.push({ ico: '📋', txt: 'Este mes hay que presentar las <b>declaraciones juradas de ARICCAME (cáñamo)</b> — período de ' + (ALERTA_PREVIEW ? 'mayo/octubre' : per) + '.' });
+      }
+      // Arancel cannabis: 1 de junio a 31 de julio
+      if (ALERTA_PREVIEW || mes === 5 || mes === 6) {
+        msgs.push({ ico: '💳', txt: 'Ventana abierta para <b>pagar las licencias de cannabis</b> (arancel de renovación, junio y julio).' });
+      }
+      cont.innerHTML = msgs.map(m => `<div class="aric-msg"><span class="aric-msg-ico">${m.ico}</span><span>${m.txt}</span></div>`).join('');
+    }
+  }
+
+  // ── Panel de licencias sin movimiento (columna derecha, debajo de Oficios) ──
+  const panel = document.getElementById('panelSinMovimiento');
+  const lista = document.getElementById('inicioSinMovimiento');
+  const mini = document.getElementById('sinMovMini');
+  if (panel && lista) {
+    const filas = puedeAlertas ? calcularSinMovimiento() : [];
+    if (!filas.length) { panel.style.display = 'none'; lista.innerHTML = ''; if (mini) mini.textContent = ''; }
+    else {
+      panel.style.display = '';
+      if (mini) mini.textContent = filas.length + ' licencia' + (filas.length > 1 ? 's' : '');
+      lista.innerHTML = filas.map(f => {
+        const desde = f.desde ? f.desde.toLocaleDateString('es-AR') : '—';
+        const estLbl = (typeof ARIC_ESTADOS !== 'undefined' && ARIC_ESTADOS[f.estado]) ? ARIC_ESTADOS[f.estado] : f.estado;
+        return `<div class="venc-item" onclick="aricIr('canamo')">
+          <div class="venc-date overdue">${f.dias}<small>días</small></div>
+          <div class="venc-txt"><div class="t sinmov-cli">${esc(f.nombre)} · ${esc(f.tipo)}</div>
+          <div class="s">${estLbl} · sin novedades desde el ${desde}</div></div></div>`;
+      }).join('');
+    }
+  }
+}
+
 function renderInicio() {
   const ahora = new Date();
   const hoy = hoyISO();
@@ -5961,31 +6095,39 @@ function renderInicio() {
   const movsSocMes = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).filter(m => (m.fecha||'').slice(0,7) === hoy.slice(0,7));
   const socInArs = movsSocMes.filter(m => m.tipo !== 'gasto' && m.moneda !== 'USD').reduce((a,m) => a + m.monto, 0);
   const socGaArs = movsSocMes.filter(m => m.tipo === 'gasto' && m.moneda !== 'USD').reduce((a,m) => a + m.monto, 0);
-  document.getElementById('inicioTiles').innerHTML = `
-    <div class="tile" onclick="navTo('jurisprudencia')">
+  // Tiles del inicio. Kevin pidió un inicio podado: sólo Oficios y Tareas.
+  const __esKevin = (typeof usuarioActual === 'function' && usuarioActual() === 'kevindaich');
+  const __esSofiG = (typeof usuarioActual === 'function' && usuarioActual() === 'sofig');
+  const __tileFallos = `<div class="tile" onclick="navTo('jurisprudencia')">
       <div class="num">${casos.length}</div><div class="lbl">Fallos en la base</div>
       <div class="sub">${casos.filter(c=>c.resultado==='Favorable').length} favorables · ${Object.keys(pdfs).length} con PDF</div>
-    </div>
-    ${__pf.inicioJud ? `<div class="tile" onclick="navTo('expedientes')">
+    </div>`;
+  const __tileCausas = __pf.inicioJud ? `<div class="tile" onclick="navTo('expedientes')">
       <div class="num">${expedientes.length}</div><div class="lbl">Causas en prueba</div>
       <div class="sub">${expedientes.filter(e=>(e.jurisdiccion||'CABA')==='CABA').length} CABA · ${expedientes.filter(e=>e.jurisdiccion==='PBA').length} PBA</div>
-    </div>
-    <div class="tile" onclick="abrirListadoOficios()">
+    </div>` : '';
+  const __tileOficios = __pf.inicioJud ? `<div class="tile" onclick="abrirListadoOficios()">
       <div class="num">${oficios.length}</div><div class="lbl">Oficios sin contestar</div>
       <div class="sub ${ofVencidos ? 'alerta' : ''}">${ofVencidos ? ofVencidos + ' con plazo de control vencido' : 'Ninguno vencido'}</div>
-    </div>` : ''}
-    <div class="tile" onclick="navTo('agenda')">
+    </div>` : '';
+  const __tileTareas = `<div class="tile" onclick="navTo('agenda')">
       <div class="num">${tareasPend.length}</div><div class="lbl">Tareas pendientes</div>
       <div class="sub ${tVencidas ? 'alerta' : ''}">${tVencidas ? tVencidas + ' vencida' + (tVencidas>1?'s':'') : 'Al día'}</div>
-    </div>
-    ${__pf.cajaJud === 'full' ? `<div class="tile" onclick="navTo('caja')">
+    </div>`;
+  const __tileCajaJud = __pf.cajaJud === 'full' ? `<div class="tile" onclick="navTo('caja')">
       <div class="num">${pagosMesAct.length}</div><div class="lbl">Caja judicial — pagos este mes</div>
       <div class="sub">$ ${fmtNumStr(cajaArs)} · u$s ${fmtNumStr(cajaUsd)}</div>
-    </div>` : ''}
-    ${__pf.cajaSoc ? `<div class="tile" onclick="navTo('cajasoc')">
+    </div>` : '';
+  const __tileCajaSoc = __pf.cajaSoc ? `<div class="tile" onclick="navTo('cajasoc')">
       <div class="num">${movsSocMes.length}</div><div class="lbl">Caja societaria — movimientos</div>
       <div class="sub">▲ $ ${fmtNumStr(socInArs)} · ▼ $ ${fmtNumStr(socGaArs)}</div>
-    </div>` : ''}`;
+    </div>` : '';
+  try { renderAlertasInicio(); } catch(e) {}
+  document.getElementById('inicioTiles').innerHTML = __esKevin
+    ? (__tileOficios + __tileTareas + __tileCajaJud)
+    : __esSofiG
+    ? (__tileCausas + __tileOficios + __tileTareas)
+    : (__tileFallos + __tileCausas + __tileOficios + __tileTareas + __tileCajaJud + __tileCajaSoc);
 
   // Vencimientos combinados
   const items = [];
@@ -9148,6 +9290,8 @@ function aplicarPermisos() {
   document.body.classList.toggle('caja-ori', pf.cajaJud === 'ori');
   document.body.classList.toggle('sin-jud', !pf.inicioJud);
   document.body.classList.toggle('inicio-crm-first', usuarioActual() === 'ivana');
+  document.body.classList.toggle('inicio-kevin', usuarioActual() === 'kevindaich');
+  document.body.classList.toggle('inicio-sofig', usuarioActual() === 'sofig');
   // ARICCAME: visible sólo para NAZA, KEVIN, SOFI G e IVANA
   const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
