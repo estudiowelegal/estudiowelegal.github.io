@@ -1093,7 +1093,8 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .aric-wa-mini{font-size:11.5px;padding:6px 11px}
 .wa-ico{width:17px;height:17px;flex:0 0 auto;display:inline-block}
 .wa-ico-modal{width:22px;height:22px;display:inline-block}
-.aric-wa-fila{background:transparent;border:none;cursor:pointer;padding:3px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;opacity:.9}
+.aric-wa-fila{background:transparent;border:none;cursor:pointer;padding:4px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;opacity:.9}
+.aric-wa-fila img.wa-ico{width:26px;height:26px}
 .aric-wa-fila:hover{background:#e6f7ec;opacity:1}
 .aric-wa-plantilla{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 18px 4px;padding:10px 12px;background:#f0f7f2;border:1px solid #cfe6d8;border-radius:var(--radio-s)}
 .aric-wa-plantilla-txt{font-size:12px;color:var(--tinta-suave);flex:1;min-width:180px}
@@ -5684,25 +5685,59 @@ function aricSetEstado(e){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.estado=e
 function aricAddNota(){ const v=document.getElementById('aeNota').value.trim(); if(!v) return;
   const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.hist=l.hist||[]; l.hist.push(new Date().toLocaleDateString('es-AR')+' — '+v); aricPintarDrawer(); }
 // Arma un mensaje corto e informal para el cliente (WhatsApp) según el estado de la licencia.
+// Limpieza básica de la nota interna antes de mostrarla al cliente (no reescribe el sentido,
+// solo saca groserías/muletillas comunes y prolija mayúsculas y espacios).
+function aricLimpiarNota(txt){
+  let s = (txt||'').toString().trim();
+  if(!s) return '';
+  // Quitar SOLO groserías/expresiones fuertes junto con conectores que las rodean,
+  // para no dejar la frase coja. No se tocan muletillas suaves (obvio, posta) porque
+  // sacarlas del medio rompería la oración; para eso queda la edición manual.
+  const fuertes = [
+    /\b(la\s+)?concha\s+(de\s+)?(tu\s+|la\s+)?\w*/gi,
+    /,?\s*(qu[eé]\s+)?(garr[oó]n|quilombo)\b/gi,
+    /,?\s*(una\s+|la\s+)?(pelotud\w*|bolud\w*|pelotudez|boludez)\b/gi,
+    /\b(de|una|la|el)\s+mierda\b/gi, /\bmierda\b/gi, /\bcarajo\b/gi, /\bcag\w+/gi,
+    /,?\s*\bchot\w+/gi, /^\s*uf,?\s*/i
+  ];
+  fuertes.forEach(rx => { s = s.replace(rx, ''); });
+  // colapsar espacios, comas y puntos duplicados que hayan quedado
+  s = s.replace(/\s+/g, ' ')
+       .replace(/\s+([,\.;:])/g, '$1')
+       .replace(/([,\.;:])\1+/g, '$1')
+       .replace(/,\s*\./g, '.')
+       .replace(/,\s*,/g, ',')
+       .trim();
+  // quitar signos y conectores sueltos al inicio
+  s = s.replace(/^[,\.;:\s]+/, '').replace(/^(de|la|el|una|un|que)\s+/i, '');
+  // capitalizar la primera letra
+  if(s) s = s.charAt(0).toUpperCase() + s.slice(1);
+  // asegurar punto final
+  if(s && !/[\.!?]$/.test(s)) s += '.';
+  return s;
+}
+
 function aricMensajeCliente(c, l){
   const nombre = (c.nombre || '').trim().split(/\s+/)[0] || ''; // primer nombre, saludo informal
   const hola = nombre ? ('Hola ' + nombre + '! ') : 'Hola! ';
   const tipo = l.tipo ? l.tipo.toLowerCase() : '';
   const lic = 'la licencia ' + tipo + ' de ARICCAME';
   if (l.estado === 'a_subsanar'){
-    let m = hola + 'Te escribo porque tenemos una novedad con ' + lic + '.\n\n';
+    let m = hola + 'Te escribo porque tenemos una novedad con ' + lic + '.\n';
     m += 'Desde ARICCAME nos pidieron presentar una subsanación, que es una corrección o información adicional que necesitan para seguir con el trámite.';
-    if (l.subsDetalle && l.subsDetalle.trim()){
-      m += '\n\nPuntualmente, lo que nos están pidiendo es: ' + l.subsDetalle.trim() + '.';
+    const nota = aricLimpiarNota(l.subsDetalle);
+    if (nota){
+      m += '\nPuntualmente, lo que nos están pidiendo es: ' + nota;
     }
-    m += '\n\nNecesito que lo gestionemos para poder responder en tiempo. Cualquier cosa que precise de tu parte te voy avisando. Quedo atento!';
+    m += '\nTené en cuenta que tenemos un plazo de 30 días hábiles para presentar la documentación que nos piden; de lo contrario, ARICCAME puede dar de baja el trámite.';
+    m += '\nNecesito que lo gestionemos para poder responder en tiempo. Cualquier cosa que precise de tu parte te voy avisando. Quedo atento!';
     return m;
   }
   if (l.estado === 'aprobada'){
-    let m = hola + 'Te tengo una excelente noticia 🎉\n\n';
-    m += '¡Ya nos aprobaron ' + lic + '! Es un paso importante y un logro para tu proyecto: significa que quedás habilitado formalmente para avanzar con la actividad.';
-    m += '\n\nFue un trabajo que llevó su tiempo y su gestión, así que te felicito, este resultado también es tuyo.';
-    m += '\n\nCualquier paso que siga a partir de ahora te lo voy avisando y te acompaño en lo que necesites. Un abrazo grande!';
+    let m = hola + 'Te tengo una excelente noticia 🎉\n';
+    m += '¡Ya nos aprobaron ' + lic + '! Es un paso importante y un logro para tu proyecto: significa que quedás habilitado formalmente para avanzar con la actividad.\n';
+    m += 'Fue un trabajo que llevó su tiempo y su gestión, así que te felicito, este resultado también es tuyo.\n';
+    m += 'Cualquier paso que siga a partir de ahora te lo voy avisando y te acompaño en lo que necesites. Un abrazo grande!';
     return m;
   }
   return hola + 'Tenemos una novedad con ' + lic + '. Te escribo para comentarte.';
@@ -5715,14 +5750,14 @@ function aricMensajeDJ(c, l, periodo){
   const per = periodo || 'este período';
   const tipo = l && l.tipo ? l.tipo.toLowerCase() : '';
   const esIndustrialOct = (tipo === 'industrial' && per === 'octubre');
-  let m = hola + 'Te escribo porque estamos en ' + per + ' y tenemos todo el mes para presentar la declaración jurada de ARICCAME correspondiente a ' + lic_o_tipo(l) + '.\n\n';
-  m += 'Para poder armarla, necesito que me pases estos datos:\n\n';
+  let m = hola + 'Te escribo porque estamos en ' + per + ' y tenemos todo el mes para presentar la declaración jurada de ARICCAME correspondiente a ' + lic_o_tipo(l) + '.\n';
+  m += 'Para poder armarla, necesito que me pases estos datos:\n';
   m += '• La cantidad de materia que tenés actualmente.\n';
   m += '• En qué forma está: semilla, fibra o grano.';
   if (esIndustrialOct){
     m += '\n• Si hubo facturación vinculada a esta actividad. Esto es importante: en caso de que haya habido facturación, corresponde abonar el 0,5% de esa facturación como tasa a ARICCAME.';
   }
-  m += '\n\nTe voy a pasar también una planilla para que puedas ir completando la información de forma ordenada. Cualquier duda que tengas para llenarla, me avisás y lo vemos juntos. Gracias!';
+  m += '\nTe voy a pasar también una planilla para que puedas ir completando la información de forma ordenada. Cualquier duda que tengas para llenarla, me avisás y lo vemos juntos. Gracias!';
   return m;
 }
 function lic_o_tipo(l){
