@@ -1099,6 +1099,43 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .aric-wa-plantilla{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 18px 4px;padding:10px 12px;background:#f0f7f2;border:1px solid #cfe6d8;border-radius:var(--radio-s)}
 .aric-wa-plantilla-txt{font-size:12px;color:var(--tinta-suave);flex:1;min-width:180px}
 .aric-wa-dl{white-space:nowrap}
+/* ── Cuadro para reunión ARICCAME ── */
+.aric-btn-cuadro{background:#14294a}
+.aric-btn-cuadro:hover{background:#0f1f38}
+.aric-cuadro-modal{display:none;position:fixed;inset:0;background:rgba(12,20,15,.55);z-index:345;align-items:center;justify-content:center;padding:24px}
+.aric-cuadro-card{background:var(--carta);border-radius:var(--radio);width:1000px;max-width:97vw;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 24px 70px rgba(12,20,15,.35);overflow:hidden}
+.crm-cuadro-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:2px solid #c9a961;background:#14294a;flex:0 0 auto}
+.crm-cuadro-head h2{color:#fff;font-size:18px;margin:0}
+.crm-cuadro-sub{color:#e7ddc4;font-size:12.5px;margin:4px 0 0}
+.crm-cuadro-actions{display:flex;gap:8px;align-items:center;flex:0 0 auto}
+.crm-cuadro-actions .aric-wa-x{color:#fff;font-size:18px}
+.crm-cuadro-actions .aric-wa-x:hover{background:rgba(255,255,255,.15)}
+.crm-cuadro-scroll{overflow-y:auto;overflow-x:auto;padding:0;flex:1 1 auto;min-height:0;max-height:calc(92vh - 90px)}
+.crm-cuadro-tabla{width:100%;border-collapse:collapse;font-size:13px}
+.crm-cuadro-tabla thead th{position:sticky;top:0;background:#f0eee7;color:var(--tinta);text-align:left;padding:11px 14px;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;border-bottom:2px solid var(--filo);white-space:nowrap}
+.crm-cuadro-tabla td{padding:11px 14px;border-bottom:1px solid var(--filo-suave);vertical-align:top}
+.crm-cuadro-tabla tbody tr:hover{background:var(--papel)}
+.crm-td-num{color:var(--tinta-suave);width:34px}
+.crm-td-cli{font-weight:700}
+.crm-td-exp{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--tinta-suave);white-space:nowrap}
+.crm-td-sub{font-size:12px;line-height:1.5;max-width:320px}
+.crm-badge-sub{display:inline-block;background:var(--mal-bg);color:var(--mal);font-weight:700;font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.crm-badge-tram{display:inline-block;background:var(--info-bg);color:var(--info);font-weight:700;font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+@media print{
+  body *{visibility:hidden}
+  #aricCuadroModal,#aricCuadroModal *{visibility:visible}
+  #aricCuadroModal{position:absolute;inset:0;background:#fff;padding:0}
+  .aric-cuadro-card{box-shadow:none;max-height:none;width:100%}
+  .crm-cuadro-actions{display:none}
+}
+.crm-td-hist{font-size:11px;line-height:1.5;color:var(--tinta-suave);max-width:360px;min-width:220px}
+.aric-tlitem{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.aric-tltxt{flex:1;min-width:0}
+.aric-tlacc{display:inline-flex;gap:2px;flex:0 0 auto;opacity:0;transition:opacity .12s}
+.aric-tlitem:hover .aric-tlacc{opacity:1}
+.aric-tlbtn{background:transparent;border:none;cursor:pointer;font-size:12px;color:var(--tinta-suave);padding:2px 5px;border-radius:5px;line-height:1}
+.aric-tlbtn:hover{background:var(--papel);color:var(--tinta)}
+.aric-tlbtn-del:hover{background:var(--mal-bg);color:var(--mal)}
 </style>
 </head>
 <body>
@@ -2103,6 +2140,9 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <!-- Overlay + Drawer de edición de licencia -->
 <div id="aricOverlay" class="aric-overlay" onclick="aricCerrarDrawer()"></div>
 <div id="aricDrawer" class="aric-drawer"></div>
+<div id="aricCuadroModal" class="aric-cuadro-modal" onclick="if(event.target===this)aricCerrarCuadroReunion()">
+  <div class="aric-cuadro-card"><div id="aricCuadroBody"></div></div>
+</div>
 <div id="aricWaModal" class="aric-wa-modal" onclick="if(event.target===this)aricWaCerrar()">
   <div class="aric-wa-card">
     <div class="aric-wa-head"><span class="aric-wa-logo"><img src="" id="aricWaLogoImg" class="wa-ico-modal" alt="WhatsApp"></span>
@@ -5603,6 +5643,168 @@ function aricFiltrarClientes(){
     return {...c,licencias:lics};
   }).filter(c=>c.licencias.length && (!ARIC_Q||aricNorm(c.nombre).includes(ARIC_Q)||aricNorm(c.cuit).includes(ARIC_Q)));
 }
+// ── Cuadro para reunión con ARICCAME (cáñamo): licencias en trámite y a subsanar ──
+// Limpia el nombre para el cuadro: saca lo que esté entre paréntesis y pasa a mayúsculas.
+function aricNombreCuadro(n){
+  return (n||'').replace(/\s*\([^)]*\)/g,'').replace(/\s+/g,' ').trim().toUpperCase();
+}
+// Resumen del historial: las últimas gestiones, más viejas primero, en una línea.
+function aricResumenHist(l){
+  const h=(l.hist||[]).filter(x=>String(x||'').trim());
+  if(!h.length) return '<span style="color:var(--tinta-suave)">Sin gestiones registradas</span>';
+  return h.map(e=>aricEsc(String(e))).join('<br>');
+}
+function aricSubsInfo(l){
+  // Devuelve {fecha, motivo} del pedido de subsanación, tomando primero los campos
+  // dedicados y, si no hay, la última mención en el historial.
+  let fecha = l.fechaSubsPedido ? aricFdmy(l.fechaSubsPedido) : '';
+  let motivo = (l.subsDetalle||'').trim();
+  if(!motivo || !fecha){
+    const h = (l.hist||[]);
+    // buscar de atrás hacia adelante una entrada que hable de subsanación
+    for(let i=h.length-1;i>=0;i--){
+      const e = String(h[i]||'');
+      if(/subsan/i.test(e)){
+        const m = e.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
+        if(!fecha && m) fecha = m[1];
+        if(!motivo) motivo = e.replace(/^\d{1,2}\/\d{1,2}\/\d{2,4}\s*/,'').trim();
+        break;
+      }
+    }
+  }
+  return { fecha, motivo };
+}
+
+// Exporta el cuadro de situación a un Excel (.xls) que se abre en Excel/LibreOffice.
+function aricExportarCuadroExcel(){
+  const data = (ARIC||[]).filter(c=>(c.submodulo||'canamo')==='canamo');
+  const filas = [];
+  data.forEach(c=>{
+    c.licencias.forEach(l=>{
+      if(l.estado!=='en_tramite' && l.estado!=='a_subsanar') return;
+      filas.push({ nombre:c.nombre, tipo:l.tipo, inicio:l.inicio, exp:l.exp||'', estado:l.estado, l });
+    });
+  });
+  filas.sort((a,b)=>{
+    if(a.estado!==b.estado) return a.estado==='a_subsanar'?-1:1;
+    return aricNorm(a.nombre).localeCompare(aricNorm(b.nombre));
+  });
+  const esc = s => String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+  const hoy = new Date().toLocaleDateString('es-AR');
+  const th = t => '<th style="background:#14294a;color:#fff;border:1px solid #999;padding:6px;font-family:Calibri;font-size:11pt;text-align:left">'+esc(t)+'</th>';
+  const td = (v,extra) => '<td style="border:1px solid #ccc;padding:6px;font-family:Calibri;font-size:10pt;vertical-align:top;'+(extra||'')+'">'+v+'</td>';
+  const rows = filas.map(f=>{
+    const estLbl = f.estado==='a_subsanar' ? 'A subsanar' : 'En trámite';
+    let sub = '';
+    if(f.estado==='a_subsanar'){
+      const s = aricSubsInfo(f.l);
+      const p = [];
+      if(s.fecha) p.push(s.fecha);
+      if(s.motivo) p.push(s.motivo);
+      sub = p.join(' — ');
+    }
+    const hist = (f.l.hist||[]).filter(x=>String(x||'').trim()).map(x=>esc(x)).join('&#10;');
+    return '<tr>'
+      + td(esc(aricNombreCuadro(f.nombre)),'font-weight:bold')
+      + td(esc(f.tipo))
+      + td(esc(aricFdmy(f.inicio)||'—'))
+      + td(esc(f.exp||'—'),'font-family:Consolas;font-size:9pt')
+      + td(esc(estLbl))
+      + td(esc(sub)||'—')
+      + td(hist||'—')
+      + '</tr>';
+  }).join('');
+  const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">'
+    + '<head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+    + '<x:Name>Situacion ARICCAME</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>'
+    + '</x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>'
+    + '<table border="1" cellspacing="0" cellpadding="0">'
+    + '<tr><td colspan="7" style="font-family:Calibri;font-size:14pt;font-weight:bold;padding:8px">Licencias en gestión — ARICCAME Cáñamo</td></tr>'
+    + '<tr><td colspan="7" style="font-family:Calibri;font-size:10pt;padding:4px 8px">Estado al '+esc(hoy)+' · '+filas.length+' licencia(s)</td></tr>'
+    + '<tr>'+th('Cliente')+th('Tipo')+th('Inicio')+th('N° de expediente')+th('Estado')+th('Pedido de subsanación')+th('Gestiones realizadas')+'</tr>'
+    + rows
+    + '</table></body></html>';
+  try{
+    const blob = new Blob(['\ufeff'+html], {type:'application/vnd.ms-excel'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'situacion_ariccame_'+new Date().toISOString().slice(0,10)+'.xls';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+    if(typeof aricToast==='function') aricToast('Descargando Excel…');
+  }catch(e){ if(typeof aricToast==='function') aricToast('No se pudo generar el Excel'); }
+}
+
+function aricAbrirCuadroReunion(){
+  const data = (ARIC||[]).filter(c=>(c.submodulo||'canamo')==='canamo');
+  const filas = [];
+  data.forEach(c=>{
+    c.licencias.forEach(l=>{
+      if(l.estado!=='en_tramite' && l.estado!=='a_subsanar') return;
+      filas.push({ nombre:c.nombre, tipo:l.tipo, inicio:l.inicio, exp:l.exp||'', estado:l.estado, l });
+    });
+  });
+  // ordenar por estado (a_subsanar primero) y luego por nombre
+  filas.sort((a,b)=>{
+    if(a.estado!==b.estado) return a.estado==='a_subsanar'?-1:1;
+    return aricNorm(a.nombre).localeCompare(aricNorm(b.nombre));
+  });
+  const hoy = new Date().toLocaleDateString('es-AR');
+  const nSub = filas.filter(f=>f.estado==='a_subsanar').length;
+  const nTram = filas.filter(f=>f.estado==='en_tramite').length;
+  const rows = filas.map((f)=>{
+    const est = f.estado==='a_subsanar'
+      ? '<span class="crm-badge-sub">A subsanar</span>'
+      : '<span class="crm-badge-tram">En trámite</span>';
+    let subCell = '—';
+    if(f.estado==='a_subsanar'){
+      const s = aricSubsInfo(f.l);
+      const partes = [];
+      if(s.fecha) partes.push('<b>'+s.fecha+'</b>');
+      if(s.motivo) partes.push(aricEsc(s.motivo));
+      subCell = partes.length ? partes.join(' — ') : '<span style="color:#b3372a">Pendiente de detalle</span>';
+    }
+    return `<tr>
+      <td class="crm-td-cli">${aricEsc(aricNombreCuadro(f.nombre))}</td>
+      <td>${aricEsc(f.tipo)}</td>
+      <td>${aricFdmy(f.inicio)||'—'}</td>
+      <td class="crm-td-exp">${aricEsc(f.exp)||'—'}</td>
+      <td>${est}</td>
+      <td class="crm-td-sub">${subCell}</td>
+      <td class="crm-td-hist">${aricResumenHist(f.l)}</td>
+    </tr>`;
+  }).join('');
+  const cont = document.getElementById('aricCuadroModal');
+  const body = document.getElementById('aricCuadroBody');
+  if(body){
+    body.innerHTML = `
+      <div class="crm-cuadro-head">
+        <div>
+          <h2>Licencias en gestión — ARICCAME Cáñamo</h2>
+          <p class="crm-cuadro-sub">Estado al ${hoy} · ${filas.length} licencia(s): ${nSub} a subsanar, ${nTram} en trámite</p>
+        </div>
+        <div class="crm-cuadro-actions">
+          <button class="aric-btn-ghost" onclick="aricExportarCuadroExcel()">⬇ Descargar Excel</button>
+          <button class="aric-btn-ghost" onclick="window.print()">🖨 Imprimir</button>
+          <button class="aric-wa-x" onclick="aricCerrarCuadroReunion()">✕</button>
+        </div>
+      </div>
+      <div class="crm-cuadro-scroll">
+      <table class="crm-cuadro-tabla">
+        <thead><tr>
+          <th>Cliente</th><th>Tipo</th><th>Inicio</th><th>N° de expediente</th><th>Estado</th><th>Pedido de subsanación</th><th>Gestiones realizadas</th>
+        </tr></thead>
+        <tbody>${rows||'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--tinta-suave)">No hay licencias en trámite ni a subsanar</td></tr>'}</tbody>
+      </table>
+      </div>`;
+  }
+  if(cont) cont.style.display='flex';
+}
+function aricCerrarCuadroReunion(){ const m=document.getElementById('aricCuadroModal'); if(m) m.style.display='none'; }
+
 function aricSolicHTML(){
   const cli=aricFiltrarClientes();
   const tot=cli.reduce((a,c)=>a+c.licencias.length,0);
@@ -5614,6 +5816,7 @@ function aricSolicHTML(){
   <div class="aric-toolbar">
   <input placeholder="Buscar por cliente o CUIT..." value="${aricEsc(ARIC_Q)}" oninput="ARIC_Q=aricNorm(this.value);aricRefrescar()">
   ${filtroTipo}
+  ${ARIC_VIEW==='canamo'?`<button class="aric-btn aric-btn-cuadro" onclick="aricAbrirCuadroReunion()">📊 Generar cuadro de situación</button>`:''}
   <button class="aric-btn" onclick="aricAbrirModalLic()">+ Nueva licencia</button></div>
   <div class="aric-count">${cli.length} cliente(s) · ${tot} licencia(s)</div>
   <div class="aric-cards" id="aricLista">${cli.map(aricCliCard).join('')||'<div class="aric-empty">Sin resultados</div>'}</div>`;
@@ -5669,7 +5872,7 @@ function aricPintarDrawer(){
   return `<div class="aric-djline"><span>${d.sem} ${d.anio}</span>${et}</div>`;}).join('')||'<span style="color:var(--tinta-suave);font-size:12px">Sin DJ registradas</span>'}</div>
   </div>`:''}
   <div class="aric-sec"><h4>Historial</h4>
-  <div class="aric-tl">${(l.hist||[]).map(h=>`<div class="aric-tlitem">${aricEsc(h)}</div>`).join('')||'<div class="aric-tlitem" style="color:var(--tinta-suave)">Sin entradas</div>'}</div>
+  <div class="aric-tl">${(l.hist||[]).map((h,hi)=>`<div class="aric-tlitem"><span class="aric-tltxt">${aricEsc(h)}</span><span class="aric-tlacc"><button class="aric-tlbtn" title="Editar" onclick="aricEditarNota(${hi})">✎</button><button class="aric-tlbtn aric-tlbtn-del" title="Borrar" onclick="aricBorrarNota(${hi})">✕</button></span></div>`).join('')||'<div class="aric-tlitem" style="color:var(--tinta-suave)">Sin entradas</div>'}</div>
   <div class="aric-tladd"><input id="aeNota" placeholder="Agregar entrada al historial..."><button class="aric-btn" style="padding:6px 12px" onclick="aricAddNota()">+</button></div></div>
   </div>
   <div class="aric-drfoot">
@@ -5684,6 +5887,25 @@ function aricSetEstado(e){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.estado=e
   if(e==='a_subsanar'&&!l.fechaSubsPedido) l.fechaSubsPedido=new Date().toISOString().slice(0,10); aricPintarDrawer(); }
 function aricAddNota(){ const v=document.getElementById('aeNota').value.trim(); if(!v) return;
   const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.hist=l.hist||[]; l.hist.push(new Date().toLocaleDateString('es-AR')+' — '+v); aricPintarDrawer(); }
+// Editar una entrada del historial de la licencia abierta.
+function aricEditarNota(idx){
+  const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; if(!l||!l.hist||idx<0||idx>=l.hist.length) return;
+  const actual=String(l.hist[idx]||'');
+  const nuevo=prompt('Editar entrada del historial:', actual);
+  if(nuevo===null) return;                 // canceló
+  const t=nuevo.trim();
+  if(!t){ aricBorrarNota(idx); return; }    // si lo dejó vacío, se borra
+  l.hist[idx]=t;
+  aricPintarDrawer();
+}
+// Borrar una entrada del historial (con confirmación).
+function aricBorrarNota(idx){
+  const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; if(!l||!l.hist||idx<0||idx>=l.hist.length) return;
+  const txt=String(l.hist[idx]||'');
+  if(!confirm('¿Borrar esta entrada del historial?\n\n'+txt)) return;
+  l.hist.splice(idx,1);
+  aricPintarDrawer();
+}
 // Arma un mensaje corto e informal para el cliente (WhatsApp) según el estado de la licencia.
 // Limpieza básica de la nota interna antes de mostrarla al cliente (no reescribe el sentido,
 // solo saca groserías/muletillas comunes y prolija mayúsculas y espacios).
