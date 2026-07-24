@@ -1136,6 +1136,175 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .aric-tlbtn{background:transparent;border:none;cursor:pointer;font-size:12px;color:var(--tinta-suave);padding:2px 5px;border-radius:5px;line-height:1}
 .aric-tlbtn:hover{background:var(--papel);color:var(--tinta)}
 .aric-tlbtn-del:hover{background:var(--mal-bg);color:var(--mal)}
+/* ── Panel "Esta semana" ── */
+.panel-misemana .panel-h{background:#14294a;border-bottom:2px solid #c9a961;display:flex;align-items:center;justify-content:space-between}
+.panel-misemana .panel-h h3{color:#fff;font-size:15px}
+.panel-misemana .panel-h .mini{color:#e7ddc4;font-weight:600}
+.ms-item{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--filo-suave);cursor:pointer;transition:background .12s}
+.ms-item:last-child{border-bottom:none}
+.ms-item:hover{background:var(--papel)}
+.ms-item.ms-hoy{background:#fbf7ea}
+.ms-item.ms-hoy:hover{background:#f7f1de}
+.ms-dia{flex:0 0 auto;width:88px;font-size:13px;font-weight:700;color:#14294a;display:flex;flex-direction:column;line-height:1.25}
+.ms-dia small{font-size:11px;font-weight:600;color:var(--tinta-suave)}
+.ms-item.ms-hoy .ms-dia{color:var(--oro-osc,#a07713)}
+.ms-txt{flex:1;min-width:0}
+.ms-txt .t{font-size:13.5px;font-weight:600;color:var(--tinta);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-txt .s{font-size:11.5px;color:var(--tinta-suave);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ── Módulo Abonos ── */
+.abo-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:14px}
+.abo-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--oro,#a07713);font-weight:700;margin-bottom:6px}
+.abo-h1{font-family:var(--serif,'Palatino Linotype');font-size:26px;color:#14294a;font-weight:700;text-transform:capitalize}
+.abo-mesnav{display:inline-flex;gap:6px;align-items:center}
+.abo-mesnav button{font-family:var(--f-ui,inherit);font-size:13px;border:1px solid var(--filo);background:var(--carta);color:var(--tinta);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:600}
+.abo-mesnav button:hover{background:var(--papel)}
+.abo-mesnav button.hoy{background:#14294a;color:#fff;border-color:#14294a}
+.abo-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+.abo-kpi{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px;position:relative;overflow:hidden}
+.abo-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ok,#1e7a48)}
+.abo-kpi.usd::before{background:#2e7d32}
+.abo-kpi.neutral::before{background:var(--warn,#a86e17)}
+.abo-kpi .lbl{font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--tinta-suave);font-weight:600;margin-bottom:7px}
+.abo-kpi .val{font-family:var(--serif,'Palatino Linotype');font-size:23px;font-weight:700;color:var(--tinta);line-height:1.1}
+.abo-kpi .sub{font-size:12px;color:var(--tinta-suave);margin-top:5px}
+.abo-kpi .bar{height:6px;background:var(--filo-suave);border-radius:4px;margin-top:10px;overflow:hidden}
+.abo-kpi .bar span{display:block;height:100%;background:var(--ok,#1e7a48);border-radius:4px;transition:width .5s}
+.abo-kpi.usd .bar span{background:#2e7d32}
+.abo-sec{margin-bottom:24px}
+.abo-sec-h{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--tinta-suave);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.abo-sec-h span{background:var(--filo-suave);color:var(--tinta-suave);font-size:11px;padding:2px 9px;border-radius:20px}
+.abo-fila{display:flex;align-items:center;gap:14px;background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio-s,9px);padding:11px 15px;margin-bottom:8px}
+.abo-fila.pg{background:#fbfdfb;border-color:#d4e8dc}
+.abo-fila.pausada{opacity:.7}
+.abo-check{width:30px;height:30px;flex:0 0 auto;border-radius:8px;border:2px solid var(--filo);background:var(--carta);cursor:pointer;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.abo-check.on{background:var(--ok,#1e7a48);border-color:var(--ok,#1e7a48)}
+.abo-check:hover{border-color:var(--ok,#1e7a48)}
+.abo-cli{flex:1;min-width:0}
+.abo-cli .n{font-size:14px;font-weight:600;color:var(--tinta);display:flex;align-items:center;gap:8px}
+.abo-cli .d{font-size:12px;color:var(--tinta-suave);margin-top:2px}
+.abo-mon{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.5px}
+.abo-mon.ars{background:#e6eef8;color:#1c56a5}
+.abo-mon.usd{background:#e3f0e6;color:#2e7d32}
+.abo-mid{flex:0 0 auto;text-align:right;min-width:150px}
+.abo-estado{font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.abo-estado.ok{background:var(--ok-bg,#e6f3ec);color:var(--ok,#1e7a48)}
+.abo-estado.debe{background:var(--warn-bg,#f8eed7);color:var(--warn,#a86e17)}
+.abo-aq{font-size:11px;color:var(--tinta-suave);margin-top:3px}
+.abo-reg{flex:0 0 auto;font-size:12px;font-weight:600;border:1px solid var(--filo);background:var(--carta);color:#14294a;border-radius:8px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.abo-reg:hover{background:var(--papel)}
+.abo-sec.pausados .abo-sec-h{color:#a06a6a}
+@media (max-width:760px){ .abo-kpis{grid-template-columns:1fr} .abo-mid{min-width:0} }
+/* ── Modal de registro de pago de abono ── */
+.abo-reg-modal{display:none;position:fixed;inset:0;background:rgba(12,20,15,.5);z-index:344;align-items:center;justify-content:center;padding:20px}
+.abo-reg-card{background:var(--carta);border-radius:var(--radio,12px);width:540px;max-width:96vw;max-height:92vh;overflow:auto;box-shadow:0 22px 64px rgba(12,20,15,.32)}
+.abo-reg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:20px 24px;border-bottom:2px solid var(--oro,#c9a961);background:#14294a}
+.abo-reg-cli{font-family:var(--serif,'Palatino Linotype');font-size:19px;font-weight:700;color:#fff}
+.abo-reg-sub{font-size:12.5px;color:#e7ddc4;margin-top:3px}
+.abo-reg-x{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer;padding:2px 8px;border-radius:6px;flex:0 0 auto}
+.abo-reg-x:hover{background:rgba(255,255,255,.15)}
+.abo-reg-body{padding:20px 24px}
+.abo-reg-switch{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--tinta);margin-bottom:16px;cursor:pointer;padding:10px 14px;background:var(--papel);border-radius:var(--radio-s,9px);border:1px solid var(--filo)}
+.abo-reg-switch input{width:17px;height:17px;cursor:pointer;accent-color:var(--ok,#1e7a48)}
+.abo-reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.abo-reg-fld{margin-bottom:14px}
+.abo-reg-fld label{display:block;font-size:11.5px;font-weight:600;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.abo-reg-fld label .opt{text-transform:none;font-weight:400;letter-spacing:0}
+.abo-reg-fld input,.abo-reg-fld textarea{width:100%;padding:10px 12px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;color:var(--tinta);background:var(--carta);box-sizing:border-box}
+.abo-reg-fld input:focus,.abo-reg-fld textarea:focus{outline:none;border-color:#14294a}
+.abo-reg-fld textarea{resize:vertical}
+.abo-reg-comprob{margin-top:2px}
+.abo-comprob-drop{display:flex;align-items:center;gap:10px;padding:14px;border:1.5px dashed var(--filo);border-radius:var(--radio-s,9px);cursor:pointer;font-size:13px;color:var(--tinta-suave);background:var(--papel);transition:border-color .15s}
+.abo-comprob-drop:hover{border-color:#14294a;color:var(--tinta)}
+.abo-comprob-drop .ico{font-size:16px}
+.abo-comprob-status{font-size:12px;color:var(--tinta-suave);margin-top:6px}
+.abo-comprob-ok{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--ok-bg,#e6f3ec);border:1px solid #cfe6d8;border-radius:var(--radio-s,9px);font-size:13px}
+.abo-comprob-ok .ico{flex:0 0 auto}
+.abo-comprob-ok .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tinta);font-weight:600}
+.abo-comprob-ok .ver,.abo-comprob-ok .quitar{flex:0 0 auto;border:none;background:transparent;font-size:12px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:6px}
+.abo-comprob-ok .ver{color:#14294a}
+.abo-comprob-ok .ver:hover{background:#fff}
+.abo-comprob-ok .quitar{color:var(--mal,#b3372a)}
+.abo-comprob-ok .quitar:hover{background:#fff}
+.abo-reg-chk{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--tinta);cursor:pointer;margin-top:4px}
+.abo-reg-chk input{width:16px;height:16px;cursor:pointer;accent-color:var(--ok,#1e7a48)}
+.abo-reg-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 24px;border-top:1px solid var(--filo);background:var(--papel)}
+.abo-reg-foot-r{display:flex;gap:9px;margin-left:auto}
+.abo-reg-del{border:none;background:transparent;color:var(--mal,#b3372a);font-size:13px;font-weight:600;cursor:pointer;padding:8px 10px;border-radius:8px}
+.abo-reg-del:hover{background:var(--mal-bg,#f9e3df)}
+.abo-reg-cancel{border:1px solid var(--filo);background:var(--carta);color:var(--tinta);font-size:13px;font-weight:600;cursor:pointer;padding:9px 16px;border-radius:8px}
+.abo-reg-cancel:hover{background:#fff}
+.abo-reg-save{border:none;background:#14294a;color:#fff;font-size:13px;font-weight:700;cursor:pointer;padding:9px 20px;border-radius:8px}
+.abo-reg-save:hover{background:var(--sello-osc,#0f1f38)}
+@media (max-width:520px){ .abo-reg-grid{grid-template-columns:1fr} }
+/* ═══ Cannabis: checklist documental ═══ */
+.aric-tb-title{font-size:14px;font-weight:600;color:var(--tinta)}
+.cnb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+.cnb-card{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:18px 20px;cursor:pointer;transition:box-shadow .15s,transform .15s}
+.cnb-card:hover{box-shadow:0 6px 20px rgba(12,20,15,.1);transform:translateY(-1px)}
+.cnb-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}
+.cnb-card-nom{font-size:15px;font-weight:700;color:var(--tinta);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cnb-badge-ah{font-size:10px;font-weight:700;background:#e4edfa;color:#1c56a5;padding:2px 7px;border-radius:5px;letter-spacing:.3px}
+.cnb-chip-ok{font-size:11.5px;font-weight:700;color:var(--ok,#1e7a48);background:var(--ok-bg,#e6f3ec);padding:3px 10px;border-radius:20px;white-space:nowrap}
+.cnb-chip-falta{font-size:11.5px;font-weight:700;color:var(--warn,#a86e17);background:var(--warn-bg,#f8eed7);padding:3px 10px;border-radius:20px;white-space:nowrap}
+.cnb-prog-bar{height:8px;background:var(--filo-suave);border-radius:5px;overflow:hidden}
+.cnb-prog-bar span{display:block;height:100%;background:#14294a;border-radius:5px;transition:width .5s}
+.cnb-prog-txt{font-size:12px;color:var(--tinta-suave);margin-top:7px}
+/* Drawer */
+.cnb-drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:560px;max-width:94vw;background:var(--papel);z-index:301;flex-direction:column;box-shadow:-8px 0 34px rgba(12,20,15,.2);overflow-y:auto}
+.cnb-drawer.open{display:flex;animation:aricSlide .22s cubic-bezier(.4,0,.2,1)}
+.cnb-dr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:22px 24px 16px;background:#14294a;border-bottom:2px solid #c9a961}
+.cnb-dr-head h2{font-family:var(--serif,'Palatino Linotype');font-size:21px;color:#fff}
+.cnb-dr-sub{font-size:12.5px;color:#e7ddc4;margin-top:4px}
+.cnb-dr-x{background:transparent;border:none;color:#fff;font-size:19px;cursor:pointer;padding:2px 8px;border-radius:6px;flex:0 0 auto}
+.cnb-dr-x:hover{background:rgba(255,255,255,.15)}
+.cnb-dr-progwrap{padding:0;background:#14294a}
+.cnb-dr-prog{height:6px;background:rgba(255,255,255,.15)}
+.cnb-dr-prog span{display:block;height:100%;background:var(--oro,#c9a961);transition:width .5s}
+.cnb-dr-body{padding:22px 24px;flex:1}
+.cnb-datos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.cnb-dato label{display:block;font-size:11.5px;font-weight:600;color:var(--tinta-suave);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.cnb-dato label .opt{text-transform:none;font-weight:400;letter-spacing:0;color:var(--tinta-suave)}
+.cnb-dato input{width:100%;padding:10px 12px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;color:var(--tinta);box-sizing:border-box}
+.cnb-dato input:focus{outline:none;border-color:#14294a}
+.cnb-ah{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--laurel,#e6eef8);border-radius:var(--radio-s,9px);font-size:13.5px;cursor:pointer;margin-bottom:20px}
+.cnb-ah input{width:17px;height:17px;margin-top:1px;cursor:pointer;accent-color:#14294a}
+.cnb-ah small{color:var(--tinta-suave);display:block;margin-top:2px}
+.cnb-docs-h{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--tinta-suave);font-weight:700;margin-bottom:12px}
+.cnb-docs{display:flex;flex-direction:column;gap:8px}
+.cnb-doc{display:flex;align-items:center;gap:13px;background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio-s,9px);padding:12px 15px}
+.cnb-doc.ok{background:#fbfdfb;border-color:#d4e8dc}
+.cnb-doc-chk{width:26px;height:26px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;background:var(--filo-suave);color:var(--tinta-suave)}
+.cnb-doc.ok .cnb-doc-chk{background:var(--ok,#1e7a48);color:#fff}
+.cnb-doc-info{flex:1;min-width:0}
+.cnb-doc-lbl{font-size:13.5px;font-weight:600;color:var(--tinta);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cnb-doc-opt{font-size:10px;font-weight:600;text-transform:uppercase;color:var(--tinta-suave);background:var(--filo-suave);padding:1px 6px;border-radius:4px;letter-spacing:.3px}
+.cnb-doc-rt{font-size:10px;font-weight:700;color:#1c56a5;background:#e4edfa;padding:1px 6px;border-radius:4px}
+.cnb-doc-status{font-size:11.5px;color:var(--tinta-suave);margin-top:2px}
+.cnb-doc-sub{flex:0 0 auto;cursor:pointer;font-size:12.5px;font-weight:600;color:#14294a;border:1px solid var(--filo);background:var(--carta);border-radius:8px;padding:7px 13px}
+.cnb-doc-sub:hover{background:var(--papel)}
+.cnb-doc-adj{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.cnb-doc-file{font-size:11.5px;color:var(--tinta-suave);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cnb-doc-b{border:none;background:transparent;font-size:12px;font-weight:600;cursor:pointer;padding:5px 9px;border-radius:6px}
+.cnb-doc-b.ver{color:#14294a;border:1px solid var(--filo)}
+.cnb-doc-b.ver:hover{background:var(--papel)}
+.cnb-doc-b.del{color:var(--mal,#b3372a)}
+.cnb-doc-b.del:hover{background:var(--mal-bg,#f9e3df)}
+/* Modal de alta */
+.cnb-alta-modal{display:none;position:fixed;inset:0;background:rgba(12,20,15,.5);z-index:344;align-items:center;justify-content:center;padding:20px}
+.cnb-alta-card{background:var(--carta);border-radius:var(--radio,12px);width:480px;max-width:96vw;box-shadow:0 22px 64px rgba(12,20,15,.32);overflow:hidden}
+.cnb-alta-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:#14294a;border-bottom:2px solid #c9a961}
+.cnb-alta-head h3{color:#fff;font-size:16px;font-family:var(--serif,'Palatino Linotype')}
+.cnb-alta-body{padding:20px 22px}
+.cnb-alta-hint{font-size:12.5px;color:var(--tinta-suave);margin-bottom:16px;line-height:1.5}
+.cnb-alta-foot{display:flex;justify-content:flex-end;gap:9px;padding:14px 22px;border-top:1px solid var(--filo);background:var(--papel)}
+.cnb-iniciar{margin-top:22px;padding-top:20px;border-top:1px solid var(--filo)}
+.cnb-iniciar-btn{width:100%;padding:13px;border:none;border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:14px;font-weight:700;cursor:pointer;background:var(--ok,#1e7a48);color:#fff}
+.cnb-iniciar-btn:hover{background:#186139}
+.cnb-iniciar-btn.off{background:var(--filo-suave);color:var(--tinta-suave);cursor:not-allowed}
+.cnb-iniciar-hint{font-size:11.5px;color:var(--tinta-suave);margin-top:8px;line-height:1.5;text-align:center}
+.cnb-eliminar{margin-top:16px;text-align:center}
+.cnb-eliminar-btn{background:transparent;border:none;color:var(--mal,#b3372a);font-size:12.5px;font-weight:600;cursor:pointer;padding:8px 14px;border-radius:8px}
+.cnb-eliminar-btn:hover{background:var(--mal-bg,#f9e3df)}
 </style>
 </head>
 <body>
@@ -1152,6 +1321,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1250,6 +1420,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1318,6 +1489,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1330,6 +1502,12 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
         <h1 class="hero-title" id="inicioSaludo"></h1>
         <div class="doble-filete"></div>
         <div id="inicioFeria"></div>
+      </div>
+
+      <!-- Mi semana: foco en lo que vence en los próximos 7 días -->
+      <div class="panel panel-misemana" id="panelMiSemana" style="display:none">
+        <div class="panel-h"><h3>🎯 Esta semana</h3><span class="mini" id="miSemanaMini"></span></div>
+        <div id="inicioMiSemana"></div>
       </div>
 
       <!-- Mensajes de recordatorio ARICCAME (texto, según el mes) — debajo de la feria, arriba de las píldoras -->
@@ -1423,6 +1601,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1500,6 +1679,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1675,6 +1855,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1818,6 +1999,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2041,6 +2223,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2131,6 +2314,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2144,6 +2328,57 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <!-- Overlay + Drawer de edición de licencia -->
 <div id="aricOverlay" class="aric-overlay" onclick="aricCerrarDrawer()"></div>
 <div id="aricDrawer" class="aric-drawer"></div>
+<!-- Cannabis: modal de alta (solo nombre) -->
+<div id="cannabisAltaModal" class="cnb-alta-modal" onclick="if(event.target===this)cannabisCerrarAlta()">
+  <div class="cnb-alta-card">
+    <div class="cnb-alta-head"><h3>Nuevo cliente de cannabis</h3><button class="cnb-dr-x" onclick="cannabisCerrarAlta()">✕</button></div>
+    <div class="cnb-alta-body">
+      <p class="cnb-alta-hint">Cargá el cliente apenas te contrata. Después vas sumando la documentación y los datos a medida que los tengas.</p>
+      <div class="cnb-dato">
+        <label>Nombre del cliente</label>
+        <input type="text" id="cannabisAltaNom" placeholder="Razón social o nombre" onkeydown="if(event.key==='Enter')cannabisGuardarAlta()">
+      </div>
+      <label class="cnb-ah">
+        <input type="checkbox" id="cannabisAltaAH">
+        <span>El cliente es categoría A o H <small>(suma los documentos del responsable técnico)</small></span>
+      </label>
+    </div>
+    <div class="cnb-alta-foot">
+      <button class="aric-btn-ghost" onclick="cannabisCerrarAlta()">Cancelar</button>
+      <button class="aric-btn" onclick="cannabisGuardarAlta()">Agregar cliente</button>
+    </div>
+  </div>
+</div>
+<!-- Cannabis: drawer de ficha con checklist -->
+<div id="cannabisOverlay" class="aric-overlay" onclick="cannabisCerrarFicha()"></div>
+<div id="cannabisDrawer" class="cnb-drawer"></div>
+<!-- Cannabis: modal de inicio de licencia (expediente + CUIT + clave) -->
+<div id="cannabisIniciarModal" class="cnb-alta-modal" onclick="if(event.target===this)cannabisCerrarIniciar()">
+  <div class="cnb-alta-card">
+    <div class="cnb-alta-head"><h3>Iniciar licencia</h3><button class="cnb-dr-x" onclick="cannabisCerrarIniciar()">✕</button></div>
+    <div class="cnb-alta-body">
+      <p class="cnb-alta-hint">La documentación está completa. Cargá los datos de la licencia para pasarla a «Licencias iniciadas».</p>
+      <div class="cnb-dato" style="margin-bottom:14px">
+        <label>Número de expediente</label>
+        <input type="text" id="cnbIniExp" placeholder="EX-2026-........- -APN-ARICCAME#MEC">
+      </div>
+      <div class="cnb-datos">
+        <div class="cnb-dato">
+          <label>CUIT</label>
+          <input type="text" id="cnbIniCuit" placeholder="Sin cargar">
+        </div>
+        <div class="cnb-dato">
+          <label>Clave fiscal</label>
+          <input type="text" id="cnbIniClave" placeholder="Sin cargar">
+        </div>
+      </div>
+    </div>
+    <div class="cnb-alta-foot">
+      <button class="aric-btn-ghost" onclick="cannabisCerrarIniciar()">Cancelar</button>
+      <button class="aric-btn" onclick="cannabisConfirmarIniciar()">Iniciar licencia</button>
+    </div>
+  </div>
+</div>
 <div id="aricCuadroModal" class="aric-cuadro-modal" onclick="if(event.target===this)aricCerrarCuadroReunion()">
   <div class="aric-cuadro-card"><div id="aricCuadroBody"></div></div>
 </div>
@@ -2392,6 +2627,34 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="attachPdf(this)">
 <input type="file" id="pdfAutoInput" accept=".pdf" style="display:none" onchange="procesarPdfAuto(this)">
 <input type="file" id="importInput" accept=".json" style="display:none" onchange="importarDatos(this)">
+
+<div id="paginaAbonos" class="page-shell">
+  <div class="ribbon">
+    <div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-sub">Estudio WE Legal</div>
+    </div>
+    <div class="ribbon-sep"></div>
+    <nav class="ribbon-nav" data-navbar>
+      <button class="pill-nav" data-nav="inicio" onclick="navTo('inicio')">🏠 Inicio</button>
+      <button class="pill-nav" data-nav="jurisprudencia" onclick="navTo('jurisprudencia')">⚖ Jurisprudencia</button>
+      <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
+      <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
+      <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
+      <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-inner">
+      <div id="abonosPanel"></div>
+    </div>
+  </div>
+</div>
+<div id="abonoRegModal" class="abo-reg-modal" onclick="if(event.target===this)abonoCerrarRegistro()">
+  <div class="abo-reg-card"><div id="abonoRegBody"></div></div>
+</div>
 
 <script>
 if (typeof pdfjsLib !== 'undefined') pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -4930,7 +5193,11 @@ function sbHeaders(extra) {
   return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' }, extra || {});
 }
 function sbPubUrl(path) { // URL pública de un archivo del Storage ("bucket/archivo")
-  return `${SB_URL}/storage/v1/object/public/${path}`;
+  // Codificar cada segmento igual que en la subida (encodeURIComponent por parte),
+  // así el nombre leído coincide con el guardado aunque tenga espacios o tildes.
+  const partes = String(path || '').split('/');
+  const enc = partes.map(seg => encodeURIComponent(seg)).join('/');
+  return `${SB_URL}/storage/v1/object/public/${enc}`;
 }
 async function sbSelect(tabla) {
   const r = await fetch(`${SB_URL}/rest/v1/${tabla}?select=*`, { headers: sbHeaders() });
@@ -5072,7 +5339,7 @@ function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarEr
 async function sbCargarTodo() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -5081,7 +5348,8 @@ async function sbCargarTodo() {
       sbSelect('clientes').catch(() => null),
       sbSelect('caja_soc').catch(() => null),
       sbSelect('planes_cuotas').catch(() => null),
-      sbSelect('aric_licencias').catch(() => null)
+      sbSelect('aric_licencias').catch(() => null),
+      sbSelect('cannabis_clientes').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
@@ -5089,6 +5357,19 @@ async function sbCargarTodo() {
 
     // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
     if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
+
+    // Clientes de cannabis en documentación (tabla cannabis_clientes).
+    // Son clientes SIN licencia todavía; se suman a ARIC como fichas con docs.
+    if (rCnbCli && rCnbCli.length) {
+      rCnbCli.forEach(f => {
+        // evitar duplicar si ese cliente ya está en ARIC (por id)
+        if (ARIC.some(c => c.id === f.id)) return;
+        ARIC.push({ id:f.id, submodulo:'cannabis', nombre:f.nombre||'', cuit:f.cuit||'',
+          clave:f.clave||'', drive:'', clienteId:null, catAH:!!f.cat_ah,
+          docs:(f.docs&&typeof f.docs==='object')?f.docs:{}, licencias:[] });
+      });
+      saveAricLocal();
+    }
 
     // Caja societaria
     if (rCajaSoc) {
@@ -5432,7 +5713,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', herramientas:'paginaHerramientas'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -5443,6 +5724,321 @@ function verCausa(id) {
   if (jur !== jurisdiccionActual) setModuloExp(jur === 'PBA' ? 'expedientes-pba' : 'expedientes-caba');
   setTimeout(() => { try { abrirCausaDetalle(id); } catch(e) { console.error(e); } }, 80);
 }
+// ═══════════════════════════════════════════════════════════════════════════
+// MÓDULO ABONOS — control de abonos mensuales de clientes (ARS y USD)
+// Persistencia: localStorage 'jc-abonos-v1' (+ Supabase a futuro, mismo patrón que caja).
+// NOTA: el ajuste por IPC de los abonos en pesos es TRIMESTRAL; se implementará más adelante.
+// ═══════════════════════════════════════════════════════════════════════════
+const ABONOS_SEED = [{"id": 1, "nombre": "Aires de campo", "moneda": "ARS", "monto": 542345, "tipo": "", "estado": "activo", "pagos": []}, {"id": 2, "nombre": "Bien al sur", "moneda": "ARS", "monto": 431863, "tipo": "", "estado": "activo", "pagos": []}, {"id": 3, "nombre": "Cultivate sustratos", "moneda": "ARS", "monto": 424085, "tipo": "", "estado": "activo", "pagos": []}, {"id": 4, "nombre": "Etar SRL", "moneda": "ARS", "monto": 1164436, "tipo": "", "estado": "activo", "pagos": []}, {"id": 5, "nombre": "Famusic", "moneda": "ARS", "monto": 444515, "tipo": "", "estado": "activo", "pagos": []}, {"id": 6, "nombre": "Fuegotecnic", "moneda": "ARS", "monto": 1265161, "tipo": "", "estado": "activo", "pagos": []}, {"id": 7, "nombre": "Magic Box (soul energy)", "moneda": "ARS", "monto": 270791, "tipo": "", "estado": "activo", "pagos": []}, {"id": 8, "nombre": "Apidc", "moneda": "USD", "monto": 300.0, "tipo": "Especial", "estado": "activo", "pagos": []}, {"id": 9, "nombre": "Iluminate", "moneda": "USD", "monto": 220.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 10, "nombre": "Elias", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 11, "nombre": "Biocan", "moneda": "USD", "monto": 400.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 12, "nombre": "Shiva", "moneda": "USD", "monto": 120.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 13, "nombre": "Matias MALIBU", "moneda": "USD", "monto": 350.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 14, "nombre": "The Dab", "moneda": "USD", "monto": 0.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 15, "nombre": "Leo Cruz Verde", "moneda": "USD", "monto": 350.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 16, "nombre": "Cosechando Salud", "moneda": "USD", "monto": 160.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 17, "nombre": "Semishop (Eleonora)", "moneda": "USD", "monto": 450.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 18, "nombre": "El Universo de Leon", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 19, "nombre": "33 Orientales", "moneda": "USD", "monto": 180.0, "tipo": "Actas", "estado": "activo", "pagos": []}, {"id": 20, "nombre": "Hidrofarm", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 21, "nombre": "KARU", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 22, "nombre": "Le Creme", "moneda": "USD", "monto": 180.0, "tipo": "Actas", "estado": "activo", "pagos": []}, {"id": 23, "nombre": "Cosecha libre (Felipe)", "moneda": "USD", "monto": 360.0, "tipo": "Actas + WhatsApp", "estado": "activo", "pagos": []}, {"id": 24, "nombre": "ROPIN", "moneda": "USD", "monto": 180.0, "tipo": "Actas", "estado": "activo", "pagos": []}, {"id": 25, "nombre": "Canguro", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 26, "nombre": "Republica", "moneda": "USD", "monto": 450.0, "tipo": "Consultoría inicial", "estado": "activo", "pagos": []}, {"id": 27, "nombre": "23 LUNAS", "moneda": "USD", "monto": 180.0, "tipo": "Actas", "estado": "activo", "pagos": []}, {"id": 28, "nombre": "Augusto Sacca", "moneda": "USD", "monto": 180.0, "tipo": "WhatsApp Libre", "estado": "activo", "pagos": []}, {"id": 29, "nombre": "Comunidad Rusa", "moneda": "USD", "monto": 360.0, "tipo": "Actas + WhatsApp", "estado": "activo", "pagos": []}, {"id": 30, "nombre": "LUCCA RIO GALLEGOS", "moneda": "USD", "monto": 0, "tipo": "", "estado": "pausado", "pagos": []}, {"id": 31, "nombre": "La ronda", "moneda": "USD", "monto": 0, "tipo": "", "estado": "pausado", "pagos": []}, {"id": 32, "nombre": "Luces del Norte", "moneda": "USD", "monto": 0, "tipo": "", "estado": "pausado", "pagos": []}];
+const ABONOS_KEY = 'jc-abonos-v1';
+let ABONOS = [];
+let ABONOS_MES = null; // 'YYYY-MM' que se está viendo; null = mes actual
+function loadAbonos(){
+  try { ABONOS = JSON.parse(appStore.getItem(ABONOS_KEY) || 'null'); } catch(e){ ABONOS = null; }
+  if (!Array.isArray(ABONOS) || !ABONOS.length) { ABONOS = ABONOS_SEED.map(c=>({...c, pagos: (c.pagos||[]).slice()})); saveAbonos(); }
+}
+function saveAbonos(){ try { appStore.setItem(ABONOS_KEY, JSON.stringify(ABONOS)); } catch(e){} }
+function abonoMesActual(){ return ABONOS_MES || hoyISO().slice(0,7); }
+// Devuelve el registro de pago de un cliente para un mes dado (o null)
+function abonoPagoDe(cli, ym){ return (cli.pagos||[]).find(p => p.mes === ym) || null; }
+// Alta/actualización del pago de un mes
+function abonoSetPago(cliId, ym, datos){
+  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  c.pagos = c.pagos || [];
+  let p = c.pagos.find(x=>x.mes===ym);
+  if(!p){ p = { mes: ym }; c.pagos.push(p); }
+  Object.assign(p, datos);
+  saveAbonos();
+}
+function abonoQuitarPago(cliId, ym){
+  const c = ABONOS.find(x=>x.id===cliId); if(!c||!c.pagos) return;
+  c.pagos = c.pagos.filter(x=>x.mes!==ym); saveAbonos();
+}
+const ABONO_MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function abonoMesLabel(ym){ const [y,m]=ym.split('-'); return ABONO_MESES[parseInt(m,10)-1]+' '+y; }
+
+// Se llama al entrar a la página de abonos
+function renderAbonosPagina(){
+  if (!ABONOS.length) loadAbonos();
+  renderAbonos();
+}
+function abonoCambiarMes(delta){
+  const ym = abonoMesActual();
+  const [y,m] = ym.split('-').map(Number);
+  const d = new Date(y, m-1+delta, 1);
+  ABONOS_MES = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+  renderAbonos();
+}
+function abonoIrMesActual(){ ABONOS_MES = null; renderAbonos(); }
+
+function renderAbonos(){
+  const cont = document.getElementById('abonosPanel');
+  if (!cont) return;
+  const ym = abonoMesActual();
+  const activos = ABONOS.filter(c=>c.estado==='activo');
+  const pausados = ABONOS.filter(c=>c.estado==='pausado');
+
+  // Totales del mes por moneda: esperado vs cobrado
+  const calc = (moneda) => {
+    const cs = activos.filter(c=>c.moneda===moneda);
+    let esperado=0, cobrado=0, pagados=0;
+    cs.forEach(c=>{
+      esperado += c.monto||0;
+      const p = abonoPagoDe(c,ym);
+      if (p && p.pagado){ cobrado += (p.montoCobrado!=null?p.montoCobrado:c.monto)||0; pagados++; }
+    });
+    return { cs, esperado, cobrado, pagados, total: cs.length };
+  };
+  const ars = calc('ARS'), usd = calc('USD');
+  const fmtM = (n,mon)=> (mon==='USD'?'US$ ':'$ ') + Math.round(n).toLocaleString('es-AR');
+
+  const cabecera = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Abonos mensuales</div>
+        <h1 class="abo-h1">${abonoMesLabel(ym)}</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="abonoCambiarMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="abonoIrMesActual()" class="hoy">Mes actual</button>
+        <button onclick="abonoCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    <div class="abo-kpis">
+      <div class="abo-kpi">
+        <div class="lbl">Pesos — cobrado</div>
+        <div class="val">${fmtM(ars.cobrado,'ARS')}</div>
+        <div class="sub">de ${fmtM(ars.esperado,'ARS')} · ${ars.pagados}/${ars.total} pagaron</div>
+        <div class="bar"><span style="width:${ars.esperado?Math.min(100,ars.cobrado/ars.esperado*100):0}%"></span></div>
+      </div>
+      <div class="abo-kpi usd">
+        <div class="lbl">Dólares — cobrado</div>
+        <div class="val">${fmtM(usd.cobrado,'USD')}</div>
+        <div class="sub">de ${fmtM(usd.esperado,'USD')} · ${usd.pagados}/${usd.total} pagaron</div>
+        <div class="bar"><span style="width:${usd.esperado?Math.min(100,usd.cobrado/usd.esperado*100):0}%"></span></div>
+      </div>
+      <div class="abo-kpi neutral">
+        <div class="lbl">Pendientes de cobro</div>
+        <div class="val">${(ars.total-ars.pagados)+(usd.total-usd.pagados)}</div>
+        <div class="sub">clientes sin registrar pago este mes</div>
+      </div>
+    </div>`;
+
+  const filaCli = (c) => {
+    const p = abonoPagoDe(c, ym);
+    const pagado = p && p.pagado;
+    const montoTxt = c.monto ? fmtM(c.monto, c.moneda) : '—';
+    const chip = c.moneda==='USD' ? '<span class="abo-mon usd">USD</span>' : '<span class="abo-mon ars">ARS</span>';
+    const estado = pagado
+      ? `<span class="abo-estado ok">✓ Pagado${p.fecha?' · '+formatFechaCorta(p.fecha):''}</span>`
+      : `<span class="abo-estado debe">Pendiente</span>`;
+    const tieneComprob = pagado && p.comprobante && (p.comprobante.url || p.comprobante.path);
+    const aQuien = pagado && (p.aQuien || tieneComprob) ? `<div class="abo-aq">${tieneComprob?'📎 ':''}${esc(p.aQuien||'')}</div>` : '';
+    return `<div class="abo-fila ${pagado?'pg':''}">
+      <button class="abo-check ${pagado?'on':''}" onclick="abonoToggleRapido(${c.id})" title="${pagado?'Marcar como impago':'Marcar como pagado'}">${pagado?'✓':''}</button>
+      <div class="abo-cli">
+        <div class="n">${esc(c.nombre)} ${chip}</div>
+        <div class="d">${c.tipo?esc(c.tipo)+' · ':''}${montoTxt}</div>
+      </div>
+      <div class="abo-mid">${estado}${aQuien}</div>
+      <button class="abo-reg" onclick="abonoAbrirRegistro(${c.id})">${pagado?'Editar':'Registrar'}</button>
+    </div>`;
+  };
+
+  const seccion = (titulo, lista) => lista.length ? `
+    <div class="abo-sec">
+      <div class="abo-sec-h">${titulo} <span>${lista.length}</span></div>
+      ${lista.map(filaCli).join('')}
+    </div>` : '';
+
+  const arsCli = activos.filter(c=>c.moneda==='ARS').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  const usdCli = activos.filter(c=>c.moneda==='USD').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+
+  const pausSec = pausados.length ? `
+    <div class="abo-sec pausados">
+      <div class="abo-sec-h">Pausados <span>${pausados.length}</span></div>
+      ${pausados.map(c=>`<div class="abo-fila pausada"><div class="abo-cli"><div class="n">${esc(c.nombre)}</div><div class="d">En pausa</div></div>
+        <button class="abo-reg" onclick="abonoReactivar(${c.id})">Reactivar</button></div>`).join('')}
+    </div>` : '';
+
+  cont.innerHTML = cabecera
+    + seccion('Abonos en pesos', arsCli)
+    + seccion('Abonos en dólares', usdCli)
+    + pausSec;
+}
+
+// Marca pagado/impago con un clic (registro rápido)
+function abonoToggleRapido(cliId){
+  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  const ym = abonoMesActual();
+  const p = abonoPagoDe(c, ym);
+  if (p && p.pagado){ abonoQuitarPago(cliId, ym); }
+  else { abonoSetPago(cliId, ym, { pagado:true, fecha: hoyISO(), montoCobrado: c.monto }); }
+  renderAbonos();
+}
+function abonoReactivar(cliId){
+  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  c.estado='activo'; saveAbonos(); renderAbonos();
+}
+
+// ── Modal de registro de pago del abono ──
+let ABONO_REG_CLI = null;   // id del cliente en edición
+let ABONO_REG_ADJ = null;   // {nombre, path, url} del comprobante cargado en esta sesión de edición
+
+function abonoAbrirRegistro(cliId){
+  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  ABONO_REG_CLI = cliId;
+  const ym = abonoMesActual();
+  const p = abonoPagoDe(c, ym) || {};
+  ABONO_REG_ADJ = p.comprobante ? { ...p.comprobante } : null;
+
+  const simbolo = c.moneda === 'USD' ? 'US$' : '$';
+  const modal = document.getElementById('abonoRegModal');
+  const body = document.getElementById('abonoRegBody');
+  body.innerHTML = `
+    <div class="abo-reg-head">
+      <div>
+        <div class="abo-reg-cli">${esc(c.nombre)}</div>
+        <div class="abo-reg-sub">${esc(abonoMesLabel(ym))} · abono ${c.moneda === 'USD' ? 'en dólares' : 'en pesos'}${c.tipo?' · '+esc(c.tipo):''}</div>
+      </div>
+      <button class="abo-reg-x" onclick="abonoCerrarRegistro()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <label class="abo-reg-switch">
+        <input type="checkbox" id="abonoRegPagado" ${p.pagado?'checked':''} onchange="abonoRegTogglePagado()">
+        <span>Pago registrado</span>
+      </label>
+      <div id="abonoRegCampos" style="${p.pagado?'':'opacity:.5;pointer-events:none'}">
+        <div class="abo-reg-grid">
+          <div class="abo-reg-fld">
+            <label>Fecha de pago</label>
+            <input type="date" id="abonoRegFecha" value="${p.fecha || hoyISO()}">
+          </div>
+          <div class="abo-reg-fld">
+            <label>Monto cobrado (${simbolo})</label>
+            <input type="number" id="abonoRegMonto" value="${p.montoCobrado!=null?p.montoCobrado:(c.monto||'')}" placeholder="0">
+          </div>
+        </div>
+        <div class="abo-reg-fld">
+          <label>¿A quién se abonó?</label>
+          <input type="text" id="abonoRegAQuien" value="${esc(p.aQuien||'')}" placeholder="Transferencia a Ivana, Efectivo a Sofi, Cheque a Va Legal…" list="abonoAQuienList">
+          <datalist id="abonoAQuienList"></datalist>
+        </div>
+        <div class="abo-reg-fld">
+          <label>Observaciones <span class="opt">(opcional)</span></label>
+          <textarea id="abonoRegObs" rows="2" placeholder="Cualquier detalle del pago…">${esc(p.obs||'')}</textarea>
+        </div>
+        <div class="abo-reg-fld">
+          <label>Comprobante de pago</label>
+          <div id="abonoRegComprob" class="abo-reg-comprob"></div>
+        </div>
+        <label class="abo-reg-chk">
+          <input type="checkbox" id="abonoRegChequeado" ${p.chequeado?'checked':''}>
+          <span>Chequeado / conciliado</span>
+        </label>
+      </div>
+    </div>
+    <div class="abo-reg-foot">
+      ${p.pagado ? '<button class="abo-reg-del" onclick="abonoBorrarRegistro()">Quitar pago</button>' : '<span></span>'}
+      <div class="abo-reg-foot-r">
+        <button class="abo-reg-cancel" onclick="abonoCerrarRegistro()">Cancelar</button>
+        <button class="abo-reg-save" onclick="abonoGuardarRegistro()">Guardar</button>
+      </div>
+    </div>`;
+  abonoPintarComprob();
+  abonoLlenarAQuien();
+  modal.style.display = 'flex';
+}
+
+// Sugerencias de "a quién se abonó" a partir de pagos anteriores
+function abonoLlenarAQuien(){
+  const dl = document.getElementById('abonoAQuienList'); if(!dl) return;
+  const set = new Set();
+  ABONOS.forEach(c => (c.pagos||[]).forEach(p => { if(p.aQuien) set.add(p.aQuien.trim()); }));
+  dl.innerHTML = [...set].sort().map(v=>`<option value="${esc(v)}">`).join('');
+}
+
+function abonoRegTogglePagado(){
+  const on = document.getElementById('abonoRegPagado').checked;
+  const campos = document.getElementById('abonoRegCampos');
+  campos.style.opacity = on ? '1' : '.5';
+  campos.style.pointerEvents = on ? '' : 'none';
+}
+
+function abonoPintarComprob(){
+  const cont = document.getElementById('abonoRegComprob'); if(!cont) return;
+  if (ABONO_REG_ADJ && (ABONO_REG_ADJ.url || ABONO_REG_ADJ.path)){
+    cont.innerHTML = `<div class="abo-comprob-ok">
+      <span class="ico">📎</span>
+      <span class="nm" title="${esc(ABONO_REG_ADJ.nombre||'comprobante')}">${esc(ABONO_REG_ADJ.nombre||'comprobante')}</span>
+      <button type="button" class="ver" onclick="abonoVerComprob()">Ver</button>
+      <button type="button" class="quitar" onclick="abonoQuitarComprob()">Quitar</button>
+    </div>`;
+  } else {
+    cont.innerHTML = `<label class="abo-comprob-drop">
+      <input type="file" accept="image/*,application/pdf" onchange="abonoSubirComprob(this)" hidden>
+      <span class="ico">⬆</span><span>Subir comprobante (imagen o PDF)</span>
+    </label>
+    <div id="abonoComprobStatus" class="abo-comprob-status"></div>`;
+  }
+}
+
+async function abonoSubirComprob(input){
+  const file = input.files && input.files[0]; if(!file) return;
+  const status = document.getElementById('abonoComprobStatus');
+  if (status) status.textContent = 'Subiendo ' + file.name + '…';
+  try {
+    let info = { path: null, url: null };
+    if (typeof sbUploadFile === 'function' && typeof SB_ON !== 'undefined' && SB_ON) {
+      const nombre = `abono-${ABONO_REG_CLI}-${Date.now()}-${file.name}`;
+      const path = await sbUploadFile('abonos', nombre, file);
+      info = { path, url: (typeof sbPubUrl==='function') ? sbPubUrl(path) : null };
+    } else {
+      info.url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    }
+    ABONO_REG_ADJ = { nombre: file.name, path: info.path, url: info.url };
+    abonoPintarComprob();
+  } catch(err){
+    console.error(err);
+    if (status) status.textContent = 'No se pudo subir. Probá de nuevo.';
+  }
+}
+function abonoQuitarComprob(){ ABONO_REG_ADJ = null; abonoPintarComprob(); }
+function abonoVerComprob(){
+  if (!ABONO_REG_ADJ) return;
+  const u = ABONO_REG_ADJ.url || ((typeof sbPubUrl==='function' && ABONO_REG_ADJ.path) ? sbPubUrl(ABONO_REG_ADJ.path) : null);
+  if (u) window.open(u, '_blank');
+}
+
+function abonoGuardarRegistro(){
+  const c = ABONOS.find(x=>x.id===ABONO_REG_CLI); if(!c) return;
+  const ym = abonoMesActual();
+  const pagado = document.getElementById('abonoRegPagado').checked;
+  if (!pagado){ abonoQuitarPago(ABONO_REG_CLI, ym); abonoCerrarRegistro(); renderAbonos(); return; }
+  const montoRaw = document.getElementById('abonoRegMonto').value;
+  abonoSetPago(ABONO_REG_CLI, ym, {
+    pagado: true,
+    fecha: document.getElementById('abonoRegFecha').value || hoyISO(),
+    montoCobrado: montoRaw!=='' ? Number(montoRaw) : (c.monto||0),
+    aQuien: document.getElementById('abonoRegAQuien').value.trim(),
+    obs: document.getElementById('abonoRegObs').value.trim(),
+    chequeado: document.getElementById('abonoRegChequeado').checked,
+    comprobante: ABONO_REG_ADJ ? { ...ABONO_REG_ADJ } : null
+  });
+  abonoCerrarRegistro();
+  renderAbonos();
+}
+function abonoBorrarRegistro(){
+  const ym = abonoMesActual();
+  abonoQuitarPago(ABONO_REG_CLI, ym);
+  abonoCerrarRegistro();
+  renderAbonos();
+}
+function abonoCerrarRegistro(){
+  const m = document.getElementById('abonoRegModal'); if(m) m.style.display='none';
+  ABONO_REG_CLI = null; ABONO_REG_ADJ = null;
+}
+
 // ═══ MÓDULO ARICCAME (inicio) ═══
 // ═══════════════════════════════════════════════════════════════════════════
 // MÓDULO ARICCAME — licencias de cáñamo (Res. 1/2024) y cannabis (Res. 41/2026)
@@ -5570,6 +6166,56 @@ function aricGenerarDJ(l){
   l.dj.sort((x,y)=>x.anio!==y.anio?x.anio-y.anio:(x.sem==='mayo'?0:1)-(y.sem==='mayo'?0:1));
 }
 
+// ═══ CANNABIS: persistencia de clientes en documentación (tabla cannabis_clientes) ═══
+// Fila plana para Supabase
+function cnbClienteFila(c){
+  return { id:c.id, nombre:c.nombre||'', cuit:c.cuit||'', clave:c.clave||'', cat_ah:!!c.catAH, docs:c.docs||{} };
+}
+function sbPushCnbCliente(c){ if(typeof SB_ON!=='undefined' && SB_ON) sbUpsert('cannabis_clientes', cnbClienteFila(c)).catch(sbAvisarError); }
+function sbDelCnbCliente(id){ if(typeof SB_ON!=='undefined' && SB_ON) sbDelete('cannabis_clientes', id).catch(sbAvisarError); }
+// Guarda un cliente-en-documentación (local + nube)
+function cnbGuardarCliente(c){ saveAricLocal(); sbPushCnbCliente(c); }
+
+// ═══ CANNABIS: checklist documental por cliente ═══
+// Enfoque: en cannabis el cliente se carga temprano (solo nombre) y se va completando
+// la documentación que debe presentar. Cada doc puede adjuntarse; al adjuntarlo deja de
+// figurar como pendiente. CUIT y clave fiscal son opcionales (se cargan luego).
+const CANNABIS_DOCS = [
+  { key:'form_inicio',   label:'Formulario de inicio',                       oblig:true,  rt:false },
+  { key:'const_cuit',    label:'Constancia de CUIT',                         oblig:true,  rt:false },
+  { key:'poder',         label:'Poder',                                      oblig:false, rt:false },
+  { key:'cert_inase',    label:'Certificado de establecimiento de INASE',    oblig:true,  rt:false },
+  { key:'dni_solic',     label:'DNI (frente y dorso) del solicitante',       oblig:true,  rt:false },
+  { key:'antec_solic',   label:'Antecedentes penales del solicitante',       oblig:true,  rt:false },
+  { key:'dni_rt',        label:'DNI (frente y dorso) del responsable técnico',oblig:true, rt:true  },
+  { key:'antec_rt',      label:'Antecedentes penales del responsable técnico',oblig:true, rt:true  },
+  { key:'comprob_arancel',label:'Comprobante de pago de arancel ($250.000)', oblig:true,  rt:false },
+];
+// Documentos que aplican a un cliente según si es categoría A/H (responsable técnico)
+function cannabisDocsDe(c){
+  const esAH = !!(c && c.catAH);
+  return CANNABIS_DOCS.filter(d => d.rt ? esAH : true);
+}
+// Estado guardado de un doc para el cliente (o null)
+function cannabisDocEstado(c, key){
+  c.docs = c.docs || {};
+  return c.docs[key] || null;
+}
+function cannabisSetDoc(c, key, info){
+  c.docs = c.docs || {};
+  c.docs[key] = { ...(c.docs[key]||{}), ...info };
+  cnbGuardarCliente(c);
+}
+function cannabisQuitarDoc(c, key){
+  if(c.docs && c.docs[key]){ delete c.docs[key]; cnbGuardarCliente(c); }
+}
+// Progreso: presentados / total de obligatorios aplicables
+function cannabisProgreso(c){
+  const docs = cannabisDocsDe(c).filter(d=>d.oblig);
+  const hechos = docs.filter(d => { const e = cannabisDocEstado(c, d.key); return e && e.adjunto; }).length;
+  return { hechos, total: docs.length };
+}
+
 // ── datos de la vista actual (canamo/cannabis) ──
 function aricData(){ return (ARIC||[]).filter(c=>(c.submodulo||'canamo')===ARIC_VIEW); }
 function aricLicFlat(){ const o=[]; aricData().forEach(c=>c.licencias.forEach(l=>o.push({c,l}))); return o; }
@@ -5586,15 +6232,274 @@ function aricBuscarCRM(txt){
   }).slice(0,6);
 }
 
+// ═══ CANNABIS: alta de cliente (solo nombre) ═══
+function cannabisAbrirAlta(){
+  const m = document.getElementById('cannabisAltaModal');
+  if(!m) return;
+  document.getElementById('cannabisAltaNom').value = '';
+  document.getElementById('cannabisAltaAH').checked = false;
+  m.style.display = 'flex';
+  setTimeout(()=>{ const i=document.getElementById('cannabisAltaNom'); if(i) i.focus(); }, 50);
+}
+function cannabisCerrarAlta(){ const m=document.getElementById('cannabisAltaModal'); if(m) m.style.display='none'; }
+function cannabisGuardarAlta(){
+  const nom = document.getElementById('cannabisAltaNom').value.trim();
+  if(!nom){ aricToast('Poné el nombre del cliente'); return; }
+  const catAH = document.getElementById('cannabisAltaAH').checked;
+  const c = { id:'acn'+Date.now(), submodulo:'cannabis', nombre:nom, cuit:'', clave:'', drive:'',
+    clienteId:null, catAH, docs:{}, licencias:[] };
+  ARIC.push(c);
+  cnbGuardarCliente(c);
+  cannabisCerrarAlta();
+  renderAric();
+  aricToast('Cliente agregado. Cargá la documentación cuando la tengas.');
+  // abrir su ficha directamente
+  setTimeout(()=>{ try{ cannabisAbrirFicha(c.id); }catch(e){} }, 60);
+}
+
+// ═══ CANNABIS: vista de clientes con checklist documental ═══
+function cannabisClientes(){ return (ARIC||[]).filter(c=>(c.submodulo||'')==='cannabis'); }
+// En documentación = sin licencias todavía. Iniciadas = con al menos una licencia.
+function cannabisEnDoc(){ return cannabisClientes().filter(c=>!c.licencias || c.licencias.length===0); }
+function cannabisConLic(){ return cannabisClientes().filter(c=>c.licencias && c.licencias.length>0); }
+
+function cannabisClientesHTML(){
+  const cs = cannabisEnDoc();
+  const cards = cs.map(c=>{
+    const pr = cannabisProgreso(c);
+    const pct = pr.total ? Math.round(pr.hechos/pr.total*100) : 0;
+    const completo = pr.total>0 && pr.hechos===pr.total;
+    const faltan = pr.total - pr.hechos;
+    return `<div class="cnb-card" onclick="cannabisAbrirFicha('${c.id}')">
+      <div class="cnb-card-top">
+        <div class="cnb-card-nom">${aricEsc(c.nombre)}${c.catAH?'<span class="cnb-badge-ah">Cat. A/H</span>':''}</div>
+        ${completo?'<span class="cnb-chip-ok">✓ Completo</span>':`<span class="cnb-chip-falta">Faltan ${faltan}</span>`}
+      </div>
+      <div class="cnb-prog"><div class="cnb-prog-bar"><span style="width:${pct}%"></span></div>
+      <div class="cnb-prog-txt">${pr.hechos} de ${pr.total} documentos</div></div>
+    </div>`;
+  }).join('');
+  return `<div class="aric-toolbar">
+      <div class="aric-tb-title">${cs.length} cliente${cs.length!==1?'s':''} juntando documentación</div>
+      <button class="aric-btn" onclick="cannabisAbrirAlta()">+ Nuevo cliente</button>
+    </div>
+    <div class="cnb-grid">${cards||'<div class="aric-empty" style="padding:40px;text-align:center">No hay clientes en esta etapa. Agregá uno con «+ Nuevo cliente».</div>'}</div>`;
+}
+
+// Solapa "Licencias iniciadas" de cannabis: replica la vista de cáñamo (cards + drawer).
+function cannabisLicenciasHTML(){
+  const cli = cannabisConLic();
+  const tot = cli.reduce((a,c)=>a+c.licencias.length,0);
+  const cards = cli.map(aricCliCard).join('') || '<div class="aric-empty" style="padding:40px;text-align:center">Todavía no hay licencias iniciadas. Cuando un cliente complete la documentación, usá «Iniciar licencia» desde su ficha.</div>';
+  return `${aricMetsHTML()}
+    <div class="aric-toolbar">
+      <input placeholder="Buscar por cliente o CUIT..." value="${aricEsc(ARIC_Q)}" oninput="ARIC_Q=aricNorm(this.value);renderAric()">
+      <button class="aric-btn aric-btn-cuadro" onclick="aricAbrirCuadroReunion()">📊 Generar cuadro de situación</button>
+    </div>
+    <div class="aric-count">${cli.length} cliente(s) · ${tot} licencia(s)</div>
+    <div class="aric-cards" id="aricLista">${cards}</div>`;
+}
+
+// ── Iniciar licencia: mueve un cliente de "documentación" a "licencias iniciadas" ──
+function cannabisPuedeIniciar(c){
+  const pr = cannabisProgreso(c);
+  return pr.total>0 && pr.hechos===pr.total; // toda la documentación obligatoria presentada
+}
+function cannabisIniciarLicencia(){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  if(!cannabisPuedeIniciar(c)){ aricToast('Todavía falta documentación obligatoria'); return; }
+  // Abrir el modal que pide expediente, CUIT y clave fiscal
+  const m = document.getElementById('cannabisIniciarModal'); if(!m) return;
+  document.getElementById('cnbIniExp').value = '';
+  document.getElementById('cnbIniCuit').value = c.cuit || '';   // precargar si ya lo tenía
+  document.getElementById('cnbIniClave').value = c.clave || '';
+  m.style.display = 'flex';
+  setTimeout(()=>{ const i=document.getElementById('cnbIniExp'); if(i) i.focus(); }, 50);
+}
+function cannabisCerrarIniciar(){ const m=document.getElementById('cannabisIniciarModal'); if(m) m.style.display='none'; }
+function cannabisConfirmarIniciar(){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  const expT = document.getElementById('cnbIniExp').value.trim();
+  if(!expT){ aricToast('Necesito el número de expediente'); return; }
+  const cuitT = document.getElementById('cnbIniCuit').value.trim();
+  const claveT = document.getElementById('cnbIniClave').value.trim();
+  // Guardar CUIT y clave a nivel cliente (quedan en la solapa de licencias iniciadas)
+  c.cuit = cuitT; c.clave = claveT;
+  // Crear la licencia en el modelo de ARICCAME (misma estructura que las demás)
+  const nueva = { id:'acnl'+Date.now(), tipo:'Cannabis', inicio:hoyISO(), exp:expT,
+    plazo:'60 días habiles administrativos', estado:'en_tramite',
+    fechaAprob:'', fechaRechazo:'', fechaCancel:'', fechaSubsPedido:'',
+    arancel:'', comprobante:'', comprobantePath:'', coment:'',
+    hist:['Licencia iniciada '+new Date().toLocaleDateString('es-AR')+' — documentación completa'],
+    dj:[], pagosAnuales:[] };
+  c.licencias = c.licencias || [];
+  c.licencias.push(nueva);
+  // Ahora el cliente pasa a vivir en aric_licencias; sacamos su fila de cannabis_clientes
+  saveAricLocal();
+  sbPushAric(c, nueva);        // alta en la tabla de licencias (estado en_tramite)
+  sbDelCnbCliente(c.id);       // baja de la tabla de documentación
+  cannabisCerrarIniciar();
+  cannabisCerrarFicha();
+  ARIC_TAB = 'lic';            // saltar a la solapa de licencias iniciadas
+  renderAric();
+  aricToast('Licencia iniciada. El cliente pasó a «Licencias iniciadas».');
+}
+
+let CANNABIS_FICHA = null; // id del cliente abierto
+function cannabisAbrirFicha(cid){
+  CANNABIS_FICHA = cid;
+  cannabisPintarFicha();
+  const ov = document.getElementById('cannabisOverlay');
+  const dr = document.getElementById('cannabisDrawer');
+  if(ov) ov.style.display='block';
+  if(dr) dr.classList.add('open');
+}
+function cannabisEliminarCliente(){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  if(c.licencias && c.licencias.length){ aricToast('Este cliente ya tiene licencia iniciada; no se elimina desde acá'); return; }
+  if(!confirm('¿Eliminar a «'+c.nombre+'» del listado de documentación pendiente?\n\nSe borrarán también los documentos que hayas adjuntado. Esta acción no se puede deshacer.')) return;
+  // sacar de ARIC
+  const i = ARIC.findIndex(x=>x.id===c.id);
+  if(i>=0) ARIC.splice(i,1);
+  saveAricLocal();
+  sbDelCnbCliente(c.id);   // baja de la tabla cannabis_clientes
+  cannabisCerrarFicha();
+  renderAric();
+  aricToast('Cliente eliminado');
+}
+function cannabisCerrarFicha(){
+  const ov = document.getElementById('cannabisOverlay');
+  const dr = document.getElementById('cannabisDrawer');
+  if(ov) ov.style.display='none';
+  if(dr) dr.classList.remove('open');
+  CANNABIS_FICHA = null;
+}
+function cannabisPintarFicha(){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA);
+  const dr = document.getElementById('cannabisDrawer');
+  if(!c || !dr) return;
+  const pr = cannabisProgreso(c);
+  const pct = pr.total ? Math.round(pr.hechos/pr.total*100) : 0;
+  const docs = cannabisDocsDe(c);
+
+  const filaDoc = (d)=>{
+    const e = cannabisDocEstado(c, d.key);
+    const listo = e && e.adjunto;
+    const acc = listo
+      ? `<div class="cnb-doc-adj">
+          <span class="cnb-doc-file" title="${aricEsc(e.nombre||'archivo')}">📎 ${aricEsc(e.nombre||'archivo')}</span>
+          <button class="cnb-doc-b ver" onclick="cannabisVerDoc('${d.key}')">Ver</button>
+          <button class="cnb-doc-b del" onclick="cannabisBorrarDoc('${d.key}')">Eliminar</button>
+        </div>`
+      : `<label class="cnb-doc-sub">
+          <input type="file" accept="image/*,application/pdf" hidden onchange="cannabisSubirDoc('${d.key}', this)">
+          <span>⬆ Adjuntar</span>
+        </label>`;
+    return `<div class="cnb-doc ${listo?'ok':''}">
+      <div class="cnb-doc-chk">${listo?'✓':'○'}</div>
+      <div class="cnb-doc-info">
+        <div class="cnb-doc-lbl">${aricEsc(d.label)}${!d.oblig?'<span class="cnb-doc-opt">opcional</span>':''}${d.rt?'<span class="cnb-doc-rt">Cat. A/H</span>':''}</div>
+        <div class="cnb-doc-status">${listo?'Presentado':'Pendiente'}</div>
+      </div>
+      ${acc}
+    </div>`;
+  };
+
+  dr.innerHTML = `
+    <div class="cnb-dr-head">
+      <div>
+        <h2>${aricEsc(c.nombre)}</h2>
+        <div class="cnb-dr-sub">${pr.hechos} de ${pr.total} documentos obligatorios · ${pct}%</div>
+      </div>
+      <button class="cnb-dr-x" onclick="cannabisCerrarFicha()">✕</button>
+    </div>
+    <div class="cnb-dr-progwrap"><div class="cnb-dr-prog"><span style="width:${pct}%"></span></div></div>
+    <div class="cnb-dr-body">
+      <div class="cnb-datos">
+        <div class="cnb-dato">
+          <label>CUIT <span class="opt">(opcional)</span></label>
+          <input type="text" id="cnbCuit" value="${aricEsc(c.cuit||'')}" placeholder="Sin cargar" onchange="cannabisSetCampo('cuit', this.value)">
+        </div>
+        <div class="cnb-dato">
+          <label>Clave fiscal <span class="opt">(opcional)</span></label>
+          <input type="text" id="cnbClave" value="${aricEsc(c.clave||'')}" placeholder="Sin cargar" onchange="cannabisSetCampo('clave', this.value)">
+        </div>
+      </div>
+      <label class="cnb-ah">
+        <input type="checkbox" ${c.catAH?'checked':''} onchange="cannabisToggleAH(this.checked)">
+        <span>El cliente es categoría A o H <small>(agrega los documentos del responsable técnico)</small></span>
+      </label>
+      <div class="cnb-docs-h">Documentación</div>
+      <div class="cnb-docs">${docs.map(filaDoc).join('')}</div>
+      <div class="cnb-iniciar">
+        ${cannabisPuedeIniciar(c)
+          ? `<button class="cnb-iniciar-btn" onclick="cannabisIniciarLicencia()">✓ Iniciar licencia</button>
+             <div class="cnb-iniciar-hint">Toda la documentación obligatoria está presentada. Al iniciar, se te pedirá el número de expediente y el cliente pasará a «Licencias iniciadas».</div>`
+          : `<button class="cnb-iniciar-btn off" disabled>Iniciar licencia</button>
+             <div class="cnb-iniciar-hint">Disponible cuando esté presentada toda la documentación obligatoria.</div>`}
+      </div>
+      <div class="cnb-eliminar">
+        <button class="cnb-eliminar-btn" onclick="cannabisEliminarCliente()">Eliminar cliente de documentación pendiente</button>
+      </div>
+    </div>`;
+}
+
+function cannabisSetCampo(campo, val){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  c[campo] = (val||'').trim(); cnbGuardarCliente(c);
+}
+function cannabisToggleAH(on){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  c.catAH = !!on; cnbGuardarCliente(c);
+  cannabisPintarFicha();
+  renderAric();
+}
+
+async function cannabisSubirDoc(key, input){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  const file = input.files && input.files[0]; if(!file) return;
+  try {
+    let info = { path:null, url:null };
+    if (typeof sbUploadFile === 'function' && typeof SB_ON !== 'undefined' && SB_ON) {
+      const nombre = `cnb-${c.id}-${key}-${Date.now()}-${file.name}`;
+      const path = await sbUploadFile('aric', nombre, file);
+      info = { path, url: (typeof sbPubUrl==='function') ? sbPubUrl(path) : null };
+    } else {
+      info.url = await new Promise((res, rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
+    }
+    cannabisSetDoc(c, key, { adjunto:true, nombre:file.name, path:info.path, url:info.url, fecha:hoyISO() });
+    cannabisPintarFicha();
+    renderAric();
+    aricToast('Documento adjuntado');
+  } catch(err){ console.error(err); aricToast('No se pudo adjuntar'); }
+}
+function cannabisVerDoc(key){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  const e = cannabisDocEstado(c, key); if(!e) return;
+  const u = e.url || ((typeof sbPubUrl==='function' && e.path) ? sbPubUrl(e.path) : null);
+  if(u) window.open(u, '_blank');
+}
+function cannabisBorrarDoc(key){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
+  if(!confirm('¿Eliminar este documento adjunto?')) return;
+  cannabisQuitarDoc(c, key);
+  cannabisPintarFicha();
+  renderAric();
+  aricToast('Documento eliminado');
+}
+
 // ═══ RENDER ═══
 function renderAric(){
   const p=document.getElementById('aricPanel'); if(!p) return;
   if(ARIC_VIEW==='cannabis'){
-    p.innerHTML = `<div class="aric-hero"><h1>Cannabis</h1><span>ARICCAME · Res. 41/2026 · arancel con la solicitud · pagos anuales junio–julio</span></div>
+    const tab = (ARIC_TAB==='lic'||ARIC_TAB==='pagos') ? ARIC_TAB : 'docs';
+    p.innerHTML = `<div class="aric-hero"><h1>Cannabis</h1><span>ARICCAME · Res. 41/2026</span></div>
     <div class="aric-subtabs">
-    <button class="${ARIC_TAB==='solic'?'on':''}" onclick="ARIC_TAB='solic';renderAric()">Solicitudes de licencia</button>
-    <button class="${ARIC_TAB==='pagos'?'on':''}" onclick="ARIC_TAB='pagos';renderAric()">Pagos anuales</button></div>
-    ${ARIC_TAB==='solic'?aricSolicHTML():aricPagosHTML()}`;
+      <button class="${tab==='docs'?'on':''}" onclick="ARIC_TAB='docs';renderAric()">Documentación pendiente</button>
+      <button class="${tab==='lic'?'on':''}" onclick="ARIC_TAB='lic';renderAric()">Licencias iniciadas</button>
+      <button class="${tab==='pagos'?'on':''}" onclick="ARIC_TAB='pagos';renderAric()">Pagos anuales</button>
+    </div>
+    ${tab==='docs'?cannabisClientesHTML():tab==='lic'?cannabisLicenciasHTML():aricPagosHTML()}`;
   } else {
     p.innerHTML = `<div class="aric-hero"><h1>Cáñamo</h1><span>ARICCAME · Res. 1/2024 · DJ semestrales mayo y octubre</span></div>
     <div class="aric-subtabs">
@@ -6274,6 +7179,7 @@ function __navToInterno(p) {
     if (p === 'cajasoc') { initCajaSoc(); renderCajaSoc(); }
     if (p === 'crm') { renderCRM(); }
     if (p === 'ariccame') { renderAric(); }
+    if (p === 'abonos') { renderAbonosPagina(); }
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
 }
@@ -6429,6 +7335,72 @@ function __alertaUltMovimiento(l) {
 // Calcula, para las licencias en estado a_subsanar, el plazo de 30 días hábiles
 // desde la fecha del pedido de subsanación. Devuelve las que están vigentes o vencidas,
 // ordenadas por urgencia (menos días hábiles restantes primero).
+// ── "Mi semana": lo que vence en los próximos 7 días, propio del usuario ──
+// Reúne tareas, audiencias, oficios y subsanaciones con fecha dentro de la ventana,
+// priorizando lo asignado a la persona logueada. Lo no asignable (oficios/subsanaciones,
+// que son del expediente) se muestra igual porque es trabajo del estudio a la vista.
+function calcularMiSemana() {
+  const hoyD = new Date(); hoyD.setHours(0,0,0,0);
+  const hoy = hoyISO();
+  const findia = new Date(hoyD.getTime() + 7*86400000); // próximos 7 días corridos
+  const finISO = isoDe(findia);
+  const dentro = f => f && f >= hoy && f <= finISO;
+
+  // nombre de la persona logueada, para casar con "asignada"
+  const u = (typeof usuarioActual === 'function') ? usuarioActual() : null;
+  const miNombre = (u && USUARIOS[u]) ? (USUARIOS[u].nombre || '').trim().toUpperCase() : '';
+  // primer nombre del usuario, para casar aunque en la tarea figure el nombre completo
+  const miPrimer = miNombre.split(/\s+/)[0] || '';
+  const mio = asignada => {
+    if (!miNombre) return true;              // sin sesión clara, mostrar todo
+    const a = (asignada || '').trim().toUpperCase();
+    if (!a) return true;                     // sin asignar → es del estudio, se muestra
+    // coincidencia tolerante: igualdad, contención en cualquier sentido, o mismo primer nombre
+    if (a === miNombre) return true;
+    if (miNombre && (a.indexOf(miNombre) >= 0 || miNombre.indexOf(a) >= 0)) return true;
+    if (miPrimer && a.split(/\s+/)[0] === miPrimer) return true;
+    return false;
+  };
+
+  const items = [];
+
+  // Tareas con fecha
+  (typeof getTareasPendientes === 'function' ? getTareasPendientes() : []).forEach(t => {
+    if (dentro(t.fecha) && mio(t.asignada)) {
+      items.push({ fecha: t.fecha, hora: t.hora || '', t: t.titulo, s: 'Tarea' + (t.prio ? ' · prioridad ' + t.prio : ''), tag: 'tarea', go: 'agenda' });
+    }
+  });
+  // Audiencias manuales
+  (typeof getAudienciasManuales === 'function' ? getAudienciasManuales() : []).forEach(a => {
+    if (dentro(a.fecha) && mio(a.asignada)) {
+      items.push({ fecha: a.fecha, hora: a.hora || '', t: 'Audiencia — ' + a.titulo, s: a.asignada ? 'Asignada a ' + a.asignada : 'Agenda del estudio', tag: 'aud', go: 'agenda' });
+    }
+  });
+  // Audiencias de expedientes (testimoniales)
+  (typeof getAudienciasProximas === 'function' ? getAudienciasProximas(true) : []).forEach(a => {
+    if (dentro(a.fecha)) {
+      items.push({ fecha: a.fecha, hora: a.hora || '', t: 'Audiencia testimonial — ' + (a.testigo || 'testigo'), s: a.exp.caratula, tag: 'aud', go: 'expedientes', expId: a.exp.id });
+    }
+  });
+  // Oficios (control de vencimiento)
+  (typeof getOficiosPendientes === 'function' ? getOficiosPendientes() : []).forEach(o => {
+    if (dentro(o.vencimiento)) {
+      items.push({ fecha: o.vencimiento, hora: '', t: 'Control de oficio — ' + (o.oficio.entidad || ''), s: o.exp.caratula, tag: 'ofi', go: 'expedientes', expId: o.exp.id });
+    }
+  });
+  // Subsanaciones ARICCAME cuyo plazo vence en la ventana
+  if (typeof calcularSubsanacionesPlazo === 'function') {
+    calcularSubsanacionesPlazo().forEach(s => {
+      if (!s.vencida && dentro(s.limite)) {
+        items.push({ fecha: s.limite, hora: '', t: 'Vence subsanación — ' + s.nombre, s: 'ARICCAME · licencia ' + s.tipo, tag: 'subs', go: 'ariccame', licId: s.id });
+      }
+    });
+  }
+
+  items.sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.hora || '').localeCompare(b.hora || ''));
+  return items;
+}
+
 const SUBS_PLAZO_HABILES = 30;
 // NOTA: para ARICCAME el plazo es administrativo, no judicial. Por eso usamos addDiasHabiles/
 // diasHabilesRestantes, que sólo excluyen fines de semana y feriados (esHabilBase); la feria
@@ -6661,6 +7633,43 @@ function renderInicio() {
   }).join('') : '<div class="panel-empty">No hay oficios librados sin respuesta.</div>';
   renderContactarInicio();
   renderPacksVencerInicio();
+  try { renderMiSemana(); } catch(e) {}
+}
+
+// ── Panel "Esta semana": foco en los próximos 7 días ──
+function renderMiSemana() {
+  const panel = document.getElementById('panelMiSemana');
+  const lista = document.getElementById('inicioMiSemana');
+  const mini = document.getElementById('miSemanaMini');
+  if (!panel || !lista) return;
+  const items = calcularMiSemana();
+  if (!items.length) {
+    panel.style.display = 'none'; lista.innerHTML = ''; if (mini) mini.textContent = '';
+    return;
+  }
+  panel.style.display = '';
+  if (mini) mini.textContent = items.length + (items.length === 1 ? ' tema' : ' temas');
+  const hoy = hoyISO();
+  const manana = isoDe(new Date(Date.now() + 86400000));
+  const diaTxt = f => {
+    if (f === hoy) return 'Hoy';
+    if (f === manana) return 'Mañana';
+    const d = parseISO(f);
+    return DIAS_SEM[d.getDay()].charAt(0).toUpperCase() + DIAS_SEM[d.getDay()].slice(1) + ' ' + d.getDate();
+  };
+  const tagTxt = { tarea:'Tarea', aud:'Audiencia', ofi:'Oficio', subs:'Subsanación' };
+  const tagCls = { tarea:'', aud:'aud', ofi:'ofi', subs:'tram' };
+  lista.innerHTML = items.map(i => {
+    const irA = i.expId ? `verCausa(${i.expId})`
+      : i.licId ? `aricIrALicencia('${i.licId}')`
+      : `navTo('${i.go}')`;
+    const hoyEs = i.fecha === hoy;
+    return `<div class="ms-item ${hoyEs?'ms-hoy':''}" onclick="${irA}">
+      <div class="ms-dia">${diaTxt(i.fecha)}${i.hora?`<small>${esc(i.hora)} h</small>`:''}</div>
+      <div class="ms-txt"><div class="t">${esc(i.t)}</div><div class="s">${esc(i.s)}</div></div>
+      <span class="venc-tag ${tagCls[i.tag]||''}">${tagTxt[i.tag]||'Tema'}</span>
+    </div>`;
+  }).join('');
 }
 
 // ── Panel «clientes a contactar» en el inicio ──
@@ -6886,6 +7895,7 @@ function agregarEvento() {
   document.getElementById('tModalidad').value = ''; toggleLinkAudiencia();
   renderEquipoDatalist();
   renderTareas(); renderAudiencias();
+  try { renderInicio(); } catch(e) {}
 }
 function toggleTarea(id) {
   const t = TAREAS.find(x => x.id === id);
@@ -9764,6 +10774,7 @@ function permisoPagina(p) {
   if (p === 'caja') return pf.cajaJud !== false;
   if (p === 'cajasoc') return !!pf.cajaSoc;
   if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
+  if (p === 'abonos') return usuarioActual() === 'kevindaich';
   return true;
 }
 function aplicarPermisos() {
@@ -9786,6 +10797,8 @@ function aplicarPermisos() {
   // ARICCAME: visible sólo para NAZA, KEVIN, SOFI G e IVANA
   const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
+  const verAbonos = usuarioActual() === 'kevindaich';
+  document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
   if (optAud) { optAud.hidden = !pf.inicioJud; optAud.disabled = !pf.inicioJud; }
