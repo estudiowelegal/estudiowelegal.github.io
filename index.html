@@ -1067,9 +1067,9 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .aric-msg-ico{font-size:18px;flex:0 0 auto}
 .aric-msg b{font-weight:800}
 /* Panel sin-movimiento: header azul como el resto */
-.panel-aric.aric-sinmov .panel-h{background:#14294a;border-bottom:2px solid #c9a961;display:flex;align-items:center;justify-content:space-between}
-.panel-aric.aric-sinmov .panel-h h3{color:#fff;font-size:14px}
-.panel-aric.aric-sinmov .panel-h .mini{color:#e7ddc4;font-weight:600}
+.panel-aric.aric-sinmov .panel-h,.panel-aric.aric-subsplazo .panel-h{background:#14294a;border-bottom:2px solid #c9a961;display:flex;align-items:center;justify-content:space-between}
+.panel-aric.aric-sinmov .panel-h h3,.panel-aric.aric-subsplazo .panel-h h3{color:#fff;font-size:14px}
+.panel-aric.aric-sinmov .panel-h .mini,.panel-aric.aric-subsplazo .panel-h .mini{color:#e7ddc4;font-weight:600}
 /* Nombre de cliente en sin-movimiento: negrita + mayúsculas */
 .venc-txt .t.sinmov-cli{font-weight:800;text-transform:uppercase;letter-spacing:.2px}
 /* ── Botón y modal de aviso al cliente (WhatsApp) ── */
@@ -1384,6 +1384,10 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
           <div class="panel" id="panelInicioOficios">
             <div class="panel-h"><h3>Oficios sin contestar</h3><span class="mini" id="ofiMini"></span></div>
             <div id="inicioOficios"></div>
+          </div>
+          <div class="panel panel-aric aric-subsplazo" id="panelSubsPlazo" style="display:none">
+            <div class="panel-h"><h3>⏳ Plazos de subsanación</h3><span class="mini" id="subsPlazoMini"></span></div>
+            <div id="inicioSubsPlazo"></div>
           </div>
           <div class="panel panel-aric aric-sinmov" id="panelSinMovimiento" style="display:none">
             <div class="panel-h"><h3>🕓 Licencias sin movimiento</h3><span class="mini" id="sinMovMini"></span></div>
@@ -6422,6 +6426,43 @@ function __alertaUltMovimiento(l) {
 // ═══════════════════════════════════════════════════════════════════
 
 // Licencias sin movimiento hace ALERTA_SIN_MOV_DIAS días (excluye aprobadas y rechazadas).
+// Calcula, para las licencias en estado a_subsanar, el plazo de 30 días hábiles
+// desde la fecha del pedido de subsanación. Devuelve las que están vigentes o vencidas,
+// ordenadas por urgencia (menos días hábiles restantes primero).
+const SUBS_PLAZO_HABILES = 30;
+// NOTA: para ARICCAME el plazo es administrativo, no judicial. Por eso usamos addDiasHabiles/
+// diasHabilesRestantes, que sólo excluyen fines de semana y feriados (esHabilBase); la feria
+// judicial NO se descuenta: esos días cuentan como hábiles, a diferencia del cómputo procesal.
+function calcularSubsanacionesPlazo() {
+  const aric = (typeof ARIC !== 'undefined' && Array.isArray(ARIC)) ? ARIC : [];
+  const out = [];
+  aric.forEach(c => {
+    (c.licencias || []).forEach(l => {
+      if (l.estado !== 'a_subsanar') return;
+      const fp = l.fechaSubsPedido;
+      if (!fp) return; // sin fecha de pedido no podemos calcular el plazo
+      const limite = (typeof addDiasHabiles === 'function') ? addDiasHabiles(fp, SUBS_PLAZO_HABILES) : null;
+      if (!limite) return;
+      const restantes = (typeof diasHabilesRestantes === 'function') ? diasHabilesRestantes(limite) : 0;
+      // vencida si la fecha límite ya pasó (o es hoy y ya no quedan hábiles)
+      const hoy = new Date(); hoy.setHours(0,0,0,0);
+      const dLim = new Date(limite + 'T12:00:00');
+      const vencida = dLim <= hoy;
+      out.push({
+        nombre: c.nombre, tipo: l.tipo, id: l.id,
+        pedido: fp, limite, restantes, vencida,
+        submodulo: c.submodulo || 'canamo'
+      });
+    });
+  });
+  // vencidas primero, después por menos días restantes
+  out.sort((a, b) => {
+    if (a.vencida !== b.vencida) return a.vencida ? -1 : 1;
+    return a.restantes - b.restantes;
+  });
+  return out;
+}
+
 function calcularSinMovimiento() {
   const hoy = new Date();
   const aric = (typeof ARIC !== 'undefined' && Array.isArray(ARIC)) ? ARIC : [];
@@ -6482,6 +6523,36 @@ function renderAlertasInicio() {
           <div class="venc-date overdue">${f.dias}<small>días</small></div>
           <div class="venc-txt"><div class="t sinmov-cli">${esc(f.nombre)} · ${esc(f.tipo)}</div>
           <div class="s">${estLbl} · sin novedades desde el ${desde}</div></div></div>`;
+      }).join('');
+    }
+  }
+
+  // ── Panel de plazos de subsanación (30 días hábiles desde el pedido) ──
+  const pPanel = document.getElementById('panelSubsPlazo');
+  const pLista = document.getElementById('inicioSubsPlazo');
+  const pMini = document.getElementById('subsPlazoMini');
+  if (pPanel && pLista) {
+    const subs = puedeAlertas ? calcularSubsanacionesPlazo() : [];
+    if (!subs.length) { pPanel.style.display = 'none'; pLista.innerHTML = ''; if (pMini) pMini.textContent = ''; }
+    else {
+      pPanel.style.display = '';
+      const nVenc = subs.filter(s => s.vencida).length;
+      if (pMini) pMini.textContent = nVenc ? (nVenc + ' vencida' + (nVenc>1?'s':'')) : (subs.length + ' activa' + (subs.length>1?'s':''));
+      pLista.innerHTML = subs.map(s => {
+        const limTxt = formatFechaCorta(s.limite);
+        let dateCell, sTxt, cls;
+        if (s.vencida) {
+          dateCell = '<div class="venc-date overdue">!<small>vencida</small></div>';
+          sTxt = 'Venció el plazo el ' + limTxt;
+        } else {
+          const urgente = s.restantes <= 5;
+          dateCell = '<div class="venc-date ' + (urgente ? 'overdue' : '') + '">' + s.restantes + '<small>días háb.</small></div>';
+          sTxt = 'Vence el ' + limTxt + ' — quedan ' + s.restantes + ' días hábiles';
+        }
+        return `<div class="venc-item" onclick="aricIrALicencia('${s.id}')">
+          ${dateCell}
+          <div class="venc-txt"><div class="t sinmov-cli">${esc(s.nombre)} · ${esc(s.tipo)}</div>
+          <div class="s">${sTxt}</div></div></div>`;
       }).join('');
     }
   }
