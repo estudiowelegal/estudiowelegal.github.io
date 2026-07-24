@@ -1305,11 +1305,15 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .cnb-eliminar{margin-top:16px;text-align:center}
 .cnb-eliminar-btn{background:transparent;border:none;color:var(--mal,#b3372a);font-size:12.5px;font-weight:600;cursor:pointer;padding:8px 14px;border-radius:8px}
 .cnb-eliminar-btn:hover{background:var(--mal-bg,#f9e3df)}
-/* Caja societaria: tiles más grandes y número en una línea */
-#csTiles{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-#csTiles .tile{padding:18px 20px 16px}
-#csTiles .tile .num{font-size:29px;white-space:nowrap;line-height:1.05}
-#csTiles .tile .lbl{font-size:13px}
+/* Caja societaria: tiles con pesos y dólares en líneas propias */
+#csTiles{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+#csTiles .tile{padding:18px 20px 16px;display:flex;flex-direction:column;gap:2px}
+#csTiles .cs-lbl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta);margin-bottom:8px}
+#csTiles .cs-monto{display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+#csTiles .cs-monto .cs-cur{font-size:14px;font-weight:600;color:var(--tinta-suave);min-width:34px}
+#csTiles .cs-monto .cs-val{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.1}
+#csTiles .cs-monto.usd{margin-top:2px;padding-top:6px;border-top:1px dashed var(--filo)}
+#csTiles .cs-sub{font-size:11.5px;color:var(--tinta-suave);margin-top:7px}
 </style>
 </head>
 <body>
@@ -9313,10 +9317,22 @@ function renderCajaSoc() {
     ${gincPes > 0 ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">$ ${fmtNumStr(gincPes)}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: $ ${fmtNumStr(honPes)} · ${t.nDesglose} pago${t.nDesglose !== 1 ? 's' : ''} con gastos</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(goPes)}</div><div class="lbl">G. ordinarios pesificados</div><div class="sub">$ ${fmtNumStr(t.goArs)} + u$s ${fmtNumStr(t.goUsd)} × ${fmtNumStr(dolar)}</div></div>
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(gePes)}</div><div class="lbl">G. escribanía pesificados</div><div class="sub">$ ${fmtNumStr(t.geArs)} + u$s ${fmtNumStr(t.geUsd)} × ${fmtNumStr(dolar)}</div></div>` : `
-    <div class="tile"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(t.inArs)}</div><div class="lbl">Ingresos</div><div class="sub">u$s ${fmtNumStr(t.inUsd)} en dólares · ${ingresos.length} mov.</div></div>
-    ${(t.gincArs > 0 || t.gincUsd > 0) ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">${t.gincArs ? '$ ' + fmtNumStr(t.gincArs) : ''}${t.gincArs && t.gincUsd ? ' · ' : ''}${t.gincUsd ? 'u$s ' + fmtNumStr(t.gincUsd) : ''}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: ${t.honArs ? '$ ' + fmtNumStr(t.honArs) : ''}${t.honArs && t.honUsd ? ' · ' : ''}${t.honUsd ? 'u$s ' + fmtNumStr(t.honUsd) : ''}</div></div>` : ''}
-    <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(t.goArs)}</div><div class="lbl">Gastos ordinarios</div><div class="sub">u$s ${fmtNumStr(t.goUsd)} en dólares · ${gastosOrd.length} mov.</div></div>
-    <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(t.geArs)}</div><div class="lbl">Gastos escribanía</div><div class="sub">u$s ${fmtNumStr(t.geUsd)} en dólares · ${gastosEsc.length} mov.</div></div>`;
+    <div class="tile"><div class="cs-lbl">Ingresos</div>
+      <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inArs)}</span></div>
+      <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inUsd)}</span></div>
+      <div class="cs-sub">${ingresos.length} mov.</div></div>
+    ${(t.gincArs > 0 || t.gincUsd > 0) ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="cs-lbl">De eso, gastos</div>
+      <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincArs||0)}</span></div>
+      <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincUsd||0)}</span></div>
+      <div class="cs-sub">honorarios: ${t.honArs ? '$ ' + fmtNumStr(t.honArs) : ''}${t.honArs && t.honUsd ? ' · ' : ''}${t.honUsd ? 'u$s ' + fmtNumStr(t.honUsd) : ''}</div></div>` : ''}
+    <div class="tile"><div class="cs-lbl">Gastos ordinarios</div>
+      <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#b3372a">${fmtNumStr(t.goArs)}</span></div>
+      <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#b3372a">${fmtNumStr(t.goUsd)}</span></div>
+      <div class="cs-sub">${gastosOrd.length} mov.</div></div>
+    <div class="tile"><div class="cs-lbl">Gastos escribanía</div>
+      <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#b3372a">${fmtNumStr(t.geArs)}</span></div>
+      <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#b3372a">${fmtNumStr(t.geUsd)}</span></div>
+      <div class="cs-sub">${gastosEsc.length} mov.</div></div>`;
   const filaMov = m => {
     const sim = m.moneda === 'USD' ? 'u$s ' : '$ ';
     const met = m.metodo === 'efectivo' ? 'Efectivo' : m.metodo === 'transferencia' ? 'Transf.' : m.metodo === 'cripto' ? 'Cripto' : 'Otro';
