@@ -1154,7 +1154,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 /* ── Módulo Abonos ── */
 .abo-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:14px}
 .abo-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--oro,#a07713);font-weight:700;margin-bottom:6px}
-.abo-h1{font-family:var(--serif,'Palatino Linotype');font-size:26px;color:#14294a;font-weight:700;text-transform:capitalize}
+.abo-h1{font-family:var(--serif,'Palatino Linotype');font-size:26px;color:#14294a;font-weight:700;text-transform:uppercase}
 .abo-mesnav{display:inline-flex;gap:6px;align-items:center}
 .abo-mesnav button{font-family:var(--f-ui,inherit);font-size:13px;border:1px solid var(--filo);background:var(--carta);color:var(--tinta);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:600}
 .abo-mesnav button:hover{background:var(--papel)}
@@ -1170,30 +1170,52 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-kpi .bar{height:6px;background:var(--filo-suave);border-radius:4px;margin-top:10px;overflow:hidden}
 .abo-kpi .bar span{display:block;height:100%;background:var(--ok,#1e7a48);border-radius:4px;transition:width .5s}
 .abo-kpi.usd .bar span{background:#2e7d32}
-.abo-sec{margin-bottom:24px}
-.abo-sec-h{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--tinta-suave);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.abo-sec-h span{background:var(--filo-suave);color:var(--tinta-suave);font-size:11px;padding:2px 9px;border-radius:20px}
-.abo-fila{display:flex;align-items:center;gap:14px;background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio-s,9px);padding:11px 15px;margin-bottom:8px}
-.abo-fila.pg{background:#fbfdfb;border-color:#d4e8dc}
-.abo-fila.pausada{opacity:.7}
-.abo-check{width:30px;height:30px;flex:0 0 auto;border-radius:8px;border:2px solid var(--filo);background:var(--carta);cursor:pointer;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.abo-sec{margin-bottom:22px;border:1px solid var(--filo);border-radius:var(--radio,12px);overflow:hidden}
+.abo-sec-h{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#fff;font-weight:700;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;background:#14294a;border-bottom:2px solid #c9a961;user-select:none}
+.abo-sec-h:hover{background:#0f1f38}
+.abo-sec-tw{display:flex;align-items:center;gap:9px}
+.abo-caret{font-size:11px;transition:transform .18s;display:inline-block}
+.abo-caret.closed{transform:rotate(-90deg)}
+.abo-sec-count{background:rgba(255,255,255,.16);color:#fff;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:.3px}
+.abo-sec.pausados .abo-sec-h{background:#6d5a3a}
+.abo-sec.pausados .abo-sec-h:hover{background:#5c4c30}
+.abo-sec-vacio{padding:20px 16px;font-size:13px;color:var(--tinta-suave);text-align:center}
+/* Filas tipo tabla */
+.abo-row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--filo-suave);background:var(--carta)}
+.abo-row:last-child{border-bottom:none}
+.abo-row.pg{background:#fbfdfb}
+.abo-row.pausada{opacity:.75}
+.abo-row-head{background:var(--papel);border-bottom:1px solid var(--filo)}
+.abo-row-head>div{font-size:10.5px!important;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta-suave)!important;font-weight:700!important;border-bottom:none!important}
+.abo-check{width:28px;height:28px;flex:0 0 auto;border-radius:7px;border:2px solid var(--filo);background:var(--carta);cursor:pointer;font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .abo-check.on{background:var(--ok,#1e7a48);border-color:var(--ok,#1e7a48)}
 .abo-check:hover{border-color:var(--ok,#1e7a48)}
-.abo-cli{flex:1;min-width:0}
-.abo-cli .n{font-size:14px;font-weight:600;color:var(--tinta);display:flex;align-items:center;gap:8px}
-.abo-cli .d{font-size:12px;color:var(--tinta-suave);margin-top:2px}
-.abo-mon{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.5px}
-.abo-mon.ars{background:#e6eef8;color:#1c56a5}
-.abo-mon.usd{background:#e3f0e6;color:#2e7d32}
-.abo-mid{flex:0 0 auto;text-align:right;min-width:150px}
-.abo-estado{font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.abo-check-sp{width:28px;flex:0 0 auto}
+.abo-c-nom{flex:2.2;min-width:0;font-size:13px;font-weight:700;color:var(--tinta);text-transform:uppercase;letter-spacing:.2px;cursor:pointer;overflow:hidden}
+.abo-c-nom-t{border-bottom:2px solid #c9a961;padding-bottom:2px;cursor:pointer;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+.abo-row-head .abo-c-nom,.abo-row.pausada .abo-c-nom{border-bottom:none}
+.abo-c-monto{flex:1;font-size:13px;font-weight:600;color:var(--tinta);white-space:nowrap}
+.abo-c-abonado{flex:1;font-size:13px;color:var(--tinta);white-space:nowrap}
+.abo-c-comprob{flex:1.3;min-width:0;font-size:12px;overflow:hidden}
+.abo-c-fecha{flex:0.9;font-size:12.5px;color:var(--tinta-suave);white-space:nowrap}
+.abo-c-estado{flex:1.5;min-width:130px}
+.abo-c-dl{border:1px solid var(--filo);background:var(--carta);color:#14294a;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.abo-c-dl:hover{background:var(--papel)}
+.abo-c-efec{font-size:11.5px;color:var(--tinta-suave);font-style:italic}
+.abo-c-empty{font-size:12px;color:var(--filo)}
+.abo-estado{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;display:inline-block}
 .abo-estado.ok{background:var(--ok-bg,#e6f3ec);color:var(--ok,#1e7a48)}
 .abo-estado.debe{background:var(--warn-bg,#f8eed7);color:var(--warn,#a86e17)}
-.abo-aq{font-size:11px;color:var(--tinta-suave);margin-top:3px}
 .abo-reg{flex:0 0 auto;font-size:12px;font-weight:600;border:1px solid var(--filo);background:var(--carta);color:#14294a;border-radius:8px;padding:7px 13px;cursor:pointer;white-space:nowrap}
 .abo-reg:hover{background:var(--papel)}
-.abo-sec.pausados .abo-sec-h{color:#a06a6a}
-@media (max-width:760px){ .abo-kpis{grid-template-columns:1fr} .abo-mid{min-width:0} }
+.abo-reg-sp{width:78px;flex:0 0 auto}
+/* Barra de búsqueda + filtro */
+.abo-buscar{display:flex;gap:10px;margin-bottom:20px}
+.abo-buscar-input{flex:1;padding:10px 14px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;color:var(--tinta);background:var(--carta)}
+.abo-buscar-input:focus{outline:none;border-color:#14294a}
+.abo-filtro{padding:10px 14px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13px;font-weight:600;color:var(--tinta);background:var(--carta);cursor:pointer;min-width:180px}
+.abo-filtro:focus{outline:none;border-color:#14294a}
+@media (max-width:760px){ .abo-kpis{grid-template-columns:1fr} }
 /* ── Modal de registro de pago de abono ── */
 .abo-reg-modal{display:none;position:fixed;inset:0;background:rgba(12,20,15,.5);z-index:344;align-items:center;justify-content:center;padding:20px}
 .abo-reg-card{background:var(--carta);border-radius:var(--radio,12px);width:540px;max-width:96vw;max-height:92vh;overflow:auto;box-shadow:0 22px 64px rgba(12,20,15,.32)}
@@ -1314,6 +1336,54 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 #csTiles .cs-monto .cs-val{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.1}
 #csTiles .cs-monto.usd{margin-top:2px;padding-top:6px;border-top:1px dashed var(--filo)}
 #csTiles .cs-sub{font-size:11.5px;color:var(--tinta-suave);margin-top:7px}
+.cnb-docs-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cnb-docs-topbar .cnb-docs-h{margin-bottom:0}
+.cnb-wa-btn{display:inline-flex;align-items:center;gap:7px;background:#25d366;color:#fff;border:none;border-radius:8px;font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:700;padding:8px 13px;cursor:pointer}
+.cnb-wa-btn:hover{background:#1eb85a}
+.cnb-wa-btn .wa-ico{width:17px;height:17px}
+.cnb-card-acc{margin-top:13px;padding-top:12px;border-top:1px solid var(--filo-suave)}
+.cnb-wa-btn.sm{padding:7px 11px;font-size:12px;width:100%;justify-content:center}
+.abo-estado.parcial{background:#eef2f8;color:#3a5a8a;font-size:11px}
+.abo-row.parc{background:#fbfcfe}
+/* Pagos parciales dentro del modal */
+.abo-reg-resumen{font-size:13px;color:var(--tinta);margin-bottom:16px;padding:10px 14px;background:var(--papel);border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.abo-pp-lista{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.abo-pp-vacio{font-size:12.5px;color:var(--tinta-suave);text-align:center;padding:14px;background:var(--papel);border-radius:8px}
+.abo-pp-item{display:flex;align-items:center;gap:12px;padding:10px 13px;border:1px solid var(--filo);border-radius:8px;background:var(--carta)}
+.abo-pp-info{flex:1;min-width:0}
+.abo-pp-l1{font-size:13.5px;color:var(--tinta)}
+.abo-pp-l2{font-size:11.5px;color:var(--tinta-suave);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.abo-pp-dl{border:none;background:transparent;color:#14294a;font-size:11.5px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline}
+.abo-pp-efec{font-style:italic}
+.abo-pp-sc{color:var(--filo)}
+.abo-pp-del{flex:0 0 auto;border:none;background:transparent;color:var(--mal,#b3372a);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.abo-pp-del:hover{background:var(--mal-bg,#f9e3df)}
+.abo-pp-nuevo{border-top:1px solid var(--filo);padding-top:16px}
+.abo-pp-nuevo-h{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta-suave);font-weight:700;margin-bottom:12px}
+.abo-pp-add{width:100%;padding:11px;border:none;border-radius:8px;background:var(--ok,#1e7a48);color:#fff;font-family:var(--f-ui,inherit);font-size:13px;font-weight:700;cursor:pointer;margin-top:4px}
+.abo-pp-add:hover{background:#186139}
+.abo-subtabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:2px solid var(--filo)}
+.abo-subtabs button{font-family:var(--f-ui,inherit);font-size:13.5px;font-weight:600;color:var(--tinta-suave);background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;padding:10px 16px;cursor:pointer}
+.abo-subtabs button.on{color:#14294a;border-bottom-color:#c9a961}
+.abo-subtabs button:hover{color:var(--tinta)}
+.abo-montos-hint{font-size:12.5px;color:var(--tinta-suave);margin-bottom:20px;line-height:1.5;background:var(--papel);padding:11px 14px;border-radius:8px}
+.abo-m-actual{flex:1;font-size:13px;font-weight:600;color:var(--tinta);white-space:nowrap}
+.abo-m-nuevo{flex:1.4}
+.abo-m-nuevo input{width:100%;padding:8px 11px;border:1px solid var(--filo);border-radius:7px;font-family:var(--f-ui,inherit);font-size:13px;box-sizing:border-box}
+.abo-m-nuevo input:focus{outline:none;border-color:#14294a}
+.abo-m-desde{flex:1.1}
+.abo-m-desde input{width:100%;padding:8px 11px;border:1px solid var(--filo);border-radius:7px;font-family:var(--f-ui,inherit);font-size:13px;box-sizing:border-box}
+.abo-m-desde input:focus{outline:none;border-color:#14294a}
+.abo-mrow .abo-c-nom{flex:2}
+.abo-row-acc{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.abo-wa-mini{width:32px;height:32px;flex:0 0 auto;border:none;background:#25d366;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.abo-wa-mini:hover{background:#1eb85a}
+.abo-wa-mini .wa-ico{width:17px;height:17px}
+.abo-reg-sp2{width:120px;flex:0 0 auto}
+.abo-m-avisado{flex:0 0 auto;width:90px;display:flex;align-items:center;justify-content:center}
+.abo-row-head .abo-m-avisado{font-size:10.5px}
+.abo-avisado-chk{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:11.5px;color:var(--tinta-suave)}
+.abo-avisado-chk input{width:16px;height:16px;cursor:pointer;accent-color:var(--ok,#1e7a48)}
 </style>
 </head>
 <body>
@@ -5742,26 +5812,165 @@ const ABONOS_SEED = [{"id": 1, "nombre": "Aires de campo", "moneda": "ARS", "mon
 const ABONOS_KEY = 'jc-abonos-v1';
 let ABONOS = [];
 let ABONOS_MES = null; // 'YYYY-MM' que se está viendo; null = mes actual
+let ABONOS_Q = '';       // búsqueda por nombre
+let ABONOS_FILTRO = 'todos'; // 'todos' | 'pagaron' | 'pendientes'
+let ABONOS_SUBTAB = 'cobros'; // 'cobros' | 'montos'
+function abonoIrSubtab(t){ ABONOS_SUBTAB = t; renderAbonos(); }
+const ABONOS_COLAPSO_KEY = 'jc-abonos-colapso-v1';
+function abonoColapsoGet(){ try { return JSON.parse(appStore.getItem(ABONOS_COLAPSO_KEY)||'{}')||{}; } catch(e){ return {}; } }
+function abonoColapsoSet(sec, cerrado){ const s=abonoColapsoGet(); s[sec]=cerrado; try{ appStore.setItem(ABONOS_COLAPSO_KEY, JSON.stringify(s)); }catch(e){} }
+function abonoToggleSec(sec){ const s=abonoColapsoGet(); abonoColapsoSet(sec, !s[sec]); renderAbonos(); }
+function abonoBuscar(v){
+  ABONOS_Q = (v||'').trim().toLowerCase();
+  abonoAplicarFiltroVivo();
+}
+// Filtra las filas ya renderizadas mostrando/ocultando, sin reconstruir el input (no pierde el foco)
+function abonoAplicarFiltroVivo(){
+  const ym = abonoMesActual();
+  document.querySelectorAll('#abonosPanel .abo-sec').forEach(sec=>{
+    let visibles = 0, total = 0;
+    sec.querySelectorAll('.abo-row:not(.abo-row-head)').forEach(row=>{
+      const cid = row.getAttribute('data-cli');
+      if(cid==null){ return; }
+      total++;
+      const c = abonoBuscarCli(cid);
+      let ok = true;
+      if(c){
+        if(ABONOS_Q && c.nombre.toLowerCase().indexOf(ABONOS_Q)===-1) ok = false;
+        if(ok && ABONOS_FILTRO!=='todos'){
+          const st = abonoEstadoMes(c, ym);
+          const pago = st.estado==='pagado';
+          if(ABONOS_FILTRO==='pagaron' && !pago) ok=false;
+          if(ABONOS_FILTRO==='pendientes' && pago) ok=false;
+        }
+      }
+      row.style.display = ok ? '' : 'none';
+      if(ok) visibles++;
+    });
+    // actualizar contador de la sección
+    const cnt = sec.querySelector('.abo-sec-count');
+    if(cnt && total>0) cnt.textContent = visibles + (visibles!==total ? (' de '+total) : '');
+    // mensaje de vacío
+    let vacio = sec.querySelector('.abo-sec-vacio-vivo');
+    const head = sec.querySelector('.abo-row-head');
+    if(total>0 && visibles===0){
+      if(!vacio && head){ vacio=document.createElement('div'); vacio.className='abo-sec-vacio abo-sec-vacio-vivo'; vacio.textContent='Ningún cliente coincide con la búsqueda o el filtro.'; sec.appendChild(vacio); }
+    } else if(vacio){ vacio.remove(); }
+  });
+}
+function abonoFiltrar(v){ ABONOS_FILTRO = v||'todos'; abonoAplicarFiltroVivo(); }
+
 function loadAbonos(){
   try { ABONOS = JSON.parse(appStore.getItem(ABONOS_KEY) || 'null'); } catch(e){ ABONOS = null; }
   if (!Array.isArray(ABONOS) || !ABONOS.length) { ABONOS = ABONOS_SEED.map(c=>({...c, pagos: (c.pagos||[]).slice()})); saveAbonos(); }
 }
 function saveAbonos(){ try { appStore.setItem(ABONOS_KEY, JSON.stringify(ABONOS)); } catch(e){} }
 function abonoMesActual(){ return ABONOS_MES || hoyISO().slice(0,7); }
-// Devuelve el registro de pago de un cliente para un mes dado (o null)
-function abonoPagoDe(cli, ym){ return (cli.pagos||[]).find(p => p.mes === ym) || null; }
-// Alta/actualización del pago de un mes
-function abonoSetPago(cliId, ym, datos){
-  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+// Registro del mes (objeto con .parciales[]). Migra formato viejo (pago único) al vuelo.
+function abonoPagoDe(cli, ym){
+  const p = (cli.pagos||[]).find(x => x.mes === ym);
+  if(!p) return null;
+  if(!Array.isArray(p.parciales)){
+    // Migración: el formato viejo tenía pagado/montoCobrado/fecha/aQuien/comprobante sueltos
+    p.parciales = [];
+    if(p.pagado){
+      p.parciales.push({ id:'ap'+Date.now(), monto:(p.montoCobrado!=null?p.montoCobrado:null), fecha:p.fecha||'', aQuien:p.aQuien||'', obs:p.obs||'', comprobante:p.comprobante||null });
+    }
+    delete p.pagado; delete p.montoCobrado; delete p.fecha; delete p.aQuien; delete p.obs; delete p.comprobante; delete p.chequeado;
+  }
+  return p;
+}
+function abonoAsegurarMes(cliId, ym){
+  const c = abonoBuscarCli(cliId); if(!c) return null;
   c.pagos = c.pagos || [];
   let p = c.pagos.find(x=>x.mes===ym);
-  if(!p){ p = { mes: ym }; c.pagos.push(p); }
-  Object.assign(p, datos);
+  if(!p){ p = { mes: ym, parciales: [] }; c.pagos.push(p); }
+  if(!Array.isArray(p.parciales)) p.parciales = [];
+  return p;
+}
+// Total abonado en un mes (suma de parciales con monto cargado)
+function abonoTotalMes(cli, ym){
+  const p = abonoPagoDe(cli, ym);
+  if(!p || !p.parciales) return 0;
+  return p.parciales.reduce((a,x)=> a + (Number(x.monto)||0), 0);
+}
+// Estado del mes: 'pagado' | 'parcial' | 'pendiente' (+ cuánto falta)
+function abonoEstadoMes(cli, ym){
+  const p = abonoPagoDe(cli, ym);
+  const esperado = abonoMontoVigente(cli, ym);
+  const abonado = abonoTotalMes(cli, ym);
+  const nParc = p && p.parciales ? p.parciales.length : 0;
+  if(nParc === 0) return { estado:'pendiente', abonado:0, esperado, falta:esperado };
+  // si algún parcial no tiene monto, lo tratamos como pago sin importe detallado → pagado
+  const algunoSinMonto = p.parciales.some(x => x.monto==null || x.monto==='');
+  if(algunoSinMonto) return { estado:'pagado', abonado, esperado, falta:0 };
+  if(esperado>0 && abonado < esperado) return { estado:'parcial', abonado, esperado, falta:esperado-abonado };
+  return { estado:'pagado', abonado, esperado, falta:0 };
+}
+// Agrega un pago parcial al mes
+function abonoAgregarParcial(cliId, ym, datos){
+  const p = abonoAsegurarMes(cliId, ym); if(!p) return;
+  p.parciales.push({ id:'ap'+Date.now()+Math.floor(Math.random()*1000), ...datos });
+  saveAbonos();
+}
+// Actualiza un parcial por id
+function abonoSetParcial(cliId, ym, pid, datos){
+  const p = abonoAsegurarMes(cliId, ym); if(!p) return;
+  const x = p.parciales.find(z=>z.id===pid); if(!x) return;
+  Object.assign(x, datos); saveAbonos();
+}
+// Elimina un parcial
+function abonoQuitarParcial(cliId, ym, pid){
+  const p = abonoAsegurarMes(cliId, ym); if(!p) return;
+  p.parciales = p.parciales.filter(z=>z.id!==pid);
+  if(!p.parciales.length){ const c=abonoBuscarCli(cliId); if(c) c.pagos=c.pagos.filter(z=>z.mes!==ym); }
   saveAbonos();
 }
 function abonoQuitarPago(cliId, ym){
-  const c = ABONOS.find(x=>x.id===cliId); if(!c||!c.pagos) return;
+  const c = abonoBuscarCli(cliId); if(!c||!c.pagos) return;
   c.pagos = c.pagos.filter(x=>x.mes!==ym); saveAbonos();
+}
+
+// ── Montos con vigencia por mes ──
+// c.montoHist = [{ desde:'YYYY-MM', monto:Number }], ordenado. c.monto = monto base (vigencia inicial).
+// Devuelve el monto que rige para el mes ym.
+function abonoMontoVigente(cli, ym){
+  const hist = Array.isArray(cli.montoHist) ? cli.montoHist.slice() : [];
+  hist.sort((a,b)=> a.desde.localeCompare(b.desde));
+  let val = cli.monto || 0;
+  for(const h of hist){ if(h.desde <= ym) val = h.monto; else break; }
+  return val;
+}
+// Monto que regía en el mes inmediatamente anterior a 'desde' (ignorando el cambio de 'desde' en sí)
+function abonoMontoPrevioA(cli, desde){
+  const hist = (Array.isArray(cli.montoHist) ? cli.montoHist.slice() : []).sort((a,b)=> a.desde.localeCompare(b.desde));
+  let val = cli.monto || 0;
+  for(const h of hist){ if(h.desde < desde) val = h.monto; else break; }
+  return val;
+}
+// Fija un nuevo monto desde un mes en adelante.
+// Si el valor coincide con el que ya regía justo antes, NO es un cambio real: se quita del historial.
+function abonoFijarMonto(cliId, desde, monto){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  c.montoHist = Array.isArray(c.montoHist) ? c.montoHist : [];
+  const m = Number(monto)||0;
+  const previo = abonoMontoPrevioA(c, desde);
+  const ex = c.montoHist.find(h=>h.desde===desde);
+  if(m === previo){
+    // No hubo cambio real → sacar cualquier entrada en ese 'desde' y limpiar el "avisado" si apuntaba ahí
+    c.montoHist = c.montoHist.filter(h=>h.desde!==desde);
+    if(c.avisadoMonto === desde) c.avisadoMonto = '';
+  } else if(ex){ ex.monto = m; }
+  else { c.montoHist.push({ desde, monto:m }); }
+  c.montoHist.sort((a,b)=> a.desde.localeCompare(b.desde));
+  saveAbonos();
+}
+// ¿El último cambio de monto es real? (difiere del que regía justo antes)
+function abonoTieneCambioReal(c){
+  const hist = (Array.isArray(c.montoHist) ? c.montoHist.slice() : []).sort((a,b)=> a.desde.localeCompare(b.desde));
+  if(!hist.length) return false;
+  const ult = hist[hist.length-1];
+  return ult.monto !== abonoMontoPrevioA(c, ult.desde);
 }
 const ABONO_MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function abonoMesLabel(ym){ const [y,m]=ym.split('-'); return ABONO_MESES[parseInt(m,10)-1]+' '+y; }
@@ -5780,21 +5989,43 @@ function abonoCambiarMes(delta){
 }
 function abonoIrMesActual(){ ABONOS_MES = null; renderAbonos(); }
 
+// Compara ids de abono de forma robusta (pueden venir como number o string desde onclick)
+function abonoBuscarCli(cliId){ return ABONOS.find(x=>String(x.id)===String(cliId)); }
+// Formatea un input de monto con separadores de miles mientras se escribe
+function abonoFmtInput(inp){
+  let v = inp.value.replace(/\./g,'').replace(/[^0-9]/g,'');
+  if(v===''){ inp.value=''; return; }
+  inp.value = Number(v).toLocaleString('es-AR');
+}
+// Devuelve el número puro de un input formateado
+function abonoParseInput(inp){
+  if(!inp) return '';
+  const v = String(inp.value).replace(/\./g,'').replace(/[^0-9]/g,'');
+  return v===''?'':Number(v);
+}
+function abonoSubtabsHTML(){
+  return `<div class="abo-subtabs">
+    <button class="${ABONOS_SUBTAB==='cobros'?'on':''}" onclick="abonoIrSubtab('cobros')">Cobros del mes</button>
+    <button class="${ABONOS_SUBTAB==='montos'?'on':''}" onclick="abonoIrSubtab('montos')">Actualizar montos</button>
+  </div>`;
+}
 function renderAbonos(){
   const cont = document.getElementById('abonosPanel');
   if (!cont) return;
+  if (ABONOS_SUBTAB === 'montos'){ renderAbonosMontos(cont); return; }
   const ym = abonoMesActual();
   const activos = ABONOS.filter(c=>c.estado==='activo');
   const pausados = ABONOS.filter(c=>c.estado==='pausado');
 
-  // Totales del mes por moneda: esperado vs cobrado
+  // Totales del mes por moneda: esperado (según monto vigente) vs cobrado (suma de parciales)
   const calc = (moneda) => {
     const cs = activos.filter(c=>c.moneda===moneda);
     let esperado=0, cobrado=0, pagados=0;
     cs.forEach(c=>{
-      esperado += c.monto||0;
-      const p = abonoPagoDe(c,ym);
-      if (p && p.pagado){ cobrado += (p.montoCobrado!=null?p.montoCobrado:c.monto)||0; pagados++; }
+      esperado += abonoMontoVigente(c, ym);
+      const st = abonoEstadoMes(c, ym);
+      cobrado += st.abonado;
+      if (st.estado==='pagado') pagados++;
     });
     return { cs, esperado, cobrado, pagados, total: cs.length };
   };
@@ -5829,64 +6060,261 @@ function renderAbonos(){
       <div class="abo-kpi neutral">
         <div class="lbl">Pendientes de cobro</div>
         <div class="val">${(ars.total-ars.pagados)+(usd.total-usd.pagados)}</div>
-        <div class="sub">clientes sin registrar pago este mes</div>
+        <div class="sub">clientes sin registrar pago total</div>
       </div>
     </div>`;
 
+  // Filtro por nombre y por estado de pago
+  const pasaFiltro = (c) => {
+    if (ABONOS_Q && c.nombre.toLowerCase().indexOf(ABONOS_Q) === -1) return false;
+    if (ABONOS_FILTRO !== 'todos'){
+      const st = abonoEstadoMes(c, ym);
+      const pago = st.estado === 'pagado';
+      if (ABONOS_FILTRO === 'pagaron' && !pago) return false;
+      if (ABONOS_FILTRO === 'pendientes' && pago) return false; // pendiente y parcial cuentan como no-pagado
+    }
+    return true;
+  };
+
+  // Fila ancha tipo tabla (sin checkbox: se registra con "Registrar")
   const filaCli = (c) => {
     const p = abonoPagoDe(c, ym);
-    const pagado = p && p.pagado;
-    const montoTxt = c.monto ? fmtM(c.monto, c.moneda) : '—';
-    const chip = c.moneda==='USD' ? '<span class="abo-mon usd">USD</span>' : '<span class="abo-mon ars">ARS</span>';
-    const estado = pagado
-      ? `<span class="abo-estado ok">✓ Pagado${p.fecha?' · '+formatFechaCorta(p.fecha):''}</span>`
-      : `<span class="abo-estado debe">Pendiente</span>`;
-    const tieneComprob = pagado && p.comprobante && (p.comprobante.url || p.comprobante.path);
-    const aQuien = pagado && (p.aQuien || tieneComprob) ? `<div class="abo-aq">${tieneComprob?'📎 ':''}${esc(p.aQuien||'')}</div>` : '';
-    return `<div class="abo-fila ${pagado?'pg':''}">
-      <button class="abo-check ${pagado?'on':''}" onclick="abonoToggleRapido(${c.id})" title="${pagado?'Marcar como impago':'Marcar como pagado'}">${pagado?'✓':''}</button>
-      <div class="abo-cli">
-        <div class="n">${esc(c.nombre)} ${chip}</div>
-        <div class="d">${c.tipo?esc(c.tipo)+' · ':''}${montoTxt}</div>
+    const st = abonoEstadoMes(c, ym);
+    const monto = abonoMontoVigente(c, ym);
+    const montoTxt = monto ? fmtM(monto, c.moneda) : '—';
+    const abonadoTxt = st.abonado ? fmtM(st.abonado, c.moneda) : '—';
+    const parciales = p && p.parciales ? p.parciales : [];
+    const conComprob = parciales.filter(x => x.comprobante && (x.comprobante.url || x.comprobante.path));
+    const efectivo = parciales.length && parciales.every(x => x.aQuien && /efectivo/i.test(x.aQuien)) && !conComprob.length;
+    // Celda comprobante: uno o varios
+    let comprobCell;
+    if (!parciales.length){ comprobCell = '<span class="abo-c-empty">—</span>'; }
+    else if (conComprob.length === 1){ comprobCell = `<button class="abo-c-dl" onclick="abonoDescargarComprobParcial(${c.id},'${conComprob[0].id}')" title="Descargar comprobante">📎 Descargar</button>`; }
+    else if (conComprob.length > 1){ comprobCell = `<button class="abo-c-dl" onclick="abonoAbrirRegistro(${c.id})" title="Ver comprobantes">📎 ${conComprob.length} comprob.</button>`; }
+    else if (efectivo){ comprobCell = '<span class="abo-c-efec">Pago en efectivo</span>'; }
+    else { comprobCell = '<span class="abo-c-empty">Sin comprobante</span>'; }
+    // Estado
+    let estadoHtml;
+    if(st.estado==='pagado') estadoHtml = '<span class="abo-estado ok">✓ Pagado</span>';
+    else if(st.estado==='parcial') estadoHtml = `<span class="abo-estado parcial">Parcial · falta ${fmtM(st.falta,c.moneda)}</span>`;
+    else estadoHtml = '<span class="abo-estado debe">Pendiente</span>';
+    // Fecha (del último parcial)
+    const ultFecha = parciales.length ? parciales[parciales.length-1].fecha : '';
+    const fechaTxt = ultFecha ? formatFechaCorta(ultFecha) : '—';
+    const btnLabel = parciales.length ? 'Registrar / editar' : 'Registrar';
+    return `<div class="abo-row ${st.estado==='pagado'?'pg':st.estado==='parcial'?'parc':''}" data-cli="${c.id}">
+      <div class="abo-c-nom"><span class="abo-c-nom-t" onclick="abonoAbrirRegistro(${c.id})">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="abo-c-monto">${montoTxt}</div>
+      <div class="abo-c-abonado">${abonadoTxt}</div>
+      <div class="abo-c-comprob">${comprobCell}</div>
+      <div class="abo-c-fecha">${fechaTxt}</div>
+      <div class="abo-c-estado">${estadoHtml}</div>
+      <div class="abo-row-acc">
+        ${st.estado!=='pagado' ? `<button class="abo-wa-mini" onclick="abonoReclamarPago(${c.id})" title="Reclamar pago por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
+        <button class="abo-reg" onclick="abonoAbrirRegistro(${c.id})">${btnLabel}</button>
       </div>
-      <div class="abo-mid">${estado}${aQuien}</div>
-      <button class="abo-reg" onclick="abonoAbrirRegistro(${c.id})">${pagado?'Editar':'Registrar'}</button>
     </div>`;
   };
 
-  const seccion = (titulo, lista) => lista.length ? `
-    <div class="abo-sec">
-      <div class="abo-sec-h">${titulo} <span>${lista.length}</span></div>
-      ${lista.map(filaCli).join('')}
-    </div>` : '';
+  const encabezadoTabla = `<div class="abo-row abo-row-head">
+      <div class="abo-c-nom">Cliente</div>
+      <div class="abo-c-monto">Abono</div>
+      <div class="abo-c-abonado">Abonado</div>
+      <div class="abo-c-comprob">Comprobante</div>
+      <div class="abo-c-fecha">Fecha</div>
+      <div class="abo-c-estado">Estado</div>
+      <div class="abo-reg-sp2"></div>
+    </div>`;
+
+  const colap = abonoColapsoGet();
+  const seccion = (sec, titulo, lista) => {
+    if (!lista.length) return '';
+    const cerrada = !!colap[sec];
+    // Se pintan TODAS las filas; el filtro/búsqueda se aplica en vivo (sin re-render, no pierde foco)
+    const cuerpo = cerrada ? '' : (encabezadoTabla + lista.map(filaCli).join(''));
+    return `<div class="abo-sec">
+      <div class="abo-sec-h" onclick="abonoToggleSec('${sec}')">
+        <span class="abo-sec-tw"><span class="abo-caret ${cerrada?'closed':''}">▾</span> ${titulo}</span>
+        <span class="abo-sec-count">${lista.length}</span>
+      </div>
+      ${cuerpo}
+    </div>`;
+  };
 
   const arsCli = activos.filter(c=>c.moneda==='ARS').sort((a,b)=>a.nombre.localeCompare(b.nombre));
   const usdCli = activos.filter(c=>c.moneda==='USD').sort((a,b)=>a.nombre.localeCompare(b.nombre));
 
+  const pausCerrada = !!colap['pausados'];
   const pausSec = pausados.length ? `
     <div class="abo-sec pausados">
-      <div class="abo-sec-h">Pausados <span>${pausados.length}</span></div>
-      ${pausados.map(c=>`<div class="abo-fila pausada"><div class="abo-cli"><div class="n">${esc(c.nombre)}</div><div class="d">En pausa</div></div>
+      <div class="abo-sec-h" onclick="abonoToggleSec('pausados')">
+        <span class="abo-sec-tw"><span class="abo-caret ${pausCerrada?'closed':''}">▾</span> Pausados</span>
+        <span class="abo-sec-count">${pausados.length}</span>
+      </div>
+      ${pausCerrada ? '' : pausados.filter(pasaFiltro).map(c=>`<div class="abo-row pausada">
+        <div class="abo-check-sp"></div>
+        <div class="abo-c-nom">${esc(c.nombre.toUpperCase())}</div>
+        <div class="abo-c-monto" style="flex:1;color:var(--tinta-suave)">En pausa</div>
         <button class="abo-reg" onclick="abonoReactivar(${c.id})">Reactivar</button></div>`).join('')}
     </div>` : '';
 
+  // Barra de búsqueda + filtro
+  const barra = `<div class="abo-buscar">
+      <input type="text" class="abo-buscar-input" placeholder="Buscar cliente por nombre..." value="${esc(ABONOS_Q)}" oninput="abonoBuscar(this.value)">
+      <select class="abo-filtro" onchange="abonoFiltrar(this.value)">
+        <option value="todos" ${ABONOS_FILTRO==='todos'?'selected':''}>Todos</option>
+        <option value="pagaron" ${ABONOS_FILTRO==='pagaron'?'selected':''}>Ya pagaron</option>
+        <option value="pendientes" ${ABONOS_FILTRO==='pendientes'?'selected':''}>Pendiente de pago</option>
+      </select>
+    </div>`;
+
   cont.innerHTML = cabecera
-    + seccion('Abonos en pesos', arsCli)
-    + seccion('Abonos en dólares', usdCli)
+    + abonoSubtabsHTML()
+    + barra
+    + seccion('ars', 'Abonos en pesos', arsCli)
+    + seccion('usd', 'Abonos en dólares', usdCli)
     + pausSec;
+  if (ABONOS_Q || ABONOS_FILTRO!=='todos') abonoAplicarFiltroVivo();
 }
 
-// Marca pagado/impago con un clic (registro rápido)
-function abonoToggleRapido(cliId){
-  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+// Descarga el comprobante de pago de un cliente en el mes visible
+// ── Subsolapa: actualizar los montos de los abonos ──
+function renderAbonosMontos(cont){
   const ym = abonoMesActual();
-  const p = abonoPagoDe(c, ym);
-  if (p && p.pagado){ abonoQuitarPago(cliId, ym); }
-  else { abonoSetPago(cliId, ym, { pagado:true, fecha: hoyISO(), montoCobrado: c.monto }); }
+  const activos = ABONOS.filter(c=>c.estado==='activo');
+  const fmtM = (n,mon)=> (mon==='USD'?'US$ ':'$ ') + Math.round(Number(n)||0).toLocaleString('es-AR');
+  // mes por defecto para "desde": el mes que se está viendo
+  const filaCli = (c)=>{
+    const vig = abonoMontoVigente(c, ym);
+    return `<div class="abo-row abo-mrow" data-cli="${c.id}">
+      <div class="abo-c-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="abo-m-actual">${vig?fmtM(vig,c.moneda):'—'}</div>
+      <div class="abo-m-nuevo"><input type="text" inputmode="numeric" id="abom-nuevo-${c.id}" placeholder="Nuevo monto (${c.moneda==='USD'?'US$':'$'})" oninput="abonoFmtInput(this)"></div>
+      <div class="abo-m-desde"><input type="month" id="abom-desde-${c.id}" value="${ym}"></div>
+      <div class="abo-row-acc">
+        ${abonoTieneCambioReal(c) ? `<button class="abo-wa-mini" onclick="abonoAvisarMonto('${c.id}')" title="Avisar el nuevo monto por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
+        <button class="abo-reg" onclick="abonoGuardarMonto('${c.id}')">Aplicar</button>
+      </div>
+      <div class="abo-m-avisado">${abonoTieneCambioReal(c) ? `<label class="abo-avisado-chk" title="Marcar que ya le avisaste del aumento"><input type="checkbox" ${abonoMontoAvisado(c)?'checked':''} onchange="abonoToggleAvisado('${c.id}',this.checked)"><span>Avisado</span></label>` : ''}</div>
+    </div>`;
+  };
+  const seccion = (titulo, lista)=> lista.length ? `
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">${titulo}</span><span class="abo-sec-count">${lista.length}</span></div>
+      <div class="abo-row abo-row-head">
+        <div class="abo-c-nom">Cliente</div>
+        <div class="abo-m-actual">Monto actual</div>
+        <div class="abo-m-nuevo">Pasa a pagar</div>
+        <div class="abo-m-desde">Desde</div>
+        <div class="abo-reg-sp2"></div>
+        <div class="abo-m-avisado">Avisado</div>
+      </div>
+      ${lista.map(filaCli).join('')}
+    </div>` : '';
+  const arsCli = activos.filter(c=>c.moneda==='ARS').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  const usdCli = activos.filter(c=>c.moneda==='USD').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Abonos mensuales</div>
+      <h1 class="abo-h1">Actualizar montos</h1>
+    </div></div>
+    ${abonoSubtabsHTML()}
+    <div class="abo-montos-hint">Fijá el nuevo monto y desde qué mes rige. Ese valor se mantiene de ese mes en adelante hasta que lo vuelvas a cambiar; los meses anteriores no se tocan.</div>
+    ${seccion('Abonos en pesos', arsCli)}
+    ${seccion('Abonos en dólares', usdCli)}`;
+}
+function abonoGuardarMonto(cliId){
+  const nuevo = abonoParseInput(document.getElementById('abom-nuevo-'+cliId));
+  const desde = document.getElementById('abom-desde-'+cliId).value;
+  if(nuevo===''){ aricToast('Poné el nuevo monto'); return; }
+  if(!desde){ aricToast('Elegí desde qué mes rige'); return; }
+  abonoFijarMonto(cliId, desde, Number(nuevo));
+  const c = abonoBuscarCli(cliId);
+  aricToast('Monto actualizado desde '+abonoMesLabel(desde));
   renderAbonos();
 }
+
+function abonoPausar(cliId){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  if(!confirm('¿Pausar el abono de «'+c.nombre+'»?\n\nDejará de aparecer entre los activos y no se le contará el cobro mensual. Podés reactivarlo cuando quieras.')) return;
+  c.estado='pausado'; saveAbonos();
+  abonoCerrarRegistro();
+  renderAbonos();
+  aricToast('Abono pausado');
+}
+// ── WhatsApp: reclamar el pago del abono (contempla pagos parciales) ──
+function abonoMensajeReclamo(c, ym){
+  const hola = 'Hola, ¿cómo estás? ';
+  const simbolo = c.moneda === 'USD' ? 'US$' : '$';
+  const fmt = n => simbolo + ' ' + Math.round(Number(n)||0).toLocaleString('es-AR');
+  const st = abonoEstadoMes(c, ym);
+  const mesTxt = abonoMesLabel(ym);
+  let m = hola + 'Te escribo para recordarte el abono correspondiente a ' + mesTxt + '.\n';
+  if (st.estado === 'parcial'){
+    m += 'Hasta ahora tenemos registrado un pago de ' + fmt(st.abonado) + ', así que queda un saldo pendiente de ' + fmt(st.falta) + ' para completar el abono de ' + fmt(st.esperado) + '.\n';
+    m += 'Cuando puedas, te pido que completes ese saldo. Cualquier cosa me avisás!';
+  } else {
+    m += 'Todavía no tenemos registrado el pago de este mes, que es de ' + fmt(st.esperado) + '.\n';
+    m += 'Cuando lo tengas, te agradezco que me pases el comprobante. Cualquier duda quedo a disposición!';
+  }
+  return m;
+}
+function abonoReclamarPago(cliId){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  aricAbrirWaModal(abonoMensajeReclamo(c, abonoMesActual()), false);
+}
+
+// ── WhatsApp: avisar la actualización del monto del abono ──
+function abonoMensajeActualizacion(c, desde, nuevoMonto){
+  const hola = 'Hola, ¿cómo estás? ';
+  const simbolo = c.moneda === 'USD' ? 'US$' : '$';
+  const fmt = n => simbolo + ' ' + Math.round(Number(n)||0).toLocaleString('es-AR');
+  const mesTxt = abonoMesLabel(desde);
+  let m = hola + 'Te escribo para comentarte una actualización en el valor del abono mensual.\n';
+  m += 'A partir de ' + mesTxt + ', el abono pasa a ser de ' + fmt(nuevoMonto) + '.\n';
+  m += 'Cualquier consulta que tengas, quedo a disposición. Gracias!';
+  return m;
+}
+
+// ¿Ya se avisó del último cambio de monto? (avisadoMonto guarda el "desde" del último aviso)
+function abonoMontoAvisado(c){
+  const hist = Array.isArray(c.montoHist) ? c.montoHist.slice().sort((a,b)=>a.desde.localeCompare(b.desde)) : [];
+  if(!hist.length) return false;
+  const ult = hist[hist.length-1];
+  return c.avisadoMonto === ult.desde;
+}
+function abonoToggleAvisado(cliId, on){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  const hist = Array.isArray(c.montoHist) ? c.montoHist.slice().sort((a,b)=>a.desde.localeCompare(b.desde)) : [];
+  if(!hist.length) return;
+  const ult = hist[hist.length-1];
+  c.avisadoMonto = on ? ult.desde : '';
+  saveAbonos();
+}
+function abonoAvisarMonto(cliId){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  // Si hay un monto nuevo cargado en el input de esa fila (aunque no se haya apretado "Aplicar"),
+  // se aplica primero para avisar con el valor que el usuario está viendo en pantalla.
+  const inpNuevo = document.getElementById('abom-nuevo-'+cliId);
+  const inpDesde = document.getElementById('abom-desde-'+cliId);
+  if(inpNuevo){
+    const nuevo = abonoParseInput(inpNuevo);
+    const desde = inpDesde ? inpDesde.value : '';
+    if(nuevo!=='' && desde){
+      abonoFijarMonto(cliId, desde, Number(nuevo));
+      if(inpNuevo) inpNuevo.value='';
+      renderAbonos();
+    }
+  }
+  const c2 = abonoBuscarCli(cliId);
+  const hist = Array.isArray(c2.montoHist) ? c2.montoHist.slice().sort((a,b)=>a.desde.localeCompare(b.desde)) : [];
+  if(!hist.length || !abonoTieneCambioReal(c2)){ aricToast('No hay un cambio de monto para avisar (el valor es igual al anterior)'); return; }
+  const ult = hist[hist.length-1]; // el último cambio registrado
+  aricAbrirWaModal(abonoMensajeActualizacion(c2, ult.desde, ult.monto), false);
+}
 function abonoReactivar(cliId){
-  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  const c = abonoBuscarCli(cliId); if(!c) return;
   c.estado='activo'; saveAbonos(); renderAbonos();
 }
 
@@ -5895,83 +6323,101 @@ let ABONO_REG_CLI = null;   // id del cliente en edición
 let ABONO_REG_ADJ = null;   // {nombre, path, url} del comprobante cargado en esta sesión de edición
 
 function abonoAbrirRegistro(cliId){
-  const c = ABONOS.find(x=>x.id===cliId); if(!c) return;
+  const c = abonoBuscarCli(cliId); if(!c) return;
   ABONO_REG_CLI = cliId;
-  const ym = abonoMesActual();
-  const p = abonoPagoDe(c, ym) || {};
-  ABONO_REG_ADJ = p.comprobante ? { ...p.comprobante } : null;
+  ABONO_REG_ADJ = null; // comprobante del pago que se está por agregar
+  abonoPintarRegistro();
+  document.getElementById('abonoRegModal').style.display = 'flex';
+}
 
+function abonoPintarRegistro(){
+  const c = abonoBuscarCli(ABONO_REG_CLI); if(!c) return;
+  const ym = abonoMesActual();
+  const p = abonoPagoDe(c, ym);
+  const parciales = p && p.parciales ? p.parciales : [];
   const simbolo = c.moneda === 'USD' ? 'US$' : '$';
-  const modal = document.getElementById('abonoRegModal');
+  const fmtM = (n)=> simbolo+' '+Math.round(Number(n)||0).toLocaleString('es-AR');
+  const st = abonoEstadoMes(c, ym);
+  const monto = abonoMontoVigente(c, ym);
+
   const body = document.getElementById('abonoRegBody');
+  // Lista de pagos parciales ya cargados
+  const listaParc = parciales.length ? parciales.map((x,i)=>{
+    const comprob = x.comprobante && (x.comprobante.url || x.comprobante.path)
+      ? `<button class="abo-pp-dl" onclick="abonoDescargarComprobParcial(${c.id},'${x.id}')">📎 ${esc(x.comprobante.nombre||'comprobante')}</button>`
+      : (x.aQuien && /efectivo/i.test(x.aQuien) ? '<span class="abo-pp-efec">efectivo</span>' : '<span class="abo-pp-sc">sin comprobante</span>');
+    return `<div class="abo-pp-item">
+      <div class="abo-pp-info">
+        <div class="abo-pp-l1"><b>${x.monto!=null&&x.monto!==''?fmtM(x.monto):'(sin importe)'}</b>${x.fecha?' · '+formatFechaCorta(x.fecha):''}</div>
+        <div class="abo-pp-l2">${x.aQuien?esc(x.aQuien)+' · ':''}${comprob}</div>
+      </div>
+      <button class="abo-pp-del" onclick="abonoEliminarParcial('${x.id}')" title="Eliminar este pago">✕</button>
+    </div>`;
+  }).join('') : '<div class="abo-pp-vacio">Todavía no hay pagos registrados este mes.</div>';
+
+  // Resumen de estado
+  let resumen;
+  if(st.estado==='pagado') resumen = `<span class="abo-estado ok">✓ Pagado</span> ${fmtM(st.abonado)} de ${fmtM(monto)}`;
+  else if(st.estado==='parcial') resumen = `<span class="abo-estado parcial">Parcial</span> ${fmtM(st.abonado)} de ${fmtM(monto)} · falta ${fmtM(st.falta)}`;
+  else resumen = `<span class="abo-estado debe">Pendiente</span> abono de ${fmtM(monto)}`;
+
   body.innerHTML = `
     <div class="abo-reg-head">
       <div>
         <div class="abo-reg-cli">${esc(c.nombre)}</div>
-        <div class="abo-reg-sub">${esc(abonoMesLabel(ym))} · abono ${c.moneda === 'USD' ? 'en dólares' : 'en pesos'}${c.tipo?' · '+esc(c.tipo):''}</div>
+        <div class="abo-reg-sub">${esc(abonoMesLabel(ym))} · abono ${c.moneda === 'USD' ? 'en dólares' : 'en pesos'}</div>
       </div>
       <button class="abo-reg-x" onclick="abonoCerrarRegistro()">✕</button>
     </div>
     <div class="abo-reg-body">
-      <label class="abo-reg-switch">
-        <input type="checkbox" id="abonoRegPagado" ${p.pagado?'checked':''} onchange="abonoRegTogglePagado()">
-        <span>Pago registrado</span>
-      </label>
-      <div id="abonoRegCampos" style="${p.pagado?'':'opacity:.5;pointer-events:none'}">
+      <div class="abo-reg-resumen">${resumen}</div>
+
+      <div class="abo-pp-lista">${listaParc}</div>
+
+      <div class="abo-pp-nuevo">
+        <div class="abo-pp-nuevo-h">Agregar un pago</div>
         <div class="abo-reg-grid">
           <div class="abo-reg-fld">
-            <label>Fecha de pago</label>
-            <input type="date" id="abonoRegFecha" value="${p.fecha || hoyISO()}">
+            <label>Fecha</label>
+            <input type="date" id="abonoRegFecha" value="${hoyISO()}">
           </div>
           <div class="abo-reg-fld">
-            <label>Monto cobrado (${simbolo})</label>
-            <input type="number" id="abonoRegMonto" value="${p.montoCobrado!=null?p.montoCobrado:(c.monto||'')}" placeholder="0">
+            <label>Monto (${simbolo})</label>
+            <input type="text" inputmode="numeric" id="abonoRegMonto" value="${st.estado!=='pagado'&&st.falta?st.falta.toLocaleString('es-AR'):''}" placeholder="Cuánto pagó" oninput="abonoFmtInput(this)">
           </div>
         </div>
         <div class="abo-reg-fld">
           <label>¿A quién se abonó?</label>
-          <input type="text" id="abonoRegAQuien" value="${esc(p.aQuien||'')}" placeholder="Transferencia a Ivana, Efectivo a Sofi, Cheque a Va Legal…" list="abonoAQuienList">
+          <input type="text" id="abonoRegAQuien" placeholder="Transferencia a Ivana, Efectivo a Sofi…" list="abonoAQuienList">
           <datalist id="abonoAQuienList"></datalist>
         </div>
         <div class="abo-reg-fld">
           <label>Observaciones <span class="opt">(opcional)</span></label>
-          <textarea id="abonoRegObs" rows="2" placeholder="Cualquier detalle del pago…">${esc(p.obs||'')}</textarea>
+          <textarea id="abonoRegObs" rows="1" placeholder="Detalle del pago…"></textarea>
         </div>
         <div class="abo-reg-fld">
-          <label>Comprobante de pago</label>
+          <label>Comprobante <span class="opt">(opcional)</span></label>
           <div id="abonoRegComprob" class="abo-reg-comprob"></div>
         </div>
-        <label class="abo-reg-chk">
-          <input type="checkbox" id="abonoRegChequeado" ${p.chequeado?'checked':''}>
-          <span>Chequeado / conciliado</span>
-        </label>
+        <button class="abo-pp-add" onclick="abonoAgregarPagoDesdeModal()">+ Agregar este pago</button>
       </div>
     </div>
     <div class="abo-reg-foot">
-      ${p.pagado ? '<button class="abo-reg-del" onclick="abonoBorrarRegistro()">Quitar pago</button>' : '<span></span>'}
-      <div class="abo-reg-foot-r">
-        <button class="abo-reg-cancel" onclick="abonoCerrarRegistro()">Cancelar</button>
-        <button class="abo-reg-save" onclick="abonoGuardarRegistro()">Guardar</button>
+      <button class="abo-reg-del" onclick="abonoPausar(${c.id})" title="Pausar el abono de este cliente">⏸ Pausar abono</button>
+      <div class="abo-reg-foot-r" style="margin-left:auto">
+        <button class="abo-reg-cancel" onclick="abonoCerrarRegistro()">Cerrar</button>
       </div>
     </div>`;
   abonoPintarComprob();
   abonoLlenarAQuien();
-  modal.style.display = 'flex';
 }
 
 // Sugerencias de "a quién se abonó" a partir de pagos anteriores
 function abonoLlenarAQuien(){
   const dl = document.getElementById('abonoAQuienList'); if(!dl) return;
   const set = new Set();
-  ABONOS.forEach(c => (c.pagos||[]).forEach(p => { if(p.aQuien) set.add(p.aQuien.trim()); }));
+  ABONOS.forEach(c => (c.pagos||[]).forEach(p => (p.parciales||[]).forEach(x => { if(x.aQuien) set.add(x.aQuien.trim()); })));
   dl.innerHTML = [...set].sort().map(v=>`<option value="${esc(v)}">`).join('');
-}
-
-function abonoRegTogglePagado(){
-  const on = document.getElementById('abonoRegPagado').checked;
-  const campos = document.getElementById('abonoRegCampos');
-  campos.style.opacity = on ? '1' : '.5';
-  campos.style.pointerEvents = on ? '' : 'none';
 }
 
 function abonoPintarComprob(){
@@ -5980,7 +6426,6 @@ function abonoPintarComprob(){
     cont.innerHTML = `<div class="abo-comprob-ok">
       <span class="ico">📎</span>
       <span class="nm" title="${esc(ABONO_REG_ADJ.nombre||'comprobante')}">${esc(ABONO_REG_ADJ.nombre||'comprobante')}</span>
-      <button type="button" class="ver" onclick="abonoVerComprob()">Ver</button>
       <button type="button" class="quitar" onclick="abonoQuitarComprob()">Quitar</button>
     </div>`;
   } else {
@@ -6013,35 +6458,40 @@ async function abonoSubirComprob(input){
   }
 }
 function abonoQuitarComprob(){ ABONO_REG_ADJ = null; abonoPintarComprob(); }
-function abonoVerComprob(){
-  if (!ABONO_REG_ADJ) return;
-  const u = ABONO_REG_ADJ.url || ((typeof sbPubUrl==='function' && ABONO_REG_ADJ.path) ? sbPubUrl(ABONO_REG_ADJ.path) : null);
-  if (u) window.open(u, '_blank');
-}
 
-function abonoGuardarRegistro(){
-  const c = ABONOS.find(x=>x.id===ABONO_REG_CLI); if(!c) return;
+// Agrega el pago cargado en el formulario como un parcial nuevo
+function abonoAgregarPagoDesdeModal(){
   const ym = abonoMesActual();
-  const pagado = document.getElementById('abonoRegPagado').checked;
-  if (!pagado){ abonoQuitarPago(ABONO_REG_CLI, ym); abonoCerrarRegistro(); renderAbonos(); return; }
-  const montoRaw = document.getElementById('abonoRegMonto').value;
-  abonoSetPago(ABONO_REG_CLI, ym, {
-    pagado: true,
-    fecha: document.getElementById('abonoRegFecha').value || hoyISO(),
-    montoCobrado: montoRaw!=='' ? Number(montoRaw) : (c.monto||0),
-    aQuien: document.getElementById('abonoRegAQuien').value.trim(),
-    obs: document.getElementById('abonoRegObs').value.trim(),
-    chequeado: document.getElementById('abonoRegChequeado').checked,
+  const montoRaw = abonoParseInput(document.getElementById('abonoRegMonto'));
+  const fecha = document.getElementById('abonoRegFecha').value || hoyISO();
+  const aQuien = document.getElementById('abonoRegAQuien').value.trim();
+  const obs = document.getElementById('abonoRegObs').value.trim();
+  if(montoRaw==='' && !aQuien && !ABONO_REG_ADJ){ aricToast('Cargá al menos el monto o el comprobante'); return; }
+  abonoAgregarParcial(ABONO_REG_CLI, ym, {
+    monto: montoRaw!=='' ? Number(montoRaw) : null,
+    fecha, aQuien, obs,
     comprobante: ABONO_REG_ADJ ? { ...ABONO_REG_ADJ } : null
   });
-  abonoCerrarRegistro();
+  ABONO_REG_ADJ = null;
+  abonoPintarRegistro();  // refresca la lista dentro del modal
+  renderAbonos();         // refresca la tabla de fondo
+}
+// Elimina un pago parcial (incluye su comprobante)
+function abonoEliminarParcial(pid){
+  if(!confirm('¿Eliminar este pago?')) return;
+  abonoQuitarParcial(ABONO_REG_CLI, abonoMesActual(), pid);
+  abonoPintarRegistro();
   renderAbonos();
 }
-function abonoBorrarRegistro(){
-  const ym = abonoMesActual();
-  abonoQuitarPago(ABONO_REG_CLI, ym);
-  abonoCerrarRegistro();
-  renderAbonos();
+function abonoDescargarComprobParcial(cliId, pid){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  const p = abonoPagoDe(c, abonoMesActual()); if(!p) return;
+  const x = (p.parciales||[]).find(z=>z.id===pid); if(!x || !x.comprobante) return;
+  const u = x.comprobante.url || ((typeof sbPubUrl==='function' && x.comprobante.path) ? sbPubUrl(x.comprobante.path) : null);
+  if(!u) return;
+  const a = document.createElement('a');
+  a.href = u; a.download = x.comprobante.nombre || 'comprobante'; a.target = '_blank';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 function abonoCerrarRegistro(){
   const m = document.getElementById('abonoRegModal'); if(m) m.style.display='none';
@@ -6286,6 +6736,9 @@ function cannabisClientesHTML(){
       </div>
       <div class="cnb-prog"><div class="cnb-prog-bar"><span style="width:${pct}%"></span></div>
       <div class="cnb-prog-txt">${pr.hechos} de ${pr.total} documentos</div></div>
+      <div class="cnb-card-acc">
+        <button class="cnb-wa-btn sm" onclick="event.stopPropagation();cannabisAvisarDocsId('${c.id}')"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"> Pedir lo que falta</button>
+      </div>
     </div>`;
   }).join('');
   return `<div class="aric-toolbar">
@@ -6363,6 +6816,63 @@ function cannabisAbrirFicha(cid){
   if(ov) ov.style.display='block';
   if(dr) dr.classList.add('open');
 }
+// ── WhatsApp: pedirle al cliente la documentación que falta ──
+function cannabisMensajeDocs(c){
+  const nombre = (c.nombre || '').trim().split(/\s+/)[0] || '';
+  const hola = nombre ? ('Hola ' + nombre + '! ') : 'Hola! ';
+  // Documentos obligatorios que aplican y todavía no están adjuntos
+  const faltan = cannabisDocsDe(c).filter(d => d.oblig).filter(d => {
+    const e = cannabisDocEstado(c, d.key);
+    return !(e && e.adjunto);
+  });
+  // Opcionales pendientes (solo el poder, se menciona aparte y suave)
+  const opcFaltan = cannabisDocsDe(c).filter(d => !d.oblig).filter(d => {
+    const e = cannabisDocEstado(c, d.key);
+    return !(e && e.adjunto);
+  });
+
+  if (!faltan.length){
+    let m = hola + 'Te escribo con una buena noticia: ya tenemos toda la documentación necesaria para iniciar la solicitud de tu licencia de cannabis ante ARICCAME.\n';
+    m += 'Con esto ya podemos avanzar con la presentación. Cualquier novedad te la voy contando. Gracias por tu compromiso!';
+    return m;
+  }
+
+  let m = hola + 'Te escribo para avanzar con la solicitud de tu licencia de cannabis ante ARICCAME.\n';
+  m += 'Para poder iniciar el trámite, todavía falta que nos envíes la siguiente documentación:\n';
+  faltan.forEach(d => { m += '• ' + cannabisDocTextoCliente(d) + '\n'; });
+  if (opcFaltan.some(d => d.key === 'poder')){
+    m += 'El poder, en caso de corresponder.\n';
+  }
+  m += '\nCuando lo tengas, envianoslo. Es importante tener en cuenta que, hasta no contar con toda esta documentación, no vamos a poder iniciar la solicitud de la licencia.\n';
+  m += 'Cualquier duda sobre algún documento, escribime y lo vemos juntos. Gracias!';
+  return m;
+}
+// Texto amable de cada documento para el cliente (evita tecnicismos internos)
+function cannabisDocTextoCliente(d){
+  const t = {
+    form_inicio: 'El formulario de inicio completo',
+    const_cuit: 'La constancia de CUIT',
+    poder: 'El poder (en caso de corresponder)',
+    cert_inase: 'El certificado de establecimiento de INASE',
+    dni_solic: 'El DNI (frente y dorso) del solicitante',
+    antec_solic: 'El certificado de antecedentes penales del solicitante',
+    dni_rt: 'El DNI (frente y dorso) del responsable técnico',
+    antec_rt: 'El certificado de antecedentes penales del responsable técnico',
+    comprob_arancel: 'El comprobante de pago del arancel ($250.000)'
+  };
+  return t[d.key] || d.label;
+}
+function cannabisAvisarDocs(){
+  const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA);
+  if (!c) return;
+  aricAbrirWaModal(cannabisMensajeDocs(c), false);
+}
+function cannabisAvisarDocsId(cid){
+  const c = cannabisClientes().find(x=>x.id===cid);
+  if (!c) return;
+  aricAbrirWaModal(cannabisMensajeDocs(c), false);
+}
+
 function cannabisEliminarCliente(){
   const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
   if(c.licencias && c.licencias.length){ aricToast('Este cliente ya tiene licencia iniciada; no se elimina desde acá'); return; }
@@ -6438,7 +6948,10 @@ function cannabisPintarFicha(){
         <input type="checkbox" ${c.catAH?'checked':''} onchange="cannabisToggleAH(this.checked)">
         <span>El cliente es categoría A o H <small>(agrega los documentos del responsable técnico)</small></span>
       </label>
-      <div class="cnb-docs-h">Documentación</div>
+      <div class="cnb-docs-topbar">
+        <div class="cnb-docs-h">Documentación</div>
+        <button class="cnb-wa-btn" onclick="cannabisAvisarDocs()"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"> Pedir lo que falta</button>
+      </div>
       <div class="cnb-docs">${docs.map(filaDoc).join('')}</div>
       <div class="cnb-iniciar">
         ${cannabisPuedeIniciar(c)
