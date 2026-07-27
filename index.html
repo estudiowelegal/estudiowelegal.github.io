@@ -1384,6 +1384,30 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-row-head .abo-m-avisado{font-size:10.5px}
 .abo-avisado-chk{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:11.5px;color:var(--tinta-suave)}
 .abo-avisado-chk input{width:16px;height:16px;cursor:pointer;accent-color:var(--ok,#1e7a48)}
+.abo-infl-box{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:20px;margin-bottom:22px}
+.abo-infl-hint{font-size:12.5px;color:var(--tinta-suave);line-height:1.55;margin-bottom:16px}
+.abo-infl-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.abo-infl-fld label{display:block;font-size:11.5px;font-weight:600;color:var(--tinta-suave);margin-bottom:5px}
+.abo-infl-fld input{width:100%;padding:10px 12px;border:1px solid var(--filo);border-radius:8px;font-family:var(--f-ui,inherit);font-size:14px;box-sizing:border-box}
+.abo-infl-fld input:focus{outline:none;border-color:#14294a}
+.abo-infl-acc{display:flex;gap:10px;flex-wrap:wrap}
+.abo-infl-aplicar{padding:11px 20px;border:none;border-radius:8px;background:var(--ok,#1e7a48);color:#fff;font-family:var(--f-ui,inherit);font-size:13.5px;font-weight:700;cursor:pointer}
+.abo-infl-aplicar:hover{background:#186139}
+.abo-infl-deshacer{padding:11px 18px;border:1px solid var(--filo);border-radius:8px;background:var(--carta);color:var(--tinta);font-family:var(--f-ui,inherit);font-size:13px;font-weight:600;cursor:pointer}
+.abo-infl-deshacer:hover{background:var(--papel)}
+.abo-infl-deshacer.off{opacity:.45;cursor:not-allowed}
+.abo-inf-actual{flex:1;font-size:13px;color:var(--tinta);white-space:nowrap}
+.abo-inf-nuevo{flex:1;font-size:13px;font-weight:700;color:#14294a;white-space:nowrap}
+.abo-inf-dif{flex:1;font-size:12.5px;color:var(--ok,#1e7a48);white-space:nowrap}
+.abo-row-head .abo-inf-actual,.abo-row-head .abo-inf-nuevo,.abo-row-head .abo-inf-dif{font-size:10.5px}
+.panel-infl .panel-h{background:#2d5016}
+.infl-remin{padding:4px 2px}
+.infl-remin-txt{font-size:13px;color:var(--tinta);line-height:1.5;margin-bottom:12px}
+.infl-remin-btn{background:#2d5016;color:#fff;border:none;border-radius:8px;font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:700;padding:9px 15px;cursor:pointer}
+.infl-remin-btn:hover{background:#24400f}
+.infl-remin-acc{display:flex;gap:8px;flex-wrap:wrap}
+.infl-remin-ok{background:transparent;color:var(--tinta-suave);border:1px solid var(--filo);border-radius:8px;font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;padding:9px 15px;cursor:pointer}
+.infl-remin-ok:hover{background:var(--papel)}
 </style>
 </head>
 <body>
@@ -1649,6 +1673,10 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
           <div class="panel panel-aric aric-sinmov" id="panelSinMovimiento" style="display:none">
             <div class="panel-h"><h3>🕓 Licencias sin movimiento</h3><span class="mini" id="sinMovMini"></span></div>
             <div id="inicioSinMovimiento"></div>
+          </div>
+          <div class="panel panel-infl" id="panelAjusteInfl" style="display:none">
+            <div class="panel-h"><h3>📈 Ajuste trimestral por inflación</h3></div>
+            <div id="inicioAjusteInfl"></div>
           </div>
           <div class="panel" id="panelInicioContactar">
             <div class="panel-h"><h3>A contactar / trámites a actualizar</h3><span class="mini" id="crmContactarMini"></span></div>
@@ -5814,7 +5842,7 @@ let ABONOS = [];
 let ABONOS_MES = null; // 'YYYY-MM' que se está viendo; null = mes actual
 let ABONOS_Q = '';       // búsqueda por nombre
 let ABONOS_FILTRO = 'todos'; // 'todos' | 'pagaron' | 'pendientes'
-let ABONOS_SUBTAB = 'cobros'; // 'cobros' | 'montos'
+let ABONOS_SUBTAB = 'cobros'; // 'cobros' | 'montos' | 'inflacion'
 function abonoIrSubtab(t){ ABONOS_SUBTAB = t; renderAbonos(); }
 const ABONOS_COLAPSO_KEY = 'jc-abonos-colapso-v1';
 function abonoColapsoGet(){ try { return JSON.parse(appStore.getItem(ABONOS_COLAPSO_KEY)||'{}')||{}; } catch(e){ return {}; } }
@@ -5960,7 +5988,8 @@ function abonoFijarMonto(cliId, desde, monto){
     // No hubo cambio real → sacar cualquier entrada en ese 'desde' y limpiar el "avisado" si apuntaba ahí
     c.montoHist = c.montoHist.filter(h=>h.desde!==desde);
     if(c.avisadoMonto === desde) c.avisadoMonto = '';
-  } else if(ex){ ex.monto = m; }
+    if(c.ultAjusteInfl === desde) c.ultAjusteInfl = '';
+  } else if(ex){ ex.monto = m; if(c.ultAjusteInfl===desde) c.ultAjusteInfl=''; }
   else { c.montoHist.push({ desde, monto:m }); }
   c.montoHist.sort((a,b)=> a.desde.localeCompare(b.desde));
   saveAbonos();
@@ -6003,16 +6032,123 @@ function abonoParseInput(inp){
   const v = String(inp.value).replace(/\./g,'').replace(/[^0-9]/g,'');
   return v===''?'':Number(v);
 }
+// ── Recordatorio de ajuste trimestral por inflación (para Sofi G) ──
+// El último ajuste fue en junio 2026. Los ajustes son trimestrales: sep, dic, mar, jun...
+// Devuelve true si el mes actual es un mes de ajuste y todavía no se aplicó este trimestre.
+const ABONOS_INFL_VISTO_KEY = 'jc-abonos-infl-visto-v1'; // guarda el 'YYYY-MM' del último trimestre atendido (visto o aplicado)
+function abonoInflVisto(){ try { return appStore.getItem(ABONOS_INFL_VISTO_KEY) || ''; } catch(e){ return ''; } }
+function abonoDismissInfl(){
+  abonoMarcarInflVisto();
+  const p = document.getElementById('panelAjusteInfl');
+  if(p){ p.style.display='none'; const l=document.getElementById('inicioAjusteInfl'); if(l) l.innerHTML=''; }
+}
+function abonoMarcarInflVisto(){
+  const ym = hoyISO().slice(0,7);
+  try { appStore.setItem(ABONOS_INFL_VISTO_KEY, ym); } catch(e){}
+}
+function abonoTocaAjusteInflacion(){
+  const hoy = hoyISO(); const ym = hoy.slice(0,7);
+  const [y,m] = ym.split('-').map(Number);
+  // ¿ya se atendió (visto o aplicado) el aviso de ESTE mes? → no mostrar
+  if(abonoInflVisto() === ym) return false;
+  // meses de ajuste: 3,6,9,12 (mar, jun, sep, dic). El próximo real es sep 2026 y luego cada 3 meses.
+  const esMesAjuste = (m % 3 === 0) && (ym >= '2026-09');
+  // ¿ya se aplicó un ajuste con vigencia en este mes? (algún cliente en pesos con ultAjusteInfl === ym)
+  const yaHecho = ABONOS.some(c => c.moneda==='ARS' && c.ultAjusteInfl === ym);
+  if(yaHecho) return false;
+  if(esMesAjuste) return true;
+  // Demostración: mientras no llegue septiembre, se muestra una vez para que puedas probarlo.
+  // Al apretar "Ok, ya lo vi" se marca como visto y no vuelve hasta el próximo mes de ajuste real.
+  if(ym < '2026-09' && abonoInflVisto() === '') return true;
+  return false;
+}
+// Los 3 meses cuya inflación hay que cargar (los 3 previos al mes actual)
+// Próximo (o actual) mes de ajuste trimestral: el múltiplo de 3 (mar/jun/sep/dic) >= hoy, desde sep 2026.
+function abonoMesAjuste(){
+  const ym = hoyISO().slice(0,7); let [y,m]=ym.split('-').map(Number);
+  // avanzar hasta el próximo mes múltiplo de 3 (incluye el actual si ya lo es)
+  while(!(m%3===0)){ m++; if(m>12){ m=1; y++; } }
+  // no antes de septiembre 2026
+  let ymAj = y+'-'+String(m).padStart(2,'0');
+  if(ymAj < '2026-09'){ y=2026; m=9; }
+  return { y, m };
+}
+function abonoMesesInflacion(){
+  // Los 3 meses inmediatamente anteriores al MES DE AJUSTE (no al mes actual).
+  // Ej: ajuste de septiembre → junio, julio, agosto. En diciembre → sep, oct, nov.
+  const aj = abonoMesAjuste();
+  const res=[];
+  for(let k=3;k>=1;k--){ const d=new Date(aj.y, (aj.m-1)-k, 1); res.push(ABONO_MESES[d.getMonth()]+' '+d.getFullYear()); }
+  return res;
+}
+
+// ═══ AJUSTE POR INFLACIÓN (solo clientes en pesos) ═══
+const ABONOS_INFL_KEY = 'jc-abonos-infl-v1'; // guarda el último ajuste para poder deshacerlo
+// Calcula el monto ajustado de forma compuesta: cada mes la inflación se aplica sobre el subtotal previo.
+// infl = [p1,p2,p3] en porcentaje (ej: 5 = 5%). Devuelve el monto final redondeado.
+function abonoCalcInflacion(base, infl){
+  let m = Number(base)||0;
+  (infl||[]).forEach(p=>{ const f=Number(p)||0; m = m + m*(f/100); });
+  return Math.round(m);
+}
+// Aplica el ajuste por inflación a TODOS los clientes en pesos activos, vigente desde 'desde' (YYYY-MM)
+function abonoAplicarInflacion(infl, desde){
+  const validos = (infl||[]).map(x=>Number(x)||0);
+  if(!validos.length || validos.every(x=>x===0)){ aricToast('Cargá los porcentajes de inflación'); return false; }
+  // snapshot para deshacer: guardamos, por cliente, el monto vigente ANTES del ajuste y su montoHist previo
+  const snap = { desde, infl: validos, ts: Date.now(), clientes: [] };
+  ABONOS.filter(c=>c.moneda==='ARS' && c.estado==='activo').forEach(c=>{
+    const base = abonoMontoVigente(c, desde); // lo que rige en ese mes hoy
+    const nuevo = abonoCalcInflacion(base, validos);
+    snap.clientes.push({ id:c.id, montoHistPrev: JSON.parse(JSON.stringify(c.montoHist||[])), avisadoPrev: c.avisadoMonto||'', inflPrev: c.ultAjusteInfl||'', base, nuevo });
+    abonoFijarMonto(c.id, desde, nuevo); // rige desde 'desde' inclusive
+    c.avisadoMonto = ''; // hay que avisar del nuevo ajuste
+    c.ultAjusteInfl = desde; // marca que el último cambio fue por inflación
+  });
+  try { appStore.setItem(ABONOS_INFL_KEY, JSON.stringify(snap)); } catch(e){}
+  saveAbonos();
+  return true;
+}
+// Deshace el último ajuste por inflación
+function abonoDeshacerInflacion(){
+  let snap; try { snap = JSON.parse(appStore.getItem(ABONOS_INFL_KEY)||'null'); } catch(e){ snap=null; }
+  if(!snap || !snap.clientes){ aricToast('No hay ningún ajuste para deshacer'); return false; }
+  snap.clientes.forEach(s=>{
+    const c = abonoBuscarCli(s.id); if(!c) return;
+    c.montoHist = Array.isArray(s.montoHistPrev) ? s.montoHistPrev : [];
+    c.avisadoMonto = s.avisadoPrev || '';
+    c.ultAjusteInfl = s.inflPrev || '';
+  });
+  try { appStore.removeItem(ABONOS_INFL_KEY); } catch(e){}
+  saveAbonos();
+  return true;
+}
+function abonoHayAjusteParaDeshacer(){
+  try { return !!JSON.parse(appStore.getItem(ABONOS_INFL_KEY)||'null'); } catch(e){ return false; }
+}
+// Mensaje de WhatsApp para avisar el ajuste por inflación
+function abonoMensajeInflacion(c, desde, nuevoMonto){
+  const hola = 'Hola, ¿cómo estás? ';
+  const fmt = n => '$ ' + Math.round(Number(n)||0).toLocaleString('es-AR');
+  const mesTxt = abonoMesLabel(desde);
+  let m = hola + 'Te escribo para comentarte que, como hacemos trimestralmente, aplicamos el ajuste por inflación sobre el abono mensual.\n';
+  m += 'A partir de ' + mesTxt + ', el abono actualizado pasa a ser de ' + fmt(nuevoMonto) + '.\n';
+  m += 'El ajuste se calcula teniendo en cuenta la inflación de los últimos 3 meses. Cualquier duda quedo a disposición. Gracias!';
+  return m;
+}
+
 function abonoSubtabsHTML(){
   return `<div class="abo-subtabs">
     <button class="${ABONOS_SUBTAB==='cobros'?'on':''}" onclick="abonoIrSubtab('cobros')">Cobros del mes</button>
     <button class="${ABONOS_SUBTAB==='montos'?'on':''}" onclick="abonoIrSubtab('montos')">Actualizar montos</button>
+    <button class="${ABONOS_SUBTAB==='inflacion'?'on':''}" onclick="abonoIrSubtab('inflacion')">Ajuste por inflación</button>
   </div>`;
 }
 function renderAbonos(){
   const cont = document.getElementById('abonosPanel');
   if (!cont) return;
   if (ABONOS_SUBTAB === 'montos'){ renderAbonosMontos(cont); return; }
+  if (ABONOS_SUBTAB === 'inflacion'){ renderAbonosInflacion(cont); return; }
   const ym = abonoMesActual();
   const activos = ABONOS.filter(c=>c.estado==='activo');
   const pausados = ABONOS.filter(c=>c.estado==='pausado');
@@ -6179,6 +6315,100 @@ function renderAbonos(){
 
 // Descarga el comprobante de pago de un cliente en el mes visible
 // ── Subsolapa: actualizar los montos de los abonos ──
+// Estado de los inputs de inflación (para vista previa en vivo)
+let ABONOS_INFL_INPUT = ['','',''];
+function renderAbonosInflacion(cont){
+  const ym = abonoMesActual();
+  const arsCli = ABONOS.filter(c=>c.moneda==='ARS' && c.estado==='activo').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  const fmt = n => '$ ' + Math.round(Number(n)||0).toLocaleString('es-AR');
+  const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
+  const hayInfl = infl.some(x=>x>0);
+  const puedeDeshacer = abonoHayAjusteParaDeshacer();
+  // Nombres de los 3 meses a cargar (los 3 previos al mes de ajuste), con inicial mayúscula
+  const mesesLbl = abonoMesesInflacion().map(s=>{ const n=s.split(' ')[0]; return n.charAt(0).toUpperCase()+n.slice(1); });
+
+  // Vista previa por cliente
+  const filas = arsCli.map(c=>{
+    const base = abonoMontoVigente(c, ym);
+    const nuevo = hayInfl ? abonoCalcInflacion(base, infl) : base;
+    const dif = nuevo - base;
+    return `<div class="abo-row">
+      <div class="abo-c-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="abo-inf-actual">${fmt(base)}</div>
+      <div class="abo-inf-nuevo">${hayInfl?fmt(nuevo):'—'}</div>
+      <div class="abo-inf-dif">${hayInfl&&dif?('+'+fmt(dif)):''}</div>
+    </div>`;
+  }).join('');
+
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Abonos mensuales</div>
+      <h1 class="abo-h1">Ajuste por inflación</h1>
+    </div></div>
+    ${abonoSubtabsHTML()}
+    <div class="abo-infl-box">
+      <div class="abo-infl-hint">Ajuste trimestral <b>solo para clientes en pesos</b>. Cargá la inflación de los últimos 3 meses. El cálculo es compuesto (cada mes se aplica sobre el monto ya ajustado del anterior). El nuevo monto rige desde <b>${esc(abonoMesLabel(ym))}</b> inclusive.</div>
+      <div class="abo-infl-inputs">
+        <div class="abo-infl-fld"><label>Inflación ${mesesLbl[0]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl1" value="${esc(ABONOS_INFL_INPUT[0])}" placeholder="Ej: 4,2" oninput="abonoInflInput(0,this.value)"></div>
+        <div class="abo-infl-fld"><label>Inflación ${mesesLbl[1]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl2" value="${esc(ABONOS_INFL_INPUT[1])}" placeholder="Ej: 3,8" oninput="abonoInflInput(1,this.value)"></div>
+        <div class="abo-infl-fld"><label>Inflación ${mesesLbl[2]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl3" value="${esc(ABONOS_INFL_INPUT[2])}" placeholder="Ej: 3,1" oninput="abonoInflInput(2,this.value)"></div>
+      </div>
+      <div class="abo-infl-acc">
+        <button class="abo-infl-aplicar" onclick="abonoConfirmarInflacion()">Aplicar ajuste</button>
+        <button class="abo-infl-deshacer ${puedeDeshacer?'':'off'}" ${puedeDeshacer?'':'disabled'} onclick="abonoConfirmarDeshacer()">↺ Deshacer último ajuste</button>
+      </div>
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Vista previa · clientes en pesos</span><span class="abo-sec-count">${arsCli.length}</span></div>
+      <div class="abo-row abo-row-head">
+        <div class="abo-c-nom">Cliente</div>
+        <div class="abo-inf-actual">Abono actual</div>
+        <div class="abo-inf-nuevo">Con ajuste</div>
+        <div class="abo-inf-dif">Diferencia</div>
+      </div>
+      ${filas}
+    </div>`;
+}
+function abonoInflInput(i, v){
+  ABONOS_INFL_INPUT[i] = v;
+  // refrescar solo la vista previa sin perder foco: recalcular columnas
+  const ym = abonoMesActual();
+  const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
+  const hayInfl = infl.some(x=>x>0);
+  const fmt = n => '$ ' + Math.round(Number(n)||0).toLocaleString('es-AR');
+  const arsCli = ABONOS.filter(c=>c.moneda==='ARS' && c.estado==='activo').sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  const filas = document.querySelectorAll('#abonosPanel .abo-sec .abo-row:not(.abo-row-head)');
+  arsCli.forEach((c,idx)=>{
+    const row = filas[idx]; if(!row) return;
+    const base = abonoMontoVigente(c, ym);
+    const nuevo = hayInfl ? abonoCalcInflacion(base, infl) : base;
+    const dif = nuevo - base;
+    const cn = row.querySelector('.abo-inf-nuevo'); if(cn) cn.textContent = hayInfl?fmt(nuevo):'—';
+    const cd = row.querySelector('.abo-inf-dif'); if(cd) cd.textContent = hayInfl&&dif?('+'+fmt(dif)):'';
+  });
+}
+function abonoConfirmarInflacion(){
+  const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
+  if(!infl.some(x=>x>0)){ aricToast('Cargá los porcentajes de inflación'); return; }
+  const ym = abonoMesActual();
+  const cant = ABONOS.filter(c=>c.moneda==='ARS'&&c.estado==='activo').length;
+  if(!confirm('¿Aplicar el ajuste por inflación a los '+cant+' clientes en pesos?\n\nLos montos regirán desde '+abonoMesLabel(ym)+'. Podés deshacerlo después si algo sale mal.')) return;
+  if(abonoAplicarInflacion(infl, ym)){
+    ABONOS_INFL_INPUT = ['','',''];
+    abonoMarcarInflVisto(); // el aviso de este mes queda atendido
+    aricToast('Ajuste aplicado a clientes en pesos');
+    ABONOS_SUBTAB = 'montos'; // llevar a la tabla de montos para ver/avisar
+    renderAbonos();
+  }
+}
+function abonoConfirmarDeshacer(){
+  if(!confirm('¿Deshacer el último ajuste por inflación? Los montos vuelven a como estaban antes del ajuste.')) return;
+  if(abonoDeshacerInflacion()){
+    aricToast('Ajuste deshecho');
+    renderAbonos();
+  }
+}
+
 function renderAbonosMontos(cont){
   const ym = abonoMesActual();
   const activos = ABONOS.filter(c=>c.estado==='activo');
@@ -6311,7 +6541,9 @@ function abonoAvisarMonto(cliId){
   const hist = Array.isArray(c2.montoHist) ? c2.montoHist.slice().sort((a,b)=>a.desde.localeCompare(b.desde)) : [];
   if(!hist.length || !abonoTieneCambioReal(c2)){ aricToast('No hay un cambio de monto para avisar (el valor es igual al anterior)'); return; }
   const ult = hist[hist.length-1]; // el último cambio registrado
-  aricAbrirWaModal(abonoMensajeActualizacion(c2, ult.desde, ult.monto), false);
+  const esInfl = c2.ultAjusteInfl && c2.ultAjusteInfl === ult.desde;
+  const msg = esInfl ? abonoMensajeInflacion(c2, ult.desde, ult.monto) : abonoMensajeActualizacion(c2, ult.desde, ult.monto);
+  aricAbrirWaModal(msg, false);
 }
 function abonoReactivar(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
@@ -8048,6 +8280,26 @@ function renderAlertasInicio() {
           <div class="venc-txt"><div class="t sinmov-cli">${esc(s.nombre)} · ${esc(s.tipo)}</div>
           <div class="s">${sTxt}</div></div></div>`;
       }).join('');
+    }
+  }
+
+  // Recordatorio de ajuste trimestral por inflación (Sofi G y Kevin)
+  const aiPanel = document.getElementById('panelAjusteInfl');
+  const aiLista = document.getElementById('inicioAjusteInfl');
+  if (aiPanel && aiLista) {
+    const toca = puedeAlertas && abonoTocaAjusteInflacion();
+    if (!toca) { aiPanel.style.display = 'none'; aiLista.innerHTML = ''; }
+    else {
+      aiPanel.style.display = '';
+      const meses = abonoMesesInflacion();
+      const nPesos = ABONOS.filter(c=>c.moneda==='ARS' && c.estado==='activo').length;
+      aiLista.innerHTML = `<div class="infl-remin">
+        <div class="infl-remin-txt">Toca el ajuste trimestral por inflación de los abonos en pesos (${nPesos} cliente${nPesos!==1?'s':''}). Cargá la inflación de <b>${meses.join(', ')}</b>.</div>
+        <div class="infl-remin-acc">
+          <button class="infl-remin-btn" onclick="navTo('abonos'); ABONOS_SUBTAB='inflacion'; renderAbonos();">Ir a aplicar el ajuste</button>
+          <button class="infl-remin-ok" onclick="abonoDismissInfl()">Ok, ya lo vi</button>
+        </div>
+      </div>`;
     }
   }
 }
