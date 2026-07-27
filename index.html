@@ -1165,7 +1165,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-kpi.usd::before{background:#2e7d32}
 .abo-kpi.neutral::before{background:var(--warn,#a86e17)}
 .abo-kpi .lbl{font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--tinta-suave);font-weight:600;margin-bottom:7px}
-.abo-kpi .val{font-family:var(--serif,'Palatino Linotype');font-size:23px;font-weight:700;color:var(--tinta);line-height:1.1}
+.abo-kpi .val{font-family:var(--f-display);font-size:23px;font-weight:600;color:var(--tinta);line-height:1.1}
 .abo-kpi .sub{font-size:12px;color:var(--tinta-suave);margin-top:5px}
 .abo-kpi .bar{height:6px;background:var(--filo-suave);border-radius:4px;margin-top:10px;overflow:hidden}
 .abo-kpi .bar span{display:block;height:100%;background:var(--ok,#1e7a48);border-radius:4px;transition:width .5s}
@@ -11300,13 +11300,14 @@ function cerrarSesion() {
   try { navTo('inicio'); } catch (e) {}
 }
 const ARIC_USERS = ['naza', 'kevindaich', 'sofig', 'ivana'];
+const ABONOS_USERS = ['kevindaich', 'sofig', 'brenda', 'ivana'];
 function permisoPagina(p) {
   const pf = perfilActual();
   if (p === 'expedientes') return !!pf.expedientes;
   if (p === 'caja') return pf.cajaJud !== false;
   if (p === 'cajasoc') return !!pf.cajaSoc;
   if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'abonos') return usuarioActual() === 'kevindaich';
+  if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   return true;
 }
 function aplicarPermisos() {
@@ -11329,7 +11330,7 @@ function aplicarPermisos() {
   // ARICCAME: visible sólo para NAZA, KEVIN, SOFI G e IVANA
   const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
-  const verAbonos = usuarioActual() === 'kevindaich';
+  const verAbonos = ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
