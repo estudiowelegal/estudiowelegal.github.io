@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JurisCannabis Argentina</title>
+<title>Lexia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
@@ -1154,7 +1154,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 /* ── Módulo Abonos ── */
 .abo-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:14px}
 .abo-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--oro,#a07713);font-weight:700;margin-bottom:6px}
-.abo-h1{font-family:var(--serif,'Palatino Linotype');font-size:26px;color:#14294a;font-weight:700;text-transform:uppercase}
+.abo-h1{font-family:var(--f-ui);font-size:24px;color:#14294a;font-weight:800;letter-spacing:-.4px;margin:0}
 .abo-mesnav{display:inline-flex;gap:6px;align-items:center}
 .abo-mesnav button{font-family:var(--f-ui,inherit);font-size:13px;border:1px solid var(--filo);background:var(--carta);color:var(--tinta);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:600}
 .abo-mesnav button:hover{background:var(--papel)}
@@ -1408,13 +1408,232 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .infl-remin-acc{display:flex;gap:8px;flex-wrap:wrap}
 .infl-remin-ok{background:transparent;color:var(--tinta-suave);border:1px solid var(--filo);border-radius:8px;font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;padding:9px 15px;cursor:pointer}
 .infl-remin-ok:hover{background:var(--papel)}
+/* ═══ Control de ingresos ═══ */
+.ing-total-box{background:#14294a;border-radius:var(--radio,12px);padding:22px 24px;margin-bottom:24px;border:2px solid #c9a961}
+.ing-total-lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#c9a961;font-weight:700;margin-bottom:12px}
+.ing-total-montos{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ing-total-m{font-family:var(--f-display);font-size:27px;font-weight:600;color:#fff;white-space:nowrap}
+.ing-total-m.usd{color:#e6eef8}
+.ing-total-cur{font-size:16px;color:#9fb3d1;font-weight:600}
+.ing-total-sep{width:1px;height:34px;background:rgba(255,255,255,.2)}
+.ing-fuentes-h,.ing-part-h{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta-suave);font-weight:700;margin:0 0 12px}
+.ing-part-h{margin-top:26px}
+.ing-fuentes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
+.ing-fuente{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px}
+.ing-fuente-h{font-size:13px;font-weight:700;color:var(--tinta);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.ing-fuente-x{font-size:11px;color:var(--tinta-suave);font-weight:500}
+.ing-fuente-montos{display:flex;flex-direction:column;gap:6px}
+.ing-monto{display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+.ing-monto .ing-cur{font-size:12px;color:var(--tinta-suave);font-weight:600;min-width:30px}
+.ing-monto .ing-val{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--tinta)}
+.ing-monto.usd{padding-top:6px;border-top:1px dashed var(--filo)}
+
+.ing-barras{display:flex;flex-direction:column;gap:11px}
+.ing-barra-row{display:flex;align-items:center;gap:12px}
+.ing-barra-lbl{flex:0 0 120px;font-size:12.5px;color:var(--tinta)}
+.ing-barra-track{flex:1;height:16px;background:var(--filo-suave);border-radius:8px;overflow:hidden}
+.ing-barra-track span{display:block;height:100%;border-radius:8px;transition:width .4s}
+.ing-barra-pct{flex:0 0 40px;text-align:right;font-size:12.5px;font-weight:700;color:var(--tinta)}
+/* Evolución */
+.ing-rango{display:flex;gap:4px}
+.ing-rango button{font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;color:var(--tinta-suave);background:var(--carta);border:1px solid var(--filo);border-radius:8px;padding:7px 13px;cursor:pointer}
+.ing-rango button.on{background:#14294a;color:#fff;border-color:#14294a}
+.ing-ev-block{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:18px 20px;margin-bottom:18px}
+.ing-ev-h{font-size:13px;font-weight:700;color:var(--tinta);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.ing-ev-dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ing-ev-tot{margin-left:auto;font-size:12px;font-weight:500;color:var(--tinta-suave)}
+.ing-ev-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%}
+.ing-ev-bar-wrap{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.ing-ev-bar{width:70%;max-width:42px;border-radius:5px 5px 0 0;min-height:2px;transition:height .4s}
+.ing-ev-mes{font-size:10.5px;color:var(--tinta-suave);margin-top:2px}
+@media (max-width:760px){ .ing-fuentes{grid-template-columns:1fr} }
+.ing-dos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.ing-total-box.neto{background:#2d5016;border-color:#c9a961}
+.ing-total-box{margin-bottom:0}
+.ing-total-cmp{font-size:11.5px;color:#9fb3d1;margin-top:10px}
+.ing-total-box.neto .ing-total-cmp{color:#c9dcb4}
+.ing-total-box.neto .ing-total-cur{color:#c9dcb4}
+.ing-var{font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:8px;letter-spacing:0}
+.ing-var.up{background:rgba(120,220,160,.2);color:#8fe0b0}
+.ing-var.down{background:rgba(255,150,140,.2);color:#ffb3ab}
+.ing-gastos-box{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px;margin-bottom:22px}
+.ing-gastos-h{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta-suave);font-weight:700;margin-bottom:12px}
+.ing-gastos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ing-gasto-it{display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:var(--papel);border-radius:8px}
+.ing-gasto-it .lbl{font-size:11.5px;color:var(--tinta-suave)}
+.ing-gasto-it .val{font-size:13.5px;font-weight:700;color:var(--mal,#b3372a)}
+/* Pendiente de cobro */
+.ing-pend-mes{flex:2;font-size:13px;font-weight:600;color:var(--tinta)}
+.ing-pend-n{flex:1;font-size:12.5px;color:var(--tinta-suave)}
+.ing-pend-ars{flex:1.2;font-size:13px;font-weight:600;color:var(--tinta);white-space:nowrap}
+.ing-pend-usd{flex:1.2;font-size:13px;color:var(--tinta);white-space:nowrap}
+.abo-row-head .ing-pend-mes,.abo-row-head .ing-pend-n,.abo-row-head .ing-pend-ars,.abo-row-head .ing-pend-usd{font-size:10.5px}
+/* Ranking */
+.ing-rk-nom{flex:2;font-size:12.5px;font-weight:600;color:var(--tinta);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ing-rk-bar{flex:2;height:12px;background:var(--filo-suave);border-radius:6px;overflow:hidden}
+.ing-rk-bar span{display:block;height:100%;background:#1b3a6b;border-radius:6px}
+.ing-rk-ars{flex:1.2;font-size:13px;font-weight:600;color:var(--tinta);white-space:nowrap;text-align:right}
+.ing-rk-usd{flex:1.2;font-size:12.5px;color:var(--tinta-suave);white-space:nowrap;text-align:right}
+.abo-row-head .ing-rk-nom,.abo-row-head .ing-rk-ars,.abo-row-head .ing-rk-usd{font-size:10.5px}
+@media (max-width:900px){ .ing-dos{grid-template-columns:1fr} .ing-gastos-grid{grid-template-columns:1fr} }
+.ing-mon-sw{display:flex;align-items:center;gap:6px;margin-bottom:18px}
+.ing-mon-lbl{font-size:12.5px;color:var(--tinta-suave);margin-right:4px}
+.ing-mon-sw button{font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;color:var(--tinta-suave);background:var(--carta);border:1px solid var(--filo);border-radius:8px;padding:7px 15px;cursor:pointer}
+.ing-mon-sw button.on{background:#14294a;color:#fff;border-color:#14294a}
+.ing-h1{font-family:var(--f-ui);font-size:24px;color:#14294a;font-weight:800;letter-spacing:-.4px;margin:0}
+.ing-part-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ing-part-col{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px}
+.ing-part-col-h{font-size:12.5px;font-weight:700;color:var(--tinta);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.ing-part-tot{font-size:12px;font-weight:600;color:var(--tinta-suave)}
+.ing-part-vacio{font-size:12px;color:var(--tinta-suave);padding:8px 0;font-style:italic}
+@media (max-width:900px){ .ing-part-wrap{grid-template-columns:1fr} }
+/* Gráfico de evolución con eje Y */
+.ing-ev-unidad{font-size:11px;color:var(--tinta-suave);font-weight:500;background:var(--papel);padding:2px 8px;border-radius:20px;margin-left:8px}
+.ing-ax-lbl{font-size:10px;color:var(--tinta-suave);line-height:1;transform:translateY(-50%)}
+.ing-grid-line{border-top:1px dashed var(--filo);height:0}
+.ing-ev-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
+.ing-ev-bar-wrap{width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center}
+.ing-ev-bar{width:66%;max-width:40px;border-radius:4px 4px 0 0;min-height:0;transition:height .4s}
+.ing-ev-mes{position:absolute;bottom:-18px;font-size:10px;color:var(--tinta-suave);white-space:nowrap}
+.ing-part-mon{font-size:13px;font-weight:800;color:#14294a;border-bottom:2px solid #c9a961;padding-bottom:2px;letter-spacing:.2px}
+.ing-ev-bar{position:relative}
+.ing-mes-row{cursor:pointer}
+.ing-mes-row:hover{background:var(--papel)}
+.ing-mes-row .abo-caret{font-size:10px;margin-right:6px;display:inline-block;transition:transform .18s}
+.ing-mes-row .abo-caret.closed{transform:rotate(-90deg)}
+.ing-pend-res{display:block;font-size:10.5px;color:var(--tinta-suave);margin-top:2px;font-weight:400}
+.ing-det-wrap{background:var(--papel);border-top:1px solid var(--filo-suave)}
+.ing-det-row{padding-left:30px;background:transparent;border-bottom:1px solid rgba(0,0,0,.04)}
+.ing-det-head>div{font-size:10px!important;text-transform:uppercase;letter-spacing:.4px;color:var(--tinta-suave)!important;font-weight:700!important}
+.ing-det-cli{flex:1.6;font-size:12.5px;font-weight:600;color:var(--tinta);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ing-det-con{flex:2;font-size:12.5px;color:var(--tinta);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ing-det-cuo{flex:1.1;font-size:11.5px;color:var(--tinta-suave)}
+.ing-det-caja{display:block;font-size:10px;color:var(--tinta-suave);opacity:.8}
+.ing-det-monto{flex:1;font-size:12.5px;font-weight:700;color:var(--tinta);text-align:right;white-space:nowrap}
+/* Gráfico horizontal: meses en el eje vertical, plata en el horizontal */
+.ing-hchart{position:relative}
+.ing-hplot{position:relative}
+.ing-hgrid-line{border-left:1px dashed var(--filo);width:0}
+.ing-hprom{position:absolute;top:0;bottom:0;border-left:2px dotted #c9a961;z-index:2}
+.ing-hprom span{position:absolute;top:-14px;left:2px;font-size:9.5px;color:#a8862f;font-weight:700;background:var(--carta);padding:0 3px}
+.ing-hrows{position:relative;z-index:1;display:flex;flex-direction:column;gap:7px}
+.ing-hrow{display:flex;align-items:center;gap:0}
+.ing-hrow-bar{height:100%;border-radius:0 4px 4px 0;min-width:2px;transition:width .4s}
+.ing-hrow:hover .ing-hrow-bar{filter:brightness(1.15)}
+.ing-hx-lbl{font-size:10px;color:var(--tinta-suave)}
+.ing-hx-unidad{text-align:center;font-size:10px;color:var(--tinta-suave);margin-top:4px;font-style:italic}
+.ing-hgrid{position:absolute;top:0;bottom:0;left:54px;right:96px;display:flex;justify-content:space-between;z-index:0}
+.ing-hrow-mes{flex:0 0 54px;font-size:11px;color:var(--tinta-suave);font-weight:600;text-align:right;padding-right:10px;box-sizing:border-box}
+.ing-hrow-track{flex:1;position:relative;height:22px;background:var(--filo-suave);border-radius:0 4px 4px 0}
+.ing-hrow-val{flex:0 0 96px;padding-left:10px;font-size:11.5px;font-weight:700;color:var(--tinta);white-space:nowrap;box-sizing:border-box}
+.ing-hx{display:flex;justify-content:space-between;margin-top:8px;padding-left:54px;padding-right:96px;box-sizing:border-box}
+/* ═══ RIEL DE NAVEGACIÓN LATERAL ═══ */
+:root{ --riel-w:54px; --riel-abierto:236px; }
+.riel{position:fixed;top:0;left:0;bottom:0;width:var(--riel-w);background:var(--bosque);
+  border-right:2px solid #c9a961;display:flex;flex-direction:column;padding:9px 0;
+  z-index:60;transition:width .17s ease;overflow:hidden}
+.riel.abierto{width:var(--riel-abierto);box-shadow:6px 0 26px rgba(0,0,0,.28)}
+.riel-marca{display:flex;align-items:center;gap:10px;padding:0 12px 11px;margin-bottom:6px;
+  border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer;flex-shrink:0}
+.riel-marca-ico{width:29px;height:29px;border-radius:8px;background:#c9a961;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;color:#0a1626;font-weight:800;font-size:12.5px;
+  font-family:var(--f-ui)}
+.riel-marca-txt{color:#fff;font-weight:700;font-size:14px;white-space:nowrap;opacity:0;
+  transition:opacity .13s;letter-spacing:-.2px;line-height:1.15}
+.riel-marca-txt em{font-style:normal;color:#c9a961}
+.riel-marca-txt small{display:block;color:#8fa8c9;font-weight:600;font-size:8.5px;letter-spacing:.9px;margin-top:2px}
+.riel.abierto .riel-marca-txt{opacity:1}
+.riel-items{display:flex;flex-direction:column;padding:0 7px;overflow-y:auto;overflow-x:hidden;flex:1}
+.riel-items{scrollbar-width:thin;scrollbar-color:rgba(201,169,97,.4) transparent}
+.riel-items::-webkit-scrollbar{width:5px}
+.riel-items::-webkit-scrollbar-track{background:transparent}
+.riel-items::-webkit-scrollbar-thumb{background:rgba(201,169,97,.32);border-radius:3px}
+.riel-items::-webkit-scrollbar-thumb:hover{background:rgba(201,169,97,.62)}
+.riel-grupo{font-size:8.5px;text-transform:uppercase;letter-spacing:1.1px;color:#7f97b8;
+  font-weight:700;padding:11px 10px 5px;white-space:nowrap;opacity:0;height:0;overflow:hidden;
+  transition:opacity .13s}
+.riel.abierto .riel-grupo{opacity:1;height:auto}
+.riel-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 10px;flex-shrink:0}
+.riel.abierto .riel-sep{display:none}
+.riel-item{display:flex;align-items:center;gap:11px;background:transparent;border:none;border-radius:8px;
+  padding:8px;cursor:pointer;color:#c3d2e6;font-family:var(--f-ui);font-size:11px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;width:100%;text-align:left;
+  position:relative;transition:background .13s,color .13s;margin-bottom:2px;flex-shrink:0}
+.riel-item-emo{width:22px;flex:0 0 auto;text-align:center;font-size:15px;line-height:1}
+.riel-item-txt{opacity:0;transition:opacity .13s;overflow:hidden;min-width:0}
+.riel-item-txt small{display:block;font-size:8.5px;color:#7f97b8;font-weight:600;
+  letter-spacing:.5px;margin-top:2px;text-transform:none}
+.riel.abierto .riel-item-txt{opacity:1}
+.riel-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.riel-item.on{background:rgba(201,169,97,.18);color:#c9a961}
+.riel-tip{position:fixed;left:0;top:0;transform:translateY(-50%);
+  background:#0a1626;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;padding:6px 11px;border-radius:7px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .12s;z-index:70;border:1px solid rgba(201,169,97,.4)}
+.riel-tip b{color:#c9a961;font-weight:700}
+.riel:not(.abierto) .riel-item:hover .riel-tip{opacity:1}
+.riel-pie{margin-top:auto;padding:9px 7px 0;border-top:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.riel-logout{display:flex;align-items:center;gap:11px;width:100%;background:transparent;border:none;
+  border-radius:8px;padding:8px;cursor:pointer;color:#ff8a7d;font-family:var(--f-ui);font-size:10.5px;
+  font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;text-align:left;
+  position:relative;transition:background .13s}
+.riel-logout:hover{background:rgba(255,91,73,.14)}
+.riel-logout .ic{width:22px;flex:0 0 auto;display:flex;justify-content:center}
+.riel-logout span.lbl{opacity:0;transition:opacity .13s}
+.riel.abierto .riel-logout span.lbl{opacity:1}
+/* Correr el contenido para dejarle lugar al riel */
+.page-shell{left:var(--riel-w) !important}
+.app{margin-left:var(--riel-w)}
+/* Las barras horizontales quedan reemplazadas por el riel */
+.ribbon{display:none !important}
+@media (max-width:760px){
+  :root{ --riel-w:46px; }
+  .riel-item-emo{font-size:14px}
+}
+body.locked .riel{display:none}
+body.locked .app{margin-left:0}
+/* Jurisprudencia: su grilla reservaba la fila 1 para la barra horizontal.
+   Sin esa barra, se recolocan barra lateral y contenido en una sola fila. */
+.app{grid-template-rows:minmax(0,1fr)}
+.app>.sidebar{grid-row:1;grid-column:1}
+.app>.main{grid-row:1;grid-column:2}
+@media (max-width:700px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .app>.sidebar{grid-row:1;grid-column:1}
+  .app>.main{grid-row:2;grid-column:1}
+}
+/* Jurisprudencia: barra lateral interna más angosta, para no comer pantalla
+   ahora que el riel de navegación ocupa su franja a la izquierda. */
+.app{grid-template-columns:184px minmax(0,1fr)}
+.app>.sidebar{width:184px}
+#paginaJurisprudencia .nav-item{padding:7px 12px;font-size:12.5px;gap:8px}
+#paginaJurisprudencia .nav-section{padding:9px 12px 4px;font-size:9px}
+#paginaJurisprudencia .sidebar-stats{padding:10px;gap:5px}
+#paginaJurisprudencia .sidebar-footer{padding:10px}
+@media (max-width:700px){
+  .app{grid-template-columns:1fr}
+  .app>.sidebar{width:100%}
+}
 </style>
 </head>
 <body>
+<nav class="riel" id="rielNav">
+  <div class="riel-marca" onclick="navTo('inicio')" title="Ir al inicio">
+    <div class="riel-marca-ico">LX</div>
+    <div class="riel-marca-txt">Lex<em>ia</em><small>ESTUDIO WE LEGAL</small></div>
+  </div>
+  <div class="riel-items" id="rielItems"></div>
+  <div class="riel-pie">
+    <button class="riel-logout" onclick="cerrarSesion()" title="Cerrar sesión y cambiar de usuario">
+      <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5b49" stroke-width="2.6" stroke-linecap="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="11"/></svg></span>
+      <span class="lbl">Cerrar sesión</span>
+    </button>
+  </div>
+</nav>
 <div class="app" id="paginaJurisprudencia" style="display:none">
     <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1425,13 +1644,14 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
   </div>
   <aside class="sidebar">
     <div class="sidebar-logo" onclick="navTo('inicio')" title="Ir al inicio">
-      <h1>Juris<em>Cannabis</em></h1>
+      <h1>Lex<em>ia</em></h1>
       <span>Estudio WE Legal</span>
     </div>
     <div class="sidebar-stats" id="sideStats"></div>
@@ -1509,11 +1729,11 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 </div>
 
 <!-- PÁGINA EXPEDIENTES — completamente separada -->
-<div id="paginaExpedientes" style="display:none;position:fixed;inset:0;background:var(--papel);flex-direction:column;overflow:hidden;z-index:5">
+<div id="paginaExpedientes" style="display:none;position:fixed;top:0;right:0;bottom:0;left:var(--riel-w);background:var(--papel);flex-direction:column;overflow:hidden;z-index:5">
   <!-- Topbar de expedientes -->
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1524,6 +1744,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1582,7 +1803,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaInicio" class="page-shell" style="display:flex">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1593,6 +1814,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1698,7 +1920,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaAgenda" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1709,6 +1931,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1776,7 +1999,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaHerramientas" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1787,6 +2010,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1952,7 +2176,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaCaja" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -1963,6 +2187,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2096,7 +2321,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaCajaSoc" class="page-shell" style="display:none">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -2107,6 +2332,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2303,7 +2529,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <!-- ═══════════ ACCESO ═══════════ -->
 <div id="loginGate">
   <div class="login-caja">
-    <div class="login-marca">Juris<em>Cannabis</em></div>
+    <div class="login-marca">Lex<em>ia</em></div>
     <div class="login-sub">Estudio WE Legal · acceso privado</div>
     <div class="doble-filete" style="margin:14px 0 18px"></div>
     <label>Usuario</label>
@@ -2320,7 +2546,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaCRM" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -2331,6 +2557,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2411,7 +2638,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaAriccame" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -2422,6 +2649,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2738,7 +2966,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 <div id="paginaAbonos" class="page-shell">
   <div class="ribbon">
     <div>
-      <div class="ribbon-brand" onclick="navTo('inicio')">Juris<em>Cannabis</em></div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
       <div class="ribbon-sub">Estudio WE Legal</div>
     </div>
     <div class="ribbon-sep"></div>
@@ -2749,6 +2977,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2759,6 +2988,32 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
     </div>
   </div>
 </div>
+<div id="paginaIngresos" class="page-shell">
+  <div class="ribbon">
+    <div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
+      <div class="ribbon-sub">Estudio WE Legal</div>
+    </div>
+    <div class="ribbon-sep"></div>
+    <nav class="ribbon-nav" data-navbar>
+      <button class="pill-nav" data-nav="inicio" onclick="navTo('inicio')">🏠 Inicio</button>
+      <button class="pill-nav" data-nav="jurisprudencia" onclick="navTo('jurisprudencia')">⚖ Jurisprudencia</button>
+      <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
+      <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
+      <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
+      <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-inner">
+      <div id="ingresosPanel"></div>
+    </div>
+  </div>
+</div>
+
 <div id="abonoRegModal" class="abo-reg-modal" onclick="if(event.target===this)abonoCerrarRegistro()">
   <div class="abo-reg-card"><div id="abonoRegBody"></div></div>
 </div>
@@ -3880,7 +4135,7 @@ ${resumenTexto.split('\n').map(l => {
   if (/^[A-ZÁÉÍÓÚÑ\s\/]{8,}$/.test(t) && t.length > 5) return `<div class="seccion-titulo">${t}</div>`;
   return `<p>${t}</p>`;
 }).join('')}
-<div class="footer">JurisCannabis — WeLegal · Documento generado automaticamente</div>
+<div class="footer">Lexia — WE Legal · Documento generado automaticamente</div>
 </body></html>`;
 
   const ventana = window.open('', '_blank');
@@ -5249,7 +5504,7 @@ function exportarDatos() {
   const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'juriscannabis-backup.json';
+  a.download = 'lexia-backup.json';
   a.click();
 }
 
@@ -5820,7 +6075,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', herramientas:'paginaHerramientas'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -6002,6 +6257,7 @@ function abonoTieneCambioReal(c){
   return ult.monto !== abonoMontoPrevioA(c, ult.desde);
 }
 const ABONO_MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function capPrim(s){ const t=String(s||''); return t.charAt(0).toUpperCase()+t.slice(1); }
 function abonoMesLabel(ym){ const [y,m]=ym.split('-'); return ABONO_MESES[parseInt(m,10)-1]+' '+y; }
 
 // Se llama al entrar a la página de abonos
@@ -6079,6 +6335,580 @@ function abonoMesesInflacion(){
   const aj = abonoMesAjuste();
   const res=[];
   for(let k=3;k>=1;k--){ const d=new Date(aj.y, (aj.m-1)-k, 1); res.push(ABONO_MESES[d.getMonth()]+' '+d.getFullYear()); }
+  return res;
+}
+
+let INGRESOS_MES = null;    // 'YYYY-MM' visible; null = mes actual
+let INGRESOS_VISTA = 'mes'; // 'mes' | 'evolucion'
+let INGRESOS_RANGO = 6;     // meses para la evolución (6 o 12)
+let INGRESOS_MON = 'ARS';   // moneda del ranking: 'ARS' | 'USD'
+function ingMoneda(m){ INGRESOS_MON = m; renderIngresos(); }
+function ingMesActual(){ return INGRESOS_MES || hoyISO().slice(0,7); }
+function ingMesLabel(ym){ const [y,m]=ym.split('-').map(Number); return ABONO_MESES[m-1]+' '+y; }
+function ingCambiarMes(d){ const ym=ingMesActual(); const [y,m]=ym.split('-').map(Number); const nd=new Date(y,(m-1)+d,1); INGRESOS_MES=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0'); renderIngresos(); }
+function ingMesHoy(){ INGRESOS_MES=null; renderIngresos(); }
+function ingVista(v){ INGRESOS_VISTA=v; renderIngresos(); }
+function ingRango(n){ INGRESOS_RANGO=n; renderIngresos(); }
+
+function renderIngresos(){
+  const cont = document.getElementById('ingresosPanel');
+  if(!cont) return;
+  // Los abonos pueden no estar cargados si se entra directo a Ingresos sin pasar por Abonos
+  if(typeof ABONOS !== 'undefined' && !ABONOS.length && typeof loadAbonos === 'function') loadAbonos();
+  const subtabs = `<div class="abo-subtabs">
+    <button class="${INGRESOS_VISTA==='mes'?'on':''}" onclick="ingVista('mes')">Ingresos del mes</button>
+    <button class="${INGRESOS_VISTA==='pendiente'?'on':''}" onclick="ingVista('pendiente')">Pendiente de cobro</button>
+    <button class="${INGRESOS_VISTA==='ranking'?'on':''}" onclick="ingVista('ranking')">Ranking</button>
+    <button class="${INGRESOS_VISTA==='evolucion'?'on':''}" onclick="ingVista('evolucion')">Evolución</button>
+  </div>`;
+  if(INGRESOS_VISTA==='evolucion'){ renderIngresosEvolucion(cont, subtabs); return; }
+  if(INGRESOS_VISTA==='pendiente'){ renderIngresosPendiente(cont, subtabs); return; }
+  if(INGRESOS_VISTA==='ranking'){ renderIngresosRanking(cont, subtabs); return; }
+
+  const ym = ingMesActual();
+  const d = ingresosDelMes(ym);
+  // Mes anterior para comparar
+  const [yy,mm] = ym.split('-').map(Number);
+  const dPrev = new Date(yy, mm-2, 1);
+  const ymPrev = dPrev.getFullYear()+'-'+String(dPrev.getMonth()+1).padStart(2,'0');
+  const prev = ingresosDelMes(ymPrev);
+  const varPct = (act, ant) => { if(!ant) return null; return ((act-ant)/ant*100); };
+  const vArs = varPct(d.totalArs, prev.totalArs), vUsd = varPct(d.totalUsd, prev.totalUsd);
+  const chip = v => v===null ? '' : `<span class="ing-var ${v>=0?'up':'down'}">${v>=0?'▲':'▼'} ${Math.abs(v).toFixed(0)}%</span>`;
+
+  const fuente = (nombre, dato, extra) => `
+    <div class="ing-fuente">
+      <div class="ing-fuente-h">${nombre}${extra?`<span class="ing-fuente-x">${extra}</span>`:''}</div>
+      <div class="ing-fuente-montos">
+        <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${Math.round(dato.ars).toLocaleString('es-AR')}</span></div>
+        <div class="ing-monto usd"><span class="ing-cur">US$</span><span class="ing-val">${Math.round(dato.usd).toLocaleString('es-AR')}</span></div>
+      </div>
+    </div>`;
+
+  const g = d.gastos;
+  const hayGastos = (g.totArs || g.totUsd);
+
+  cont.innerHTML = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Control de ingresos</div>
+        <h1 class="ing-h1">${esc(capPrim(ingMesLabel(ym)))}</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="ingCambiarMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="ingMesHoy()" class="hoy">Mes actual</button>
+        <button onclick="ingCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    ${subtabs}
+    <div class="ing-dos">
+      <div class="ing-total-box">
+        <div class="ing-total-lbl">Ingresó (bruto) ${chip(vArs)}</div>
+        <div class="ing-total-montos">
+          <div class="ing-total-m"><span class="ing-total-cur">$</span> ${Math.round(d.totalArs).toLocaleString('es-AR')}</div>
+          <div class="ing-total-sep"></div>
+          <div class="ing-total-m usd"><span class="ing-total-cur">US$</span> ${Math.round(d.totalUsd).toLocaleString('es-AR')}</div>
+        </div>
+        <div class="ing-total-cmp">Mes anterior: $ ${Math.round(prev.totalArs).toLocaleString('es-AR')} · US$ ${Math.round(prev.totalUsd).toLocaleString('es-AR')}</div>
+      </div>
+      <div class="ing-total-box neto">
+        <div class="ing-total-lbl">Quedó en el estudio (neto)</div>
+        <div class="ing-total-montos">
+          <div class="ing-total-m"><span class="ing-total-cur">$</span> ${Math.round(d.netoArs).toLocaleString('es-AR')}</div>
+          <div class="ing-total-sep"></div>
+          <div class="ing-total-m usd"><span class="ing-total-cur">US$</span> ${Math.round(d.netoUsd).toLocaleString('es-AR')}</div>
+        </div>
+        <div class="ing-total-cmp">${hayGastos?('Se descontaron $ '+Math.round(g.totArs).toLocaleString('es-AR')+(g.totUsd?(' y US$ '+Math.round(g.totUsd).toLocaleString('es-AR')):'')+' de gastos'):'Sin gastos registrados este mes'}</div>
+      </div>
+    </div>
+    ${hayGastos?`<div class="ing-gastos-box">
+      <div class="ing-gastos-h">Qué se descontó</div>
+      <div class="ing-gastos-grid">
+        <div class="ing-gasto-it"><span class="lbl">Gastos incluidos en cobros</span><span class="val">$ ${Math.round(g.incArs).toLocaleString('es-AR')}${g.incUsd?(' · US$ '+Math.round(g.incUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios</span><span class="val">$ ${Math.round(g.ordArs).toLocaleString('es-AR')}${g.ordUsd?(' · US$ '+Math.round(g.ordUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it"><span class="lbl">Gastos de escribanía</span><span class="val">$ ${Math.round(g.escArs).toLocaleString('es-AR')}${g.escUsd?(' · US$ '+Math.round(g.escUsd).toLocaleString('es-AR')):''}</span></div>
+      </div>
+    </div>`:''}
+    <div class="ing-fuentes-h">Desglose por fuente (bruto)</div>
+    <div class="ing-fuentes">
+      ${fuente('Caja judicial', d.jud, d.jud.n+' mov.')}
+      ${fuente('Caja societaria', d.soc, d.soc.n+' mov.')}
+      ${fuente('Abonos', d.abo, '')}
+    </div>
+    <div class="ing-part-h">Participación de cada fuente</div>
+    ${ingBarrasParticipacion(d)}`;
+}
+
+// Barras de participación, una columna por moneda
+function ingBarrasParticipacion(d){
+  const fmt = v => Math.round(Number(v)||0).toLocaleString('es-AR');
+  const bloque = (titulo, simb, tot, filas) => {
+    const t = tot || 0;
+    return `<div class="ing-part-col">
+      <div class="ing-part-col-h"><span class="ing-part-mon">${titulo}</span><span class="ing-part-tot">${simb} ${fmt(t)}</span></div>
+      ${t ? filas.map(f=>{
+        const pct = f.v/t*100;
+        return `<div class="ing-barra-row">
+          <div class="ing-barra-lbl">${f.n}</div>
+          <div class="ing-barra-track"><span style="width:${pct.toFixed(1)}%;background:${f.c}"></span></div>
+          <div class="ing-barra-pct">${pct.toFixed(0)}%</div>
+        </div>`;
+      }).join('') : '<div class="ing-part-vacio">Sin ingresos en esta moneda este mes.</div>'}
+    </div>`;
+  };
+  const cols = [
+    { n:'Caja judicial', c:'#1b3a6b' },
+    { n:'Caja societaria', c:'#2d5016' },
+    { n:'Abonos', c:'#c9a961' }
+  ];
+  const ars = cols.map((c,i)=>({ ...c, v:[d.jud.ars,d.soc.ars,d.abo.ars][i] }));
+  const usd = cols.map((c,i)=>({ ...c, v:[d.jud.usd,d.soc.usd,d.abo.usd][i] }));
+  return `<div class="ing-part-wrap">
+    ${bloque('Pesos','$', d.totalArs, ars)}
+    ${bloque('Dólares','US$', d.totalUsd, usd)}
+  </div>`;
+}
+
+// ── Vista: pendiente de cobro ──
+let INGRESOS_COL = { cuotas:false, abonos:false, rkCli:false, rkSrv:false }; // secciones colapsadas
+let INGRESOS_MES_OPEN = {};                        // meses desplegados (detalle de cuotas)
+function ingToggleSec(sec){ INGRESOS_COL[sec] = !INGRESOS_COL[sec]; renderIngresos(); }
+function ingToggleMes(ym){ INGRESOS_MES_OPEN[ym] = !INGRESOS_MES_OPEN[ym]; renderIngresos(); }
+
+function renderIngresosPendiente(cont, subtabs){
+  const p = ingresosPendientes();
+  const fmt = n => Math.round(Number(n)||0).toLocaleString('es-AR');
+  const cerrCuotas = INGRESOS_COL.cuotas, cerrAbonos = INGRESOS_COL.abonos;
+
+  // Detalle de cada cuota: de qué es y de quién
+  const detalleCuota = c => {
+    const simb = c.moneda==='USD' ? 'US$' : '$';
+    const caja = c.caja==='soc' ? 'Societaria' : 'Judicial';
+    return `<div class="abo-row ing-det-row">
+      <div class="ing-det-cli">${esc(c.cliente||'(sin cliente)')}</div>
+      <div class="ing-det-con">${esc(c.concepto||'(sin concepto)')}</div>
+      <div class="ing-det-cuo">cuota ${c.nro} de ${c.total}<span class="ing-det-caja">${caja}</span></div>
+      <div class="ing-det-monto">${simb} ${fmt(c.monto)}</div>
+    </div>`;
+  };
+
+  const mesesHtml = p.meses.length ? p.meses.slice(0,12).map(m=>{
+    const [y,mm]=m.ym.split('-').map(Number);
+    const lbl0 = ABONO_MESES[mm-1]+' '+y;
+    const lbl = lbl0.charAt(0).toUpperCase()+lbl0.slice(1);
+    const abierto = !!INGRESOS_MES_OPEN[m.ym];
+    // resumen de conceptos del mes (para no tener que abrir)
+    const conc = [...new Set(m.items.map(i=>ingLabelConcepto(ingLimpiaConcepto(i.concepto||''))))];
+    const resumen = conc.slice(0,2).join(' · ') + (conc.length>2 ? (' · +'+(conc.length-2)+' más') : '');
+    return `<div class="ing-mes-bloque">
+      <div class="abo-row ing-mes-row" onclick="ingToggleMes('${m.ym}')">
+        <div class="ing-pend-mes"><span class="abo-caret ${abierto?'':'closed'}">▾</span> ${lbl}</div>
+        <div class="ing-pend-n">${m.items.length} cuota${m.items.length!==1?'s':''}<span class="ing-pend-res">${esc(resumen)}</span></div>
+        <div class="ing-pend-ars">${m.ars?('$ '+fmt(m.ars)):'—'}</div>
+        <div class="ing-pend-usd">${m.usd?('US$ '+fmt(m.usd)):'—'}</div>
+      </div>
+      ${abierto ? `<div class="ing-det-wrap">
+        <div class="abo-row ing-det-row ing-det-head">
+          <div class="ing-det-cli">Cliente</div><div class="ing-det-con">Concepto</div>
+          <div class="ing-det-cuo">Cuota</div><div class="ing-det-monto">Monto</div>
+        </div>
+        ${m.items.map(detalleCuota).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('') : '<div class="abo-sec-vacio">No hay cuotas pendientes registradas.</div>';
+
+  const aboHtml = p.aboPend.length ? p.aboPend.map(a=>`<div class="abo-row">
+      <div class="ing-pend-mes"><span class="abo-c-nom-t">${esc(a.nombre.toUpperCase())}</span></div>
+      <div class="ing-pend-n">${a.estado==='parcial'?'Pagó una parte':'Sin pagar'}</div>
+      <div class="ing-pend-ars">${a.moneda!=='USD'?('$ '+fmt(a.falta)):'—'}</div>
+      <div class="ing-pend-usd">${a.moneda==='USD'?('US$ '+fmt(a.falta)):'—'}</div>
+    </div>`).join('') : '<div class="abo-sec-vacio">Todos los abonos del mes están cobrados.</div>';
+
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Control de ingresos</div>
+      <h1 class="ing-h1">Pendiente de cobro</h1>
+    </div></div>
+    ${subtabs}
+    <div class="ing-total-box">
+      <div class="ing-total-lbl">Total pendiente de cobro</div>
+      <div class="ing-total-montos">
+        <div class="ing-total-m"><span class="ing-total-cur">$</span> ${fmt(p.totalArs)}</div>
+        <div class="ing-total-sep"></div>
+        <div class="ing-total-m usd"><span class="ing-total-cur">US$</span> ${fmt(p.totalUsd)}</div>
+      </div>
+      <div class="ing-total-cmp">Cuotas de planes por cobrar + abonos del mes sin cobrar</div>
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" onclick="ingToggleSec('cuotas')">
+        <span class="abo-sec-tw"><span class="abo-caret ${cerrCuotas?'closed':''}">▾</span> Cuotas por mes</span>
+        <span class="abo-sec-count">$ ${fmt(p.cuotasArs)}${p.cuotasUsd?(' · US$ '+fmt(p.cuotasUsd)):''}</span>
+      </div>
+      ${cerrCuotas ? '' : `<div class="abo-row abo-row-head">
+        <div class="ing-pend-mes">Mes</div><div class="ing-pend-n">Detalle</div>
+        <div class="ing-pend-ars">Pesos</div><div class="ing-pend-usd">Dólares</div>
+      </div>${mesesHtml}`}
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" onclick="ingToggleSec('abonos')">
+        <span class="abo-sec-tw"><span class="abo-caret ${cerrAbonos?'closed':''}">▾</span> Abonos sin cobrar (mes en curso)</span>
+        <span class="abo-sec-count">$ ${fmt(p.aboPendArs)}${p.aboPendUsd?(' · US$ '+fmt(p.aboPendUsd)):''}</span>
+      </div>
+      ${cerrAbonos ? '' : `<div class="abo-row abo-row-head">
+        <div class="ing-pend-mes">Cliente</div><div class="ing-pend-n">Estado</div>
+        <div class="ing-pend-ars">Pesos</div><div class="ing-pend-usd">Dólares</div>
+      </div>${aboHtml}`}
+    </div>`;
+}
+
+// ── Vista: ranking de clientes y servicios ──
+function renderIngresosRanking(cont, subtabs){
+  const n = INGRESOS_RANGO;
+  const hasta = hoyISO().slice(0,7);
+  const [y,m] = hasta.split('-').map(Number);
+  const dd = new Date(y, (m-1)-(n-1), 1);
+  const desde = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0');
+  const fmt = v => Math.round(Number(v)||0).toLocaleString('es-AR');
+  const mon = INGRESOS_MON;           // moneda elegida: se ordena y grafica por ESA moneda
+  const campo = mon==='USD' ? 'usd' : 'ars';
+  const simb = mon==='USD' ? 'US$' : '$';
+  const ord = arr => arr.slice().filter(x=>x[campo]>0).sort((a,b)=> b[campo]-a[campo]).slice(0,12);
+  const clientes = ord(ingresosPorCliente(desde, hasta));
+  const conceptos = ord(ingresosPorConcepto(desde, hasta));
+  const maxCli = Math.max(1, ...clientes.map(c=>c[campo]));
+  const maxCon = Math.max(1, ...conceptos.map(c=>c[campo]));
+  const totCli = clientes.reduce((a,c)=>a+c[campo],0);
+
+  const filaCli = c => `<div class="abo-row">
+      <div class="ing-rk-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="ing-rk-bar"><span style="width:${(c[campo]/maxCli*100).toFixed(1)}%"></span></div>
+      <div class="ing-rk-ars">${simb} ${fmt(c[campo])}</div>
+      <div class="ing-rk-usd">${totCli?((c[campo]/totCli*100).toFixed(0)+'%'):''}</div>
+    </div>`;
+  const filaCon = c => `<div class="abo-row">
+      <div class="ing-rk-nom">${esc(c.concepto)}</div>
+      <div class="ing-rk-bar"><span style="width:${(c[campo]/maxCon*100).toFixed(1)}%;background:#2d5016"></span></div>
+      <div class="ing-rk-ars">${simb} ${fmt(c[campo])}</div>
+      <div class="ing-rk-usd">${c.n?(c.n+' cobro'+(c.n!==1?'s':'')+(c.nVar>1?' · '+c.nVar+' variantes':'')):''}</div>
+    </div>`;
+
+  cont.innerHTML = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Control de ingresos</div>
+        <h1 class="ing-h1">Ranking · últimos ${n} meses</h1>
+      </div>
+      <div class="ing-rango">
+        <button class="${n===6?'on':''}" onclick="ingRango(6)">6 meses</button>
+        <button class="${n===12?'on':''}" onclick="ingRango(12)">12 meses</button>
+      </div>
+    </div>
+    ${subtabs}
+    <div class="ing-mon-sw">
+      <span class="ing-mon-lbl">Ver ranking en:</span>
+      <button class="${mon==='ARS'?'on':''}" onclick="ingMoneda('ARS')">Pesos</button>
+      <button class="${mon==='USD'?'on':''}" onclick="ingMoneda('USD')">Dólares</button>
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" onclick="ingToggleSec('rkCli')">
+        <span class="abo-sec-tw"><span class="abo-caret ${INGRESOS_COL.rkCli?'closed':''}">▾</span> Clientes que más aportaron</span>
+        <span class="abo-sec-count">${simb} ${fmt(totCli)}</span>
+      </div>
+      ${INGRESOS_COL.rkCli ? '' : `<div class="abo-row abo-row-head">
+        <div class="ing-rk-nom">Cliente</div><div class="ing-rk-bar"></div>
+        <div class="ing-rk-ars">Cobrado</div><div class="ing-rk-usd">Del total</div>
+      </div>
+      ${clientes.map(filaCli).join('') || '<div class="abo-sec-vacio">Sin cobros en '+(mon==='USD'?'dólares':'pesos')+' en el período.</div>'}`}
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" onclick="ingToggleSec('rkSrv')">
+        <span class="abo-sec-tw"><span class="abo-caret ${INGRESOS_COL.rkSrv?'closed':''}">▾</span> Servicios / conceptos más facturados</span>
+        <span class="abo-sec-count">${conceptos.length}</span>
+      </div>
+      ${INGRESOS_COL.rkSrv ? '' : `<div class="abo-row abo-row-head">
+        <div class="ing-rk-nom">Concepto</div><div class="ing-rk-bar"></div>
+        <div class="ing-rk-ars">Cobrado</div><div class="ing-rk-usd">Cobros</div>
+      </div>
+      ${conceptos.map(filaCon).join('') || '<div class="abo-sec-vacio">Sin datos en el período.</div>'}`}
+    </div>`;
+}
+
+// ── Vista de evolución: gráfico de barras con eje Y y unidades ──
+// Escala "redonda": lleva el máximo al siguiente valor prolijo y arma 4 divisiones.
+function ingEscala(max, unidad){
+  if(!max || max<=0) return { top: unidad, pasos: [1, 0.75, 0.5, 0.25, 0], div: 4 };
+  const enU = max/unidad;                    // máximo expresado en la unidad (millones o miles)
+  const magn = Math.pow(10, Math.floor(Math.log10(enU)));
+  const norm = enU/magn;
+  let paso;                                   // paso "prolijo" en la unidad
+  if(norm<=1) paso=0.25*magn; else if(norm<=2) paso=0.5*magn; else if(norm<=5) paso=1*magn; else paso=2*magn;
+  const div = Math.ceil(enU/paso);
+  const topU = paso*div;
+  const pasos = [];
+  for(let i=div;i>=0;i--) pasos.push(+(paso*i).toFixed(2));
+  return { top: topU*unidad, pasos, div };
+}
+function renderIngresosEvolucion(cont, subtabs){
+  const n = INGRESOS_RANGO;
+  const serie = ingresosSerie(hoyISO().slice(0,7), n);
+  const fmtNum = v => Math.round(Number(v)||0).toLocaleString('es-AR');
+  // Gráfico de barras HORIZONTALES: los meses en el eje vertical, la plata en el horizontal
+  const grafico = (campo, unidad, unidadLbl, simb, color) => {
+    const max = Math.max(0, ...serie.map(s=>s[campo]));
+    const esc = ingEscala(max, unidad);
+    const top = esc.top || unidad;
+    const totales = serie.reduce((a,s)=>a+s[campo],0);
+    const prom = serie.length ? totales/serie.length : 0;
+    const promPct = top ? (prom/top*100) : 0;
+    // Marcas del eje X (de menor a mayor)
+    const marcas = esc.pasos.slice().reverse();
+    const ejeX = marcas.map(p=>`<div class="ing-hx-lbl">${String(p).replace('.', ',')}</div>`).join('');
+    const grid = marcas.map(()=>`<div class="ing-hgrid-line"></div>`).join('');
+    // Una fila por mes
+    const filas = serie.map(s=>{
+      const v = s[campo];
+      const wPct = top ? (v/top*100) : 0;
+      return `<div class="ing-hrow" title="${s.label}: ${simb} ${fmtNum(v)}">
+        <div class="ing-hrow-mes">${s.label}</div>
+        <div class="ing-hrow-track"><div class="ing-hrow-bar" style="width:${wPct.toFixed(2)}%;background:${color}"></div></div>
+        <div class="ing-hrow-val">${v?(simb+' '+fmtNum(v)):'—'}</div>
+      </div>`;
+    }).join('');
+    return `<div class="ing-ev-block">
+      <div class="ing-ev-h">
+        <span class="ing-ev-dot" style="background:${color}"></span>
+        Ingresos en ${simb==='$'?'pesos':'dólares'}
+        <span class="ing-ev-tot">acumulado ${n} meses: ${simb} ${fmtNum(totales)} · promedio: ${simb} ${fmtNum(prom)}</span>
+      </div>
+      <div class="ing-hchart">
+        <div class="ing-hplot">
+          <div class="ing-hgrid">${grid}</div>
+          ${prom>0?`<div class="ing-hprom" style="left:calc(${MES_COL_W}px + (100% - ${MES_COL_W}px - ${VAL_COL_W}px) * ${(promPct/100).toFixed(4)})"><span>prom.</span></div>`:''}
+          <div class="ing-hrows">${filas}</div>
+        </div>
+        <div class="ing-hx">${ejeX}</div>
+        <div class="ing-hx-unidad">${unidadLbl}</div>
+      </div>
+    </div>`;
+  };
+
+  cont.innerHTML = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Control de ingresos</div>
+        <h1 class="ing-h1">Evolución · últimos ${n} meses</h1>
+      </div>
+      <div class="ing-rango">
+        <button class="${n===6?'on':''}" onclick="ingRango(6)">6 meses</button>
+        <button class="${n===12?'on':''}" onclick="ingRango(12)">12 meses</button>
+      </div>
+    </div>
+    ${subtabs}
+    ${grafico('totalArs', 1000000, 'millones de pesos', '$', '#1b3a6b')}
+    ${grafico('totalUsd', 1000, 'miles de dólares', 'US$', '#2d5016')}`;
+}
+const MES_COL_W = 54;  // ancho de la columna de meses (eje vertical)
+const VAL_COL_W = 96;  // ancho de la columna del monto, a la derecha de cada barra
+
+// ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
+// Devuelve los ingresos de un mes 'YYYY-MM' por fuente y moneda (pesos y dólares separados).
+function ingresosDelMes(ym){
+  // Caja judicial: todos los pagos de CAJA son ingresos
+  const jud = (typeof CAJA !== 'undefined' ? CAJA : []).filter(p => (p.fecha||'').slice(0,7) === ym);
+  const judArs = jud.filter(p => p.moneda !== 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
+  const judUsd = jud.filter(p => p.moneda === 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
+
+  // Caja societaria: SOLO tipo 'ingreso' (o sin tipo). Los tipos 'gasto' y 'gasto_esc' NO son ingreso.
+  const movsSoc = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).filter(m => (m.fecha||'').slice(0,7) === ym);
+  const socIn = movsSoc.filter(m => m.tipo === 'ingreso' || !m.tipo);
+  const socArs = socIn.filter(m => m.moneda !== 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
+  const socUsd = socIn.filter(m => m.moneda === 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
+  // Dentro de un ingreso puede haber "gastos incluidos" (plata que entra pero no queda en el estudio)
+  let gincArs=0, gincUsd=0;
+  socIn.forEach(m => { const g = Number(m.gastosIncl)||0; if(!g) return; if(m.moneda==='USD') gincUsd+=g; else gincArs+=g; });
+  // Gastos que salen (ordinarios y de escribanía)
+  const gOrd = movsSoc.filter(m => m.tipo === 'gasto');
+  const gEsc = movsSoc.filter(m => m.tipo === 'gasto_esc');
+  const gOrdArs = gOrd.filter(m=>m.moneda!=='USD').reduce((a,m)=>a+(Number(m.monto)||0),0);
+  const gOrdUsd = gOrd.filter(m=>m.moneda==='USD').reduce((a,m)=>a+(Number(m.monto)||0),0);
+  const gEscArs = gEsc.filter(m=>m.moneda!=='USD').reduce((a,m)=>a+(Number(m.monto)||0),0);
+  const gEscUsd = gEsc.filter(m=>m.moneda==='USD').reduce((a,m)=>a+(Number(m.monto)||0),0);
+
+  // Abonos: lo efectivamente cobrado en ese mes (suma de parciales), por moneda
+  let aboArs = 0, aboUsd = 0;
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
+    const cobrado = abonoTotalMes(c, ym);
+    if(!cobrado) return;
+    if(c.moneda === 'USD') aboUsd += cobrado; else aboArs += cobrado;
+  });
+
+  const brutoArs = judArs + socArs + aboArs;
+  const brutoUsd = judUsd + socUsd + aboUsd;
+  // Neto real: al bruto le sacamos los gastos incluidos en los ingresos y los gastos que salieron
+  const gastosArs = gincArs + gOrdArs + gEscArs;
+  const gastosUsd = gincUsd + gOrdUsd + gEscUsd;
+  return {
+    jud: { ars: judArs, usd: judUsd, n: jud.length },
+    soc: { ars: socArs, usd: socUsd, n: socIn.length },
+    abo: { ars: aboArs, usd: aboUsd },
+    gastos: { incArs: gincArs, incUsd: gincUsd, ordArs: gOrdArs, ordUsd: gOrdUsd, escArs: gEscArs, escUsd: gEscUsd, totArs: gastosArs, totUsd: gastosUsd },
+    totalArs: brutoArs, totalUsd: brutoUsd,
+    netoArs: brutoArs - gastosArs, netoUsd: brutoUsd - gastosUsd
+  };
+}
+// ── Ranking de clientes por lo cobrado en un rango de meses ──
+// Une las 3 fuentes usando el nombre del cliente como clave.
+function ingresosPorCliente(ymDesde, ymHasta){
+  const acum = {}; // nombre → {ars, usd, jud, soc, abo, n}
+  const sumar = (nombre, monto, moneda, fuente) => {
+    const n = (nombre||'').trim() || '(sin cliente)';
+    const k = n.toLowerCase();
+    if(!acum[k]) acum[k] = { nombre:n, ars:0, usd:0, jud:0, soc:0, abo:0, n:0 };
+    const m = Number(monto)||0;
+    if(moneda==='USD') acum[k].usd += m; else acum[k].ars += m;
+    acum[k][fuente] += m; acum[k].n++;
+  };
+  const enRango = f => { const ym=(f||'').slice(0,7); return ym>=ymDesde && ym<=ymHasta; };
+  (typeof CAJA !== 'undefined' ? CAJA : []).forEach(p => { if(enRango(p.fecha)) sumar(p.cliente, p.monto, p.moneda, 'jud'); });
+  (typeof CAJASOC !== 'undefined' ? CAJASOC : []).forEach(m => {
+    if(!enRango(m.fecha)) return;
+    if(!(m.tipo==='ingreso' || !m.tipo)) return;
+    // se cuenta lo que realmente queda (sin los gastos incluidos)
+    const neto = (Number(m.monto)||0) - (Number(m.gastosIncl)||0);
+    sumar(m.contraparte, neto, m.moneda, 'soc');
+  });
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
+    (c.pagos||[]).forEach(p => {
+      if(!p.mes || p.mes < ymDesde || p.mes > ymHasta) return;
+      const tot = (p.parciales||[]).reduce((a,x)=>a+(Number(x.monto)||0),0);
+      if(tot) sumar(c.nombre, tot, c.moneda, 'abo');
+    });
+  });
+  return Object.values(acum);
+}
+
+// Agrupa conceptos que son el mismo servicio pero están escritos distinto.
+// Saca las referencias a cuotas ("cuota 1 de 2", "2/3", "1° cuota", "anticipo"),
+// para que todo lo cobrado por un mismo servicio sume junto.
+function ingNormConcepto(s){
+  let t = (s||'').toString().trim().toLowerCase();
+  if(!t) return '';
+  // acentos fuera para comparar
+  t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // "cuota 1 de 2", "cuota 1/2", "cuota 1", "cuotas 2 de 3"
+  t = t.replace(/\bcuotas?\s*\.?\s*n?[°º]?\s*\d+\s*(?:de|\/|-)\s*\d+/g, ' ');
+  t = t.replace(/\bcuotas?\s*\.?\s*n?[°º]?\s*\d+\b/g, ' ');
+  // "1° cuota", "2da cuota", "primera cuota"
+  t = t.replace(/\b\d+\s*[°ºa-z]{0,3}\s+cuotas?\b/g, ' ');
+  t = t.replace(/\b(primera|segunda|tercera|cuarta|quinta|sexta|ultima)\s+cuotas?\b/g, ' ');
+  // "(1 de 2)" o "1 de 2" o "1/2" sueltos al final
+  t = t.replace(/\(\s*\d+\s*(?:de|\/|-)\s*\d+\s*\)/g, ' ');
+  t = t.replace(/\s\d+\s*(?:de|\/)\s*\d+\s*$/g, ' ');
+  // anticipo / saldo / pago parcial como etiqueta de tramo
+  t = t.replace(/\b(anticipo|saldo|pago\s+parcial|refuerzo)\b/g, ' ');
+  // puntos de abreviaturas fuera (S.A. = SA)
+  t = t.replace(/\./g, '');
+  // limpieza final: separadores colgados y espacios repetidos
+  t = t.replace(/[\-–—·,;:]+\s*$/g, ' ');
+  t = t.replace(/^\s*[\-–—·,;:]+/g, ' ');
+  t = t.replace(/\s{2,}/g, ' ').trim();
+  return t;
+}
+// Limpia las referencias a cuotas PERO conserva tildes y mayúsculas, para mostrar.
+function ingLimpiaConcepto(s){
+  let t = (s||'').toString().trim();
+  if(!t) return '';
+  t = t.replace(/\bcuotas?\s*\.?\s*n?[°º]?\s*\d+\s*(?:de|\/|-)\s*\d+/gi, ' ');
+  t = t.replace(/\bcuotas?\s*\.?\s*n?[°º]?\s*\d+\b/gi, ' ');
+  t = t.replace(/\b\d+\s*[°ºa-zA-Z]{0,3}\s+cuotas?\b/gi, ' ');
+  t = t.replace(/\b(primera|segunda|tercera|cuarta|quinta|sexta|última|ultima)\s+cuotas?\b/gi, ' ');
+  t = t.replace(/\(\s*\d+\s*(?:de|\/|-)\s*\d+\s*\)/g, ' ');
+  t = t.replace(/\s\d+\s*(?:de|\/)\s*\d+\s*$/g, ' ');
+  t = t.replace(/\b(anticipo|saldo|pago\s+parcial|refuerzo)\b/gi, ' ');
+  t = t.replace(/[\-–—·,;:]+\s*$/g, ' ');
+  t = t.replace(/^\s*[\-–—·,;:]+/g, ' ');
+  t = t.replace(/\s{2,}/g, ' ').trim();
+  return t;
+}
+// Devuelve una etiqueta linda para mostrar (primera letra en mayúscula)
+function ingLabelConcepto(s){
+  const t = (s||'').trim();
+  if(!t) return '(sin concepto)';
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+// ── Ranking de conceptos / servicios ──
+function ingresosPorConcepto(ymDesde, ymHasta){
+  const acum = {};
+  const sumar = (concepto, monto, moneda) => {
+    const orig = (concepto||'').trim();
+    const k = ingNormConcepto(orig) || '(sin concepto)';
+    if(!acum[k]) acum[k] = { concepto: ingLabelConcepto(ingLimpiaConcepto(orig) || k), ars:0, usd:0, n:0, variantes:new Set() };
+    const m = Number(monto)||0;
+    if(moneda==='USD') acum[k].usd += m; else acum[k].ars += m;
+    acum[k].n++;
+    if(orig) acum[k].variantes.add(orig);
+  };
+  const enRango = f => { const ym=(f||'').slice(0,7); return ym>=ymDesde && ym<=ymHasta; };
+  (typeof CAJA !== 'undefined' ? CAJA : []).forEach(p => { if(enRango(p.fecha)) sumar(p.concepto, p.monto, p.moneda); });
+  (typeof CAJASOC !== 'undefined' ? CAJASOC : []).forEach(m => {
+    if(!enRango(m.fecha)) return;
+    if(!(m.tipo==='ingreso' || !m.tipo)) return;
+    sumar(m.concepto, (Number(m.monto)||0) - (Number(m.gastosIncl)||0), m.moneda);
+  });
+  // Los abonos se agrupan como un servicio propio
+  let aboArs=0, aboUsd=0;
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
+    (c.pagos||[]).forEach(p => {
+      if(!p.mes || p.mes < ymDesde || p.mes > ymHasta) return;
+      const tot = (p.parciales||[]).reduce((a,x)=>a+(Number(x.monto)||0),0);
+      if(!tot) return;
+      if(c.moneda==='USD') aboUsd += tot; else aboArs += tot;
+    });
+  });
+  if(aboArs || aboUsd) acum['__abonos'] = { concepto:'Abonos mensuales', ars:aboArs, usd:aboUsd, n:0, variantes:new Set() };
+  return Object.values(acum).map(x => ({ concepto:x.concepto, ars:x.ars, usd:x.usd, n:x.n, nVar:x.variantes.size }));
+}
+
+// ── Pendiente de cobro: cuotas futuras + abonos impagos ──
+function ingresosPendientes(){
+  const hoyYm = hoyISO().slice(0,7);
+  // Cuotas pendientes de planes (ya existe el motor)
+  const cuotas = (typeof cuotasPendientesTodas === 'function') ? cuotasPendientesTodas() : [];
+  // Agrupar cuotas por mes
+  const porMes = {};
+  cuotas.forEach(c => {
+    const ym = (c.fecha||'').slice(0,7); if(!ym) return;
+    if(!porMes[ym]) porMes[ym] = { ym, ars:0, usd:0, items:[] };
+    if(c.moneda==='USD') porMes[ym].usd += (Number(c.monto)||0); else porMes[ym].ars += (Number(c.monto)||0);
+    porMes[ym].items.push(c);
+  });
+  // Abonos impagos o parciales del mes en curso
+  const aboPend = [];
+  let aboPendArs = 0, aboPendUsd = 0;
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).filter(c=>c.estado==='activo').forEach(c => {
+    const st = abonoEstadoMes(c, hoyYm);
+    if(st.estado === 'pagado') return;
+    aboPend.push({ nombre:c.nombre, moneda:c.moneda, falta:st.falta, estado:st.estado });
+    if(c.moneda==='USD') aboPendUsd += st.falta; else aboPendArs += st.falta;
+  });
+  const meses = Object.values(porMes).sort((a,b)=> a.ym.localeCompare(b.ym));
+  const cuotasArs = cuotas.filter(c=>c.moneda!=='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
+  const cuotasUsd = cuotas.filter(c=>c.moneda==='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
+  return { meses, cuotas, cuotasArs, cuotasUsd, aboPend, aboPendArs, aboPendUsd,
+           totalArs: cuotasArs + aboPendArs, totalUsd: cuotasUsd + aboPendUsd };
+}
+
+// Serie de N meses hacia atrás desde 'ymHasta' (incluido): [{ym, label, totalArs, totalUsd, jud, soc, abo}]
+function ingresosSerie(ymHasta, n){
+  const [y,m] = ymHasta.split('-').map(Number);
+  const res = [];
+  for(let k=n-1; k>=0; k--){
+    const d = new Date(y, (m-1)-k, 1);
+    const ym = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    const dat = ingresosDelMes(ym);
+    res.push({ ym, label: ABONO_MESES[d.getMonth()].slice(0,3)+' '+String(d.getFullYear()).slice(2), totalArs: dat.totalArs, totalUsd: dat.totalUsd, jud: dat.jud, soc: dat.soc, abo: dat.abo });
+  }
   return res;
 }
 
@@ -6172,7 +7002,7 @@ function renderAbonos(){
     <div class="abo-top">
       <div>
         <div class="abo-eyebrow">Abonos mensuales</div>
-        <h1 class="abo-h1">${abonoMesLabel(ym)}</h1>
+        <h1 class="abo-h1">${capPrim(abonoMesLabel(ym))}</h1>
       </div>
       <div class="abo-mesnav">
         <button onclick="abonoCambiarMes(-1)" title="Mes anterior">‹</button>
@@ -7934,6 +8764,8 @@ function __navToInterno(p) {
     if (p === 'crm') { renderCRM(); }
     if (p === 'ariccame') { renderAric(); }
     if (p === 'abonos') { renderAbonosPagina(); }
+    if (p === 'ingresos') { renderIngresos(); }
+    rielMarcarActivo(p);
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
 }
@@ -9336,7 +10168,7 @@ function eventoTestimonial(a, fecha) {
   lineas.push('Expediente: ' + [a.exp.expediente, a.exp.juzgado].filter(Boolean).join(' · '));
   // Notas cargadas en la hoja de prueba para ese testigo
   if (a.notas && String(a.notas).trim()) lineas.push('', 'Notas: ' + String(a.notas).trim());
-  lineas.push('', 'Cargado desde JurisCannabis — Estudio WE Legal');
+  lineas.push('', 'Cargado desde Lexia — Estudio WE Legal');
   return {
     titulo: 'Audiencia Testimonial — ' + (a.exp.caratula || ''),
     fecha: fEv, hora: hEv, tipo: 'audiencia', detalle: lineas.join('\n'),
@@ -9353,7 +10185,7 @@ function eventoManual(t) {
     detalle += '\nModalidad: ' + capModalidad(t.modalidad);
     if (t.modalidad !== 'presencial') detalle += '\nLink de la audiencia: ' + (t.link || '⚠ FALTA CARGAR EL LINK');
   }
-  detalle += '\nCargado desde JurisCannabis — Estudio WE Legal';
+  detalle += '\nCargado desde Lexia — Estudio WE Legal';
   return {
     titulo: (esAud ? 'Audiencia — ' : '') + t.titulo,
     fecha: t.fecha, hora: t.hora, tipo: t.tipo || 'tarea', detalle,
@@ -9394,10 +10226,10 @@ function exportarICS() {
 
   const ahora = new Date();
   const stamp = `${ahora.getUTCFullYear()}${pad2(ahora.getUTCMonth()+1)}${pad2(ahora.getUTCDate())}T${pad2(ahora.getUTCHours())}${pad2(ahora.getUTCMinutes())}${pad2(ahora.getUTCSeconds())}Z`;
-  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//JurisCannabis//WE Legal//ES', 'CALSCALE:GREGORIAN'];
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Lexia//WE Legal//ES', 'CALSCALE:GREGORIAN'];
   eventos.forEach(ev => {
     L.push('BEGIN:VEVENT');
-    L.push('UID:' + ev.uid + '@juriscannabis');
+    L.push('UID:' + ev.uid + '@lexia');
     L.push('DTSTAMP:' + stamp);
     if (ev.hora) {
       const d0 = new Date(ev.fecha + 'T' + ev.hora + ':00');
@@ -9418,7 +10250,7 @@ function exportarICS() {
   const blob = new Blob([L.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'agenda-juriscannabis.ics';
+  a.download = 'agenda-lexia.ics';
   a.click();
 }
 
@@ -11349,7 +12181,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--sello)!important;box-
 
 </style></head><body><div class="hoja">
 <div class="cab">
-  <div class="eyebrow">JurisCannabis · Estudio WE Legal</div>
+  <div class="eyebrow">Lexia · Estudio WE Legal</div>
   <h1>Balance de caja — <em>${mesLargo(mes)}</em></h1>
   <div class="sub">Generado el ${fechaLarga(new Date())} · ${pagos.length} pago${pagos.length !== 1 ? 's' : ''} registrado${pagos.length !== 1 ? 's' : ''}${dolar > 0 ? ' · dólar de referencia $ ' + fmtNumStr(dolar) : ''}</div>
 </div>
@@ -11399,7 +12231,7 @@ ${conAdj.map(p => { const adj = CAJA_ADJ[p.id]; const esImg = (adj.tipo || '').s
 </figure>`; }).join('')}
 </div>` : ''}
 
-<div class="pie">Balance generado por JurisCannabis. Las casillas «Rev.» son interactivas y se guardan en este archivo (en este navegador). Imprimí a PDF desde el navegador para archivar una versión fija.</div>
+<div class="pie">Balance generado por Lexia. Las casillas «Rev.» son interactivas y se guardan en este archivo (en este navegador). Imprimí a PDF desde el navegador para archivar una versión fija.</div>
 </div>
 <${'scr'}${'ipt'}>
 (function(){
@@ -11553,6 +12385,80 @@ function cerrarSesion() {
 }
 const ARIC_USERS = ['naza', 'kevindaich', 'sofig', 'ivana'];
 const ABONOS_USERS = ['kevindaich', 'sofig', 'brenda', 'ivana'];
+const INGRESOS_USERS = ['kevindaich', 'ivana'];
+// ═══ RIEL DE NAVEGACIÓN LATERAL ═══
+// Reemplaza las barras horizontales. Los ítems llevan data-nav para que el sistema
+// de permisos que ya existe los muestre u oculte sin lógica duplicada.
+const RIEL_ITEMS = [
+  { nav:'inicio',        emo:'🏠', txt:'Inicio',          go:"navTo('inicio')" },
+  { nav:'jurisprudencia',emo:'⚖',  txt:'Jurisprudencia',  go:"navTo('jurisprudencia')" },
+  { nav:'expedientes',   emo:'📁', txt:'Expedientes',     go:"navTo('expedientes')" },
+  { nav:'agenda',        emo:'📅', txt:'Agenda',          go:"navTo('agenda')" },
+  { grupo:'Finanzas' },
+  { nav:'caja',          emo:'💰', txt:'Caja judicial',   go:"navTo('caja')" },
+  { nav:'cajasoc',       emo:'💼', txt:'Caja societaria', go:"navTo('cajasoc')" },
+  { nav:'abonos',        emo:'🔁', txt:'Abonos',          go:"navTo('abonos')" },
+  { nav:'ingresos',      emo:'📊', txt:'Ingresos',        go:"navTo('ingresos')" },
+  { grupo:'Clientes' },
+  { nav:'crm',           emo:'👤', txt:'CRM',             go:"navTo('crm')" },
+  { grupo:'ARICCAME' },
+  { nav:'ariccame',      emo:'🌱', txt:'Cáñamo',   sub:'Res. 1/2024',  tip:'ARICCAME', aric:'canamo',  go:"aricIr('canamo')" },
+  { nav:'ariccame',      emo:'🌿', txt:'Cannabis', sub:'Res. 41/2026', tip:'ARICCAME', aric:'cannabis', go:"aricIr('cannabis')" },
+  { grupo:'Sistema' },
+  { nav:'herramientas',  emo:'🧮', txt:'Herramientas',    go:"navTo('herramientas')" }
+];
+
+function rielConstruir(){
+  const cont = document.getElementById('rielItems');
+  if(!cont || cont.dataset.listo) return;
+  cont.innerHTML = RIEL_ITEMS.map(i => {
+    if(i.grupo) return '<div class="riel-sep"></div><div class="riel-grupo">'+i.grupo+'</div>';
+    const tip = i.tip ? '<b>'+i.tip+'</b> · '+i.txt : i.txt;
+    const sub = i.sub ? '<small>'+i.sub+'</small>' : '';
+    const aric = i.aric ? ' data-riel-aric="'+i.aric+'"' : '';
+    return '<button class="riel-item" data-nav="'+i.nav+'"'+aric+' onclick="'+i.go+'" type="button">'
+         + '<span class="riel-item-emo">'+i.emo+'</span>'
+         + '<span class="riel-item-txt">'+i.txt+sub+'</span>'
+         + '<span class="riel-tip">'+tip+'</span></button>';
+  }).join('');
+  cont.dataset.listo = '1';
+  const riel = document.getElementById('rielNav');
+  riel.addEventListener('mouseenter', ()=> riel.classList.add('abierto'));
+  riel.addEventListener('mouseleave', ()=> riel.classList.remove('abierto'));
+  // El riel recorta su contenido para poder scrollear, así que los globitos se ubican
+  // por coordenadas de pantalla y quedan por fuera de ese recorte.
+  cont.addEventListener('mouseover', e => {
+    const it = e.target.closest('.riel-item'); if(!it) return;
+    const tip = it.querySelector('.riel-tip'); if(!tip) return;
+    const r = it.getBoundingClientRect();
+    tip.style.top = (r.top + r.height / 2) + 'px';
+    tip.style.left = (r.right + 12) + 'px';
+  });
+}
+
+// Marca el módulo activo. Para ARICCAME distingue cáñamo de cannabis.
+function rielMarcarActivo(p){
+  document.querySelectorAll('#rielItems .riel-item').forEach(b => b.classList.remove('on'));
+  if(p === 'ariccame'){
+    const v = (typeof ARIC_VIEW !== 'undefined' && ARIC_VIEW === 'cannabis') ? 'cannabis' : 'canamo';
+    const el = document.querySelector('#rielItems [data-riel-aric="'+v+'"]');
+    if(el) el.classList.add('on');
+    return;
+  }
+  const el = document.querySelector('#rielItems .riel-item[data-nav="'+p+'"]');
+  if(el) el.classList.add('on');
+}
+
+// En el riel las dos cajas se listan sueltas: cada una según su propio permiso,
+// sin la lógica de menú combinado que aplica a la barra horizontal.
+function rielAjustarPermisos(){
+  const pf = (typeof perfilActual === 'function') ? perfilActual() : {};
+  const cj = document.querySelector('#rielItems [data-nav="caja"]');
+  if(cj) cj.style.display = (pf.cajaJud !== false) ? '' : 'none';
+  const cs = document.querySelector('#rielItems [data-nav="cajasoc"]');
+  if(cs) cs.style.display = pf.cajaSoc ? '' : 'none';
+}
+
 function permisoPagina(p) {
   const pf = perfilActual();
   if (p === 'expedientes') return !!pf.expedientes;
@@ -11560,6 +12466,7 @@ function permisoPagina(p) {
   if (p === 'cajasoc') return !!pf.cajaSoc;
   if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
+  if (p === 'ingresos') return INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
   return true;
 }
 function aplicarPermisos() {
@@ -11584,6 +12491,10 @@ function aplicarPermisos() {
   document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
   const verAbonos = ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
+  const verIngresos = INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
+  rielConstruir();
+  rielAjustarPermisos();
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
   if (optAud) { optAud.hidden = !pf.inicioJud; optAud.disabled = !pf.inicioJud; }
