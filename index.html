@@ -2218,7 +2218,7 @@ body.locked .app{margin-left:0}
               <select id="cajaBuscarMes" onchange="cajaBuscarMesChange()"><option value="">Todos los meses</option></select></div>
             <button class="btn-ghost" style="margin-bottom:2px" onclick="cajaBuscarLimpiar()">Limpiar</button>
           </div>
-          <div id="cajaBuscarResult" class="cb-result"><div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en todo el historial.</div></div>
+          <div id="cajaBuscarResult" class="cb-result"><div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en el historial.</div></div>
         </div>
       </div>
 
@@ -11183,7 +11183,7 @@ function cjSugItems(q) {
   q = __normBusqueda(q).trim();
   const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).map(c => ({ n: c.entidad, tipo: c.tipo || '', enc: c.encargada || '', crm: true }));
   const crmSet = new Set(crm.map(c => c.n.trim().toUpperCase()));
-  const hist = [...new Set(CAJA.map(x => (x.cliente || '').trim()).filter(Boolean))]
+  const hist = [...new Set(cajaVisiblePara().map(x => (x.cliente || '').trim()).filter(Boolean))]
     .filter(n => !crmSet.has(n.toUpperCase()))
     .map(n => ({ n, tipo: '', enc: '', crm: false }));
   let todos = [...crm, ...hist];
@@ -11287,8 +11287,9 @@ document.addEventListener('click', function(e) {
   if (box && !e.target.closest('#csContra') && !e.target.closest('#csSugBox')) box.style.display = 'none';
 });
 function renderCajaDatalists() {
-  const cl = [...new Set(CAJA.map(x => (x.cliente||'').trim()).filter(Boolean))].sort();
-  const rc = [...new Set(CAJA.map(x => (x.receptor||'').trim()).filter(Boolean))].sort();
+  const _vis = cajaVisiblePara();
+  const cl = [...new Set(_vis.map(x => (x.cliente||'').trim()).filter(Boolean))].sort();
+  const rc = [...new Set(_vis.map(x => (x.receptor||'').trim()).filter(Boolean))].sort();
   const dl1 = document.getElementById('clientesList');
   // Clientes del CRM primero (autocompletado + vínculo), luego los históricos de caja
   const crmNombres = (typeof CLIENTES !== 'undefined') ? CLIENTES.map(c => c.entidad).filter(Boolean) : [];
@@ -11722,13 +11723,21 @@ let CJ_BUSQ='', CJ_BUSQ_MES='';
 let CS_BUSQ='', CS_BUSQ_MES='';
 
 // ── Caja judicial ──
+// Pagos que el usuario actual tiene permitido ver. Ori solo los suyos (donde cobra comisión).
+function cajaVisiblePara(){
+  const modoOri = typeof perfilActual === 'function' && perfilActual().cajaJud === 'ori';
+  return modoOri ? CAJA.filter(p => p.comisionOri) : CAJA;
+}
 function cajaBuscarRender(){
   const cont=document.getElementById('cajaBuscarResult'); if(!cont) return;
   const q=(document.getElementById('cajaBuscarInput')||{}).value||''; CJ_BUSQ=q;
-  if(!q.trim()){ cont.innerHTML='<div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en todo el historial.</div>';
+  if(!q.trim()){ cont.innerHTML='<div class="panel-empty">Escribí un cliente, concepto o fecha para buscar en el historial.</div>';
     const selm=document.getElementById('cajaBuscarMes'); if(selm) selm.innerHTML='<option value="">Todos los meses</option>'; return; }
+  // Ori solo puede buscar dentro de los pagos en los que tiene comisión.
+  // (El listado mensual ya lo hacía; la búsqueda miraba todo el historial.)
+  const universo = cajaVisiblePara();
   // texto de búsqueda combina cliente + concepto + fecha (dd/mm/aaaa y aaaa-mm-dd)
-  let hits=CAJA.filter(p=>{
+  let hits=universo.filter(p=>{
     const fechaTxt=(p.fecha||'')+' '+formatFechaCorta(p.fecha||'');
     return cbMatch(p.cliente,q)||cbMatch(p.concepto,q)||cbMatch(fechaTxt,q)
       ||cbMatch((p.cliente||'')+' '+(p.concepto||''),q);
@@ -12457,6 +12466,23 @@ function rielAjustarPermisos(){
   if(cj) cj.style.display = (pf.cajaJud !== false) ? '' : 'none';
   const cs = document.querySelector('#rielItems [data-nav="cajasoc"]');
   if(cs) cs.style.display = pf.cajaSoc ? '' : 'none';
+  // ARICCAME: cáñamo y cannabis solo para quienes lo tienen habilitado
+  const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('#rielItems [data-nav="ariccame"]').forEach(b => b.style.display = verAric ? '' : 'none');
+}
+// Un encabezado de grupo no tiene sentido si ninguno de sus módulos está visible.
+function rielOcultarGruposVacios(){
+  const hijos = [...document.querySelectorAll('#rielItems > *')];
+  let grupo = null, sep = null, visibles = 0;
+  const cerrar = () => {
+    if(grupo){ const hay = visibles > 0; grupo.style.display = hay ? '' : 'none'; if(sep) sep.style.display = hay ? '' : 'none'; }
+  };
+  hijos.forEach(el => {
+    if(el.classList.contains('riel-sep')){ cerrar(); sep = el; grupo = null; visibles = 0; return; }
+    if(el.classList.contains('riel-grupo')){ grupo = el; visibles = 0; return; }
+    if(el.classList.contains('riel-item') && el.style.display !== 'none') visibles++;
+  });
+  cerrar();
 }
 
 function permisoPagina(p) {
@@ -12495,6 +12521,7 @@ function aplicarPermisos() {
   document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
   rielConstruir();
   rielAjustarPermisos();
+  rielOcultarGruposVacios();
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
   if (optAud) { optAud.hidden = !pf.inicioJud; optAud.disabled = !pf.inicioJud; }
