@@ -1614,6 +1614,46 @@ body.locked .app{margin-left:0}
   .app{grid-template-columns:1fr}
   .app>.sidebar{width:100%}
 }
+/* ═══ Sueldo de Kevin (submódulo de caja judicial) ═══ */
+.sue-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.sue-kpi{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px}
+.sue-kpi .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--tinta-suave);font-weight:700;margin-bottom:8px}
+.sue-kpi .val{font-family:var(--f-display);font-size:25px;font-weight:600;color:var(--tinta);line-height:1.1;white-space:nowrap}
+.sue-kpi .sub{font-size:11.5px;color:var(--tinta-suave);margin-top:7px;line-height:1.5}
+.sue-kpi .bar{height:6px;background:var(--filo-suave);border-radius:4px;overflow:hidden;margin-top:10px}
+.sue-kpi .bar span{display:block;height:100%;background:#14294a;border-radius:4px;transition:width .4s}
+.sue-kpi.principal{background:#14294a;border-color:#c9a961;border-width:2px}
+.sue-kpi.principal .lbl{color:#c9a961}
+.sue-kpi.principal .val{color:#fff}
+.sue-kpi.principal .sub{color:#9fb3d1}
+.sue-kpi.falta .val{color:var(--warn,#a86e17)}
+.sue-kpi.ok .val{color:var(--ok,#1e7a48)}
+.sue-desglose{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px;margin-bottom:22px}
+.sue-des-h{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--tinta-suave);font-weight:700;margin-bottom:12px}
+.sue-des-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:7px 0;font-size:13px;color:var(--tinta);border-bottom:1px solid var(--filo-suave)}
+.sue-des-row:last-child{border-bottom:none}
+.sue-des-row b{font-weight:700;white-space:nowrap}
+.sue-des-row.sub{color:var(--tinta-suave)}
+.sue-des-row.total{margin-top:6px;padding-top:11px;border-top:2px solid #c9a961;border-bottom:none;font-weight:600}
+.sue-des-row.total b{color:#14294a;font-size:15px}
+.sue-c-fecha{flex:0 0 96px;font-size:12.5px;color:var(--tinta);white-space:nowrap}
+.sue-c-metodo{flex:0 0 116px;font-size:12.5px;color:var(--tinta-suave)}
+.sue-c-monto{flex:1;font-size:13px;font-weight:700;color:var(--tinta);white-space:nowrap}
+.sue-c-comp{flex:1.2;min-width:0;font-size:12px}
+.sue-c-obs{flex:1.4;min-width:0;font-size:12px;color:var(--tinta-suave);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.abo-row-head .sue-c-fecha,.abo-row-head .sue-c-metodo,.abo-row-head .sue-c-monto,
+.abo-row-head .sue-c-comp,.abo-row-head .sue-c-obs{font-size:10.5px}
+.sue-form{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:18px 20px;margin-top:20px}
+.sue-form-h{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--tinta-suave);font-weight:700;margin-bottom:14px}
+.sue-form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sue-form .abo-reg-fld{margin-bottom:12px}
+.sue-form select{width:100%;padding:9px 11px;border:1px solid var(--filo);border-radius:8px;
+  font-family:var(--f-ui);font-size:13px;color:var(--tinta);background:var(--carta);box-sizing:border-box}
+.sue-i-con{flex:2;font-size:13px;color:var(--tinta)}
+.sue-i-act{flex:1;font-size:13px;color:var(--tinta-suave);white-space:nowrap}
+.sue-i-nue{flex:1;font-size:13px;font-weight:700;color:#14294a;white-space:nowrap}
+.abo-row-head .sue-i-con,.abo-row-head .sue-i-act,.abo-row-head .sue-i-nue{font-size:10.5px}
+@media (max-width:860px){ .sue-kpis{grid-template-columns:1fr} .sue-form-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -2198,7 +2238,11 @@ body.locked .app{margin-left:0}
         <div class="hero-eyebrow">Control de ingresos del estudio</div>
         <h1 class="hero-title">Caja, mes a <em>mes</em></h1>
         <div class="doble-filete"></div>
-        <div class="f-row" style="margin-top:14px;align-items:end">
+        <div class="abo-subtabs" id="cajaSubtabs" style="margin-top:16px">
+          <button class="on" data-csub="a" onclick="cajaIrSub('a')">Movimientos</button>
+          <button data-csub="b" onclick="cajaIrSub('b')">Sueldo de Kevin</button>
+        </div>
+        <div class="f-row" id="cajaFiltrosA" style="margin-top:14px;align-items:end">
           <div class="f-col" style="flex:0 0 165px"><label>Mes</label><input type="month" id="cajaMes" onchange="renderCaja()"></div>
           <div class="f-col" style="flex:0 0 175px"><label>Valor actual del dólar ($)</label><input type="text" inputmode="decimal" id="cajaDolar" oninput="fmtMiles(this);guardarDolar();renderCaja()" placeholder="Ej: 1.480"></div>
           <label class="check-row" style="margin:0 0 8px"><input type="checkbox" id="cajaPesificar" onchange="renderCaja()"> Ver todo pesificado <span class="nota">multiplica los USD por el valor del dólar</span></label>
@@ -2206,6 +2250,8 @@ body.locked .app{margin-left:0}
         </div>
       </div>
 
+      <div id="cajaSubBWrap" style="display:none"></div>
+      <div id="cajaSubA">
       <div class="stat-tiles" id="cajaTiles"></div>
 
       <div class="panel cb-panel" style="margin-top:16px">
@@ -2311,6 +2357,7 @@ body.locked .app{margin-left:0}
           <div class="panel-h"><h3>Comisiones de Ori</h3></div>
           <div class="panel-b" id="cajaComisionesO"></div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -5701,7 +5748,7 @@ function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarEr
 async function sbCargarTodo() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -5711,7 +5758,9 @@ async function sbCargarTodo() {
       sbSelect('caja_soc').catch(() => null),
       sbSelect('planes_cuotas').catch(() => null),
       sbSelect('aric_licencias').catch(() => null),
-      sbSelect('cannabis_clientes').catch(() => null)
+      sbSelect('cannabis_clientes').catch(() => null),
+      sbSelect('sueldo_config').catch(() => null),
+      sbSelect('sueldo_pagos').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
@@ -5719,6 +5768,12 @@ async function sbCargarTodo() {
 
     // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
     if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
+
+    // Sueldo de Kevin (tablas sueldo_config y sueldo_pagos)
+    if (rSueCfg || rSuePag) {
+      sueldoDesdeNube(Array.isArray(rSueCfg) ? rSueCfg[0] : null, rSuePag);
+      if (typeof CAJA_SUB !== 'undefined' && CAJA_SUB === 'b') renderSueldo();
+    }
 
     // Clientes de cannabis en documentación (tabla cannabis_clientes).
     // Son clientes SIN licencia todavía; se suman a ARIC como fichas con docs.
@@ -8759,7 +8814,7 @@ function __navToInterno(p) {
     if (p === 'expedientes') setModuloExp(jurisdiccionActual === 'PBA' ? 'expedientes-pba' : 'expedientes-caba');
     if (p === 'inicio') renderInicio();
     if (p === 'agenda') { limpiarFormEvento(); renderTareas(); renderAudiencias(); }
-    if (p === 'caja') { initCaja(); renderCaja(); }
+    if (p === 'caja') { initCaja(); renderCaja(); cajaAjustarSubtabs(); }
     if (p === 'cajasoc') { initCajaSoc(); renderCajaSoc(); }
     if (p === 'crm') { renderCRM(); }
     if (p === 'ariccame') { renderAric(); }
@@ -11935,6 +11990,444 @@ function renderCaja() {
     ${dolar > 0 ? `<div class="res-row res-total"><span class="k">Total pesificado</span><span class="v">$ ${fmtNumStr(oPes)}</span></div>` : ''}`;
   renderCuotasPendientes('');
 }
+// ═══════════ SUELDO DE KEVIN (submódulo de la caja judicial) ═══════════
+// Base + comisiones del mes. Si esa suma no llega al mínimo garantizado, cobra el mínimo.
+const SUELDO_KEY = 'jc-sueldo-v1';
+const SUELDO_INFL_KEY = 'jc-sueldo-infl-v1';
+const SUELDO_BASE_INI = 1921408.87;   // sueldo base inicial
+const SUELDO_MIN_INI  = 2668623.44;   // piso garantizado inicial
+let SUELDO = null;
+let SUELDO_MES = null;                 // 'YYYY-MM' visible; null = mes actual
+let SUELDO_VISTA = 'cobros';           // 'cobros' | 'inflacion'
+let SUELDO_INFL_INPUT = ['', '', ''];
+let SUELDO_ADJ = null;                 // comprobante que se está por adjuntar
+
+function loadSueldo(){
+  try { SUELDO = JSON.parse(appStore.getItem(SUELDO_KEY) || 'null'); } catch(e){ SUELDO = null; }
+  if (!SUELDO || typeof SUELDO !== 'object') {
+    SUELDO = { base: SUELDO_BASE_INI, minimo: SUELDO_MIN_INI, hist: [], pagos: {} };
+    saveSueldo();
+  }
+  if (!Array.isArray(SUELDO.hist)) SUELDO.hist = [];
+  if (!SUELDO.pagos || typeof SUELDO.pagos !== 'object') SUELDO.pagos = {};
+  return SUELDO;
+}
+function saveSueldo(){ try { appStore.setItem(SUELDO_KEY, JSON.stringify(SUELDO)); } catch(e){} }
+function sueldoMesActual(){ return SUELDO_MES || hoyISO().slice(0,7); }
+
+// Base y mínimo vigentes en un mes (el historial guarda los ajustes por inflación)
+function sueldoVigente(ym){
+  loadSueldo();
+  const hist = SUELDO.hist.slice().sort((a,b)=> a.desde.localeCompare(b.desde));
+  let base = SUELDO.base, minimo = SUELDO.minimo;
+  for (const x of hist){ if (x.desde <= ym){ base = x.base; minimo = x.minimo; } else break; }
+  return { base, minimo };
+}
+// Comisiones pesificadas de Kevin en el mes (misma cuenta que el panel de la caja)
+function sueldoComisionesMes(ym){
+  if (typeof pagosDelMes !== 'function' || typeof totalesCaja !== 'function') return 0;
+  const t = totalesCaja(pagosDelMes(ym));
+  const dolar = (typeof valorDolar === 'function') ? valorDolar() : 0;
+  return (t.kArs || 0) + (t.kUsd || 0) * (dolar || 0);
+}
+// Cuánto le corresponde cobrar ese mes
+function sueldoCalculo(ym){
+  const v = sueldoVigente(ym);
+  const com = sueldoComisionesMes(ym);
+  const suma = v.base + com;
+  const aplicaMinimo = suma < v.minimo;
+  const aCobrar = aplicaMinimo ? v.minimo : suma;
+  return { base: v.base, minimo: v.minimo, comisiones: com, suma, aplicaMinimo, aCobrar };
+}
+// Pagos recibidos en el mes
+function sueldoPagosMes(ym){ loadSueldo(); return SUELDO.pagos[ym] || []; }
+function sueldoCobrado(ym){ return sueldoPagosMes(ym).reduce((a,p)=> a + (Number(p.monto)||0), 0); }
+function sueldoEstado(ym){
+  const c = sueldoCalculo(ym);
+  const cobrado = sueldoCobrado(ym);
+  const bruto = c.aCobrar - cobrado;
+  // El monto a cobrar tiene centavos y los cobros se registran en pesos enteros:
+  // una diferencia menor a un peso se considera saldada.
+  const saldado = bruto < 1;
+  const falta = saldado ? 0 : bruto;
+  const estado = cobrado <= 0 ? 'pendiente' : (saldado ? 'pagado' : 'parcial');
+  return { ...c, cobrado, falta, estado };
+}
+function sueldoAgregarPago(ym, datos){
+  loadSueldo();
+  if (!SUELDO.pagos[ym]) SUELDO.pagos[ym] = [];
+  const nuevo = { id: 'sp' + Date.now() + Math.floor(Math.random()*1000), ...datos };
+  SUELDO.pagos[ym].push(nuevo);
+  saveSueldo();
+  sbPushSueldoPago(ym, nuevo);
+}
+function sueldoQuitarPago(ym, id){
+  loadSueldo();
+  if (!SUELDO.pagos[ym]) return;
+  SUELDO.pagos[ym] = SUELDO.pagos[ym].filter(p => p.id !== id);
+  if (!SUELDO.pagos[ym].length) delete SUELDO.pagos[ym];
+  saveSueldo();
+  sbDelSueldoPago(id);
+}
+
+// ── Ajuste trimestral por inflación: mueve la base y el mínimo juntos ──
+function sueldoAplicarInflacion(infl, desde){
+  const vals = (infl||[]).map(x => Number(String(x).replace(',','.'))||0);
+  if (!vals.length || vals.every(x => x === 0)) return false;
+  loadSueldo();
+  const v = sueldoVigente(desde);
+  const nuevaBase = abonoCalcInflacion(v.base, vals);
+  const nuevoMin  = abonoCalcInflacion(v.minimo, vals);
+  // Guardar cómo estaba, para poder deshacer
+  try { appStore.setItem(SUELDO_INFL_KEY, JSON.stringify({ desde, infl: vals, histPrev: JSON.parse(JSON.stringify(SUELDO.hist)) })); } catch(e){}
+  const ex = SUELDO.hist.find(x => x.desde === desde);
+  if (ex){ ex.base = nuevaBase; ex.minimo = nuevoMin; }
+  else SUELDO.hist.push({ desde, base: nuevaBase, minimo: nuevoMin });
+  SUELDO.hist.sort((a,b)=> a.desde.localeCompare(b.desde));
+  saveSueldo();
+  sbPushSueldoConfig();
+  return true;
+}
+function sueldoDeshacerInflacion(){
+  let snap; try { snap = JSON.parse(appStore.getItem(SUELDO_INFL_KEY) || 'null'); } catch(e){ snap = null; }
+  if (!snap) return false;
+  loadSueldo();
+  SUELDO.hist = Array.isArray(snap.histPrev) ? snap.histPrev : [];
+  saveSueldo();
+  sbPushSueldoConfig();
+  try { appStore.removeItem(SUELDO_INFL_KEY); } catch(e){}
+  return true;
+}
+function sueldoHayAjusteParaDeshacer(){
+  try { return !!JSON.parse(appStore.getItem(SUELDO_INFL_KEY) || 'null'); } catch(e){ return false; }
+}
+
+// ── Persistencia del sueldo en Supabase ──
+// Supabase es la fuente de verdad; el navegador queda como copia local
+// para poder seguir trabajando si la conexión falla (mismo criterio que el resto).
+function sueldoConfigFila(){
+  return { id: 1, base: SUELDO.base, minimo: SUELDO.minimo, hist: SUELDO.hist || [] };
+}
+function sbPushSueldoConfig(){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbUpsert('sueldo_config', sueldoConfigFila()).catch(sbAvisarError);
+}
+function sueldoPagoFila(mes, p){
+  return { id: p.id, mes, fecha: p.fecha || null, monto: Number(p.monto) || 0,
+           metodo: p.metodo || 'transferencia', obs: p.obs || '', comprobante: p.comprobante || null };
+}
+function sbPushSueldoPago(mes, p){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbUpsert('sueldo_pagos', sueldoPagoFila(mes, p)).catch(sbAvisarError);
+}
+function sbDelSueldoPago(id){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbDelete('sueldo_pagos', id).catch(sbAvisarError);
+}
+// Reconstruye SUELDO desde las filas de la nube
+function sueldoDesdeNube(cfg, pagos){
+  loadSueldo();
+  if (cfg){
+    if (cfg.base != null)   SUELDO.base   = Number(cfg.base);
+    if (cfg.minimo != null) SUELDO.minimo = Number(cfg.minimo);
+    SUELDO.hist = Array.isArray(cfg.hist) ? cfg.hist : [];
+  }
+  if (Array.isArray(pagos)){
+    const porMes = {};
+    pagos.forEach(f => {
+      const mes = f.mes; if (!mes) return;
+      if (!porMes[mes]) porMes[mes] = [];
+      porMes[mes].push({ id: f.id, monto: Number(f.monto) || 0, fecha: f.fecha || '',
+                         metodo: f.metodo || 'transferencia', obs: f.obs || '',
+                         comprobante: (f.comprobante && typeof f.comprobante === 'object') ? f.comprobante : null });
+    });
+    SUELDO.pagos = porMes;
+  }
+  saveSueldo();
+}
+
+// ── Subsolapas de la caja judicial ──
+let CAJA_SUB = 'a';
+function cajaIrSub(s){
+  CAJA_SUB = s;
+  document.querySelectorAll('#cajaSubtabs button').forEach(b => b.classList.toggle('on', b.dataset.csub === s));
+  const a = document.getElementById('cajaSubA');
+  const filtros = document.getElementById('cajaFiltrosA');
+  const bw = document.getElementById('cajaSubBWrap');
+  if (a) a.style.display = s === 'a' ? '' : 'none';
+  if (filtros) filtros.style.display = s === 'a' ? '' : 'none';
+  if (bw) bw.style.display = s === 'b' ? '' : 'none';
+  if (s === 'b') renderSueldo();
+}
+// La solapa del sueldo es solo para quienes tienen la caja judicial completa
+function cajaAjustarSubtabs(){
+  const pf = (typeof perfilActual === 'function') ? perfilActual() : {};
+  const btn = document.querySelector('#cajaSubtabs [data-csub="b"]');
+  const puede = pf.cajaJud === 'full';
+  if (btn) btn.style.display = puede ? '' : 'none';
+  const tabs = document.getElementById('cajaSubtabs');
+  if (tabs) tabs.style.display = puede ? '' : 'none';
+  if (!puede && CAJA_SUB === 'b') cajaIrSub('a');
+}
+
+function sueldoMesLabel(ym){ const [y,m] = ym.split('-').map(Number); return MESES[m-1] + ' ' + y; }
+function sueldoCambiarMes(d){
+  const ym = sueldoMesActual(); const [y,m] = ym.split('-').map(Number);
+  const nd = new Date(y, (m-1)+d, 1);
+  SUELDO_MES = nd.getFullYear() + '-' + String(nd.getMonth()+1).padStart(2,'0');
+  renderSueldo();
+}
+function sueldoMesHoy(){ SUELDO_MES = null; renderSueldo(); }
+function sueldoVista(v){ SUELDO_VISTA = v; renderSueldo(); }
+
+function renderSueldo(){
+  const cont = document.getElementById('cajaSubBWrap');
+  if (!cont) return;
+  // Solo quienes tienen la caja judicial completa (Kevin e Ivana). Ori queda afuera.
+  const pf = (typeof perfilActual === 'function') ? perfilActual() : {};
+  if (pf.cajaJud !== 'full'){ cont.innerHTML = ''; cont.style.display = 'none'; return; }
+  loadSueldo();
+  const subtabs = `<div class="abo-subtabs" style="margin-bottom:20px">
+    <button class="${SUELDO_VISTA==='cobros'?'on':''}" onclick="sueldoVista('cobros')">Cobros del mes</button>
+    <button class="${SUELDO_VISTA==='inflacion'?'on':''}" onclick="sueldoVista('inflacion')">Ajuste por inflación</button>
+  </div>`;
+  if (SUELDO_VISTA === 'inflacion'){ renderSueldoInflacion(cont, subtabs); return; }
+
+  const ym = sueldoMesActual();
+  const st = sueldoEstado(ym);
+  const pagos = sueldoPagosMes(ym).slice().sort((a,b)=> (a.fecha||'').localeCompare(b.fecha||''));
+  const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
+  const pct = st.aCobrar ? Math.min(100, st.cobrado / st.aCobrar * 100) : 0;
+
+  const filas = pagos.length ? pagos.map(p => {
+    const comp = p.comprobante && (p.comprobante.url || p.comprobante.path)
+      ? `<button class="abo-c-dl" onclick="sueldoDescargarComprob('${p.id}')">📎 Descargar</button>`
+      : (p.metodo === 'efectivo' ? '<span class="abo-c-efec">Pago en efectivo</span>' : '<span class="abo-c-empty">Sin comprobante</span>');
+    return `<div class="abo-row">
+      <div class="sue-c-fecha">${p.fecha ? formatFechaCorta(p.fecha) : '—'}</div>
+      <div class="sue-c-metodo">${p.metodo === 'efectivo' ? 'Efectivo' : 'Transferencia'}</div>
+      <div class="sue-c-monto">${fmt(p.monto)}</div>
+      <div class="sue-c-comp">${comp}</div>
+      <div class="sue-c-obs">${p.obs ? esc(p.obs) : ''}</div>
+      <button class="abo-pp-del" onclick="sueldoEliminarPago('${p.id}')" title="Eliminar este cobro">✕</button>
+    </div>`;
+  }).join('') : '<div class="abo-sec-vacio">Todavía no hay cobros registrados este mes.</div>';
+
+  const chip = st.estado === 'pagado' ? '<span class="abo-estado ok">✓ Cobrado</span>'
+    : st.estado === 'parcial' ? `<span class="abo-estado parcial">Parcial · falta ${fmt(st.falta)}</span>`
+    : '<span class="abo-estado debe">Pendiente</span>';
+
+  cont.innerHTML = `
+    <div class="abo-top" style="margin-top:6px">
+      <div>
+        <div class="abo-eyebrow">Sueldo de Kevin</div>
+        <h1 class="ing-h1">${esc(capPrim(sueldoMesLabel(ym)))}</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="sueldoCambiarMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="sueldoMesHoy()" class="hoy">Mes actual</button>
+        <button onclick="sueldoCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    ${subtabs}
+
+    <div class="sue-kpis">
+      <div class="sue-kpi principal">
+        <div class="lbl">Le corresponde cobrar</div>
+        <div class="val">${fmt(st.aCobrar)}</div>
+        <div class="sub">${st.aplicaMinimo
+          ? 'Se aplica el mínimo garantizado (base + comisiones daba ' + fmt(st.suma) + ')'
+          : 'Base ' + fmt(st.base) + ' + comisiones ' + fmt(st.comisiones)}</div>
+      </div>
+      <div class="sue-kpi">
+        <div class="lbl">Ya cobró</div>
+        <div class="val">${fmt(st.cobrado)}</div>
+        <div class="sub">${pagos.length} cobro${pagos.length!==1?'s':''} registrado${pagos.length!==1?'s':''}</div>
+        <div class="bar"><span style="width:${pct.toFixed(1)}%"></span></div>
+      </div>
+      <div class="sue-kpi ${st.falta>0?'falta':'ok'}">
+        <div class="lbl">Falta cobrar</div>
+        <div class="val">${fmt(st.falta)}</div>
+        <div class="sub">${chip}</div>
+      </div>
+    </div>
+
+    <div class="sue-desglose">
+      <div class="sue-des-h">Cómo se compone</div>
+      <div class="sue-des-row"><span>Sueldo base</span><b>${fmt(st.base)}</b></div>
+      <div class="sue-des-row"><span>Comisiones del mes (pesificadas)</span><b>${fmt(st.comisiones)}</b></div>
+      <div class="sue-des-row sub"><span>Suma</span><b>${fmt(st.suma)}</b></div>
+      <div class="sue-des-row"><span>Mínimo garantizado</span><b>${fmt(st.minimo)}</b></div>
+      <div class="sue-des-row total"><span>${st.aplicaMinimo ? 'Cobra el mínimo, porque la suma no lo alcanza' : 'Cobra base + comisiones, porque supera el mínimo'}</span><b>${fmt(st.aCobrar)}</b></div>
+    </div>
+
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Cobros registrados</span><span class="abo-sec-count">${fmt(st.cobrado)}</span></div>
+      <div class="abo-row abo-row-head">
+        <div class="sue-c-fecha">Fecha</div><div class="sue-c-metodo">Forma</div>
+        <div class="sue-c-monto">Monto</div><div class="sue-c-comp">Comprobante</div>
+        <div class="sue-c-obs">Detalle</div><div style="width:34px;flex:0 0 auto"></div>
+      </div>
+      ${filas}
+    </div>
+
+    <div class="sue-form">
+      <div class="sue-form-h">Registrar un cobro</div>
+      <div class="sue-form-grid">
+        <div class="abo-reg-fld"><label>Fecha</label><input type="date" id="sueFecha" value="${hoyISO()}"></div>
+        <div class="abo-reg-fld"><label>Monto ($)</label><input type="text" inputmode="numeric" id="sueMonto" placeholder="Cuánto recibió" oninput="abonoFmtInput(this)"></div>
+        <div class="abo-reg-fld"><label>Forma de pago</label>
+          <select id="sueMetodo" onchange="sueldoPintarComprob()">
+            <option value="transferencia">Transferencia</option>
+            <option value="efectivo">Efectivo</option>
+          </select></div>
+      </div>
+      <div class="abo-reg-fld"><label>Detalle <span class="opt">(opcional)</span></label>
+        <input type="text" id="sueObs" placeholder="Ej: adelanto, segunda parte…"></div>
+      <div class="abo-reg-fld" id="sueComprobWrap"><label>Comprobante <span class="opt">(opcional)</span></label>
+        <div id="sueComprob" class="abo-reg-comprob"></div></div>
+      <button class="abo-pp-add" onclick="sueldoGuardarPago()">+ Registrar cobro</button>
+    </div>`;
+  sueldoPintarComprob();
+}
+
+function sueldoPintarComprob(){
+  const cont = document.getElementById('sueComprob'); if (!cont) return;
+  const wrap = document.getElementById('sueComprobWrap');
+  const met = (document.getElementById('sueMetodo')||{}).value;
+  if (wrap) wrap.style.display = met === 'efectivo' ? 'none' : '';
+  if (SUELDO_ADJ && (SUELDO_ADJ.url || SUELDO_ADJ.path)){
+    cont.innerHTML = `<div class="abo-comprob-ok">
+      <span class="ico">📎</span>
+      <span class="nm" title="${esc(SUELDO_ADJ.nombre||'comprobante')}">${esc(SUELDO_ADJ.nombre||'comprobante')}</span>
+      <button type="button" class="quitar" onclick="sueldoQuitarComprob()">Quitar</button>
+    </div>`;
+  } else {
+    cont.innerHTML = `<label class="abo-comprob-drop">
+      <input type="file" accept="image/*,application/pdf" onchange="sueldoSubirComprob(this)" hidden>
+      <span class="ico">⬆</span><span>Subir comprobante (imagen o PDF)</span>
+    </label><div id="sueComprobStatus" class="abo-comprob-status"></div>`;
+  }
+}
+function sueldoQuitarComprob(){ SUELDO_ADJ = null; sueldoPintarComprob(); }
+async function sueldoSubirComprob(input){
+  const file = input.files && input.files[0]; if (!file) return;
+  const status = document.getElementById('sueComprobStatus');
+  if (status) status.textContent = 'Subiendo ' + file.name + '…';
+  try {
+    let info = { path: null, url: null };
+    if (typeof sbUploadFile === 'function' && typeof SB_ON !== 'undefined' && SB_ON) {
+      const nombre = 'sueldo-' + sueldoMesActual() + '-' + Date.now() + '-' + file.name;
+      const path = await sbUploadFile('comprobantes-caja', nombre, file);
+      info = { path, url: (typeof sbPubUrl === 'function') ? sbPubUrl(path) : null };
+    } else {
+      info.url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    }
+    SUELDO_ADJ = { nombre: file.name, path: info.path, url: info.url };
+    sueldoPintarComprob();
+  } catch(err){
+    console.error(err);
+    if (status) status.textContent = 'No se pudo subir. Probá de nuevo.';
+  }
+}
+function sueldoGuardarPago(){
+  const monto = abonoParseInput(document.getElementById('sueMonto'));
+  if (monto === '' || !monto){ aricToast('Poné cuánto cobró'); return; }
+  const fecha = document.getElementById('sueFecha').value || hoyISO();
+  const metodo = document.getElementById('sueMetodo').value;
+  const obs = document.getElementById('sueObs').value.trim();
+  sueldoAgregarPago(sueldoMesActual(), {
+    monto: Number(monto), fecha, metodo, obs,
+    comprobante: (metodo !== 'efectivo' && SUELDO_ADJ) ? { ...SUELDO_ADJ } : null
+  });
+  SUELDO_ADJ = null;
+  renderSueldo();
+  aricToast('Cobro registrado');
+}
+function sueldoEliminarPago(id){
+  if (!confirm('¿Eliminar este cobro?')) return;
+  sueldoQuitarPago(sueldoMesActual(), id);
+  renderSueldo();
+}
+function sueldoDescargarComprob(id){
+  const p = sueldoPagosMes(sueldoMesActual()).find(x => x.id === id);
+  if (!p || !p.comprobante) return;
+  const u = p.comprobante.url || ((typeof sbPubUrl === 'function' && p.comprobante.path) ? sbPubUrl(p.comprobante.path) : null);
+  if (!u) return;
+  const a = document.createElement('a');
+  a.href = u; a.download = p.comprobante.nombre || 'comprobante'; a.target = '_blank';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ── Ajuste por inflación del sueldo (base y mínimo se mueven juntos) ──
+function sueldoInflInput(i, v){
+  SUELDO_INFL_INPUT[i] = v;
+  const ym = sueldoMesActual();
+  const infl = SUELDO_INFL_INPUT.map(x => Number(String(x).replace(',','.'))||0);
+  const hay = infl.some(x => x > 0);
+  const v0 = sueldoVigente(ym);
+  const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
+  const nb = document.getElementById('sueInflBaseNueva');
+  const nm = document.getElementById('sueInflMinNuevo');
+  if (nb) nb.textContent = hay ? fmt(abonoCalcInflacion(v0.base, infl)) : '—';
+  if (nm) nm.textContent = hay ? fmt(abonoCalcInflacion(v0.minimo, infl)) : '—';
+}
+function renderSueldoInflacion(cont, subtabs){
+  const ym = sueldoMesActual();
+  const v = sueldoVigente(ym);
+  const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
+  const meses = abonoMesesInflacion().map(s => { const n = s.split(' ')[0]; return n.charAt(0).toUpperCase() + n.slice(1); });
+  const puedeDeshacer = sueldoHayAjusteParaDeshacer();
+  cont.innerHTML = `
+    <div class="abo-top" style="margin-top:6px"><div>
+      <div class="abo-eyebrow">Sueldo de Kevin</div>
+      <h1 class="ing-h1">Ajuste por inflación</h1>
+    </div></div>
+    ${subtabs}
+    <div class="abo-infl-box">
+      <div class="abo-infl-hint">Ajuste trimestral. El cálculo es compuesto: cada mes se aplica sobre el valor ya ajustado del anterior. Se mueven <b>la base y el mínimo garantizado</b> juntos, y rige desde <b>${esc(capPrim(sueldoMesLabel(ym)))}</b> inclusive.</div>
+      <div class="abo-infl-inputs">
+        <div class="abo-infl-fld"><label>Inflación ${meses[0]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[0])}" placeholder="Ej: 4,2" oninput="sueldoInflInput(0,this.value)"></div>
+        <div class="abo-infl-fld"><label>Inflación ${meses[1]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[1])}" placeholder="Ej: 3,8" oninput="sueldoInflInput(1,this.value)"></div>
+        <div class="abo-infl-fld"><label>Inflación ${meses[2]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[2])}" placeholder="Ej: 3,1" oninput="sueldoInflInput(2,this.value)"></div>
+      </div>
+      <div class="abo-infl-acc">
+        <button class="abo-infl-aplicar" onclick="sueldoConfirmarInflacion()">Aplicar ajuste</button>
+        <button class="abo-infl-deshacer ${puedeDeshacer?'':'off'}" ${puedeDeshacer?'':'disabled'} onclick="sueldoConfirmarDeshacer()">↺ Deshacer último ajuste</button>
+      </div>
+    </div>
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Vista previa</span></div>
+      <div class="abo-row abo-row-head">
+        <div class="sue-i-con">Concepto</div><div class="sue-i-act">Actual</div><div class="sue-i-nue">Con ajuste</div>
+      </div>
+      <div class="abo-row">
+        <div class="sue-i-con">Sueldo base</div>
+        <div class="sue-i-act">${fmt(v.base)}</div>
+        <div class="sue-i-nue" id="sueInflBaseNueva">—</div>
+      </div>
+      <div class="abo-row">
+        <div class="sue-i-con">Mínimo garantizado</div>
+        <div class="sue-i-act">${fmt(v.minimo)}</div>
+        <div class="sue-i-nue" id="sueInflMinNuevo">—</div>
+      </div>
+    </div>`;
+  sueldoInflInput(0, SUELDO_INFL_INPUT[0]);
+}
+function sueldoConfirmarInflacion(){
+  const infl = SUELDO_INFL_INPUT.map(x => Number(String(x).replace(',','.'))||0);
+  if (!infl.some(x => x > 0)){ aricToast('Cargá los porcentajes de inflación'); return; }
+  const ym = sueldoMesActual();
+  if (!confirm('¿Aplicar el ajuste por inflación al sueldo?\n\nSe actualizan la base y el mínimo garantizado desde ' + sueldoMesLabel(ym) + '. Podés deshacerlo después.')) return;
+  if (sueldoAplicarInflacion(infl, ym)){
+    SUELDO_INFL_INPUT = ['','',''];
+    aricToast('Sueldo actualizado por inflación');
+    SUELDO_VISTA = 'cobros';
+    renderSueldo();
+  }
+}
+function sueldoConfirmarDeshacer(){
+  if (!confirm('¿Deshacer el último ajuste por inflación del sueldo?')) return;
+  if (sueldoDeshacerInflacion()){ aricToast('Ajuste deshecho'); renderSueldo(); }
+}
+
 // ── Balance mensual descargable (HTML imprimible) ──
 function descargarReporteCaja() {
   const mes = document.getElementById('cajaMes').value || hoyISO().slice(0, 7);
@@ -12522,6 +13015,7 @@ function aplicarPermisos() {
   rielConstruir();
   rielAjustarPermisos();
   rielOcultarGruposVacios();
+  cajaAjustarSubtabs();
   // Agenda solo-tareas para perfiles sin sector judicial
   const optAud = document.querySelector('#tTipo option[value="audiencia"]');
   if (optAud) { optAud.hidden = !pf.inicioJud; optAud.disabled = !pf.inicioJud; }
