@@ -1375,11 +1375,11 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-m-desde input{width:100%;padding:8px 11px;border:1px solid var(--filo);border-radius:7px;font-family:var(--f-ui,inherit);font-size:13px;box-sizing:border-box}
 .abo-m-desde input:focus{outline:none;border-color:#14294a}
 .abo-mrow .abo-c-nom{flex:2}
-.abo-row-acc{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.abo-row-acc{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex:0 0 176px}
 .abo-wa-mini{width:32px;height:32px;flex:0 0 auto;border:none;background:#25d366;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
 .abo-wa-mini:hover{background:#1eb85a}
 .abo-wa-mini .wa-ico{width:17px;height:17px}
-.abo-reg-sp2{width:120px;flex:0 0 auto}
+.abo-reg-sp2{flex:0 0 176px}
 .abo-m-avisado{flex:0 0 auto;width:90px;display:flex;align-items:center;justify-content:center}
 .abo-row-head .abo-m-avisado{font-size:10.5px}
 .abo-avisado-chk{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:11.5px;color:var(--tinta-suave)}
@@ -7508,12 +7508,12 @@ function renderAbonos(){
       <div class="abo-c-abonado">${abonadoTxt}</div>
       <div class="abo-c-comprob">${comprobCell}</div>
       <div class="abo-c-fecha">${fechaTxt}</div>
-      <div class="abo-c-factura">
+      ${c.moneda === 'ARS' ? `<div class="abo-c-factura">
         <select class="abo-fact-sel" onchange="abonoSetFactura(${c.id},this.value)" onclick="event.stopPropagation()">
           <option value="" ${!c.factura?'selected':''}>— elegir —</option>
           ${ABONO_FACTURA.map(f=>`<option value="${f}" ${c.factura===f?'selected':''}>${f}</option>`).join('')}
         </select>
-      </div>
+      </div>` : ''}
       <div class="abo-c-estado">${estadoHtml}</div>
       <div class="abo-row-acc">
         ${st.estado!=='pagado' ? `<button class="abo-wa-mini" onclick="abonoReclamarPago(${c.id})" title="Reclamar pago por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
@@ -7522,13 +7522,14 @@ function renderAbonos(){
     </div>`;
   };
 
-  const encabezadoTabla = `<div class="abo-row abo-row-head">
+  // Solo se factura a los clientes en pesos, así que esa columna aparece únicamente ahí.
+  const encabezadoTabla = (conFactura) => `<div class="abo-row abo-row-head">
       <div class="abo-c-nom">Cliente</div>
       <div class="abo-c-monto">Abono</div>
       <div class="abo-c-abonado">Abonado</div>
       <div class="abo-c-comprob">Comprobante</div>
       <div class="abo-c-fecha">Fecha</div>
-      <div class="abo-c-factura">Quién factura</div>
+      ${conFactura ? '<div class="abo-c-factura">Quién factura</div>' : ''}
       <div class="abo-c-estado">Estado</div>
       <div class="abo-reg-sp2"></div>
     </div>`;
@@ -7538,7 +7539,7 @@ function renderAbonos(){
     if (!lista.length) return '';
     const cerrada = !!colap[sec];
     // Se pintan TODAS las filas; el filtro/búsqueda se aplica en vivo (sin re-render, no pierde foco)
-    const cuerpo = cerrada ? '' : (encabezadoTabla + lista.map(filaCli).join(''));
+    const cuerpo = cerrada ? '' : (encabezadoTabla(sec === 'ars') + lista.map(filaCli).join(''));
     return `<div class="abo-sec">
       <div class="abo-sec-h" onclick="abonoToggleSec('${sec}')">
         <span class="abo-sec-tw"><span class="abo-caret ${cerrada?'closed':''}">▾</span> ${titulo}</span>
