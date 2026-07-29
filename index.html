@@ -5774,7 +5774,7 @@ function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarEr
 async function sbCargarTodo() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -5787,7 +5787,9 @@ async function sbCargarTodo() {
       sbSelect('cannabis_clientes').catch(() => null),
       sbSelect('sueldo_config').catch(() => null),
       sbSelect('sueldo_pagos').catch(() => null),
-      sbSelect('gastos_estudio').catch(() => null)
+      sbSelect('gastos_estudio').catch(() => null),
+      sbSelect('abonos_clientes').catch(() => null),
+      sbSelect('abonos_pagos').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
@@ -5795,6 +5797,12 @@ async function sbCargarTodo() {
 
     // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
     if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
+
+    // Abonos (tablas abonos_clientes y abonos_pagos)
+    if (rAboCli && rAboCli.length) {
+      abonosDesdeNube(rAboCli, rAboPag);
+      if (typeof renderAbonos === 'function' && document.getElementById('abonosPanel')) renderAbonos();
+    }
 
     // Gastos del estudio (tabla gastos_estudio)
     if (rGastos) { gastosDesdeNube(rGastos); }
@@ -6278,14 +6286,16 @@ function abonoEstadoMes(cli, ym){
 // Agrega un pago parcial al mes
 function abonoAgregarParcial(cliId, ym, datos){
   const p = abonoAsegurarMes(cliId, ym); if(!p) return;
-  p.parciales.push({ id:'ap'+Date.now()+Math.floor(Math.random()*1000), ...datos });
+  const nuevo = { id:'ap'+Date.now()+Math.floor(Math.random()*1000), ...datos };
+  p.parciales.push(nuevo);
   saveAbonos();
+  sbPushAbonoPago(cliId, ym, nuevo);
 }
 // Actualiza un parcial por id
 function abonoSetParcial(cliId, ym, pid, datos){
   const p = abonoAsegurarMes(cliId, ym); if(!p) return;
   const x = p.parciales.find(z=>z.id===pid); if(!x) return;
-  Object.assign(x, datos); saveAbonos();
+  Object.assign(x, datos); saveAbonos(); sbPushAbonoPago(cliId, ym, x);
 }
 // Elimina un parcial
 function abonoQuitarParcial(cliId, ym, pid){
@@ -6293,6 +6303,7 @@ function abonoQuitarParcial(cliId, ym, pid){
   p.parciales = p.parciales.filter(z=>z.id!==pid);
   if(!p.parciales.length){ const c=abonoBuscarCli(cliId); if(c) c.pagos=c.pagos.filter(z=>z.mes!==ym); }
   saveAbonos();
+  sbDelAbonoPago(pid);
 }
 function abonoQuitarPago(cliId, ym){
   const c = abonoBuscarCli(cliId); if(!c||!c.pagos) return;
@@ -6333,6 +6344,7 @@ function abonoFijarMonto(cliId, desde, monto){
   else { c.montoHist.push({ desde, monto:m }); }
   c.montoHist.sort((a,b)=> a.desde.localeCompare(b.desde));
   saveAbonos();
+  sbPushAbonoCli(cliId);
 }
 // ¿El último cambio de monto es real? (difiere del que regía justo antes)
 function abonoTieneCambioReal(c){
@@ -6360,11 +6372,88 @@ function abonoCambiarMes(delta){
 function abonoIrMesActual(){ ABONOS_MES = null; renderAbonos(); }
 
 // Compara ids de abono de forma robusta (pueden venir como number o string desde onclick)
+// ── Persistencia de abonos en Supabase ──
+// Supabase es la fuente de verdad; el navegador queda como copia local.
+function abonoClienteFila(c){
+  return { id: Number(c.id), nombre: c.nombre || '', moneda: c.moneda || 'ARS',
+           monto: Number(c.monto) || 0, tipo: c.tipo || '', estado: c.estado || 'activo',
+           factura: c.factura || '', monto_hist: Array.isArray(c.montoHist) ? c.montoHist : [],
+           avisado_monto: c.avisadoMonto || '', ult_ajuste_infl: c.ultAjusteInfl || '' };
+}
+function sbPushAbonoCli(cliId){
+  if (!(typeof SB_ON !== 'undefined' && SB_ON)) return;
+  const c = abonoBuscarCli(cliId);
+  if (c) sbUpsert('abonos_clientes', abonoClienteFila(c)).catch(sbAvisarError);
+}
+function abonoParcialFila(cliId, mes, p){
+  return { id: p.id, cliente_id: Number(cliId), mes, fecha: p.fecha || null,
+           monto: (p.monto === null || p.monto === '') ? null : Number(p.monto),
+           a_quien: p.aQuien || '', obs: p.obs || '', comprobante: p.comprobante || null };
+}
+function sbPushAbonoPago(cliId, mes, p){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbUpsert('abonos_pagos', abonoParcialFila(cliId, mes, p)).catch(sbAvisarError);
+}
+function sbDelAbonoPago(id){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbDelete('abonos_pagos', id).catch(sbAvisarError);
+}
+// Reconstruye ABONOS con lo que vino de la nube, respetando la semilla para
+// cualquier cliente que todavía no esté cargado allá.
+function abonosDesdeNube(clientes, pagos){
+  if (!Array.isArray(clientes) || !clientes.length) return;
+  loadAbonos();
+  const porId = {};
+  ABONOS.forEach(c => { porId[String(c.id)] = c; });
+  clientes.forEach(f => {
+    const id = String(f.id);
+    const base = porId[id] || { id: Number(f.id), pagos: [] };
+    base.id = Number(f.id);
+    base.nombre = f.nombre || base.nombre || '';
+    base.moneda = f.moneda || 'ARS';
+    base.monto = Number(f.monto) || 0;
+    base.tipo = f.tipo || '';
+    base.estado = f.estado || 'activo';
+    base.factura = f.factura || '';
+    base.montoHist = Array.isArray(f.monto_hist) ? f.monto_hist : [];
+    base.avisadoMonto = f.avisado_monto || '';
+    base.ultAjusteInfl = f.ult_ajuste_infl || '';
+    base.pagos = [];
+    porId[id] = base;
+  });
+  if (Array.isArray(pagos)){
+    pagos.forEach(f => {
+      const c = porId[String(f.cliente_id)];
+      if (!c) return;
+      c.pagos = c.pagos || [];
+      let mes = c.pagos.find(x => x.mes === f.mes);
+      if (!mes){ mes = { mes: f.mes, parciales: [] }; c.pagos.push(mes); }
+      mes.parciales.push({ id: f.id, monto: (f.monto === null || f.monto === undefined) ? null : Number(f.monto),
+                           fecha: f.fecha || '', aQuien: f.a_quien || '', obs: f.obs || '',
+                           comprobante: (f.comprobante && typeof f.comprobante === 'object') ? f.comprobante : null });
+    });
+  }
+  ABONOS = Object.values(porId);
+  saveAbonos();
+}
+// Sube todos los abonos que hoy están solo en el navegador (migración inicial).
+function abonosSubirTodo(){
+  if (!(typeof SB_ON !== 'undefined' && SB_ON)) { aricToast('Supabase está desactivado'); return; }
+  loadAbonos();
+  let nCli = 0, nPag = 0;
+  ABONOS.forEach(c => {
+    sbUpsert('abonos_clientes', abonoClienteFila(c)).catch(sbAvisarError); nCli++;
+    (c.pagos || []).forEach(m => (m.parciales || []).forEach(p => {
+      sbUpsert('abonos_pagos', abonoParcialFila(c.id, m.mes, p)).catch(sbAvisarError); nPag++;
+    }));
+  });
+  aricToast('Enviando ' + nCli + ' clientes y ' + nPag + ' pagos a la nube…');
+}
+
 const ABONO_FACTURA = ['Ivana', 'Mirta', 'VaLegal SRL'];
 function abonoSetFactura(cliId, val){
   const c = abonoBuscarCli(cliId); if(!c) return;
   c.factura = val || '';
   saveAbonos();
+  sbPushAbonoCli(cliId);
 }
 function abonoBuscarCli(cliId){ return ABONOS.find(x=>String(x.id)===String(cliId)); }
 // Formatea un input de monto con separadores de miles mientras se escribe
@@ -7277,6 +7366,7 @@ function abonoAplicarInflacion(infl, desde){
     abonoFijarMonto(c.id, desde, nuevo); // rige desde 'desde' inclusive
     c.avisadoMonto = ''; // hay que avisar del nuevo ajuste
     c.ultAjusteInfl = desde; // marca que el último cambio fue por inflación
+    sbPushAbonoCli(c.id);
   });
   try { appStore.setItem(ABONOS_INFL_KEY, JSON.stringify(snap)); } catch(e){}
   saveAbonos();
@@ -7291,6 +7381,7 @@ function abonoDeshacerInflacion(){
     c.montoHist = Array.isArray(s.montoHistPrev) ? s.montoHistPrev : [];
     c.avisadoMonto = s.avisadoPrev || '';
     c.ultAjusteInfl = s.inflPrev || '';
+    sbPushAbonoCli(c.id);
   });
   try { appStore.removeItem(ABONOS_INFL_KEY); } catch(e){}
   saveAbonos();
@@ -7648,7 +7739,7 @@ function abonoGuardarMonto(cliId){
 function abonoPausar(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
   if(!confirm('¿Pausar el abono de «'+c.nombre+'»?\n\nDejará de aparecer entre los activos y no se le contará el cobro mensual. Podés reactivarlo cuando quieras.')) return;
-  c.estado='pausado'; saveAbonos();
+  c.estado='pausado'; saveAbonos(); sbPushAbonoCli(cliId);
   abonoCerrarRegistro();
   renderAbonos();
   aricToast('Abono pausado');
@@ -7701,6 +7792,7 @@ function abonoToggleAvisado(cliId, on){
   const ult = hist[hist.length-1];
   c.avisadoMonto = on ? ult.desde : '';
   saveAbonos();
+  sbPushAbonoCli(cliId);
 }
 function abonoAvisarMonto(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
@@ -7727,7 +7819,7 @@ function abonoAvisarMonto(cliId){
 }
 function abonoReactivar(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
-  c.estado='activo'; saveAbonos(); renderAbonos();
+  c.estado='activo'; saveAbonos(); sbPushAbonoCli(cliId); renderAbonos();
 }
 
 // ── Modal de registro de pago del abono ──
