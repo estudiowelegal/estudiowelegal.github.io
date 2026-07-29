@@ -1654,6 +1654,28 @@ body.locked .app{margin-left:0}
 .sue-i-nue{flex:1;font-size:13px;font-weight:700;color:#14294a;white-space:nowrap}
 .abo-row-head .sue-i-con,.abo-row-head .sue-i-act,.abo-row-head .sue-i-nue{font-size:10.5px}
 @media (max-width:860px){ .sue-kpis{grid-template-columns:1fr} .sue-form-grid{grid-template-columns:1fr} }
+.ing-total-box.gastos{background:#6d3a2a;border-color:#c9a961}
+.ing-total-box.gastos .ing-total-cmp{color:#e8c9b8}
+.ing-total-box.gastos .ing-total-cur{color:#e8c9b8}
+.gas-con{flex:2.2;min-width:0;font-size:13px;font-weight:600;color:var(--tinta)}
+.gas-con small{display:block;font-size:11px;color:var(--tinta-suave);font-weight:400;margin-top:2px}
+.gas-monto{flex:1;font-size:13px;font-weight:700;color:var(--tinta);white-space:nowrap}
+.gas-desde{flex:1.2;font-size:12px;color:var(--tinta-suave);white-space:nowrap}
+.gas-estado{flex:1;font-size:12px;color:var(--tinta-suave);white-space:nowrap}
+.gas-activo{color:var(--ok,#1e7a48);font-weight:600}
+.gas-acc{flex:0 0 168px;display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.abo-row.gas-baja{opacity:.55}
+.abo-row-head .gas-con,.abo-row-head .gas-monto,.abo-row-head .gas-desde,.abo-row-head .gas-estado{font-size:10.5px}
+.gas-kpis{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-bottom:22px;align-items:stretch}
+.gas-kpis .ing-total-box{margin-bottom:0;display:flex;flex-direction:column;justify-content:center}
+.gas-kpis .ing-fuente{display:flex;flex-direction:column;justify-content:center}
+@media (max-width:900px){ .gas-kpis{grid-template-columns:1fr} }
+.abo-c-factura{flex:1.3;min-width:0}
+.abo-fact-sel{width:100%;padding:5px 7px;border:1px solid var(--filo);border-radius:7px;
+  font-family:var(--f-ui);font-size:11.5px;color:var(--tinta);background:var(--carta);cursor:pointer}
+.abo-fact-sel:focus{outline:none;border-color:#14294a}
+.abo-row-head .abo-c-factura{font-size:10.5px}
+.rank-n{display:block;font-size:10px;color:var(--tinta-suave);font-weight:400;text-align:right;margin-top:1px}
 </style>
 </head>
 <body>
@@ -3406,9 +3428,9 @@ function getFiltered() {
     if (fi && (c.instancia||'primera')!==fi) return false;
     if (fs && c.sala!==fs) return false;
     if (fj) {
-      const num = fj.match(/\d+/)?.[0];
-      const tribNorm = (c.tribunal||'').replace(/\b(nacional|contencioso|administrativo|federal|caf|cnt|civ|com|en lo)\b/gi,'').toLowerCase();
-      if (!num || !tribNorm.includes('juzgado') || !tribNorm.includes(num)) return false;
+      // Comparación exacta del juzgado. Antes se buscaba el número como texto suelto,
+      // así que "Juzgado 8" también traía tribunales con un 8 en la secretaría (ej. "Secretaría 18").
+      if (juzgadoDe(c.tribunal) !== fj) return false;
     }
     if (!q) return true;
     const haystack = [
@@ -3700,16 +3722,20 @@ function actualizarFiltroSalas() {
   else sel.style.display = '';
 }
 
+// Extrae el juzgado de un tribunal ("Juzgado CAF Federal 9, Secretaría 18" → "Juzgado 9").
+// Se usa tanto para armar el desplegable como para filtrar, así nunca se desincronizan.
+function juzgadoDe(tribunal){
+  const t = tribunal || '';
+  if (!/juzgado/i.test(t)) return null;
+  const m = t.match(/juzgado\s+(?:[\w\s]+?\s+)?(\d+)/i);
+  return m ? ('Juzgado ' + m[1]) : null;
+}
 function actualizarFiltroJuzgados() {
   // Extraer número de juzgado del campo tribunal
   // Ej: "Juzgado CAF Federal 9" → "Juzgado 9"
   const juzgados = [...new Set(
     casos
-      .filter(c => c.tribunal && /juzgado/i.test(c.tribunal))
-      .map(c => {
-        const m = c.tribunal.match(/juzgado\s+(?:[\w\s]+?\s+)?(\d+)/i);
-        return m ? `Juzgado ${m[1]}` : null;
-      })
+      .map(c => juzgadoDe(c.tribunal))
       .filter(Boolean)
   )].sort((a, b) => parseInt(a.match(/\d+/)) - parseInt(b.match(/\d+/)));
 
@@ -5748,7 +5774,7 @@ function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarEr
 async function sbCargarTodo() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -5760,7 +5786,8 @@ async function sbCargarTodo() {
       sbSelect('aric_licencias').catch(() => null),
       sbSelect('cannabis_clientes').catch(() => null),
       sbSelect('sueldo_config').catch(() => null),
-      sbSelect('sueldo_pagos').catch(() => null)
+      sbSelect('sueldo_pagos').catch(() => null),
+      sbSelect('gastos_estudio').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
@@ -5768,6 +5795,9 @@ async function sbCargarTodo() {
 
     // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
     if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
+
+    // Gastos del estudio (tabla gastos_estudio)
+    if (rGastos) { gastosDesdeNube(rGastos); }
 
     // Sueldo de Kevin (tablas sueldo_config y sueldo_pagos)
     if (rSueCfg || rSuePag) {
@@ -6330,6 +6360,12 @@ function abonoCambiarMes(delta){
 function abonoIrMesActual(){ ABONOS_MES = null; renderAbonos(); }
 
 // Compara ids de abono de forma robusta (pueden venir como number o string desde onclick)
+const ABONO_FACTURA = ['Ivana', 'Mirta', 'VaLegal SRL'];
+function abonoSetFactura(cliId, val){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  c.factura = val || '';
+  saveAbonos();
+}
 function abonoBuscarCli(cliId){ return ABONOS.find(x=>String(x.id)===String(cliId)); }
 // Formatea un input de monto con separadores de miles mientras se escribe
 function abonoFmtInput(inp){
@@ -6410,13 +6446,16 @@ function renderIngresos(){
   if(!cont) return;
   // Los abonos pueden no estar cargados si se entra directo a Ingresos sin pasar por Abonos
   if(typeof ABONOS !== 'undefined' && !ABONOS.length && typeof loadAbonos === 'function') loadAbonos();
+  loadGastos();
   const subtabs = `<div class="abo-subtabs">
     <button class="${INGRESOS_VISTA==='mes'?'on':''}" onclick="ingVista('mes')">Ingresos del mes</button>
+    <button class="${INGRESOS_VISTA==='gastos'?'on':''}" onclick="ingVista('gastos')">Gastos</button>
     <button class="${INGRESOS_VISTA==='pendiente'?'on':''}" onclick="ingVista('pendiente')">Pendiente de cobro</button>
     <button class="${INGRESOS_VISTA==='ranking'?'on':''}" onclick="ingVista('ranking')">Ranking</button>
     <button class="${INGRESOS_VISTA==='evolucion'?'on':''}" onclick="ingVista('evolucion')">Evolución</button>
   </div>`;
   if(INGRESOS_VISTA==='evolucion'){ renderIngresosEvolucion(cont, subtabs); return; }
+  if(INGRESOS_VISTA==='gastos'){ renderIngresosGastos(cont, subtabs); return; }
   if(INGRESOS_VISTA==='pendiente'){ renderIngresosPendiente(cont, subtabs); return; }
   if(INGRESOS_VISTA==='ranking'){ renderIngresosRanking(cont, subtabs); return; }
 
@@ -6467,7 +6506,7 @@ function renderIngresos(){
         <div class="ing-total-cmp">Mes anterior: $ ${Math.round(prev.totalArs).toLocaleString('es-AR')} · US$ ${Math.round(prev.totalUsd).toLocaleString('es-AR')}</div>
       </div>
       <div class="ing-total-box neto">
-        <div class="ing-total-lbl">Quedó en el estudio (neto)</div>
+        <div class="ing-total-lbl">Ingresos netos</div>
         <div class="ing-total-montos">
           <div class="ing-total-m"><span class="ing-total-cur">$</span> ${Math.round(d.netoArs).toLocaleString('es-AR')}</div>
           <div class="ing-total-sep"></div>
@@ -6482,6 +6521,8 @@ function renderIngresos(){
         <div class="ing-gasto-it"><span class="lbl">Gastos incluidos en cobros</span><span class="val">$ ${Math.round(g.incArs).toLocaleString('es-AR')}${g.incUsd?(' · US$ '+Math.round(g.incUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios</span><span class="val">$ ${Math.round(g.ordArs).toLocaleString('es-AR')}${g.ordUsd?(' · US$ '+Math.round(g.ordUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos de escribanía</span><span class="val">$ ${Math.round(g.escArs).toLocaleString('es-AR')}${g.escUsd?(' · US$ '+Math.round(g.escUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios del estudio</span><span class="val">$ ${Math.round(g.estFijosArs).toLocaleString('es-AR')}${g.estFijosUsd?(' · US$ '+Math.round(g.estFijosUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it"><span class="lbl">Gastos extraordinarios</span><span class="val">$ ${Math.round(g.estVarArs).toLocaleString('es-AR')}${g.estVarUsd?(' · US$ '+Math.round(g.estVarUsd).toLocaleString('es-AR')):''}</span></div>
       </div>
     </div>`:''}
     <div class="ing-fuentes-h">Desglose por fuente (bruto)</div>
@@ -6765,6 +6806,241 @@ function renderIngresosEvolucion(cont, subtabs){
 const MES_COL_W = 54;  // ancho de la columna de meses (eje vertical)
 const VAL_COL_W = 96;  // ancho de la columna del monto, a la derecha de cada barra
 
+// ═══════════ GASTOS DEL ESTUDIO (submódulo de Ingresos) ═══════════
+// Fijos: se repiten todos los meses desde que se dan de alta (ej. alquiler).
+// Variables: son de un mes puntual (ej. un arreglo).
+const GASTOS_KEY = 'jc-gastos-v1';
+let GASTOS = null;
+let GASTOS_TIPO = 'fijos';   // 'fijos' | 'variables'
+
+function loadGastos(){
+  try { GASTOS = JSON.parse(appStore.getItem(GASTOS_KEY) || 'null'); } catch(e){ GASTOS = null; }
+  if (!GASTOS || typeof GASTOS !== 'object') GASTOS = { fijos: [], variables: [] };
+  if (!Array.isArray(GASTOS.fijos)) GASTOS.fijos = [];
+  if (!Array.isArray(GASTOS.variables)) GASTOS.variables = [];
+  return GASTOS;
+}
+function saveGastos(){ try { appStore.setItem(GASTOS_KEY, JSON.stringify(GASTOS)); } catch(e){} }
+
+// Un gasto fijo rige desde 'desde' (YYYY-MM) y hasta 'hasta' si se dio de baja.
+function gastoFijoVigente(g, ym){
+  if (g.desde && ym < g.desde) return false;
+  if (g.hasta && ym > g.hasta) return false;
+  return true;
+}
+function gastosDelMes(ym){
+  loadGastos();
+  const fijos = GASTOS.fijos.filter(g => gastoFijoVigente(g, ym));
+  const variables = GASTOS.variables.filter(g => g.mes === ym);
+  const sum = (arr, mon) => arr.filter(g => (g.moneda||'ARS') === mon).reduce((a,g)=> a + (Number(g.monto)||0), 0);
+  return {
+    fijos, variables,
+    fijosArs: sum(fijos,'ARS'), fijosUsd: sum(fijos,'USD'),
+    varArs: sum(variables,'ARS'), varUsd: sum(variables,'USD'),
+    totalArs: sum(fijos,'ARS') + sum(variables,'ARS'),
+    totalUsd: sum(fijos,'USD') + sum(variables,'USD')
+  };
+}
+function gastoAgregar(tipo, datos){
+  loadGastos();
+  const g = { id: 'g' + Date.now() + Math.floor(Math.random()*1000), ...datos };
+  GASTOS[tipo].push(g);
+  saveGastos();
+  sbPushGasto(tipo, g);
+  return g;
+}
+function gastoQuitar(tipo, id){
+  loadGastos();
+  GASTOS[tipo] = GASTOS[tipo].filter(g => g.id !== id);
+  saveGastos();
+  sbDelGasto(id);
+}
+// Dar de baja un gasto fijo: deja de contar desde el mes siguiente al indicado
+function gastoDarDeBaja(id, hasta){
+  loadGastos();
+  const g = GASTOS.fijos.find(x => x.id === id);
+  if (!g) return;
+  g.hasta = hasta || null;
+  saveGastos();
+  sbPushGasto('fijos', g);
+}
+function gastoReactivar(id){
+  loadGastos();
+  const g = GASTOS.fijos.find(x => x.id === id);
+  if (!g) return;
+  g.hasta = null;
+  saveGastos();
+  sbPushGasto('fijos', g);
+}
+
+// ── Persistencia en Supabase ──
+function gastoFila(tipo, g){
+  return { id: g.id, tipo, concepto: g.concepto || '', monto: Number(g.monto) || 0,
+           moneda: g.moneda || 'ARS', mes: g.mes || null, desde: g.desde || null,
+           hasta: g.hasta || null, obs: g.obs || '' };
+}
+function sbPushGasto(tipo, g){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbUpsert('gastos_estudio', gastoFila(tipo, g)).catch(sbAvisarError);
+}
+function sbDelGasto(id){
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbDelete('gastos_estudio', id).catch(sbAvisarError);
+}
+function gastosDesdeNube(filas){
+  if (!Array.isArray(filas)) return;
+  loadGastos();
+  const fijos = [], variables = [];
+  filas.forEach(f => {
+    const g = { id: f.id, concepto: f.concepto || '', monto: Number(f.monto) || 0,
+                moneda: f.moneda || 'ARS', mes: f.mes || null, desde: f.desde || null,
+                hasta: f.hasta || null, obs: f.obs || '' };
+    if (f.tipo === 'variables') variables.push(g); else fijos.push(g);
+  });
+  GASTOS = { fijos, variables };
+  saveGastos();
+}
+
+// ── Vista: gastos del estudio ──
+function ingTipoGasto(t){ GASTOS_TIPO = t; renderIngresos(); }
+
+function renderIngresosGastos(cont, subtabs){
+  const ym = ingMesActual();
+  const g = gastosDelMes(ym);
+  const fmt = n => Math.round(Number(n)||0).toLocaleString('es-AR');
+  const esFijos = GASTOS_TIPO === 'fijos';
+
+  const filaFijo = x => {
+    const baja = !!x.hasta;
+    return `<div class="abo-row ${baja?'gas-baja':''}">
+      <div class="gas-con">${esc(x.concepto || '—')}${x.obs?`<small>${esc(x.obs)}</small>`:''}</div>
+      <div class="gas-monto">${(x.moneda==='USD'?'US$ ':'$ ')}${fmt(x.monto)}</div>
+      <div class="gas-desde">${x.desde ? ('desde ' + capPrim(ingMesLabel(x.desde))) : 'siempre'}</div>
+      <div class="gas-estado">${baja ? ('hasta ' + capPrim(ingMesLabel(x.hasta))) : '<span class="gas-activo">Activo</span>'}</div>
+      <div class="gas-acc">
+        ${baja
+          ? `<button class="mini-btn" onclick="ingReactivarFijo('${x.id}')">Reactivar</button>`
+          : `<button class="mini-btn" onclick="ingBajaFijo('${x.id}')">Dar de baja</button>`}
+        <button class="abo-pp-del" onclick="ingBorrarGasto('fijos','${x.id}')" title="Eliminar">✕</button>
+      </div>
+    </div>`;
+  };
+  const filaVar = x => `<div class="abo-row">
+      <div class="gas-con">${esc(x.concepto || '—')}${x.obs?`<small>${esc(x.obs)}</small>`:''}</div>
+      <div class="gas-monto">${(x.moneda==='USD'?'US$ ':'$ ')}${fmt(x.monto)}</div>
+      <div class="gas-desde">${capPrim(ingMesLabel(x.mes||ym))}</div>
+      <div class="gas-estado"></div>
+      <div class="gas-acc"><button class="abo-pp-del" onclick="ingBorrarGasto('variables','${x.id}')" title="Eliminar">✕</button></div>
+    </div>`;
+
+  // Los fijos se listan todos (incluso los dados de baja), los variables solo los del mes
+  loadGastos();
+  const listaFijos = GASTOS.fijos.slice().sort((a,b)=> (b.monto||0)-(a.monto||0));
+  const listaVar = GASTOS.variables.filter(x => x.mes === ym).sort((a,b)=> (b.monto||0)-(a.monto||0));
+  const lista = esFijos ? listaFijos : listaVar;
+  const filas = lista.length
+    ? lista.map(esFijos ? filaFijo : filaVar).join('')
+    : `<div class="abo-sec-vacio">${esFijos ? 'Todavía no cargaste gastos ordinarios.' : 'No hay gastos extraordinarios en este mes.'}</div>`;
+
+  cont.innerHTML = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Control de ingresos</div>
+        <h1 class="ing-h1">Gastos del estudio</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="ingCambiarMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="ingMesHoy()" class="hoy">Mes actual</button>
+        <button onclick="ingCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    ${subtabs}
+    <div class="gas-kpis">
+      <div class="ing-total-box gastos">
+        <div class="ing-total-lbl">Gastos de ${esc(capPrim(ingMesLabel(ym)))}</div>
+        <div class="ing-total-montos">
+          <div class="ing-total-m"><span class="ing-total-cur">$</span> ${fmt(g.totalArs)}</div>
+          <div class="ing-total-sep"></div>
+          <div class="ing-total-m usd"><span class="ing-total-cur">US$</span> ${fmt(g.totalUsd)}</div>
+        </div>
+      </div>
+      <div class="ing-fuente">
+        <div class="ing-fuente-h">Gastos ordinarios<span class="ing-fuente-x">${g.fijos.length} concepto${g.fijos.length!==1?'s':''}</span></div>
+        <div class="ing-fuente-montos">
+          <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmt(g.fijosArs)}</span></div>
+          <div class="ing-monto usd"><span class="ing-cur">US$</span><span class="ing-val">${fmt(g.fijosUsd)}</span></div>
+        </div>
+      </div>
+      <div class="ing-fuente">
+        <div class="ing-fuente-h">Gastos extraordinarios<span class="ing-fuente-x">${g.variables.length} este mes</span></div>
+        <div class="ing-fuente-montos">
+          <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmt(g.varArs)}</span></div>
+          <div class="ing-monto usd"><span class="ing-cur">US$</span><span class="ing-val">${fmt(g.varUsd)}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ing-mon-sw">
+      <span class="ing-mon-lbl">Ver:</span>
+      <button class="${esFijos?'on':''}" onclick="ingTipoGasto('fijos')">Ordinarios (todos los meses)</button>
+      <button class="${!esFijos?'on':''}" onclick="ingTipoGasto('variables')">Extraordinarios del mes</button>
+    </div>
+
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default">
+        <span class="abo-sec-tw">${esFijos ? 'Gastos ordinarios' : 'Gastos extraordinarios de ' + esc(capPrim(ingMesLabel(ym)))}</span>
+        <span class="abo-sec-count">${esFijos ? ('$ '+fmt(g.fijosArs)+(g.fijosUsd?(' · US$ '+fmt(g.fijosUsd)):'')) : ('$ '+fmt(g.varArs)+(g.varUsd?(' · US$ '+fmt(g.varUsd)):''))}</span>
+      </div>
+      <div class="abo-row abo-row-head">
+        <div class="gas-con">Concepto</div><div class="gas-monto">Monto</div>
+        <div class="gas-desde">${esFijos?'Vigencia':'Mes'}</div>
+        <div class="gas-estado">${esFijos?'Estado':''}</div><div class="gas-acc"></div>
+      </div>
+      ${filas}
+    </div>
+
+    <div class="sue-form">
+      <div class="sue-form-h">${esFijos ? 'Agregar un gasto ordinario' : 'Agregar un gasto extraordinario de este mes'}</div>
+      <div class="sue-form-grid">
+        <div class="abo-reg-fld"><label>Concepto</label><input type="text" id="gasConcepto" placeholder="${esFijos?'Ej: alquiler':'Ej: arreglo del estudio'}"></div>
+        <div class="abo-reg-fld"><label>Monto</label><input type="text" inputmode="numeric" id="gasMonto" placeholder="Cuánto" oninput="abonoFmtInput(this)"></div>
+        <div class="abo-reg-fld"><label>Moneda</label>
+          <select id="gasMoneda"><option value="ARS">Pesos</option><option value="USD">Dólares</option></select></div>
+      </div>
+      <div class="sue-form-grid">
+        <div class="abo-reg-fld"><label>${esFijos?'Rige desde':'Mes'}</label>
+          <input type="month" id="gasMes" value="${ym}"></div>
+        <div class="abo-reg-fld" style="grid-column:span 2"><label>Detalle <span class="opt">(opcional)</span></label>
+          <input type="text" id="gasObs" placeholder="Nota interna"></div>
+      </div>
+      <button class="abo-pp-add" onclick="ingGuardarGasto()">+ Agregar gasto</button>
+    </div>`;
+}
+
+function ingGuardarGasto(){
+  const concepto = document.getElementById('gasConcepto').value.trim();
+  const monto = abonoParseInput(document.getElementById('gasMonto'));
+  const moneda = document.getElementById('gasMoneda').value;
+  const mes = document.getElementById('gasMes').value || ingMesActual();
+  const obs = document.getElementById('gasObs').value.trim();
+  if (!concepto){ aricToast('Poné el concepto del gasto'); return; }
+  if (monto === '' || !monto){ aricToast('Poné el monto'); return; }
+  if (GASTOS_TIPO === 'fijos') gastoAgregar('fijos', { concepto, monto: Number(monto), moneda, desde: mes, hasta: null, obs });
+  else gastoAgregar('variables', { concepto, monto: Number(monto), moneda, mes, obs });
+  renderIngresos();
+  aricToast('Gasto agregado');
+}
+function ingBorrarGasto(tipo, id){
+  if (!confirm('¿Eliminar este gasto?')) return;
+  gastoQuitar(tipo, id);
+  renderIngresos();
+}
+function ingBajaFijo(id){
+  const ym = ingMesActual();
+  if (!confirm('¿Dar de baja este gasto ordinario?\n\nVa a dejar de contarse a partir del mes siguiente a ' + ingMesLabel(ym) + '.')) return;
+  gastoDarDeBaja(id, ym);
+  renderIngresos();
+}
+function ingReactivarFijo(id){ gastoReactivar(id); renderIngresos(); }
+
 // ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
 // Devuelve los ingresos de un mes 'YYYY-MM' por fuente y moneda (pesos y dólares separados).
 function ingresosDelMes(ym){
@@ -6799,14 +7075,19 @@ function ingresosDelMes(ym){
 
   const brutoArs = judArs + socArs + aboArs;
   const brutoUsd = judUsd + socUsd + aboUsd;
-  // Neto real: al bruto le sacamos los gastos incluidos en los ingresos y los gastos que salieron
-  const gastosArs = gincArs + gOrdArs + gEscArs;
-  const gastosUsd = gincUsd + gOrdUsd + gEscUsd;
+  // Gastos de funcionamiento del estudio (fijos + extraordinarios del mes)
+  const ge = (typeof gastosDelMes === 'function') ? gastosDelMes(ym) : { totalArs:0, totalUsd:0, fijosArs:0, fijosUsd:0, varArs:0, varUsd:0 };
+  // Neto real: al bruto le sacamos los gastos incluidos en los cobros,
+  // los gastos de la caja societaria y los gastos de funcionamiento.
+  const gastosArs = gincArs + gOrdArs + gEscArs + ge.totalArs;
+  const gastosUsd = gincUsd + gOrdUsd + gEscUsd + ge.totalUsd;
   return {
     jud: { ars: judArs, usd: judUsd, n: jud.length },
     soc: { ars: socArs, usd: socUsd, n: socIn.length },
     abo: { ars: aboArs, usd: aboUsd },
-    gastos: { incArs: gincArs, incUsd: gincUsd, ordArs: gOrdArs, ordUsd: gOrdUsd, escArs: gEscArs, escUsd: gEscUsd, totArs: gastosArs, totUsd: gastosUsd },
+    gastos: { incArs: gincArs, incUsd: gincUsd, ordArs: gOrdArs, ordUsd: gOrdUsd, escArs: gEscArs, escUsd: gEscUsd,
+              estFijosArs: ge.fijosArs, estFijosUsd: ge.fijosUsd, estVarArs: ge.varArs, estVarUsd: ge.varUsd,
+              estArs: ge.totalArs, estUsd: ge.totalUsd, totArs: gastosArs, totUsd: gastosUsd },
     totalArs: brutoArs, totalUsd: brutoUsd,
     netoArs: brutoArs - gastosArs, netoUsd: brutoUsd - gastosUsd
   };
@@ -6861,6 +7142,11 @@ function ingNormConcepto(s){
   t = t.replace(/\s\d+\s*(?:de|\/)\s*\d+\s*$/g, ' ');
   // anticipo / saldo / pago parcial como etiqueta de tramo
   t = t.replace(/\b(anticipo|saldo|pago\s+parcial|refuerzo)\b/g, ' ');
+  // referencias a comisiones: "(comisión Sofi G)", "- comision ori"
+  t = t.replace(/\(\s*comisi[oó]n[^)]*\)/g, ' ');
+  t = t.replace(/[\-–—·,]?\s*\bcomisi[oó]n\b[\w\s.]*$/g, ' ');
+  // "res." / "resolución" son ruido: "Informe Res 1780" = "Informe 1780"
+  t = t.replace(/\b(res|resol|resolucion)\b\.?/g, ' ');
   // puntos de abreviaturas fuera (S.A. = SA)
   t = t.replace(/\./g, '');
   // limpieza final: separadores colgados y espacios repetidos
@@ -6880,6 +7166,8 @@ function ingLimpiaConcepto(s){
   t = t.replace(/\(\s*\d+\s*(?:de|\/|-)\s*\d+\s*\)/g, ' ');
   t = t.replace(/\s\d+\s*(?:de|\/)\s*\d+\s*$/g, ' ');
   t = t.replace(/\b(anticipo|saldo|pago\s+parcial|refuerzo)\b/gi, ' ');
+  t = t.replace(/\(\s*comisi[oó]n[^)]*\)/gi, ' ');
+  t = t.replace(/[\-–—·,]?\s*\bcomisi[oó]n\b[\w\s.]*$/gi, ' ');
   t = t.replace(/[\-–—·,;:]+\s*$/g, ' ');
   t = t.replace(/^\s*[\-–—·,;:]+/g, ' ');
   t = t.replace(/\s{2,}/g, ' ').trim();
@@ -7129,6 +7417,12 @@ function renderAbonos(){
       <div class="abo-c-abonado">${abonadoTxt}</div>
       <div class="abo-c-comprob">${comprobCell}</div>
       <div class="abo-c-fecha">${fechaTxt}</div>
+      <div class="abo-c-factura">
+        <select class="abo-fact-sel" onchange="abonoSetFactura(${c.id},this.value)" onclick="event.stopPropagation()">
+          <option value="" ${!c.factura?'selected':''}>— elegir —</option>
+          ${ABONO_FACTURA.map(f=>`<option value="${f}" ${c.factura===f?'selected':''}>${f}</option>`).join('')}
+        </select>
+      </div>
       <div class="abo-c-estado">${estadoHtml}</div>
       <div class="abo-row-acc">
         ${st.estado!=='pagado' ? `<button class="abo-wa-mini" onclick="abonoReclamarPago(${c.id})" title="Reclamar pago por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
@@ -7143,6 +7437,7 @@ function renderAbonos(){
       <div class="abo-c-abonado">Abonado</div>
       <div class="abo-c-comprob">Comprobante</div>
       <div class="abo-c-fecha">Fecha</div>
+      <div class="abo-c-factura">Quién factura</div>
       <div class="abo-c-estado">Estado</div>
       <div class="abo-reg-sp2"></div>
     </div>`;
@@ -10562,12 +10857,20 @@ function saveCajaSocAdj() { appStore.setItem(CAJASOC_ADJ_KEY, JSON.stringify(CAJ
 function movAFila(m) {  /* incluye plan de cuotas */
   return { id: m.id, fecha: m.fecha, tipo: m.tipo, contraparte: m.contraparte || '',
     concepto: m.concepto || '', monto: m.monto, moneda: m.moneda, metodo: m.metodo || '',
-    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, comision_para: m.comisionPara || null, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
+    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, comision_para: m.comisionPara || null, revisado: !!m.revisado, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
 }
 function filaAMov(f) {
   return { id: f.id, fecha: f.fecha, tipo: f.tipo, contraparte: f.contraparte || '',
     concepto: f.concepto || '', monto: Number(f.monto) || 0, moneda: f.moneda || 'ARS',
-    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, comisionPara: f.comision_para || '' };
+    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, comisionPara: f.comision_para || '', revisado: !!f.revisado };
+}
+function toggleRevisadoSoc(id) {
+  const m = CAJASOC.find(x => x.id === id);
+  if (!m) return;
+  m.revisado = !m.revisado;
+  saveCajaSoc();
+  sbPushMovSoc(m);
+  renderCajaSoc();
 }
 function sbPushMovSoc(m) { if (SB_ON) sbUpsert('caja_soc', movAFila(m)).catch(sbAvisarError); }
 function sbDelMovSoc(id) { if (SB_ON) sbDelete('caja_soc', id).catch(sbAvisarError); }
@@ -11001,10 +11304,11 @@ function renderCajaSoc() {
       <td>${CAJASOC_ADJ[m.id]
         ? `<button class="mini-btn" onclick="verComprobanteSoc(${m.id})" title="${esc(CAJASOC_ADJ[m.id].nombre)}">📄 Ver</button>`
         : `<button class="mini-btn" onclick="adjuntarASoc(${m.id})">＋ Adjuntar</button>`}</td>
+      <td style="text-align:center"><input type="checkbox" ${m.revisado ? 'checked' : ''} onchange="toggleRevisadoSoc(${m.id})" title="Revisado" style="accent-color:var(--sello)"></td>
       <td><button class="tarea-del" onclick="eliminarMovSoc(${m.id})" title="Eliminar">✕</button></td>
     </tr>`;
   };
-  const cab = '<thead><tr><th>Fecha</th><th>Cliente / proveedor</th><th>Concepto</th><th style="text-align:right">Monto</th><th>Método</th><th>Comprob.</th><th></th></tr></thead>';
+  const cab = '<thead><tr><th>Fecha</th><th>Cliente / proveedor</th><th>Concepto</th><th style="text-align:right">Monto</th><th>Método</th><th>Comprob.</th><th style="text-align:center">Rev.</th><th></th></tr></thead>';
   const pinta = (lista, tablaId, vaciaId, miniId, etiqueta) => {
     const tabla = document.getElementById(tablaId), vacia = document.getElementById(vaciaId), mini = document.getElementById(miniId);
     if (mini) mini.textContent = lista.length + ' ' + etiqueta + (lista.length !== 1 ? 's' : '') + ' · ' + mesLargo(mes);
@@ -11947,14 +12251,19 @@ function renderCaja() {
     }).join('') + '</tbody>';
   }
 
-  const agrupar = (campo, fallback) => {
+  // Para el ranking de conceptos se agrupan las variantes del mismo servicio
+  // ("Contrato autocultivadores cuota 2/3", "Informe 1780 (comisión Sofi G)"…).
+  const agrupar = (campo, fallback, agrupaConceptos) => {
     const g = {};
     pagos.forEach(p => {
-      const k = ((p[campo] || '').trim()) || fallback;
-      g[k] = g[k] || { ars: 0, usd: 0 };
+      const orig = (p[campo] || '').trim();
+      const k = agrupaConceptos ? (ingNormConcepto(orig) || fallback) : (orig || fallback);
+      if (!g[k]) g[k] = { ars: 0, usd: 0, n: 0, etiqueta: agrupaConceptos ? (ingLabelConcepto(ingLimpiaConcepto(orig)) || fallback) : (orig || fallback), variantes: new Set() };
       g[k][p.moneda === 'USD' ? 'usd' : 'ars'] += p.monto;
+      g[k].n++;
+      if (orig) g[k].variantes.add(orig);
     });
-    return Object.entries(g).map(([nombre, v]) => ({ nombre, ...v, clave: v.ars + v.usd * (dolar || 1) })).sort((a, b) => b.clave - a.clave);
+    return Object.entries(g).map(([clave, v]) => ({ nombre: v.etiqueta, ars: v.ars, usd: v.usd, n: v.n, nVar: v.variantes.size, clave: v.ars + v.usd * (dolar || 1) })).sort((a, b) => b.clave - a.clave);
   };
   const filaRank = (r, i, max) => `
     <div class="rank-item">
@@ -11963,11 +12272,11 @@ function renderCaja() {
         <div class="rank-nombre">${esc(r.nombre)}</div>
         <div class="rank-barra"><i style="width:${Math.max(4, Math.round(r.clave / max * 100))}%"></i></div>
       </div>
-      <span class="rank-monto">${r.ars ? '$ ' + fmtNumStr(r.ars) : ''}${r.ars && r.usd ? ' · ' : ''}${r.usd ? 'u$s ' + fmtNumStr(r.usd) : ''}</span>
+      <span class="rank-monto">${r.ars ? '$ ' + fmtNumStr(r.ars) : ''}${r.ars && r.usd ? ' · ' : ''}${r.usd ? 'u$s ' + fmtNumStr(r.usd) : ''}${r.n > 1 ? `<small class="rank-n">${r.n} cobros</small>` : ''}</span>
     </div>`;
 
   // Qué generó más ingresos → por CONCEPTO / servicio
-  const rankConcepto = agrupar('concepto', '(sin concepto)');
+  const rankConcepto = agrupar('concepto', '(sin concepto)', true);
   const maxConcepto = rankConcepto.length ? rankConcepto[0].clave : 1;
   document.getElementById('cajaRanking').innerHTML = rankConcepto.length
     ? rankConcepto.slice(0, 8).map((r, i) => filaRank(r, i, maxConcepto)).join('')
