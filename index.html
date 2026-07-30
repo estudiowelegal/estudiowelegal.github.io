@@ -1676,6 +1676,9 @@ body.locked .app{margin-left:0}
 .abo-fact-sel:focus{outline:none;border-color:#14294a}
 .abo-row-head .abo-c-factura{font-size:10.5px}
 .rank-n{display:block;font-size:10px;color:var(--tinta-suave);font-weight:400;text-align:right;margin-top:1px}
+#panelRespaldo .resp-txt{font-size:13px;color:var(--tinta);line-height:1.6;margin-bottom:14px}
+#panelRespaldo .resp-acc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#panelRespaldo .resp-nota{font-size:11.5px;color:var(--tinta-suave);line-height:1.5}
 </style>
 </head>
 <body>
@@ -1739,11 +1742,11 @@ body.locked .app{margin-left:0}
     <div class="sidebar-footer">
       <button class="btn-add" onclick="openNew()">+ Agregar fallo</button>
       <div class="io-row">
-        <button class="btn-io" onclick="exportarDatos()">
+        <button class="btn-io" onclick="exportarDatos()" title="Descarga un respaldo de TODO el sistema, no solo de jurisprudencia. También está en Herramientas.">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Exportar
+          Respaldo
         </button>
-        <button class="btn-io" onclick="document.getElementById('importInput').click()">
+        <button class="btn-io" onclick="document.getElementById('importInput').click()" title="Restaura un respaldo completo del sistema. También está en Herramientas.">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           Importar
         </button>
@@ -2226,6 +2229,18 @@ body.locked .app{margin-left:0}
             <div style="font-size:11.5px;font-weight:700;color:var(--tinta-suave);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px">Ferias judiciales</div>
             <div id="listaFerias"></div>
             <div class="res-nota">Sumá los feriados turísticos y ajustá la feria de invierno cuando salga la acordada de cada jurisdicción. Estos datos alimentan la calculadora de plazos y el control de oficios.</div>
+          </div>
+        </div>
+
+        <div class="panel" id="panelRespaldo">
+          <div class="panel-h"><h3>Respaldo de datos</h3><span class="mini">copia completa del sistema</span></div>
+          <div class="panel-b">
+            <div class="resp-txt">Descarga un archivo con <b>todo</b> lo cargado en Lexia: jurisprudencia, expedientes, agenda, las dos cajas, planes de cuotas, ARICCAME, cannabis, abonos, sueldo y gastos. Guardalo en Drive una vez por semana.</div>
+            <div class="resp-acc">
+              <button class="btn-primary" onclick="exportarDatos()">⬇ Descargar respaldo</button>
+              <button class="btn-ghost" onclick="document.getElementById('importInput').click()">⬆ Restaurar desde un respaldo</button>
+            </div>
+            <div class="resp-nota">El archivo lleva la fecha en el nombre, así no se pisan entre sí. Al restaurar se reemplaza lo que tengas cargado en este navegador por lo del archivo.</div>
           </div>
         </div>
 
@@ -3660,7 +3675,7 @@ function attachPdf(input) {
   }).catch(e => { sbAvisarError(e); alert('No se pudo subir el PDF a la nube.'); });
   input.value='';
 }
-function downloadPdf(id) { const p=pdfs[id]; if(!p) return; if(p.url){ window.open(p.url,'_blank'); return; } const a=document.createElement('a'); a.href=p.data; a.download=p.name; a.click(); }
+function downloadPdf(id) { const p=pdfs[id]; if(!p) return; if(p.path||p.url){ sbAbrirArchivo(p,{nombre:p.name}); return; } const a=document.createElement('a'); a.href=p.data; a.download=p.name; a.click(); }
 function removePdf(id) { if(!confirm('¿Eliminar el PDF adjunto?')) return; delete pdfs[id]; savePdfs(); renderCasos(); }
 function dzOver(e,id){e.preventDefault();const el=document.getElementById('dropZone_'+id);if(el)el.classList.add('drag-over');}
 function dzLeave(id){const el=document.getElementById('dropZone_'+id);if(el)el.classList.remove('drag-over');}
@@ -5572,12 +5587,23 @@ function exportarDatos() {
     caja: CAJA,
     cajaAdjuntos: CAJA_ADJ,
     dolar: appStore.getItem(DOLAR_KEY) || '',
+    // Módulos agregados después de la primera versión del respaldo
+    clientes: (typeof CLIENTES !== 'undefined') ? CLIENTES : [],
+    cajaSoc: (typeof CAJASOC !== 'undefined') ? CAJASOC : [],
+    cajaSocAdjuntos: (typeof CAJASOC_ADJ !== 'undefined') ? CAJASOC_ADJ : {},
+    planes: (typeof PLANES !== 'undefined') ? PLANES : [],
+    aric: (typeof ARIC !== 'undefined') ? ARIC : [],
+    abonos: (typeof ABONOS !== 'undefined') ? ABONOS : [],
+    sueldo: (typeof SUELDO !== 'undefined' && SUELDO) ? SUELDO : (typeof loadSueldo === 'function' ? loadSueldo() : null),
+    gastos: (typeof GASTOS !== 'undefined' && GASTOS) ? GASTOS : (typeof loadGastos === 'function' ? loadGastos() : null),
+    expAdjuntos: (typeof EXP_ADJ !== 'undefined') ? EXP_ADJ : {},
+    generado: new Date().toISOString(),
     version: LS_KEY
   };
   const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'lexia-backup.json';
+  a.download = 'lexia-respaldo-' + hoyISO() + '.json';
   a.click();
 }
 
@@ -5598,6 +5624,15 @@ function importarDatos(input) {
       if (d.caja) { CAJA = d.caja; saveCaja(); }
       if (d.cajaAdjuntos) { CAJA_ADJ = d.cajaAdjuntos; saveCajaAdj(); }
       if (d.dolar) appStore.setItem(DOLAR_KEY, d.dolar);
+      if (d.clientes && typeof CLIENTES !== 'undefined') { CLIENTES = d.clientes; try { saveClientes(); } catch(e){} }
+      if (d.cajaSoc && typeof CAJASOC !== 'undefined') { CAJASOC = d.cajaSoc; try { saveCajaSoc(); } catch(e){} }
+      if (d.cajaSocAdjuntos && typeof CAJASOC_ADJ !== 'undefined') { CAJASOC_ADJ = d.cajaSocAdjuntos; try { saveCajaSocAdj(); } catch(e){} }
+      if (d.planes && typeof PLANES !== 'undefined') { PLANES = d.planes; try { savePlanesLocal(); } catch(e){} }
+      if (d.aric && typeof ARIC !== 'undefined') { ARIC = d.aric; try { saveAricLocal(); } catch(e){} }
+      if (d.abonos && typeof ABONOS !== 'undefined') { ABONOS = d.abonos; try { saveAbonos(); } catch(e){} }
+      if (d.sueldo && typeof SUELDO !== 'undefined') { SUELDO = d.sueldo; try { saveSueldo(); } catch(e){} }
+      if (d.gastos && typeof GASTOS !== 'undefined') { GASTOS = d.gastos; try { saveGastos(); } catch(e){} }
+      if (d.expAdjuntos && typeof EXP_ADJ !== 'undefined') { EXP_ADJ = d.expAdjuntos; try { saveExpAdj(); } catch(e){} }
       try { renderInicio(); } catch(e) {}
       actualizarFiltroSalas(); actualizarFiltroJuzgados(); renderCasos(); renderExpedientes();
       alert('Datos importados correctamente.');
@@ -5627,6 +5662,80 @@ const SB_ON = true; // interruptor global; si algo falla, la app sigue con el st
 function sbHeaders(extra) {
   // La clave pública identifica al proyecto; la credencial de la sesión identifica a la persona.
   return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': 'application/json' }, extra || {});
+}
+// Dirección temporal y firmada de un archivo. Vale unos minutos y solo se genera
+// con sesión activa, así los buckets pueden quedar privados: un enlace que se filtre
+// deja de servir enseguida, en vez de quedar abierto para siempre.
+async function sbUrlFirmada(path, segundos){
+  if (!path) return null;
+  const p = String(path).replace(/^\/+/, '');
+  const i = p.indexOf('/');
+  if (i < 0) return null;
+  const bucket = p.slice(0, i), archivo = p.slice(i + 1);
+  try {
+    const r = await fetch(`${SB_URL}/storage/v1/object/sign/${encodeURIComponent(bucket)}/${archivo.split('/').map(encodeURIComponent).join('/')}`, {
+      method: 'POST',
+      headers: sbHeaders(),
+      body: JSON.stringify({ expiresIn: segundos || 300 })
+    });
+    if (!r.ok) return null;
+    const d = await r.json();
+    return d && d.signedURL ? (SB_URL + '/storage/v1' + d.signedURL.replace(/^\/storage\/v1/, '')) : null;
+  } catch(e){ return null; }
+}
+// Convierte un adjunto en dato embebido (base64), para que los balances que
+// se descargan lleven los comprobantes adentro y no dependan de enlaces que vencen.
+async function sbArchivoEmbebido(ref){
+  const r = ref || {};
+  if (r.data && /^data:/.test(r.data)) return r.data;
+  if (r.url && /^data:/.test(r.url)) return r.url;
+  let url = null;
+  if (r.path) url = await sbUrlFirmada(r.path, 600);
+  if (!url && r.url) url = r.url;
+  if (!url) return null;
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) return null;
+    const blob = await resp.blob();
+    return await new Promise((res) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => res(null); fr.readAsDataURL(blob); });
+  } catch(e){ return null; }
+}
+// Resuelve varios adjuntos de una, devolviendo un mapa id → dato embebido.
+async function sbEmbeberAdjuntos(pares){
+  const mapa = {};
+  await Promise.all((pares||[]).map(async ([id, ref]) => { mapa[id] = await sbArchivoEmbebido(ref); }));
+  return mapa;
+}
+// Abre o descarga un adjunto. Prefiere la dirección firmada; si el archivo quedó
+// guardado solo en el navegador (sin nube), usa esa copia.
+async function sbAbrirArchivo(ref, opciones){
+  const o = opciones || {};
+  const r = ref || {};
+  let url = null;
+  if (r.path) url = await sbUrlFirmada(r.path, 300);
+  if (!url) url = r.url || r.data || null;
+  if (!url){ if (typeof aricToast === 'function') aricToast('No se pudo abrir el archivo'); return; }
+
+  // Se baja el archivo y se abre desde el propio navegador. Hace falta por dos motivos:
+  // los navegadores bloquean abrir en una pestaña nueva un archivo incrustado (data:),
+  // y el pedido de descarga se ignora cuando el archivo viene de otro dominio.
+  let temporal = null;
+  try {
+    const resp = await fetch(url);
+    if (resp.ok){
+      const blob = await resp.blob();
+      temporal = URL.createObjectURL(blob);
+    }
+  } catch(e){ temporal = null; }
+
+  const destino = temporal || url;
+  const a = document.createElement('a');
+  a.href = destino;
+  a.rel = 'noopener';
+  if (o.descargar) a.download = o.nombre || r.nombre || 'archivo';
+  else a.target = '_blank';   // ver el comprobante en una pestaña nueva
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  if (temporal) setTimeout(function(){ URL.revokeObjectURL(temporal); }, 60000);
 }
 function sbPubUrl(path) { // URL pública de un archivo del Storage ("bucket/archivo")
   // Codificar cada segmento igual que en la subida (encodeURIComponent por parte),
@@ -7993,11 +8102,7 @@ function abonoDescargarComprobParcial(cliId, pid){
   const c = abonoBuscarCli(cliId); if(!c) return;
   const p = abonoPagoDe(c, abonoMesActual()); if(!p) return;
   const x = (p.parciales||[]).find(z=>z.id===pid); if(!x || !x.comprobante) return;
-  const u = x.comprobante.url || ((typeof sbPubUrl==='function' && x.comprobante.path) ? sbPubUrl(x.comprobante.path) : null);
-  if(!u) return;
-  const a = document.createElement('a');
-  a.href = u; a.download = x.comprobante.nombre || 'comprobante'; a.target = '_blank';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  sbAbrirArchivo(x.comprobante, { descargar:true, nombre: x.comprobante.nombre || 'comprobante' });
 }
 function abonoCerrarRegistro(){
   const m = document.getElementById('abonoRegModal'); if(m) m.style.display='none';
@@ -8504,8 +8609,7 @@ async function cannabisSubirDoc(key, input){
 function cannabisVerDoc(key){
   const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
   const e = cannabisDocEstado(c, key); if(!e) return;
-  const u = e.url || ((typeof sbPubUrl==='function' && e.path) ? sbPubUrl(e.path) : null);
-  if(u) window.open(u, '_blank');
+  sbAbrirArchivo(e, { nombre: e.nombre });
 }
 function cannabisBorrarDoc(key){
   const c = cannabisClientes().find(x=>x.id===CANNABIS_FICHA); if(!c) return;
@@ -11013,7 +11117,7 @@ function adjuntarASoc(id) { __adjTargetSoc = id; document.getElementById('csAdjI
 function verComprobanteSoc(id) {
   const adj = CAJASOC_ADJ[id];
   if (!adj) return;
-  if (adj.url) { window.open(adj.url, '_blank'); return; }
+  if (adj.path || adj.url) { sbAbrirArchivo(adj, { nombre: adj.nombre }); return; }
   if (adj.data) { const a = document.createElement('a'); a.href = adj.data; a.download = adj.nombre || 'comprobante'; a.click(); }
 }
 function guardarDolarSoc() {
@@ -11479,7 +11583,7 @@ function renderComisionesDetalle() {
     + `</tbody><tfoot><tr><td colspan="4" style="text-align:right;font-weight:700;padding-top:8px">Total ${esc(comSocNombre(pid))}:</td><td style="text-align:right;font-weight:800;padding-top:8px">$ ${fmtNumStr(total)}</td></tr></tfoot>`;
 }
 
-function descargarReporteCajaSoc() {
+async function descargarReporteCajaSoc() {
   const mes = document.getElementById('csMes').value || hoyISO().slice(0, 7);
   const { movs, ingresos, gastosOrd, gastosEsc, t } = __socDatosMes(mes);
   if (!movs.length) { alert('No hay movimientos registrados en ' + mesLargo(mes) + '.'); return; }
@@ -11522,12 +11626,15 @@ function descargarReporteCajaSoc() {
   const rServ = __socRank(ingresos, 'concepto', '(sin concepto)', dolar).slice(0, 8);
   const rCli = __socRank(ingresos, 'contraparte', '(sin cliente)', dolar).slice(0, 8);
   const filaRk = (r, i) => `<tr><td style="width:26px;text-align:center;font-weight:700;color:#1b3a6b">${i + 1}</td><td>${esc(r.nombre)}</td><td class="der">${r.ars ? '$ ' + fmtNumStr(r.ars) : ''}${r.ars && r.usd ? ' · ' : ''}${r.usd ? 'u$s ' + fmtNumStr(r.usd) : ''}</td></tr>`;
-  const comps = movs.filter(m => CAJASOC_ADJ[m.id] && CAJASOC_ADJ[m.id].url);
+  const comps = movs.filter(m => CAJASOC_ADJ[m.id] && (CAJASOC_ADJ[m.id].url || CAJASOC_ADJ[m.id].path || CAJASOC_ADJ[m.id].data));
+  // Comprobantes incrustados: el balance descargado no depende de enlaces que vencen.
+  const EMBSOC = await sbEmbeberAdjuntos(comps.map(m => [m.id, CAJASOC_ADJ[m.id]]));
   const anexo = comps.length ? `<h2>Comprobantes adjuntos</h2><div class="comps">` + comps.map(m => {
     const adj = CAJASOC_ADJ[m.id];
     const esImg = (adj.tipo || '').startsWith('image');
+    const src = EMBSOC[m.id] || adj.data || adj.url || '';
     const tipoLbl = m.tipo === 'gasto' ? 'Gasto ordinario' : m.tipo === 'gasto_esc' ? 'Gasto escribanía' : 'Ingreso';
-    return `<figure>${esImg ? `<img src="${adj.url}" alt="">` : ''}<figcaption><b>${esc(m.contraparte || m.concepto)}</b> · ${formatFechaCorta(m.fecha)}<br>${tipoLbl} — ${m.moneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(m.monto)}<br><a href="${adj.url}" target="_blank">⬇ ${esc(adj.nombre || 'Ver comprobante')}</a></figcaption></figure>`;
+    return `<figure>${esImg && src ? `<img src="${src}" alt="">` : ''}<figcaption><b>${esc(m.contraparte || m.concepto)}</b> · ${formatFechaCorta(m.fecha)}<br>${tipoLbl} — ${m.moneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(m.monto)}<br>${src ? `<a href="${src}" download="${esc(adj.nombre || 'comprobante')}">⬇ ${esc(adj.nombre || 'Ver comprobante')}</a>` : ''}</figcaption></figure>`;
   }).join('') + '</div>' : '';
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11785,7 +11892,7 @@ function adjuntarA(id) { __adjTarget = id; document.getElementById('cajaAdjInput
 function verComprobante(id) {
   const adj = CAJA_ADJ[id];
   if (!adj) return;
-  if (adj.url) { window.open(adj.url, '_blank'); return; }
+  if (adj.path || adj.url) { sbAbrirArchivo(adj, { nombre: adj.nombre }); return; }
   const a = document.createElement('a');
   a.href = adj.data; a.download = adj.nombre || 'comprobante';
   a.click();
@@ -12752,11 +12859,7 @@ function sueldoEliminarPago(id){
 function sueldoDescargarComprob(id){
   const p = sueldoPagosMes(sueldoMesActual()).find(x => x.id === id);
   if (!p || !p.comprobante) return;
-  const u = p.comprobante.url || ((typeof sbPubUrl === 'function' && p.comprobante.path) ? sbPubUrl(p.comprobante.path) : null);
-  if (!u) return;
-  const a = document.createElement('a');
-  a.href = u; a.download = p.comprobante.nombre || 'comprobante'; a.target = '_blank';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  sbAbrirArchivo(p.comprobante, { descargar:true, nombre: p.comprobante.nombre || 'comprobante' });
 }
 
 // ── Ajuste por inflación del sueldo (base y mínimo se mueven juntos) ──
@@ -12832,7 +12935,7 @@ function sueldoConfirmarDeshacer(){
 }
 
 // ── Balance mensual descargable (HTML imprimible) ──
-function descargarReporteCaja() {
+async function descargarReporteCaja() {
   const mes = document.getElementById('cajaMes').value || hoyISO().slice(0, 7);
   const pagos = pagosDelMes(mes);
   if (!pagos.length) { alert('No hay pagos registrados en ' + mesLargo(mes) + '.'); return; }
@@ -12850,6 +12953,9 @@ function descargarReporteCaja() {
   const rank = Object.entries(porConcepto).map(([n, v]) => ({ n, ...v, clave: v.ars + v.usd * (dolar || 1) })).sort((a, b) => b.clave - a.clave);
   const maxClave = rank.length ? rank[0].clave : 1;
   const conAdj = pagos.filter(p => CAJA_ADJ[p.id]);
+  // Los comprobantes se incrustan en el archivo: así el balance sirve para siempre,
+  // aunque los enlaces venzan o el archivo se mueva.
+  const EMB = await sbEmbeberAdjuntos(conAdj.map(p => [p.id, CAJA_ADJ[p.id]]));
   const ficha = (lbl, val, sub, hi) => `<div class="ficha${hi ? ' hi' : ''}"><span>${lbl}</span><b>${val}</b>${sub ? `<i>${sub}</i>` : ''}</div>`;
 
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
@@ -13118,7 +13224,8 @@ ${rank.map((r, i) => `<tr><td>${i + 1}</td><td><b>${esc(r.n)}</b><div class="bar
 <table><thead><tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th class="r">Monto</th><th>Método</th><th class="r">Com. Kevin</th><th class="r">Com. Ori</th><th>Comprob.</th><th style="text-align:center">Rev.</th></tr></thead><tbody>
 ${pagos.map(p => { const c = comisionesDe(p); const sim = p.moneda === 'USD' ? 'u$s ' : '$ ';
   const adj = CAJA_ADJ[p.id];
-  const comp = adj ? (adj.url ? `<a href="${adj.url}" target="_blank">Ver</a>` : 'Sí') : '—';
+  const compSrc = adj ? (EMB[p.id] || adj.data || '') : '';
+  const comp = adj ? (compSrc ? `<a href="${compSrc}" download="${esc(adj.nombre || 'comprobante')}">Ver</a>` : 'Sí') : '—';
   return `<tr><td style="white-space:nowrap">${formatFechaCorta(p.fecha)}</td><td><b>${esc(p.cliente)}</b>${p.comisionOri ? '<span class="chip">Ori</span>' : ''}</td><td>${esc(p.concepto || '—')}</td>
   <td class="r ${p.moneda === 'USD' ? 'usd' : ''}">${montoTxt(p)}</td><td style="font-size:11.5px">${p.metodo}${p.receptor ? ' → ' + esc(p.receptor) : ''}</td>
   <td class="r">${sim}${fmtNumStr(c.k)}</td><td class="r">${c.o ? sim + fmtNumStr(c.o) : '—'}</td>
@@ -13129,10 +13236,10 @@ ${pagos.map(p => { const c = comisionesDe(p); const sim = p.moneda === 'USD' ? '
 ${conAdj.length ? `<h2>Comprobantes de pago</h2>
 <div class="comp">
 ${conAdj.map(p => { const adj = CAJA_ADJ[p.id]; const esImg = (adj.tipo || '').startsWith('image/') || /\.(jpe?g|png|webp|gif)$/i.test(adj.nombre || '');
-  const src = adj.url || adj.data || '';
+  const src = EMB[p.id] || adj.data || adj.url || '';
   return `<figure>
   ${esImg && src ? `<a href="${src}" target="_blank"><img src="${src}" alt="Comprobante ${esc(p.cliente)}"></a>` : `<div style="font-size:34px;text-align:center;padding:18px 0">📄</div>`}
-  <figcaption><b>${esc(p.cliente)}</b> · ${formatFechaCorta(p.fecha)}<br>${montoTxt(p)} — ${p.metodo}${p.receptor ? ' → ' + esc(p.receptor) : ''}<br>${src ? `<a href="${src}" ${adj.url ? 'target="_blank"' : `download="${esc(adj.nombre || 'comprobante')}"`}>⬇ ${esc(adj.nombre || 'Ver comprobante')}</a>` : ''}</figcaption>
+  <figcaption><b>${esc(p.cliente)}</b> · ${formatFechaCorta(p.fecha)}<br>${montoTxt(p)} — ${p.metodo}${p.receptor ? ' → ' + esc(p.receptor) : ''}<br>${src ? `<a href="${src}" download="${esc(adj.nombre || 'comprobante')}">⬇ ${esc(adj.nombre || 'Ver comprobante')}</a>` : ''}</figcaption>
 </figure>`; }).join('')}
 </div>` : ''}
 
@@ -13767,7 +13874,7 @@ function quitarAdjExp(expId, tipo, regId) {
 
 function abrirAdjExp(reg) {
   if (!reg) return;
-  if (reg.url) { window.open(reg.url, '_blank'); return; }
+  sbAbrirArchivo(reg, { nombre: reg.nombre });
 }
 
 // Bloque HTML del panel de adjuntos, para inyectar en el detalle de la causa
