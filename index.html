@@ -5673,9 +5673,8 @@ async function sbUrlFirmada(path, segundos){
   if (i < 0) return null;
   const bucket = p.slice(0, i), archivo = p.slice(i + 1);
   try {
-    const r = await fetch(`${SB_URL}/storage/v1/object/sign/${encodeURIComponent(bucket)}/${archivo.split('/').map(encodeURIComponent).join('/')}`, {
+    const r = await sbFetch(`${SB_URL}/storage/v1/object/sign/${encodeURIComponent(bucket)}/${archivo.split('/').map(encodeURIComponent).join('/')}`, {
       method: 'POST',
-      headers: sbHeaders(),
       body: JSON.stringify({ expiresIn: segundos || 300 })
     });
     if (!r.ok) return null;
@@ -5744,30 +5743,44 @@ function sbPubUrl(path) { // URL pública de un archivo del Storage ("bucket/arc
   const enc = partes.map(seg => encodeURIComponent(seg)).join('/');
   return `${SB_URL}/storage/v1/object/public/${enc}`;
 }
+// Hace el pedido y, si la credencial venció, la renueva y reintenta una vez.
+// Hace falta porque el navegador frena los temporizadores cuando la pestaña queda
+// en segundo plano o la máquina se suspende: al volver, la renovación programada
+// puede no haber corrido y el pedido fallaría por credencial vencida.
+async function sbFetch(url, opciones, extraHeaders) {
+  const armar = () => Object.assign({}, opciones || {}, { headers: sbHeaders(extraHeaders) });
+  let r = await fetch(url, armar());
+  if ((r.status === 401 || r.status === 403) && typeof sbRefrescarSesion === 'function') {
+    const ok = await sbRefrescarSesion();
+    if (ok) r = await fetch(url, armar());
+  }
+  return r;
+}
 async function sbSelect(tabla) {
-  const r = await fetch(`${SB_URL}/rest/v1/${tabla}?select=*`, { headers: sbHeaders() });
+  const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}?select=*`, {});
   if (!r.ok) throw new Error(tabla + ' ' + r.status);
   return r.json();
 }
 async function sbUpsert(tabla, fila) {
-  const r = await fetch(`${SB_URL}/rest/v1/${tabla}`, {
+  const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}`, {
     method: 'POST',
-    headers: sbHeaders({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
     body: JSON.stringify(fila)
-  });
+  }, { 'Prefer': 'resolution=merge-duplicates,return=minimal' });
   if (!r.ok) throw new Error(tabla + ' upsert ' + r.status + ': ' + (await r.text()).slice(0, 120));
 }
 async function sbDelete(tabla, id) {
-  const r = await fetch(`${SB_URL}/rest/v1/${tabla}?id=eq.${id}`, { method: 'DELETE', headers: sbHeaders({ 'Prefer': 'return=minimal' }) });
+  const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}?id=eq.${id}`, { method: 'DELETE' }, { 'Prefer': 'return=minimal' });
   if (!r.ok && r.status !== 404) throw new Error(tabla + ' delete ' + r.status);
 }
 async function sbUploadFile(bucket, nombre, blob) {
   const path = `${bucket}/${nombre}`;
-  const r = await fetch(`${SB_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(nombre)}`, {
-    method: 'POST',
-    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': blob.type, 'x-upsert': 'true' },
-    body: blob
-  });
+  const _url = `${SB_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(nombre)}`;
+  const _opts = () => ({ method: 'POST', headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': blob.type, 'x-upsert': 'true' }, body: blob });
+  let r = await fetch(_url, _opts());
+  if ((r.status === 401 || r.status === 403) && typeof sbRefrescarSesion === 'function') {
+    const ok = await sbRefrescarSesion();
+    if (ok) r = await fetch(_url, _opts());
+  }
   if (!r.ok) throw new Error('storage ' + r.status + ': ' + (await r.text()).slice(0, 120));
   return path;
 }
@@ -13398,6 +13411,7 @@ async function sbIngresar(email, password){
     email: (data.user && data.user.email) || email
   });
   sbProgramarRefresco();
+  sbVigilarRegreso();
   return true;
 }
 
@@ -13433,6 +13447,22 @@ function sbProgramarRefresco(){
   __refrescoProgramado = setTimeout(sbRefrescarSesion, Math.max(10000, faltan));
 }
 // Al abrir la aplicación: si la credencial venció pero el refresco sigue vivo, se renueva sola.
+// Al volver a la pestaña (o despertar la máquina) se revisa la credencial,
+// porque el temporizador de renovación pudo no haber corrido.
+function sbVigilarRegreso(){
+  if (typeof document === 'undefined' || document.__sbVigilando) return;
+  document.__sbVigilando = true;
+  const revisar = function(){
+    if (document.visibilityState !== 'visible') return;
+    const s = sbSesionLeer();
+    if (!s || !s.expires_at) return;
+    // si vence en menos de dos minutos (o ya venció), renovar ahora
+    if ((s.expires_at * 1000) - Date.now() < 2 * 60 * 1000) sbRefrescarSesion();
+    else sbProgramarRefresco();
+  };
+  document.addEventListener('visibilitychange', revisar);
+  window.addEventListener('focus', revisar);
+}
 async function sbRestaurarSesion(){
   const s = sbSesionLeer();
   if (!s) return false;
