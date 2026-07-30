@@ -2601,8 +2601,8 @@ body.locked .app{margin-left:0}
     <div class="login-marca">Lex<em>ia</em></div>
     <div class="login-sub">Estudio WE Legal · acceso privado</div>
     <div class="doble-filete" style="margin:14px 0 18px"></div>
-    <label>Usuario</label>
-    <input id="loginUser" autocomplete="username" onkeydown="if(event.key==='Enter')intentarLogin()">
+    <label>Correo</label>
+    <input id="loginUser" type="email" inputmode="email" autocomplete="username" placeholder="nombre@welegal.ar" onkeydown="if(event.key==='Enter')intentarLogin()">
     <label style="margin-top:10px">Contraseña</label>
     <input id="loginPass" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')intentarLogin()">
     <button class="btn-primary" style="width:100%;margin-top:16px;justify-content:center" onclick="intentarLogin()">INGRESAR</button>
@@ -5625,7 +5625,8 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const SB_ON = true; // interruptor global; si algo falla, la app sigue con el store local
 
 function sbHeaders(extra) {
-  return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' }, extra || {});
+  // La clave pública identifica al proyecto; la credencial de la sesión identifica a la persona.
+  return Object.assign({ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': 'application/json' }, extra || {});
 }
 function sbPubUrl(path) { // URL pública de un archivo del Storage ("bucket/archivo")
   // Codificar cada segmento igual que en la subida (encodeURIComponent por parte),
@@ -5655,7 +5656,7 @@ async function sbUploadFile(bucket, nombre, blob) {
   const path = `${bucket}/${nombre}`;
   const r = await fetch(`${SB_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(nombre)}`, {
     method: 'POST',
-    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': blob.type, 'x-upsert': 'true' },
+    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': blob.type, 'x-upsert': 'true' },
     body: blob
   });
   if (!r.ok) throw new Error('storage ' + r.status + ': ' + (await r.text()).slice(0, 120));
@@ -13234,26 +13235,135 @@ const PERFILES = {
   basico: { expedientes: false, cajaJud: false,  cajaSoc: false, inicioJud: false }
 };
 const USUARIOS = {
-  kevindaich: { h: 'mfwagv', nombre: 'Kevin',  perfil: 'total'  },
-  ivana:      { h: 'lw6yrr', nombre: 'Ivana',  perfil: 'total'  },
-  brenda:     { h: 't0ysox', nombre: 'Brenda', perfil: 'brenda' },
-  ori:        { h: 'kvfg3h', nombre: 'Oriana', perfil: 'ori'    },
-  sofig:      { h: 'nuazbt', nombre: 'Sofi G', perfil: 'sofig'  },
-  sofit:      { h: '7x7woj', nombre: 'Sofi T', perfil: 'basico' },
-  naza:       { h: 'qxjarh', nombre: 'Naza',   perfil: 'basico' }
+  kevindaich: { mail: 'kevin@welegal.ar',     nombre: 'Kevin',  perfil: 'total'  },
+  ivana:      { mail: 'ivana@welegal.ar',     nombre: 'Ivana',  perfil: 'total'  },
+  brenda:     { mail: 'bren@welegal.ar',      nombre: 'Brenda', perfil: 'brenda' },
+  ori:        { mail: 'oriana@welegal.ar',    nombre: 'Oriana', perfil: 'ori'    },
+  sofig:      { mail: 'sofi@welegal.ar',      nombre: 'Sofi G', perfil: 'sofig'  },
+  sofit:      { mail: 'sofia@welegal.ar',     nombre: 'Sofi T', perfil: 'basico' },
+  naza:       { mail: 'nazarena@welegal.ar',  nombre: 'Naza',   perfil: 'basico' }
 };
-function __hashCred(txt) {
-  let h = 5381;
-  for (let i = 0; i < txt.length; i++) h = ((h << 5) + h + txt.charCodeAt(i)) >>> 0;
-  return h.toString(36);
+// ═══════════ AUTENTICACIÓN CONTRA SUPABASE ═══════════
+// El ingreso deja de validarse contra una lista escrita en este archivo:
+// ahora Supabase verifica mail y contraseña y devuelve una credencial temporal.
+// Esa credencial es la que viaja en cada pedido, y es lo que permite que las
+// tablas exijan sesión válida en vez de estar abiertas a cualquiera.
+const SB_SESION_KEY = 'jc-sb-sesion-v1';
+let SB_SESION = null;          // { access_token, refresh_token, expires_at, email }
+let __refrescoProgramado = null;
+
+function sbSesionLeer(){
+  if (SB_SESION) return SB_SESION;
+  try { SB_SESION = JSON.parse(appStore.getItem(SB_SESION_KEY) || 'null'); } catch(e){ SB_SESION = null; }
+  return SB_SESION;
 }
+function sbSesionGuardar(s){
+  SB_SESION = s;
+  try { s ? appStore.setItem(SB_SESION_KEY, JSON.stringify(s)) : appStore.removeItem(SB_SESION_KEY); } catch(e){}
+}
+// La credencial que se manda en cada pedido. Si no hay sesión, cae en la clave
+// pública (necesaria para la propia pantalla de ingreso).
+function sbToken(){
+  const s = sbSesionLeer();
+  return (s && s.access_token) ? s.access_token : SB_KEY;
+}
+function sbSesionVigente(){
+  const s = sbSesionLeer();
+  return !!(s && s.access_token && s.expires_at && (s.expires_at * 1000) > Date.now());
+}
+
+// ── Ingreso ──
+async function sbIngresar(email, password){
+  const r = await fetch(`${SB_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST',
+    headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: (email||'').trim().toLowerCase(), password: password || '' })
+  });
+  const data = await r.json().catch(()=> ({}));
+  if (!r.ok || !data.access_token){
+    const msg = (data && (data.error_description || data.msg || data.message)) || '';
+    throw new Error(/invalid/i.test(msg) ? 'credenciales' : (msg || 'error'));
+  }
+  sbSesionGuardar({
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
+    expires_at: data.expires_at || (Math.floor(Date.now()/1000) + (data.expires_in || 3600)),
+    email: (data.user && data.user.email) || email
+  });
+  sbProgramarRefresco();
+  return true;
+}
+
+// ── Renovación automática ──
+// La credencial vence al rato; sin esto la sesión se cortaría en medio del trabajo.
+async function sbRefrescarSesion(){
+  const s = sbSesionLeer();
+  if (!s || !s.refresh_token) return false;
+  try {
+    const r = await fetch(`${SB_URL}/auth/v1/token?grant_type=refresh_token`, {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: s.refresh_token })
+    });
+    const data = await r.json().catch(()=> ({}));
+    if (!r.ok || !data.access_token) return false;
+    sbSesionGuardar({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token || s.refresh_token,
+      expires_at: data.expires_at || (Math.floor(Date.now()/1000) + (data.expires_in || 3600)),
+      email: s.email
+    });
+    sbProgramarRefresco();
+    return true;
+  } catch(e){ return false; }
+}
+function sbProgramarRefresco(){
+  if (__refrescoProgramado) clearTimeout(__refrescoProgramado);
+  const s = sbSesionLeer();
+  if (!s || !s.expires_at) return;
+  // renovar cinco minutos antes de que venza
+  const faltan = (s.expires_at * 1000) - Date.now() - 5*60*1000;
+  __refrescoProgramado = setTimeout(sbRefrescarSesion, Math.max(10000, faltan));
+}
+// Al abrir la aplicación: si la credencial venció pero el refresco sigue vivo, se renueva sola.
+async function sbRestaurarSesion(){
+  const s = sbSesionLeer();
+  if (!s) return false;
+  if (sbSesionVigente()){ sbProgramarRefresco(); return true; }
+  return await sbRefrescarSesion();
+}
+async function sbSalir(){
+  const s = sbSesionLeer();
+  if (s && s.access_token){
+    try {
+      await fetch(`${SB_URL}/auth/v1/logout`, {
+        method: 'POST',
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + s.access_token }
+      });
+    } catch(e){}
+  }
+  if (__refrescoProgramado) clearTimeout(__refrescoProgramado);
+  sbSesionGuardar(null);
+}
+// Del mail al usuario de la aplicación (los permisos siguen viviendo en este archivo)
+function usuarioPorMail(mail){
+  const m = (mail || '').trim().toLowerCase();
+  for (const u in USUARIOS){ if ((USUARIOS[u].mail || '').toLowerCase() === m) return u; }
+  return null;
+}
+
 function usuarioActual() {
   try {
+    // Sesión real de Supabase: el mail identifica a la persona.
+    const s = sbSesionLeer();
+    if (s && s.email){
+      if (__sesionVencida()) { cerrarSesion(); return null; }
+      return usuarioPorMail(s.email);
+    }
+    // Compatibilidad: sesión local previa (se usa en las pruebas y mientras se migra).
     const v = appStore.getItem(AUTH_KEY) || '';
     if (!v) return null;
-    // Si la sesión venció, la limpiamos y no hay usuario.
     if (__sesionVencida()) { try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {} return null; }
-    if (v === 'mfwagv') return 'kevindaich'; // sesión previa al sistema de usuarios
     if (v.startsWith('u:') && USUARIOS[v.slice(2)]) return v.slice(2);
   } catch (e) {}
   return null;
@@ -13263,20 +13373,8 @@ function perfilActual() {
   return PERFILES[(u && USUARIOS[u] && USUARIOS[u].perfil) || 'total'] || PERFILES.total;
 }
 function sesionActiva() { return !!usuarioActual(); }
-function loginCon(u, p) {
-  u = (u || '').trim().toLowerCase();
-  const reg = USUARIOS[u];
-  if (reg && __hashCred(u + ':' + (p || '')) === reg.h) {
-    try { appStore.setItem(AUTH_KEY, 'u:' + u); } catch (e) {}
-    __sesionMarcarLogin();
-    document.body.classList.remove('locked');
-    aplicarPermisos();
-    try { navTo('inicio'); } catch (e) {}
-    return true;
-  }
-  return false;
-}
 function cerrarSesion() {
+  try { sbSalir(); } catch (e) {}
   try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {}
   document.body.classList.add('locked');
   document.body.classList.remove('caja-ori');
@@ -13424,14 +13522,36 @@ function aplicarPermisos() {
   const tSel = document.getElementById('tTipo');
   if (tSel && !pf.inicioJud && tSel.value === 'audiencia') { tSel.value = 'tarea'; try { toggleTipoEvento(); } catch (e) {} }
 }
-function intentarLogin() {
-  const ok = loginCon(document.getElementById('loginUser').value, document.getElementById('loginPass').value);
+async function intentarLogin() {
   const err = document.getElementById('loginError');
-  if (!ok) {
-    err.textContent = 'Usuario o contraseña incorrectos.';
+  const btn = document.querySelector('#loginGate .btn-primary');
+  const mail = document.getElementById('loginUser').value;
+  const pass = document.getElementById('loginPass').value;
+  if (!mail || !pass){ err.textContent = 'Completá el correo y la contraseña.'; return; }
+  if (btn){ btn.disabled = true; btn.textContent = 'INGRESANDO…'; }
+  err.textContent = '';
+  try {
+    await sbIngresar(mail, pass);
+    const u = usuarioPorMail(mail);
+    if (!u){
+      await sbSalir();
+      err.textContent = 'Ese correo no está habilitado en el sistema.';
+      return;
+    }
+    __sesionMarcarLogin();
+    document.body.classList.remove('locked');
+    aplicarPermisos();
+    try { await sbCargarTodo(); } catch(e){}
+    try { navTo('inicio'); } catch (e) {}
+  } catch(e){
+    err.textContent = (e && e.message === 'credenciales')
+      ? 'Correo o contraseña incorrectos.'
+      : 'No se pudo conectar. Revisá tu conexión e intentá de nuevo.';
     document.getElementById('loginPass').value = '';
     document.getElementById('loginPass').focus();
-  } else err.textContent = '';
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = 'INGRESAR'; }
+  }
 }
 
 // ── Arranque ──
@@ -13514,6 +13634,24 @@ if (!sesionActiva()) {
   document.body.classList.add('locked');
   setTimeout(() => { const u = document.getElementById('loginUser'); if (u) u.focus(); }, 60);
 }
+// Al abrir: si quedó una sesión de Supabase, se restaura (renovándola si hizo falta)
+// para no obligar a ingresar de nuevo en cada visita.
+(async function(){
+  try {
+    if (typeof sbRestaurarSesion !== 'function') return;
+    const ok = await sbRestaurarSesion();
+    if (ok && usuarioActual()){
+      document.body.classList.remove('locked');
+      aplicarPermisos();
+      try { await sbCargarTodo(); } catch(e){}
+      try { navTo('inicio'); } catch(e){}
+    } else if (sbSesionLeer()){
+      // Había sesión pero ya no se puede renovar: se limpia y se pide ingresar.
+      sbSesionGuardar(null);
+      document.body.classList.add('locked');
+    }
+  } catch(e){}
+})();
 
 // ── Vigilante del timeout de sesión ──
 // Si la sesión se vence mientras el sitio está abierto (por absoluto o inactividad),
