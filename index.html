@@ -2661,7 +2661,7 @@ body.locked .app{margin-left:0}
       <!-- Toolbar: búsqueda + acciones rápidas + más filtros + nuevo -->
       <div class="crm-toolbar">
         <div class="crm-search">
-          <input id="crmBuscar" placeholder="Buscar cliente por nombre…" oninput="crmSetFiltro('texto', this.value)">
+          <input id="crmBuscar" placeholder="Buscar por entidad o por referente…" oninput="crmSetFiltro('texto', this.value)">
         </div>
         <button class="crm-chip" id="chipReunion" onclick="crmToggleChip('reunion')">📅 Con reunión pendiente</button>
         <button class="crm-chip" id="chipVence" onclick="crmToggleChip('vencePack')">⏳ Pack vence este mes</button>
@@ -4181,25 +4181,192 @@ async function procesarPdfAuto(input) {
 }
 
 // ── Resumen PDF del expediente ──
+// ═══════════ ANÁLISIS DE ESCRITOS DEL EXPEDIENTE ═══════════
+// Lee el texto de los PDF y extrae los datos que sirven para trabajar el caso.
+// No inventa: todo lo que informa sale de lo que está escrito en el documento.
+
+// Lee el texto de un adjunto ya subido (aunque se haya subido antes de esta función)
+async function expTextoDeAdjunto(reg){
+  if (!reg) return '';
+  try {
+    let url = null;
+    if (reg.path && typeof sbUrlFirmada === 'function') url = await sbUrlFirmada(reg.path, 300);
+    if (!url) url = reg.url || null;
+    if (!url) return '';
+    const resp = await fetch(url);
+    if (!resp.ok) return '';
+    const buf = await resp.arrayBuffer();
+    const bytes = new Uint8Array(buf);
+    const txt = await extractPdfText(bytes);
+    return (txt || '').replace(/\s+/g, ' ').trim();
+  } catch(e){ return ''; }
+}
+
+// Completa los textos del expediente leyendo los adjuntos que ya estaban subidos
+async function expAsegurarTextos(exp){
+  const adj = (typeof expAdjDe === 'function') ? expAdjDe(exp.id) : null;
+  if (!adj) return false;
+  let cambio = false;
+  if (!exp.textoDemanda && adj.demanda){
+    const t = await expTextoDeAdjunto(adj.demanda);
+    if (t.length > 40){ exp.textoDemanda = t.slice(0, 12000); cambio = true; }
+  }
+  if (!exp.textoContestacion && adj.contestaciones && adj.contestaciones.length){
+    const partes = [];
+    for (const c of adj.contestaciones){
+      const t = await expTextoDeAdjunto(c);
+      if (t.length > 40) partes.push(t);
+    }
+    if (partes.length){ exp.textoContestacion = partes.join('\n\n').slice(0, 12000); cambio = true; }
+  }
+  if (!exp.textoApertura && adj.prueba){
+    const t = await expTextoDeAdjunto(adj.prueba);
+    if (t.length > 40){ exp.textoApertura = t.slice(0, 12000); cambio = true; }
+  }
+  if (cambio){
+    try { saveExpedientes(); } catch(e){}
+    try { if (typeof sbPushExpediente === 'function') sbPushExpediente(exp); } catch(e){}
+  }
+  return cambio;
+}
+
+// ── Extracción de datos concretos del texto ──
+const __MESES_TXT = { enero:1, febrero:2, marzo:3, abril:4, mayo:5, junio:6, julio:7, agosto:8, septiembre:9, setiembre:9, octubre:10, noviembre:11, diciembre:12 };
+
+function expFechas(txt){
+  const out = [];
+  const t = txt || '';
+  // 12/03/2024
+  (t.match(/\b\d{1,2}\/\d{1,2}\/\d{2,4}\b/g) || []).forEach(f => out.push(f));
+  // 12 de marzo de 2024
+  const re = /\b(\d{1,2})\s+de\s+([a-záéíóú]+)\s+de\s+(\d{4})\b/gi;
+  let m; while ((m = re.exec(t))){
+    const mes = __MESES_TXT[m[2].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')];
+    if (mes) out.push(m[1].padStart(2,'0') + '/' + String(mes).padStart(2,'0') + '/' + m[3]);
+  }
+  return [...new Set(out)];
+}
+function expMontos(txt){
+  const out = [];
+  const re = /\$\s?([\d]{1,3}(?:[.\s]\d{3})+(?:,\d{2})?|\d{4,}(?:,\d{2})?)/g;
+  let m; while ((m = re.exec(txt || ''))){
+    const n = Number(String(m[1]).replace(/[.\s]/g,'').replace(',', '.'));
+    if (!isNaN(n) && n >= 1000) out.push(n);
+  }
+  return [...new Set(out)].sort((a,b)=> b-a);
+}
+function expNormas(txt){
+  const t = txt || '';
+  const out = new Set();
+  (t.match(/\b(?:ley(?:es)?)\s*n?[°º]?\s*([\d.]{4,6})/gi) || []).forEach(x => out.add(x.replace(/\s+/g,' ').trim()));
+  (t.match(/\bart(?:[íi]culo)?s?\.?\s*\d{1,4}\s*(?:de\s+la\s+)?(?:LCT|CCyC|C\.?C\.?y?C?\.?|CN|LRT)?/gi) || [])
+    .forEach(x => out.add(x.replace(/\s+/g,' ').trim()));
+  (t.match(/\bCCT\s*n?[°º]?\s*[\d\/]+/gi) || []).forEach(x => out.add(x.replace(/\s+/g,' ').trim()));
+  (t.match(/\bdecreto\s*n?[°º]?\s*[\d.\/]+/gi) || []).forEach(x => out.add(x.replace(/\s+/g,' ').trim()));
+  (t.match(/\bresoluci[oó]n\s*n?[°º]?\s*[\d.\/]+/gi) || []).forEach(x => out.add(x.replace(/\s+/g,' ').trim()));
+  return [...out].slice(0, 25);
+}
+function expPrueba(txt){
+  const t = (txt || '').toLowerCase();
+  const tipos = [
+    ['documental', /\bdocumental\b/],
+    ['informativa', /\binformativ[ao]\b/],
+    ['testimonial', /\btestimonial|testigos?\b/],
+    ['pericial contable', /\bpericial\s+contable\b/],
+    ['pericial médica', /\bpericial\s+m[eé]dic[ao]\b/],
+    ['pericial caligráfica', /\bpericial\s+calig/],
+    ['confesional', /\bconfesional|absoluci[oó]n de posiciones\b/],
+    ['reconocimiento judicial', /\breconocimiento judicial\b/]
+  ];
+  return tipos.filter(([, re]) => re.test(t)).map(([n]) => n);
+}
+// Frases donde se pide algo concreto (el petitorio suele estar ahí)
+function expPretensiones(txt){
+  const t = (txt || '');
+  const out = [];
+  const re = /((?:se\s+(?:condene|declare|haga lugar|ordene)|solicit[oa]|reclam[oa]|demand[oa])[^.]{15,220}\.)/gi;
+  let m; while ((m = re.exec(t)) && out.length < 8) out.push(m[1].replace(/\s+/g,' ').trim());
+  return out;
+}
+// Oraciones de un texto que contienen fechas o montos: suelen ser los hechos clave
+function expHechosClave(txt, max){
+  const t = (txt || '').replace(/\s+/g,' ');
+  const oraciones = t.split(/(?<=\.)\s+(?=[A-ZÁÉÍÓÚ])/).filter(o => o.length > 45 && o.length < 400);
+  const conDato = oraciones.filter(o => /\d{1,2}\/\d{1,2}\/\d{2,4}|\$\s?\d|\b(?:ley|art)\b/i.test(o));
+  return (conDato.length ? conDato : oraciones).slice(0, max || 6);
+}
+
+// Arma el análisis de un escrito
+function expAnalizar(txt){
+  return {
+    largo: (txt || '').length,
+    fechas: expFechas(txt).slice(0, 12),
+    montos: expMontos(txt).slice(0, 10),
+    normas: expNormas(txt),
+    prueba: expPrueba(txt),
+    pretensiones: expPretensiones(txt),
+    hechos: expHechosClave(txt, 6)
+  };
+}
+
 async function generarResumenPDF(id) {
   const exp = expedientes.find(e => e.id === id);
   if (!exp) return;
   const btns = [...document.querySelectorAll(`[data-resumen-id="${id}"]`)];
   btns.forEach(b => { b.dataset.lblOriginal = b.innerHTML; b.innerHTML = '⏳ Generando...'; b.disabled = true; });
 
-  const tieneTextos = exp.textoDemanda || exp.textoContestacion;
+  // Si los PDF se subieron antes de que existiera la lectura de texto, se leen ahora.
+  btns.forEach(b => { b.innerHTML = '⏳ Leyendo documentos...'; });
+  try { await expAsegurarTextos(exp); } catch(e){}
+  btns.forEach(b => { b.innerHTML = '⏳ Generando...'; });
+
+  const tieneTextos = exp.textoDemanda || exp.textoContestacion || exp.textoApertura;
   let resumenTexto = '';
 
   if (tieneTextos) {
-    // Generar resumen localmente con los datos disponibles
-    // (la llamada a API externa no funciona desde archivo local)
-    const parteActora = exp.partes?.find(p => p.rol === 'actor');
-    const partesDemandadas = exp.partes?.filter(p => p.rol === 'demandado' && !p.somos_nosotros);
-    const nosotros = exp.partes?.find(p => p.somos_nosotros);
+    const partesTxt = [];
+    const listar = (titulo, arr) => { if (arr && arr.length) partesTxt.push(titulo + '\n' + arr.map(x => '  · ' + x).join('\n')); };
+    const fmtM = n => '$ ' + Math.round(n).toLocaleString('es-AR');
 
-    resumenTexto = `HECHOS INVOCADOS POR EL ACTOR\n\n${exp.textoDemanda}\n\nPOSICION DE LA DEMANDADA\n\n${exp.textoContestacion}\n\nPUNTOS CONTROVERTIDOS\n\nDe la lectura de los escritos constitutivos surge que los hechos controvertidos son: (1) la existencia y condiciones del vínculo laboral invocado por el actor; (2) la remuneración percibida y su encuadramiento convencional; (3) las circunstancias del distracto; (4) el cumplimiento de las obligaciones registrales y de pago por parte de la demandada.`;
+    // Primero el escrito completo, que es lo que sirve para leer el caso;
+    // debajo, los datos extraídos para ubicarse rápido.
+    const bloque = (rotulo, txt) => {
+      if (!txt) return;
+      const a = expAnalizar(txt);
+      partesTxt.push('══ ' + rotulo + ' ══');
+      partesTxt.push(txt.trim());
+      partesTxt.push('');
+      const datos = [];
+      if (a.fechas.length) datos.push('Fechas: ' + a.fechas.join(' · '));
+      if (a.montos.length) datos.push('Montos: ' + a.montos.map(fmtM).join(' · '));
+      if (a.normas.length) datos.push('Normativa citada: ' + a.normas.join(' · '));
+      if (a.prueba.length) datos.push('Prueba ofrecida: ' + a.prueba.join(' · '));
+      if (datos.length){ partesTxt.push('— Datos del escrito —'); datos.forEach(d => partesTxt.push('  ' + d)); }
+      if (a.pretensiones.length) listar('— Lo que se pide —', a.pretensiones);
+      partesTxt.push('');
+    };
+
+    bloque('HECHOS INVOCADOS POR EL ACTOR', exp.textoDemanda);
+    bloque('POSICIÓN DE LA DEMANDADA', exp.textoContestacion);
+    bloque('APERTURA A PRUEBA', exp.textoApertura);
+
+    // Lo que aparece en la demanda y no en la contestación queda como controvertido
+    if (exp.textoDemanda && exp.textoContestacion){
+      const aD = expAnalizar(exp.textoDemanda), aC = expAnalizar(exp.textoContestacion);
+      const soloDemanda = aD.fechas.filter(f => aC.fechas.indexOf(f) === -1);
+      const normasComunes = aD.normas.filter(n => aC.normas.some(x => x.toLowerCase() === n.toLowerCase()));
+      partesTxt.push('══ PUNTOS A CONTRASTAR ══');
+      if (soloDemanda.length) listar('Fechas que invoca la actora y no aparecen en la contestación:', soloDemanda);
+      if (normasComunes.length) listar('Normas que ambas partes invocan:', normasComunes);
+      if (!soloDemanda.length && !normasComunes.length) partesTxt.push('  No se detectaron diferencias automáticas entre los escritos.');
+      partesTxt.push('');
+    }
+
+    partesTxt.push('══ NOTA ══');
+    partesTxt.push('Este resumen se arma leyendo los documentos del expediente y extrayendo fechas, montos, normas y prueba. No reemplaza la lectura de los escritos.');
+    resumenTexto = partesTxt.join('\n');
   } else {
-    resumenTexto = 'Este expediente no tiene textos de demanda o contestacion cargados.';
+    resumenTexto = 'No se pudo leer el contenido de los documentos. Puede pasar si el PDF es una imagen escaneada sin texto (en ese caso hace falta pasarlo por un reconocimiento de texto) o si todavía no adjuntaste la demanda, la contestación ni la apertura a prueba.';
   }
 
   btns.forEach(b => { b.innerHTML = b.dataset.lblOriginal || b.innerHTML; b.disabled = false; });
@@ -5894,7 +6061,19 @@ function sbPushCliente(c) { if (SB_ON) sbUpsert('clientes', clienteAFila(c)).cat
 function sbDelCliente(id) { if (SB_ON) sbDelete('clientes', id).catch(sbAvisarError); }
 
 // ── Carga inicial: pisa los stores locales con lo que hay en Supabase ──
+let __cargando = false;
 async function sbCargarTodo() {
+  if (!SB_ON) return;
+  // Sin sesión válida los pedidos darían 401 y aparecería el aviso rojo.
+  // Quien restaura o inicia sesión vuelve a llamar a esta función.
+  if (typeof sbSesionVigente === 'function' && !sbSesionVigente()) return false;
+  if (__cargando) return false;   // evita dos cargas simultáneas al abrir
+  __cargando = true;
+  try {
+  return await __sbCargarTodoInterno();
+  } finally { __cargando = false; }
+}
+async function __sbCargarTodoInterno() {
   if (!SB_ON) return;
   try {
     const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag] = await Promise.all([
@@ -6172,6 +6351,9 @@ async function sbGuardarComprobante(id, file) {
   if (!SB_ON || typeof fetch !== 'function') return;
   const run = () => sbCargarTodo().then(ok => {
     if (!ok) return;
+    __repintarTrasCarga();
+  }).catch(e => sbAvisarError(e));
+  window.__repintarTrasCarga = function(){
     try { if (typeof loadExpedientes === 'function') loadExpedientes(); } catch (e) {}
     try { actualizarFiltroSalas(); actualizarFiltroJuzgados(); renderCasos(); } catch (e) {}
     try { if (typeof renderExpedientes === 'function') renderExpedientes(); } catch (e) {}
@@ -6180,7 +6362,7 @@ async function sbGuardarComprobante(id, file) {
     try { if (typeof renderTareas === 'function') renderTareas(); } catch (e) {}
     try { if (typeof renderAudiencias === 'function') renderAudiencias(); } catch (e) {}
     try { if (typeof renderCRM === 'function') renderCRM(); } catch (e) {}
-  }).catch(e => sbAvisarError(e));
+  };
   // Esperar a que el bundle terminó de definir todo (caja.js va después en el ensamblado)
   let intentos = 0;
   const listo = () => typeof renderCaja === 'function' && typeof saveCajaLocal === 'function' && typeof loadExpedientes === 'function';
@@ -13679,6 +13861,7 @@ async function intentarLogin() {
     document.body.classList.remove('locked');
     aplicarPermisos();
     try { await sbCargarTodo(); } catch(e){}
+    try { if (typeof __repintarTrasCarga === 'function') __repintarTrasCarga(); } catch(e){}
     try { navTo('inicio'); } catch (e) {}
   } catch(e){
     err.textContent = (e && e.message === 'credenciales')
@@ -13781,6 +13964,7 @@ if (!sesionActiva()) {
       document.body.classList.remove('locked');
       aplicarPermisos();
       try { await sbCargarTodo(); } catch(e){}
+      try { if (typeof __repintarTrasCarga === 'function') __repintarTrasCarga(); } catch(e){}
       try { navTo('inicio'); } catch(e){}
     } else if (sbSesionLeer()){
       // Había sesión pero ya no se puede renovar: se limpia y se pide ingresar.
@@ -13883,6 +14067,26 @@ async function expAdjElegido(e) {
     else if (tipo === 'contestacion') adj.contestaciones.push(registro);
     saveExpAdj();
     if (typeof sbPushExpAdj === 'function') sbPushExpAdj(expId);
+
+    // Extraer el texto del PDF y guardarlo en el expediente: es lo que usa
+    // "Generar resumen". Antes el archivo se subía pero el texto no se leía,
+    // así que el resumen decía que no había nada cargado.
+    if (status) status.textContent = 'Leyendo el contenido…';
+    try {
+      const dataURL = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+      const texto = await extractPdfText(dataURL);
+      if (texto && texto.trim().length > 40){
+        const exp = expedientes.find(x => x.id === expId);
+        if (exp){
+          const limpio = texto.replace(/\s+/g, ' ').trim().slice(0, 12000);
+          if (tipo === 'demanda') exp.textoDemanda = limpio;
+          else if (tipo === 'contestacion') exp.textoContestacion = ((exp.textoContestacion || '') + '\n\n' + limpio).trim().slice(0, 12000);
+          else if (tipo === 'prueba') exp.textoApertura = limpio;
+          saveExpedientes();
+          if (typeof sbPushExpediente === 'function') sbPushExpediente(exp);
+        }
+      }
+    } catch(err){ console.warn('No se pudo leer el texto del PDF', err); }
     if (status) status.textContent = '';
     renderCausaDetalle(expedientes.find(x => x.id === expId));
   } catch (err) {
@@ -14347,7 +14551,15 @@ function packVenceEsteMes(c) {
 function clientesFiltrados() {
   let arr = (CLIENTES || []).slice();
   const f = __crmFiltros;
-  if (f.texto) { const t = __normBusqueda(f.texto).trim(); if (t) arr = arr.filter(c => __normBusqueda(c.entidad).includes(t)); }
+  if (f.texto) {
+    const t = __normBusqueda(f.texto).trim();
+    // Busca por nombre de la entidad y también por el referente,
+    // así escribiendo "carlos molina" aparece la ficha de su asociación.
+    if (t) arr = arr.filter(c =>
+      __normBusqueda(c.entidad).includes(t) ||
+      __normBusqueda(c.referente || '').includes(t)
+    );
+  }
   if (f.tipo) arr = arr.filter(c => (c.tipo || '') === f.tipo);
   if (f.encargada) arr = arr.filter(c => (c.encargada || '') === f.encargada);
   if (f.repro) arr = arr.filter(c => (c.reproTienen || 'no_aplica') === f.repro);
