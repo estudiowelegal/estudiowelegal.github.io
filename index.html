@@ -1679,6 +1679,32 @@ body.locked .app{margin-left:0}
 #panelRespaldo .resp-txt{font-size:13px;color:var(--tinta);line-height:1.6;margin-bottom:14px}
 #panelRespaldo .resp-acc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 #panelRespaldo .resp-nota{font-size:11.5px;color:var(--tinta-suave);line-height:1.5}
+/* Estado del juicio: cápsula destacada, a la derecha de la tarjeta */
+.exp-chip-estado{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.03em;
+  padding:6px 14px;border-radius:20px;white-space:nowrap;text-transform:uppercase;
+  background:#14294a;color:#fff;border:2px solid #c9a961;line-height:1.2}
+.exp-chip-estado.traba{background:#1b3a6b}
+.exp-chip-estado.prueba{background:#6d5a3a}
+.exp-chip-estado.alegatos{background:#5a4a7a}
+.exp-chip-estado.apelados{background:#14294a}
+.exp-chip-estado.apelados-ok{background:var(--ok,#1e7a48)}
+.exp-chip-estado.apelados-mal{background:var(--mal,#b3372a)}
+.exp-card .fila-chips{align-items:center}
+/* Editor en la ficha */
+.exp-estado-box{border:1px solid var(--filo);border-radius:10px;padding:14px 16px;margin-bottom:20px;background:var(--carta)}
+.exp-estado-h{font-size:11px;font-weight:700;color:var(--tinta-suave);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.exp-estado-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.exp-estado-sel{padding:9px 12px;border:1px solid var(--filo);border-radius:8px;font-family:var(--f-ui);
+  font-size:13.5px;font-weight:600;color:var(--tinta);background:var(--carta);cursor:pointer;min-width:190px}
+.exp-estado-sel:focus{outline:none;border-color:#14294a}
+.exp-sent{display:flex;flex-direction:column;gap:6px}
+.exp-sent-lbl{font-size:11px;color:var(--tinta-suave);font-weight:600}
+.exp-sent-btns{display:flex;gap:7px}
+.exp-sent-btn{padding:7px 14px;border:1px solid var(--filo);border-radius:8px;background:var(--carta);
+  font-family:var(--f-ui);font-size:12.5px;font-weight:600;cursor:pointer;color:var(--tinta-suave)}
+.exp-sent-btn.ok.on{background:var(--ok,#1e7a48);color:#fff;border-color:var(--ok,#1e7a48)}
+.exp-sent-btn.mal.on{background:var(--mal,#b3372a);color:#fff;border-color:var(--mal,#b3372a)}
+.exp-sent-btn:hover{border-color:#14294a}
 </style>
 </head>
 <body>
@@ -5196,10 +5222,83 @@ function renderExpedientes() {
         <span class="exp-chip rol">${(exp.rol||'').toUpperCase()}</span>
         ${exp.fuero ? `<span class="exp-chip fuero">${exp.fuero}</span>` : ''}
         ${alertas ? `<span class="exp-chip alerta">${alertas} a revisar</span>` : ''}
+        ${exp.estadoProc ? `<span class="exp-chip-estado ${expEstadoClase(exp)}">${expEstadoTexto(exp)}</span>` : ''}
       </div>
       <button class="exp-resumen" data-resumen-id="${exp.id}" onclick="event.stopPropagation();generarResumenPDF(${exp.id})">📄 Ver resumen</button>
     </div>`;
   }).join('');
+}
+
+// ═══════════ ESTADO PROCESAL DEL EXPEDIENTE ═══════════
+const EXP_ESTADOS = [
+  { v: 'traba',    lbl: 'Traba de litis' },
+  { v: 'prueba',   lbl: 'Prueba' },
+  { v: 'alegatos', lbl: 'Alegatos' },
+  { v: 'apelados', lbl: 'Apelados' }
+];
+function expEstadoLabel(v){
+  const e = EXP_ESTADOS.find(x => x.v === v);
+  return e ? e.lbl : '';
+}
+// Texto que se muestra en la cápsula: si está apelado, aclara cómo salió primera instancia
+function expEstadoTexto(exp){
+  const base = expEstadoLabel(exp.estadoProc);
+  if (!base) return '';
+  if (exp.estadoProc === 'apelados' && exp.sentencia1ra){
+    return base + ' · 1ra ' + (exp.sentencia1ra === 'positiva' ? 'favorable' : 'desfavorable');
+  }
+  return base;
+}
+function expEstadoClase(exp){
+  if (exp.estadoProc !== 'apelados') return exp.estadoProc || '';
+  if (exp.sentencia1ra === 'positiva') return 'apelados-ok';
+  if (exp.sentencia1ra === 'negativa') return 'apelados-mal';
+  return 'apelados';
+}
+// Guarda el estado y lo sincroniza
+function expSetEstado(id, valor){
+  const exp = expedientes.find(e => e.id === id);
+  if (!exp) return;
+  exp.estadoProc = valor || '';
+  if (valor !== 'apelados') exp.sentencia1ra = '';   // solo aplica a apelados
+  saveExpedientes();
+  try { if (typeof sbPushExpediente === 'function') sbPushExpediente(exp); } catch(e){}
+  try { renderExpedientes(); } catch(e){}
+  try { renderCausaDetalle(exp); } catch(e){}
+}
+function expSetSentencia(id, valor){
+  const exp = expedientes.find(e => e.id === id);
+  if (!exp) return;
+  exp.sentencia1ra = valor || '';
+  saveExpedientes();
+  try { if (typeof sbPushExpediente === 'function') sbPushExpediente(exp); } catch(e){}
+  try { renderExpedientes(); } catch(e){}
+  try { renderCausaDetalle(exp); } catch(e){}
+}
+// Bloque editable para la ficha del expediente
+function htmlEstadoExp(exp){
+  const opciones = EXP_ESTADOS.map(e =>
+    `<option value="${e.v}" ${exp.estadoProc === e.v ? 'selected' : ''}>${e.lbl}</option>`).join('');
+  const esApelado = exp.estadoProc === 'apelados';
+  return `<div class="exp-estado-box">
+    <div class="exp-estado-h">Estado del juicio</div>
+    <div class="exp-estado-row">
+      <select class="exp-estado-sel" onchange="expSetEstado(${exp.id}, this.value)">
+        <option value="" ${!exp.estadoProc ? 'selected' : ''}>— sin definir —</option>
+        ${opciones}
+      </select>
+      ${esApelado ? `
+        <div class="exp-sent">
+          <span class="exp-sent-lbl">Sentencia de primera instancia</span>
+          <div class="exp-sent-btns">
+            <button class="exp-sent-btn ok ${exp.sentencia1ra === 'positiva' ? 'on' : ''}"
+                    onclick="expSetSentencia(${exp.id},'positiva')">Favorable</button>
+            <button class="exp-sent-btn mal ${exp.sentencia1ra === 'negativa' ? 'on' : ''}"
+                    onclick="expSetSentencia(${exp.id},'negativa')">Desfavorable</button>
+          </div>
+        </div>` : ''}
+    </div>
+  </div>`;
 }
 
 // ── Nueva causa ──
@@ -5343,6 +5442,7 @@ function closeCausaDetalle() { document.getElementById('causaDetalleOverlay').cl
 function renderCausaDetalle(exp) {
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   let html = '';
+  html += htmlEstadoExp(exp);
   if (typeof htmlAdjuntosExp === 'function') html += htmlAdjuntosExp(exp.id);
 
   (exp.partes||[]).forEach((parte, pi) => {
@@ -5987,12 +6087,17 @@ function casoAFila(c) {
 function expedienteAFila(e) {
   return { id: e.id, caratula: e.caratula ?? null, expediente: e.expediente ?? null, fuero: e.fuero ?? null,
     juzgado: e.juzgado ?? null, rol: e.rol ?? null, creado: e.creado ?? null, jurisdiccion: e.jurisdiccion ?? null,
-    texto_demanda: e.textoDemanda ?? null, texto_contestacion: e.textoContestacion ?? null, partes: e.partes || [] };
+    texto_demanda: e.textoDemanda ?? null, texto_contestacion: e.textoContestacion ?? null,
+    texto_apertura: e.textoApertura ?? null,
+    estado_proc: e.estadoProc ?? null, sentencia_1ra: e.sentencia1ra ?? null,
+    partes: e.partes || [] };
 }
 function filaAExpediente(f) {
   return { id: f.id, caratula: f.caratula, expediente: f.expediente, fuero: f.fuero, juzgado: f.juzgado,
     rol: f.rol, creado: f.creado, jurisdiccion: f.jurisdiccion, textoDemanda: f.texto_demanda,
-    textoContestacion: f.texto_contestacion, partes: f.partes || [] };
+    textoContestacion: f.texto_contestacion, textoApertura: f.texto_apertura,
+    estadoProc: f.estado_proc || '', sentencia1ra: f.sentencia_1ra || '',
+    partes: f.partes || [] };
 }
 function pagoAFila(p) {
   return { id: p.id, fecha: p.fecha ?? null, cliente: p.cliente ?? null, concepto: p.concepto ?? null,
