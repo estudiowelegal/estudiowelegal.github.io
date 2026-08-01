@@ -162,6 +162,7 @@ body.caja-ori #paginaCaja th:nth-child(6),body.caja-ori #paginaCaja td:nth-child
 .cj-sug-it .n{font-weight:600;color:#15263f;flex:1;min-width:0;line-height:1.35}
 .cj-sug-it .t{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:#e6eef8;color:#1b3a6b;white-space:nowrap}
 .cj-sug-it .t.hist{background:#f2f1ec;color:#8a8674}
+.cj-sug-it .n .via{display:block;font-size:10.5px;font-weight:500;color:#8a6d1f;margin-top:1px}
 .cj-sug-it .e{font-size:10px;color:#8a6d1f;background:#f8f1de;border:1px solid #e6d3a0;padding:2px 7px;border-radius:5px;white-space:nowrap}
 .cj-sug-vacio{padding:10px 12px;font-size:12px;color:#8a8f98;font-style:italic}
 
@@ -730,6 +731,7 @@ body.locked .ofi-overlay,body.locked #causaDetalleOverlay{display:none !importan
 .crm-row .tag.pf{background:#efe8f3;color:#6b4a8a}
 .crm-row .tag.nocontactar{background:var(--crm-rojo-bg);color:var(--crm-rojo)}
 .crm-row .tag.excliente{background:#eef1ec;color:#7a8578}
+.crm-row .tag.esporadico{background:#f4ece0;color:#8a5a2b;border:1px solid #e3d3bd}
 .crm-nombre .tag-enc{font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;background:#f8f1de;color:#8a6d1f;border:1px solid #e6d3a0}
 .crm-nombre .tag-enc.vacia{background:#f4f2ec;color:#a89a7a;border:1px dashed #d8cdb0}
 .crm-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;text-align:right;white-space:nowrap}
@@ -1164,6 +1166,18 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ok,#1e7a48)}
 .abo-kpi.usd::before{background:#2e7d32}
 .abo-kpi.neutral::before{background:var(--warn,#a86e17)}
+.abo-kpi.sello::before{background:var(--sello,#1b3a6b)}
+.wl-kpis{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.abo-kpi.wl::before{background:#8a5a2b}
+.abo-kpi.wl .val{color:#8a5a2b}
+.pack-pct{font-size:10px;color:var(--tinta-suave);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip-pack{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10px;font-weight:800;
+  letter-spacing:.4px;text-transform:uppercase;background:#f0e4d4;color:#8a5a2b;border:1px solid #e0cbb0;
+  vertical-align:middle;white-space:nowrap}
+.pack-linea{margin-top:3px;font-size:10.5px;color:#8a5a2b;line-height:1.4}
+.pack-linea b{font-weight:700}
+.cs-nota-pack{margin-top:4px;font-size:10.5px;color:#8a5a2b;line-height:1.4}
+.cj-kpis{grid-template-columns:repeat(auto-fit,minmax(215px,1fr));margin-bottom:18px}
 .abo-kpi .lbl{font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--tinta-suave);font-weight:600;margin-bottom:7px}
 .abo-kpi .val{font-family:var(--f-display);font-size:23px;font-weight:600;color:var(--tinta);line-height:1.1}
 .abo-kpi .sub{font-size:12px;color:var(--tinta-suave);margin-top:5px}
@@ -1408,7 +1422,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .infl-remin-acc{display:flex;gap:8px;flex-wrap:wrap}
 .infl-remin-ok{background:transparent;color:var(--tinta-suave);border:1px solid var(--filo);border-radius:8px;font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;padding:9px 15px;cursor:pointer}
 .infl-remin-ok:hover{background:var(--papel)}
-/* ═══ Control de ingresos ═══ */
+/* ═══ Control financiero ═══ */
 .ing-total-box{background:#14294a;border-radius:var(--radio,12px);padding:22px 24px;margin-bottom:24px;border:2px solid #c9a961}
 .ing-total-lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#c9a961;font-weight:700;margin-bottom:12px}
 .ing-total-montos{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
@@ -1621,6 +1635,7 @@ body.locked .app{margin-left:0}
 .sue-kpi .val{font-family:var(--f-display);font-size:25px;font-weight:600;color:var(--tinta);line-height:1.1;white-space:nowrap}
 .sue-kpi .sub{font-size:11.5px;color:var(--tinta-suave);margin-top:7px;line-height:1.5}
 .sue-kpi .bar{height:6px;background:var(--filo-suave);border-radius:4px;overflow:hidden;margin-top:10px}
+.sue-kpi .sue-arr{margin-top:5px;font-size:10.5px;font-weight:600;color:var(--ok);text-transform:uppercase;letter-spacing:.5px}
 .sue-kpi .bar span{display:block;height:100%;background:#14294a;border-radius:4px;transition:width .4s}
 .sue-kpi.principal{background:#14294a;border-color:#c9a961;border-width:2px}
 .sue-kpi.principal .lbl{color:#c9a961}
@@ -1666,9 +1681,29 @@ body.locked .app{margin-left:0}
 .gas-acc{flex:0 0 168px;display:flex;align-items:center;justify-content:flex-end;gap:6px}
 .abo-row.gas-baja{opacity:.55}
 .abo-row-head .gas-con,.abo-row-head .gas-monto,.abo-row-head .gas-desde,.abo-row-head .gas-estado{font-size:10.5px}
-.gas-kpis{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-bottom:22px;align-items:stretch}
+.gas-kpis{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:14px;margin-bottom:22px;align-items:stretch}
+.gas-sue-sub{font-size:10.5px;color:var(--tinta-suave);margin-top:6px;line-height:1.4}
+.gas-sue-falta{font-size:11.5px;color:var(--warn);font-weight:600;font-style:italic}
+.gas-sue-min{display:block;font-size:10px;font-weight:600;color:var(--warn);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.gas-sue-pie{padding:11px 14px;font-size:11.5px;color:var(--tinta-suave);line-height:1.55;border-top:1px solid var(--filo)}
+.eq-base{flex:1.3;min-width:0}
+.ing-gasto-it.sueldos{background:#f2efe4;box-shadow:inset 3px 0 0 var(--oro,#c9a961)}
+.ing-gasto-it.sueldos .lbl{font-weight:700;color:var(--tinta)}
+.ing-gasto-it.sueldos .det{font-size:10.5px;color:var(--tinta-suave);line-height:1.4}
+.gas-sue-nota{font-size:11.5px;color:var(--tinta-suave);line-height:1.55;margin:-2px 0 12px}
+.abo-infl-desde{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 4px;padding:11px 13px;
+  background:var(--carta);border:1px solid var(--filo);border-radius:9px}
+.abo-infl-desde label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;font-weight:700;color:var(--tinta-suave)}
+.abo-infl-desde input{padding:6px 9px;border:1px solid var(--filo);border-radius:7px;font-size:13px;
+  font-weight:700;color:var(--tinta);background:var(--papel);font-family:inherit}
+.abo-infl-desde input:focus{outline:none;border-color:var(--sello)}
+.abo-infl-desde-n{font-size:11px;color:var(--tinta-suave)}
+.eq-base-fija{font-size:13px;font-weight:700;color:var(--tinta)}
+.eq-base small{display:block;font-size:10.5px;color:var(--tinta-suave);font-weight:400;margin-top:2px}
+.abo-row-head .eq-base{font-size:10.5px;font-weight:700;color:var(--tinta-suave)}
 .gas-kpis .ing-total-box{margin-bottom:0;display:flex;flex-direction:column;justify-content:center}
 .gas-kpis .ing-fuente{display:flex;flex-direction:column;justify-content:center}
+@media (max-width:1150px){ .gas-kpis{grid-template-columns:1fr 1fr} }
 @media (max-width:900px){ .gas-kpis{grid-template-columns:1fr} }
 .abo-c-factura{flex:1.3;min-width:0}
 .abo-fact-sel{width:100%;padding:5px 7px;border:1px solid var(--filo);border-radius:7px;
@@ -1735,7 +1770,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1835,7 +1870,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -1905,7 +1940,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2022,7 +2057,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2101,7 +2136,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2290,7 +2325,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2298,7 +2333,7 @@ body.locked .app{margin-left:0}
   <div class="page-body">
     <div class="page-inner">
       <div class="page-head">
-        <div class="hero-eyebrow">Control de ingresos del estudio</div>
+        <div class="hero-eyebrow">Control financiero del estudio</div>
         <h1 class="hero-title">Caja, mes a <em>mes</em></h1>
         <div class="doble-filete"></div>
         <div class="abo-subtabs" id="cajaSubtabs" style="margin-top:16px">
@@ -2315,7 +2350,7 @@ body.locked .app{margin-left:0}
 
       <div id="cajaSubBWrap" style="display:none"></div>
       <div id="cajaSubA">
-      <div class="stat-tiles" id="cajaTiles"></div>
+      <div class="abo-kpis cj-kpis" id="cajaTiles"></div>
 
       <div class="panel cb-panel" style="margin-top:16px">
         <div class="panel-h"><h3>🔎 Búsqueda histórica</h3><span class="mini">en todos los pagos registrados, sin importar el mes</span></div>
@@ -2442,7 +2477,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2483,13 +2518,19 @@ body.locked .app{margin-left:0}
           <div class="f-row" style="align-items:end">
             <div class="f-col" style="flex:0 0 145px"><label>Fecha</label><input type="date" id="csFecha"></div>
             <div class="f-col" style="flex:0 0 130px"><label>Tipo</label>
-              <select id="csTipo" onchange="csToggleCuotaVisibilidad()"><option value="ingreso">▲ Ingreso</option><option value="gasto">▼ Gasto ordinario</option><option value="gasto_esc">▼ Gasto escribanía</option></select>
+              <select id="csTipo" onchange="csToggleCuotaVisibilidad();csPackHint()"><option value="ingreso">▲ Ingreso</option><option value="gasto">▼ Gasto ordinario</option><option value="gasto_esc">▼ Gasto escribanía</option></select>
             </div>
             <div class="f-col" style="flex:1;min-width:160px;position:relative"><label>Cliente / proveedor</label><input id="csContra" placeholder="Branca e Hijos SAS" autocomplete="off" oninput="csSugRender()" onfocus="csSugRender()" onkeydown="csSugTecla(event)"><div id="csSugBox" class="cj-sug" style="display:none"></div></div>
-            <div class="f-col" style="flex:1.3;min-width:180px"><label>Concepto</label><input id="csConcepto" placeholder="Constitución SAS / Tasa IGJ"></div>
-            <div class="f-col" style="flex:0 0 140px"><label>Monto</label><input type="text" inputmode="decimal" id="csMonto" oninput="fmtMiles(this)" placeholder="450.000"></div>
+            <div class="f-col" style="flex:0 0 165px"><label>Pack prearmado</label>
+              <select id="csPack" onchange="csPackChange()">
+                <option value="">— Sin pack —</option>
+                <option value="full">Pack Full</option>
+                <option value="simple">Pack Simple</option>
+              </select></div>
+            <div class="f-col" style="flex:1.3;min-width:180px"><label>Concepto</label><input id="csConcepto" placeholder="Constitución SAS / Tasa IGJ" oninput="csPackSync()"></div>
+            <div class="f-col" style="flex:0 0 140px"><label>Monto</label><input type="text" inputmode="decimal" id="csMonto" oninput="fmtMiles(this);csPackHint()" placeholder="450.000"></div>
             <div class="f-col" style="flex:0 0 95px"><label>Moneda</label>
-              <select id="csMoneda" onchange="csToggleDolarDia()"><option value="ARS">$ ARS</option><option value="USD">u$s USD</option></select>
+              <select id="csMoneda" onchange="csToggleDolarDia();csPackHint()"><option value="ARS">$ ARS</option><option value="USD">u$s USD</option></select>
             </div>
             <div class="f-col" style="flex:0 0 165px" id="csDolarDiaWrap"><label>Valor del dólar hoy ($)</label><input type="text" inputmode="decimal" id="csDolarDia" oninput="fmtMiles(this)" placeholder="Ej: 1.480"></div>
             <div class="f-col" style="flex:0 0 140px"><label>Método</label>
@@ -2505,7 +2546,7 @@ body.locked .app{margin-left:0}
           </div>
           <div class="lq-rubros" id="csOpcionesWrap" style="grid-template-columns:1fr 1fr;margin:10px 0 0">
             <label class="lq-rubro" id="csDesgloseChkWrap">
-              <input type="checkbox" id="csTieneGastos" onchange="csToggleDesglose()">
+              <input type="checkbox" id="csTieneGastos" onchange="csToggleDesglose();csPackHint()">
               <span class="tx"><b>🧾 Este pago incluye gastos</b><small>Desglosar cuánto es de honorarios y cuánto de gastos adelantados.</small></span>
             </label>
             <label class="lq-rubro" id="csCuotaChkWrap">
@@ -2513,6 +2554,7 @@ body.locked .app{margin-left:0}
               <span class="tx"><b>💳 Es una cuota de un plan</b><small>Vincular el pago a un plan de cuotas, nuevo o existente.</small></span>
             </label>
           </div>
+          <div class="cuota-hint" id="csPackHint" style="margin:10px 0 0;display:none"></div>
           <div class="f-row" style="margin:10px 0 0;align-items:end" id="csComisionWrap">
             <div class="f-col" style="flex:0 0 250px"><label>Asignar comisión a</label>
               <select id="csComisionPara">
@@ -2526,9 +2568,9 @@ body.locked .app{margin-left:0}
           <div class="cuota-box oculto" id="csDesgloseBox" style="border-left-color:#2b6cb0">
             <div class="f-row" style="margin-bottom:0;align-items:end">
               <div class="f-col" style="flex:0 0 160px"><label>Honorarios</label>
-                <input type="text" inputmode="decimal" id="csHonorarios" oninput="fmtMiles(this);csChequearDesglose()" placeholder="500.000"></div>
+                <input type="text" inputmode="decimal" id="csHonorarios" oninput="fmtMiles(this);csChequearDesglose();csPackHint()" placeholder="500.000"></div>
               <div class="f-col" style="flex:0 0 160px"><label>Gastos</label>
-                <input type="text" inputmode="decimal" id="csGastos" oninput="fmtMiles(this);csChequearDesglose()" placeholder="100.000"></div>
+                <input type="text" inputmode="decimal" id="csGastos" oninput="fmtMiles(this);csChequearDesglose();csPackHint()" placeholder="100.000"></div>
               <div class="f-col"><div class="cuota-hint" id="csDesgloseHint" style="margin:0"></div></div>
             </div>
           </div>
@@ -2625,6 +2667,64 @@ body.locked .app{margin-left:0}
 </div>
 <input type="file" id="csAdjInput" accept="image/*,.pdf" style="display:none" onchange="cajaSocAdjElegido(this)">
 
+<!-- ═══════════ PÁGINA CAJA WE LEGAL ═══════════ -->
+<div id="paginaWeLegal" class="page-shell" style="display:none">
+  <div class="ribbon">
+    <div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
+      <div class="ribbon-sub">Estudio WE Legal</div>
+    </div>
+    <div class="ribbon-sep"></div>
+    <nav class="ribbon-nav" data-navbar>
+      <button class="pill-nav" data-nav="inicio" onclick="navTo('inicio')">🏠 Inicio</button>
+      <button class="pill-nav" data-nav="jurisprudencia" onclick="navTo('jurisprudencia')">⚖ Jurisprudencia</button>
+      <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
+      <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
+      <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="cajasoc" onclick="navTo('cajasoc')">💼 Caja societaria</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
+      <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
+      <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-inner">
+      <div class="page-head">
+        <div class="hero-eyebrow">Reparto de los packs · solo lectura</div>
+        <h1 class="hero-title">Caja <em>WE Legal</em> (packs)</h1>
+        <div class="doble-filete"></div>
+        <div class="f-row" style="margin-top:14px;align-items:end">
+          <div class="f-col" style="flex:0 0 165px"><label>Mes</label><input type="month" id="wlMes" onchange="renderWeLegal()"></div>
+          <div class="f-col" style="flex:0 0 175px"><label>Valor actual del dólar ($)</label><input type="text" inputmode="decimal" id="wlDolar" oninput="fmtMiles(this);wlGuardarDolar();renderWeLegal()" placeholder="Ej: 1.480"></div>
+          <div class="f-col"><div class="cuota-hint" style="margin:0">Los cobros se cargan desde la <b>caja societaria</b>. Acá se ve únicamente la parte que le corresponde a WE Legal.</div></div>
+        </div>
+      </div>
+
+      <div class="abo-kpis wl-kpis" id="wlTiles"></div>
+
+      <div class="panel lista-amplia" style="margin-top:16px">
+        <div class="panel-h"><h3>Cobros repartidos del mes</h3><span class="mini" id="wlMini"></span></div>
+        <div style="padding:14px 16px">
+          <div style="overflow-x:auto"><table class="tabla-caja" id="wlTabla"></table></div>
+          <div class="panel-empty" id="wlVacia" style="display:none">No hay cobros de packs este mes. Cargá un ingreso en la caja societaria con concepto <b>Pack Full</b> o <b>Pack Simple</b> y el reparto se hace solo.</div>
+        </div>
+      </div>
+
+      <div class="grid-caja-4" style="margin-top:16px">
+        <div class="panel">
+          <div class="panel-h"><h3>Aporte por pack</h3><span class="mini">qué pack trajo más plata este mes</span></div>
+          <div id="wlRankPack"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>Clientes que más aportaron</h3><span class="mini">ranking por cliente — parte de WE Legal</span></div>
+          <div id="wlRankCli"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════ LISTADO DE OFICIOS A REITERAR ═══════════ -->
 <div class="ofi-overlay" id="oficiosOverlay" onclick="if(event.target===this)cerrarListadoOficios()">
   <div class="ofi-modal">
@@ -2667,7 +2767,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -2735,6 +2835,16 @@ body.locked .app{margin-left:0}
           <option value="si">Con pendiente</option>
           <option value="no">Sin pendiente</option>
         </select>
+        <select id="crmFiltroEstado" onchange="crmSetFiltro('estado', this.value)">
+          <option value="">Todos los clientes</option>
+          <option value="esporadico">◆ Solo esporádicos</option>
+          <option value="esporadico_jud">◆ Esporádicos · caja judicial</option>
+          <option value="esporadico_soc">◆ Esporádicos · caja societaria</option>
+          <option value="esporadico_wl">◆ Esporádicos · caja WE Legal</option>
+          <option value="no_esporadico">Sin los esporádicos</option>
+          <option value="ex_cliente">Ex clientes</option>
+          <option value="no_contactar">No contactar</option>
+        </select>
         <button class="crm-limpiar" onclick="crmLimpiarFiltros()">Limpiar filtros</button>
       </div>
 
@@ -2759,7 +2869,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -3087,7 +3197,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -3112,7 +3222,7 @@ body.locked .app{margin-left:0}
       <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
       <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
       <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
-      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Ingresos</button>
+      <button class="pill-nav" data-nav="ingresos" onclick="navTo('ingresos')">📊 Control financiero</button>
       <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
       <button class="pill-nav" data-nav="herramientas" onclick="navTo('herramientas')">🧮 Herramientas</button>
     </nav>
@@ -5863,6 +5973,7 @@ function exportarDatos() {
     abonos: (typeof ABONOS !== 'undefined') ? ABONOS : [],
     sueldo: (typeof SUELDO !== 'undefined' && SUELDO) ? SUELDO : (typeof loadSueldo === 'function' ? loadSueldo() : null),
     gastos: (typeof GASTOS !== 'undefined' && GASTOS) ? GASTOS : (typeof loadGastos === 'function' ? loadGastos() : null),
+    equipo: (typeof loadEquipo === 'function') ? loadEquipo() : null,
     expAdjuntos: (typeof EXP_ADJ !== 'undefined') ? EXP_ADJ : {},
     generado: new Date().toISOString(),
     version: LS_KEY
@@ -5899,6 +6010,7 @@ function importarDatos(input) {
       if (d.abonos && typeof ABONOS !== 'undefined') { ABONOS = d.abonos; try { saveAbonos(); } catch(e){} }
       if (d.sueldo && typeof SUELDO !== 'undefined') { SUELDO = d.sueldo; try { saveSueldo(); } catch(e){} }
       if (d.gastos && typeof GASTOS !== 'undefined') { GASTOS = d.gastos; try { saveGastos(); } catch(e){} }
+      if (d.equipo && typeof loadEquipo === 'function') { EQUIPO = d.equipo; try { saveEquipoLocal(); } catch(e){} }
       if (d.expAdjuntos && typeof EXP_ADJ !== 'undefined') { EXP_ADJ = d.expAdjuntos; try { saveExpAdj(); } catch(e){} }
       try { renderInicio(); } catch(e) {}
       actualizarFiltroSalas(); actualizarFiltroJuzgados(); renderCasos(); renderExpedientes();
@@ -6275,6 +6387,10 @@ async function __sbCargarTodoInterno() {
     // Config compartida (dólar, uma, feriados, ferias)
     const cfg = {}; (rCfg || []).forEach(x => cfg[x.clave] = x.valor);
     if (cfg.dolar) appStore.setItem(DOLAR_KEY, cfg.dolar);
+    // Tabla de sueldos del equipo (viaja en config, no tiene tabla propia)
+    if (cfg.sueldos_equipo && typeof equipoDesdeNube === 'function') equipoDesdeNube(cfg.sueldos_equipo);
+    // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
+    if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
     // Feriados y ferias: lo que está en la nube manda (es compartido por todo el estudio)
     if (cfg.feriados) {
@@ -6578,7 +6694,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -6892,41 +7008,64 @@ function abonoMarcarInflVisto(){
   const ym = hoyISO().slice(0,7);
   try { appStore.setItem(ABONOS_INFL_VISTO_KEY, ym); } catch(e){}
 }
-function abonoTocaAjusteInflacion(){
-  const hoy = hoyISO(); const ym = hoy.slice(0,7);
+// ═══════ TRIMESTRE DE AJUSTE POR INFLACIÓN (compartido por abonos y sueldos) ═══════
+// El ajuste avanza de a tres meses corridos, sin saltos ni superposiciones.
+// El "ancla" es el último mes YA cubierto por un ajuste; el trimestre siguiente son
+// los tres meses posteriores. Al aplicar un ajuste el ancla avanza tres meses, así
+// la progresión se respeta sola (jul-ago-sep → oct-nov-dic → ene-feb-mar…).
+const INFL_ANCLA_KEY = 'jc-infl-ancla-v1';
+const INFL_ANCLA_INI = '2026-06';   // el último ajuste cubrió hasta junio 2026
+function inflMasMeses(ym, n){
   const [y,m] = ym.split('-').map(Number);
+  const d = new Date(y, (m-1)+n, 1);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+}
+function inflAncla(){
+  let v = ''; try { v = appStore.getItem(INFL_ANCLA_KEY) || ''; } catch(e){}
+  return /^\d{4}-\d{2}$/.test(v) ? v : INFL_ANCLA_INI;
+}
+function inflSetAncla(ym){
+  try { appStore.setItem(INFL_ANCLA_KEY, ym); } catch(e){}
+  if (typeof SB_ON !== 'undefined' && SB_ON && typeof sbPushConfig === 'function') sbPushConfig('infl_ancla', ym);
+}
+// Los tres meses cuya inflación hay que cargar, en 'YYYY-MM'
+function inflTrimestre(){
+  const a = inflAncla();
+  return [inflMasMeses(a,1), inflMasMeses(a,2), inflMasMeses(a,3)];
+}
+// Mes de cierre del trimestre: cuando toca hacer el ajuste y desde cuándo rige por defecto
+function inflMesCierre(){ return inflTrimestre()[2]; }
+// Etiquetas con la inicial en mayúscula ("Julio 2026")
+function inflTrimestreLabels(){
+  return inflTrimestre().map(ym => {
+    const [y,m] = ym.split('-').map(Number);
+    const n = ABONO_MESES[m-1];
+    return n.charAt(0).toUpperCase() + n.slice(1) + ' ' + y;
+  });
+}
+// Al aplicar un ajuste, el trimestre queda consumido y se corre al siguiente
+function inflAvanzarAncla(){ inflSetAncla(inflMasMeses(inflAncla(), 3)); }
+// ¿Ya llegó el momento de hacer el ajuste? (recién en el mes de cierre del trimestre)
+function inflTocaAjuste(){ return hoyISO().slice(0,7) >= inflMesCierre(); }
+
+function abonoTocaAjusteInflacion(){
+  const ym = hoyISO().slice(0,7);
   // ¿ya se atendió (visto o aplicado) el aviso de ESTE mes? → no mostrar
   if(abonoInflVisto() === ym) return false;
-  // meses de ajuste: 3,6,9,12 (mar, jun, sep, dic). El próximo real es sep 2026 y luego cada 3 meses.
-  const esMesAjuste = (m % 3 === 0) && (ym >= '2026-09');
-  // ¿ya se aplicó un ajuste con vigencia en este mes? (algún cliente en pesos con ultAjusteInfl === ym)
-  const yaHecho = ABONOS.some(c => c.moneda==='ARS' && c.ultAjusteInfl === ym);
-  if(yaHecho) return false;
-  if(esMesAjuste) return true;
-  // Demostración: mientras no llegue septiembre, se muestra una vez para que puedas probarlo.
-  // Al apretar "Ok, ya lo vi" se marca como visto y no vuelve hasta el próximo mes de ajuste real.
-  if(ym < '2026-09' && abonoInflVisto() === '') return true;
-  return false;
+  // El aviso aparece recién cuando cierra el trimestre en curso
+  if(!inflTocaAjuste()) return false;
+  // ¿ya se aplicó el ajuste de este trimestre? (algún cliente en pesos con ultAjusteInfl >= el cierre)
+  const cierre = inflMesCierre();
+  if(ABONOS.some(c => c.moneda==='ARS' && c.ultAjusteInfl && c.ultAjusteInfl >= cierre)) return false;
+  return true;
 }
-// Los 3 meses cuya inflación hay que cargar (los 3 previos al mes actual)
-// Próximo (o actual) mes de ajuste trimestral: el múltiplo de 3 (mar/jun/sep/dic) >= hoy, desde sep 2026.
+// Mes de cierre del trimestre en curso (compatibilidad con el nombre viejo)
 function abonoMesAjuste(){
-  const ym = hoyISO().slice(0,7); let [y,m]=ym.split('-').map(Number);
-  // avanzar hasta el próximo mes múltiplo de 3 (incluye el actual si ya lo es)
-  while(!(m%3===0)){ m++; if(m>12){ m=1; y++; } }
-  // no antes de septiembre 2026
-  let ymAj = y+'-'+String(m).padStart(2,'0');
-  if(ymAj < '2026-09'){ y=2026; m=9; }
+  const [y,m] = inflMesCierre().split('-').map(Number);
   return { y, m };
 }
-function abonoMesesInflacion(){
-  // Los 3 meses inmediatamente anteriores al MES DE AJUSTE (no al mes actual).
-  // Ej: ajuste de septiembre → junio, julio, agosto. En diciembre → sep, oct, nov.
-  const aj = abonoMesAjuste();
-  const res=[];
-  for(let k=3;k>=1;k--){ const d=new Date(aj.y, (aj.m-1)-k, 1); res.push(ABONO_MESES[d.getMonth()]+' '+d.getFullYear()); }
-  return res;
-}
+// Los 3 meses cuya inflación hay que cargar, en minúscula ("julio 2026")
+function abonoMesesInflacion(){ return inflTrimestreLabels().map(s => s.charAt(0).toLowerCase() + s.slice(1)); }
 
 let INGRESOS_MES = null;    // 'YYYY-MM' visible; null = mes actual
 let INGRESOS_VISTA = 'mes'; // 'mes' | 'evolucion'
@@ -6949,12 +7088,14 @@ function renderIngresos(){
   const subtabs = `<div class="abo-subtabs">
     <button class="${INGRESOS_VISTA==='mes'?'on':''}" onclick="ingVista('mes')">Ingresos del mes</button>
     <button class="${INGRESOS_VISTA==='gastos'?'on':''}" onclick="ingVista('gastos')">Gastos</button>
+    <button class="${INGRESOS_VISTA==='sueldos'?'on':''}" onclick="ingVista('sueldos')">Sueldos</button>
     <button class="${INGRESOS_VISTA==='pendiente'?'on':''}" onclick="ingVista('pendiente')">Pendiente de cobro</button>
     <button class="${INGRESOS_VISTA==='ranking'?'on':''}" onclick="ingVista('ranking')">Ranking</button>
     <button class="${INGRESOS_VISTA==='evolucion'?'on':''}" onclick="ingVista('evolucion')">Evolución</button>
   </div>`;
   if(INGRESOS_VISTA==='evolucion'){ renderIngresosEvolucion(cont, subtabs); return; }
   if(INGRESOS_VISTA==='gastos'){ renderIngresosGastos(cont, subtabs); return; }
+  if(INGRESOS_VISTA==='sueldos'){ renderIngresosSueldos(cont, subtabs); return; }
   if(INGRESOS_VISTA==='pendiente'){ renderIngresosPendiente(cont, subtabs); return; }
   if(INGRESOS_VISTA==='ranking'){ renderIngresosRanking(cont, subtabs); return; }
 
@@ -6984,7 +7125,7 @@ function renderIngresos(){
   cont.innerHTML = `
     <div class="abo-top">
       <div>
-        <div class="abo-eyebrow">Control de ingresos</div>
+        <div class="abo-eyebrow">Control financiero</div>
         <h1 class="ing-h1">${esc(capPrim(ingMesLabel(ym)))}</h1>
       </div>
       <div class="abo-mesnav">
@@ -7022,12 +7163,18 @@ function renderIngresos(){
         <div class="ing-gasto-it"><span class="lbl">Gastos de escribanía</span><span class="val">$ ${Math.round(g.escArs).toLocaleString('es-AR')}${g.escUsd?(' · US$ '+Math.round(g.escUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios del estudio</span><span class="val">$ ${Math.round(g.estFijosArs).toLocaleString('es-AR')}${g.estFijosUsd?(' · US$ '+Math.round(g.estFijosUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos extraordinarios</span><span class="val">$ ${Math.round(g.estVarArs).toLocaleString('es-AR')}${g.estVarUsd?(' · US$ '+Math.round(g.estVarUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it sueldos">
+          <span class="lbl">Sueldos y comisiones del equipo</span>
+          <span class="val">$ ${Math.round(g.sueldosArs).toLocaleString('es-AR')}</span>
+          <span class="det">base $ ${Math.round(g.sueldosBase).toLocaleString('es-AR')} + comisiones $ ${Math.round(g.sueldosCom).toLocaleString('es-AR')}</span>
+        </div>
       </div>
     </div>`:''}
     <div class="ing-fuentes-h">Desglose por fuente (bruto)</div>
     <div class="ing-fuentes">
       ${fuente('Caja judicial', d.jud, d.jud.n+' mov.')}
       ${fuente('Caja societaria', d.soc, d.soc.n+' mov.')}
+      ${fuente('Caja WE Legal', d.wl, d.wl.n ? (d.wl.n+' pack'+(d.wl.n!==1?'s':'')) : 'sin packs')}
       ${fuente('Abonos', d.abo, '')}
     </div>
     <div class="ing-part-h">Participación de cada fuente</div>
@@ -7054,10 +7201,12 @@ function ingBarrasParticipacion(d){
   const cols = [
     { n:'Caja judicial', c:'#1b3a6b' },
     { n:'Caja societaria', c:'#2d5016' },
+    { n:'Caja WE Legal', c:'#8a5a2b' },
     { n:'Abonos', c:'#c9a961' }
   ];
-  const ars = cols.map((c,i)=>({ ...c, v:[d.jud.ars,d.soc.ars,d.abo.ars][i] }));
-  const usd = cols.map((c,i)=>({ ...c, v:[d.jud.usd,d.soc.usd,d.abo.usd][i] }));
+  const wl = d.wl || { ars:0, usd:0 };
+  const ars = cols.map((c,i)=>({ ...c, v:[d.jud.ars,d.soc.ars,wl.ars,d.abo.ars][i] }));
+  const usd = cols.map((c,i)=>({ ...c, v:[d.jud.usd,d.soc.usd,wl.usd,d.abo.usd][i] }));
   return `<div class="ing-part-wrap">
     ${bloque('Pesos','$', d.totalArs, ars)}
     ${bloque('Dólares','US$', d.totalUsd, usd)}
@@ -7121,7 +7270,7 @@ function renderIngresosPendiente(cont, subtabs){
 
   cont.innerHTML = `
     <div class="abo-top"><div>
-      <div class="abo-eyebrow">Control de ingresos</div>
+      <div class="abo-eyebrow">Control financiero</div>
       <h1 class="ing-h1">Pendiente de cobro</h1>
     </div></div>
     ${subtabs}
@@ -7190,7 +7339,7 @@ function renderIngresosRanking(cont, subtabs){
   cont.innerHTML = `
     <div class="abo-top">
       <div>
-        <div class="abo-eyebrow">Control de ingresos</div>
+        <div class="abo-eyebrow">Control financiero</div>
         <h1 class="ing-h1">Ranking · últimos ${n} meses</h1>
       </div>
       <div class="ing-rango">
@@ -7290,7 +7439,7 @@ function renderIngresosEvolucion(cont, subtabs){
   cont.innerHTML = `
     <div class="abo-top">
       <div>
-        <div class="abo-eyebrow">Control de ingresos</div>
+        <div class="abo-eyebrow">Control financiero</div>
         <h1 class="ing-h1">Evolución · últimos ${n} meses</h1>
       </div>
       <div class="ing-rango">
@@ -7332,11 +7481,16 @@ function gastosDelMes(ym){
   const fijos = GASTOS.fijos.filter(g => gastoFijoVigente(g, ym));
   const variables = GASTOS.variables.filter(g => g.mes === ym);
   const sum = (arr, mon) => arr.filter(g => (g.moneda||'ARS') === mon).reduce((a,g)=> a + (Number(g.monto)||0), 0);
+  // Sueldos del equipo: una línea por persona (base + comisión del mes), siempre en pesos
+  const sueldos = (typeof equipoLineasMes === 'function') ? equipoLineasMes(ym) : [];
+  const sueldosArs = sueldos.reduce((a,x)=> a + (Number(x.total)||0), 0);
+  const sueldosBase = sueldos.reduce((a,x)=> a + (Number(x.base)||0), 0);
+  const sueldosCom  = sueldos.reduce((a,x)=> a + (Number(x.comision)||0), 0);
   return {
-    fijos, variables,
+    fijos, variables, sueldos, sueldosArs, sueldosBase, sueldosCom,
     fijosArs: sum(fijos,'ARS'), fijosUsd: sum(fijos,'USD'),
     varArs: sum(variables,'ARS'), varUsd: sum(variables,'USD'),
-    totalArs: sum(fijos,'ARS') + sum(variables,'ARS'),
+    totalArs: sum(fijos,'ARS') + sum(variables,'ARS') + sueldosArs,
     totalUsd: sum(fijos,'USD') + sum(variables,'USD')
   };
 }
@@ -7442,7 +7596,7 @@ function renderIngresosGastos(cont, subtabs){
   cont.innerHTML = `
     <div class="abo-top">
       <div>
-        <div class="abo-eyebrow">Control de ingresos</div>
+        <div class="abo-eyebrow">Control financiero</div>
         <h1 class="ing-h1">Gastos del estudio</h1>
       </div>
       <div class="abo-mesnav">
@@ -7475,6 +7629,13 @@ function renderIngresosGastos(cont, subtabs){
           <div class="ing-monto usd"><span class="ing-cur">US$</span><span class="ing-val">${fmt(g.varUsd)}</span></div>
         </div>
       </div>
+      <div class="ing-fuente">
+        <div class="ing-fuente-h">Sueldos del equipo<span class="ing-fuente-x">${(g.sueldos||[]).length} persona${(g.sueldos||[]).length!==1?'s':''}</span></div>
+        <div class="ing-fuente-montos">
+          <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmt(g.sueldosArs)}</span></div>
+        </div>
+        <div class="gas-sue-sub">base ${'$ '+fmt(g.sueldosBase)} + comisiones ${'$ '+fmt(g.sueldosCom)}</div>
+      </div>
     </div>
 
     <div class="ing-mon-sw">
@@ -7496,6 +7657,26 @@ function renderIngresosGastos(cont, subtabs){
       ${filas}
     </div>
 
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default">
+        <span class="abo-sec-tw">Sueldos del equipo · ${esc(capPrim(ingMesLabel(ym)))}</span>
+        <span class="abo-sec-count">$ ${fmt(g.sueldosArs)}</span>
+      </div>
+      <div class="abo-row abo-row-head">
+        <div class="gas-con">Persona</div><div class="gas-monto">Sueldo base</div>
+        <div class="gas-monto">Comisión del mes</div><div class="gas-monto">Total</div>
+        <div class="gas-acc"></div>
+      </div>
+      ${(g.sueldos||[]).map(s => `<div class="abo-row ${s.sinDato?'gas-baja':''}">
+        <div class="gas-con">${esc(s.nombre)}<small>${s.fuente==='jud'?'comisiones de la caja judicial':s.fuente==='soc'?'comisiones de la caja societaria':'sin comisiones'}${s.externo?' · base y mínimo en el submódulo de la caja judicial':''}</small></div>
+        <div class="gas-monto">${s.sinDato?'<span class="gas-sue-falta">sin dato</span>':'$ '+fmt(s.base)}</div>
+        <div class="gas-monto">${s.comision?('$ '+fmt(s.comision)):'—'}</div>
+        <div class="gas-monto"><b>$ ${fmt(s.total)}</b>${s.aplicaMinimo?'<small class="gas-sue-min">mínimo garantizado</small>':''}</div>
+        <div class="gas-acc"></div>
+      </div>`).join('')}
+      <div class="gas-sue-pie">Se editan en la subsolapa <b>Sueldos</b>. Ivana no cobra sueldo.</div>
+    </div>
+
     <div class="sue-form">
       <div class="sue-form-h">${esFijos ? 'Agregar un gasto ordinario' : 'Agregar un gasto extraordinario de este mes'}</div>
       <div class="sue-form-grid">
@@ -7512,6 +7693,190 @@ function renderIngresosGastos(cont, subtabs){
       </div>
       <button class="abo-pp-add" onclick="ingGuardarGasto()">+ Agregar gasto</button>
     </div>`;
+}
+
+// ═══ Vista "Sueldos" del control financiero ═══
+function equipoVista(v){ EQUIPO_VISTA = v; renderIngresos(); }
+function equipoInflInput(i, val){
+  EQUIPO_INFL_INPUT[i] = val;
+  const ym = equipoInflDesde();
+  const infl = EQUIPO_INFL_INPUT.map(x => Number(String(x).replace(',','.'))||0);
+  const bases = equipoBasesVigentes(ym);
+  equipoConBase().forEach(p => {
+    const el = document.getElementById('eqInflN-' + p.id);
+    if (!el) return;
+    const b = Number(bases[p.id]) || 0;
+    el.textContent = (b > 0 && infl.some(x => x > 0)) ? ('$ ' + fmtNumStr(abonoCalcInflacion(b, infl))) : '—';
+  });
+}
+function equipoGuardarBase(){
+  const pid = (document.getElementById('eqNuevaPers')||{}).value;
+  const inp = document.getElementById('eqNuevoMonto');
+  const desde = (document.getElementById('eqNuevoDesde')||{}).value;
+  if (!pid){ aricToast('Elegí a quién le cambiás el sueldo'); return; }
+  const monto = abonoParseInput(inp);
+  if (monto === '' || monto == null){ aricToast('Poné el sueldo nuevo'); return; }
+  if (!desde){ aricToast('Elegí desde qué mes rige'); return; }
+  if (!equipoFijarBase(pid, Number(monto), desde)){ aricToast('No se pudo guardar'); return; }
+  aricToast('Sueldo de ' + equipoNombre(pid) + ' actualizado desde ' + ingMesLabel(desde));
+  renderIngresos();
+}
+function equipoConfirmarBorrarCambio(pid, desde){
+  if (!confirm('¿Borrar el cambio de sueldo de ' + equipoNombre(pid) + ' que rige desde ' + ingMesLabel(desde) + '?\n\nVuelve a regir el valor anterior.')) return;
+  equipoBorrarCambio(pid, desde);
+  renderIngresos();
+}
+function equipoConfirmarInflacion(){
+  const infl = EQUIPO_INFL_INPUT.map(x => Number(String(x).replace(',','.'))||0);
+  if (!infl.some(x => x > 0)){ aricToast('Cargá los porcentajes de inflación'); return; }
+  const ym = equipoInflDesde();
+  if (!confirm('¿Aplicar el ajuste por inflación a los sueldos del equipo?\n\nLas bases nuevas rigen desde ' + ingMesLabel(ym) + ' inclusive; los meses anteriores no se tocan. El sueldo de Kevin se ajusta aparte, desde la caja judicial. Podés deshacerlo después.')) return;
+  if (equipoAplicarInflacion(infl, ym)){
+    EQUIPO_INFL_INPUT = ['','','']; EQUIPO_INFL_DESDE = '';
+    inflAvanzarAncla();
+    EQUIPO_VISTA = 'tabla';
+    aricToast('Sueldos actualizados por inflación');
+    renderIngresos();
+  }
+}
+function equipoConfirmarDeshacer(){
+  if (!confirm('¿Deshacer el último ajuste por inflación de los sueldos?')) return;
+  if (equipoDeshacerInflacion()){ aricToast('Ajuste deshecho'); renderIngresos(); }
+}
+
+function renderIngresosSueldos(cont, subtabs){
+  const ym = ingMesActual();
+  const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
+  const lineas = equipoLineasMes(ym);
+  const hist = equipoHistorial();
+  const totalBase = lineas.reduce((a,x)=> a + (x.base||0), 0);
+  const totalCom  = lineas.reduce((a,x)=> a + (x.comision||0), 0);
+  const total     = lineas.reduce((a,x)=> a + (x.total||0), 0);
+
+  const cabecera = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Control financiero</div>
+        <h1 class="ing-h1">Sueldos del equipo</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="ingCambiarMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="ingMesHoy()" class="hoy">Mes actual</button>
+        <button onclick="ingCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    ${subtabs}
+    <div class="ing-mon-sw">
+      <span class="ing-mon-lbl">Ver:</span>
+      <button class="${EQUIPO_VISTA==='tabla'?'on':''}" onclick="equipoVista('tabla')">Tabla de sueldos</button>
+      <button class="${EQUIPO_VISTA==='inflacion'?'on':''}" onclick="equipoVista('inflacion')">Ajuste por inflación</button>
+    </div>`;
+
+  if (EQUIPO_VISTA === 'inflacion'){
+    const desde = equipoInflDesde();
+    const bases = equipoBasesVigentes(desde);
+    const meses = inflTrimestreLabels().map(s => s.split(' ')[0]);
+    const puedeDeshacer = equipoHayAjusteParaDeshacer();
+    cont.innerHTML = cabecera + `
+      <div class="abo-infl-box">
+        <div class="abo-infl-hint">Ajuste trimestral de <b>${esc(inflTrimestreLabels().join(', '))}</b>. El cálculo es compuesto: cada mes se aplica sobre el valor ya ajustado del anterior. Se mueven todas las bases del equipo. <b>No es retroactivo</b>: rige desde el mes que elijas, hacia adelante. El sueldo de Kevin se ajusta aparte, desde la caja judicial.</div>
+        <div class="abo-infl-inputs">
+          ${[0,1,2].map(i => `<div class="abo-infl-fld"><label>Inflación ${meses[i]} (%)</label><input type="text" inputmode="decimal" value="${esc(EQUIPO_INFL_INPUT[i])}" placeholder="Ej: 4,2" oninput="equipoInflInput(${i},this.value)"></div>`).join('')}
+        </div>
+        <div class="abo-infl-desde">
+          <label>Las bases nuevas rigen desde</label>
+          <input type="month" value="${esc(desde)}" onchange="equipoInflSetDesde(this.value)">
+          <span class="abo-infl-desde-n">inclusive · los meses anteriores no se tocan</span>
+        </div>
+        <div class="abo-infl-acc">
+          <button class="abo-infl-aplicar" onclick="equipoConfirmarInflacion()">Aplicar ajuste</button>
+          <button class="abo-infl-deshacer ${puedeDeshacer?'':'off'}" ${puedeDeshacer?'':'disabled'} onclick="equipoConfirmarDeshacer()">↺ Deshacer último ajuste</button>
+        </div>
+      </div>
+      <div class="abo-sec">
+        <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Vista previa · desde ${esc(capPrim(ingMesLabel(desde)))}</span></div>
+        <div class="abo-row abo-row-head">
+          <div class="sue-i-con">Persona</div><div class="sue-i-act">Base actual</div><div class="sue-i-nue">Con ajuste</div>
+        </div>
+        ${equipoConBase().map(p => `<div class="abo-row">
+          <div class="sue-i-con">${esc(p.nombre)}</div>
+          <div class="sue-i-act">${(Number(bases[p.id])||0) > 0 ? fmt(bases[p.id]) : '<span class="gas-sue-falta">sin dato</span>'}</div>
+          <div class="sue-i-nue" id="eqInflN-${p.id}">—</div>
+        </div>`).join('')}
+      </div>`;
+    equipoInflInput(0, EQUIPO_INFL_INPUT[0]);
+    return;
+  }
+
+  cont.innerHTML = cabecera + `
+    <div class="gas-kpis">
+      <div class="ing-total-box gastos">
+        <div class="ing-total-lbl">Costo de sueldos · ${esc(capPrim(ingMesLabel(ym)))}</div>
+        <div class="ing-total-montos">
+          <div class="ing-total-m"><span class="ing-total-cur">$</span> ${fmtNumStr(Math.round(total))}</div>
+        </div>
+      </div>
+      <div class="ing-fuente">
+        <div class="ing-fuente-h">Sueldos base<span class="ing-fuente-x">fijo</span></div>
+        <div class="ing-fuente-montos"><div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmtNumStr(Math.round(totalBase))}</span></div></div>
+      </div>
+      <div class="ing-fuente">
+        <div class="ing-fuente-h">Comisiones del mes<span class="ing-fuente-x">variable</span></div>
+        <div class="ing-fuente-montos"><div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmtNumStr(Math.round(totalCom))}</span></div></div>
+      </div>
+    </div>
+
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default">
+        <span class="abo-sec-tw">Tabla de sueldos</span>
+        <span class="abo-sec-count">$ ${fmtNumStr(Math.round(total))}</span>
+      </div>
+      <div class="abo-row abo-row-head">
+        <div class="gas-con">Persona</div><div class="eq-base">Sueldo base</div>
+        <div class="gas-monto">Comisión ${esc(capPrim(ingMesLabel(ym)))}</div><div class="gas-monto">Total del mes</div>
+      </div>
+      ${lineas.map(s => {
+        const vig = s.externo ? null : equipoBaseDesde(s.id, ym);
+        return `<div class="abo-row">
+        <div class="gas-con">${esc(s.nombre)}<small>${s.fuente==='jud'?'comisiones de la caja judicial':s.fuente==='soc'?'comisiones de la caja societaria':'sin comisiones'}</small></div>
+        <div class="eq-base">${s.sinDato
+          ? '<span class="gas-sue-falta">sin dato</span>'
+          : `<span class="eq-base-fija">${fmt(s.base)}</span>`}<small>${s.externo
+              ? 'se edita en la caja judicial'
+              : (vig ? 'rige desde ' + esc(ingMesLabel(vig)) : (s.sinDato ? 'cargalo abajo' : 'valor inicial'))}</small></div>
+        <div class="gas-monto">${s.comision?fmt(s.comision):'—'}</div>
+        <div class="gas-monto"><b>${fmt(s.total)}</b>${s.aplicaMinimo?'<small class="gas-sue-min">mínimo garantizado</small>':''}</div>
+      </div>`; }).join('')}
+      <div class="gas-sue-pie">El total de cada persona es el sueldo base más sus comisiones del mes, y se descuenta como gasto en el neto del estudio. Kevin cobra base + comisiones con un mínimo garantizado, que se configura en la caja judicial. Ivana no cobra sueldo.</div>
+    </div>
+
+    <div class="sue-form">
+      <div class="sue-form-h">Cambiar un sueldo base</div>
+      <div class="sue-form-grid">
+        <div class="abo-reg-fld"><label>Persona</label>
+          <select id="eqNuevaPers">${equipoConBase().map(p => `<option value="${p.id}">${esc(p.nombre)}</option>`).join('')}</select></div>
+        <div class="abo-reg-fld"><label>Sueldo base nuevo ($)</label>
+          <input type="text" inputmode="numeric" id="eqNuevoMonto" placeholder="Ej: 1.500.000" oninput="abonoFmtInput(this)"></div>
+        <div class="abo-reg-fld"><label>Rige desde</label>
+          <input type="month" id="eqNuevoDesde" value="${esc(ym)}"></div>
+      </div>
+      <div class="gas-sue-nota">El cambio no es retroactivo: los meses anteriores al que elijas quedan con el sueldo que tenían, así los balances ya cerrados no se mueven.</div>
+      <button class="abo-pp-add" onclick="equipoGuardarBase()">Guardar sueldo</button>
+    </div>
+
+    ${hist.length ? `<div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Historial de cambios</span><span class="abo-sec-count">${hist.length}</span></div>
+      <div class="abo-row abo-row-head">
+        <div class="gas-con">Persona</div><div class="gas-monto">Sueldo base</div>
+        <div class="gas-desde">Rige desde</div><div class="gas-acc"></div>
+      </div>
+      ${hist.map(x => `<div class="abo-row">
+        <div class="gas-con">${esc(x.nombre)}</div>
+        <div class="gas-monto">${fmt(x.monto)}</div>
+        <div class="gas-desde">${esc(capPrim(ingMesLabel(x.desde)))}</div>
+        <div class="gas-acc"><button class="abo-pp-del" onclick="equipoConfirmarBorrarCambio('${x.pid}','${x.desde}')" title="Borrar este cambio">✕</button></div>
+      </div>`).join('')}
+    </div>` : ''}`;
 }
 
 function ingGuardarGasto(){
@@ -7540,6 +7905,65 @@ function ingBajaFijo(id){
 }
 function ingReactivarFijo(id){ gastoReactivar(id); renderIngresos(); }
 
+// ═══════════════ CAJA WE LEGAL (reparto de los packs) ═══════════════
+// Algunos cobros entran por la caja societaria pero no quedan enteros ahí: una parte
+// corresponde al sector societario y la otra a la caja de WE Legal. El reparto se dispara
+// por el concepto del movimiento, que para estos casos es uno de los dos packs prearmados.
+// La base que se reparte son los HONORARIOS NETOS: si el cobro trae gastos adelantados,
+// esos gastos no se reparten (quedan del lado societario, que es quien los desembolsó).
+// El total nunca cambia: societaria + WE Legal = lo que entró.
+const PACKS = [
+  { id:'full',   nombre:'Pack Full',   concepto:'Pack Full',   soc:0.47, wl:0.53 },
+  { id:'simple', nombre:'Pack Simple', concepto:'Pack Simple', soc:0.80, wl:0.20 }
+];
+function packPorId(id){ return PACKS.find(p => p.id === id) || null; }
+// Detecta el pack por el concepto del movimiento (tolera acentos, mayúsculas y texto extra)
+function socPackDe(m){
+  const t = ((m && m.concepto) || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
+  if (/^pack\s+full\b/.test(t)) return PACKS[0];
+  if (/^pack\s+simple\b/.test(t)) return PACKS[1];
+  return null;
+}
+// Base a repartir: honorarios netos de los gastos adelantados
+function socBaseReparto(m){
+  const gi = Number(m.gastosIncl) || 0;
+  return gi > 0 ? (Number(m.honorarios) || 0) : (Number(m.monto) || 0);
+}
+// Reparto de un movimiento societario. Devuelve null si no es un pack.
+function socReparto(m){
+  if (!m) return null;
+  if (m.tipo && m.tipo !== 'ingreso') return null;
+  const p = socPackDe(m);
+  if (!p) return null;
+  const base = socBaseReparto(m);
+  const gastos = Number(m.gastosIncl) || 0;
+  return { pack: p, base, gastos, moneda: m.moneda || 'ARS',
+           soc: base * p.soc + gastos,   // los gastos adelantados no se reparten
+           wl:  base * p.wl };
+}
+// Cuánto se lleva WE Legal de un movimiento (0 si no es un pack)
+function socParteWeLegal(m){ const r = socReparto(m); return r ? r.wl : 0; }
+
+// Balance de la caja WE Legal en un mes
+function welegalDelMes(ym){
+  const movs = (typeof CAJASOC !== 'undefined' ? CAJASOC : [])
+    .filter(m => (m.fecha||'').slice(0,7) === ym && (m.tipo === 'ingreso' || !m.tipo))
+    .filter(m => !!socPackDe(m))
+    .sort((a,b)=> (a.fecha||'').localeCompare(b.fecha||''));
+  let ars = 0, usd = 0, socArs = 0, socUsd = 0;
+  const porPack = {};
+  PACKS.forEach(p => porPack[p.id] = { nombre: p.nombre, ars: 0, usd: 0, n: 0 });
+  const filas = movs.map(m => {
+    const r = socReparto(m);
+    if (r.moneda === 'USD'){ usd += r.wl; socUsd += r.soc; porPack[r.pack.id].usd += r.wl; }
+    else { ars += r.wl; socArs += r.soc; porPack[r.pack.id].ars += r.wl; }
+    porPack[r.pack.id].n++;
+    return { mov: m, ...r };
+  });
+  return { filas, movs, ars, usd, socArs, socUsd,
+           porPack: Object.values(porPack).filter(x => x.n > 0), n: movs.length };
+}
+
 // ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
 // Devuelve los ingresos de un mes 'YYYY-MM' por fuente y moneda (pesos y dólares separados).
 function ingresosDelMes(ym){
@@ -7551,8 +7975,17 @@ function ingresosDelMes(ym){
   // Caja societaria: SOLO tipo 'ingreso' (o sin tipo). Los tipos 'gasto' y 'gasto_esc' NO son ingreso.
   const movsSoc = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).filter(m => (m.fecha||'').slice(0,7) === ym);
   const socIn = movsSoc.filter(m => m.tipo === 'ingreso' || !m.tipo);
-  const socArs = socIn.filter(m => m.moneda !== 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
-  const socUsd = socIn.filter(m => m.moneda === 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
+  let socArs = socIn.filter(m => m.moneda !== 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
+  let socUsd = socIn.filter(m => m.moneda === 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
+  // Parte de los packs que corresponde a la caja WE Legal. NO se suma al total: se le
+  // resta a la societaria, porque es la misma plata repartida entre las dos cajas.
+  let wlArs = 0, wlUsd = 0, wlN = 0;
+  socIn.forEach(m => {
+    const w = (typeof socParteWeLegal === 'function') ? socParteWeLegal(m) : 0;
+    if (!w) return;
+    wlN++;
+    if (m.moneda === 'USD'){ wlUsd += w; socUsd -= w; } else { wlArs += w; socArs -= w; }
+  });
   // Dentro de un ingreso puede haber "gastos incluidos" (plata que entra pero no queda en el estudio)
   let gincArs=0, gincUsd=0;
   socIn.forEach(m => { const g = Number(m.gastosIncl)||0; if(!g) return; if(m.moneda==='USD') gincUsd+=g; else gincArs+=g; });
@@ -7572,8 +8005,10 @@ function ingresosDelMes(ym){
     if(c.moneda === 'USD') aboUsd += cobrado; else aboArs += cobrado;
   });
 
-  const brutoArs = judArs + socArs + aboArs;
-  const brutoUsd = judUsd + socUsd + aboUsd;
+  // El bruto suma la caja societaria ENTERA: socArs ya viene con la parte de WE Legal
+  // descontada, así que se la devolvemos acá. Repartir no cambia cuánta plata entró.
+  const brutoArs = judArs + socArs + wlArs + aboArs;
+  const brutoUsd = judUsd + socUsd + wlUsd + aboUsd;
   // Gastos de funcionamiento del estudio (fijos + extraordinarios del mes)
   const ge = (typeof gastosDelMes === 'function') ? gastosDelMes(ym) : { totalArs:0, totalUsd:0, fijosArs:0, fijosUsd:0, varArs:0, varUsd:0 };
   // Neto real: al bruto le sacamos los gastos incluidos en los cobros,
@@ -7583,9 +8018,12 @@ function ingresosDelMes(ym){
   return {
     jud: { ars: judArs, usd: judUsd, n: jud.length },
     soc: { ars: socArs, usd: socUsd, n: socIn.length },
+    wl:  { ars: wlArs,  usd: wlUsd,  n: wlN },
     abo: { ars: aboArs, usd: aboUsd },
     gastos: { incArs: gincArs, incUsd: gincUsd, ordArs: gOrdArs, ordUsd: gOrdUsd, escArs: gEscArs, escUsd: gEscUsd,
               estFijosArs: ge.fijosArs, estFijosUsd: ge.fijosUsd, estVarArs: ge.varArs, estVarUsd: ge.varUsd,
+              sueldosArs: ge.sueldosArs||0, sueldosBase: ge.sueldosBase||0, sueldosCom: ge.sueldosCom||0,
+              sueldosN: (ge.sueldos||[]).filter(x => x.total > 0).length,
               estArs: ge.totalArs, estUsd: ge.totalUsd, totArs: gastosArs, totUsd: gastosUsd },
     totalArs: brutoArs, totalUsd: brutoUsd,
     netoArs: brutoArs - gastosArs, netoUsd: brutoUsd - gastosUsd
@@ -7999,8 +8437,11 @@ function renderAbonos(){
 // ── Subsolapa: actualizar los montos de los abonos ──
 // Estado de los inputs de inflación (para vista previa en vivo)
 let ABONOS_INFL_INPUT = ['','',''];
+let ABONOS_INFL_DESDE = '';   // mes desde el que rige el ajuste (vacío = cierre del trimestre)
+function abonoInflDesde(){ return ABONOS_INFL_DESDE || inflMesCierre(); }
+function abonoInflSetDesde(v){ ABONOS_INFL_DESDE = v || ''; renderAbonos(); }
 function renderAbonosInflacion(cont){
-  const ym = abonoMesActual();
+  const ym = abonoInflDesde();
   const arsCli = ABONOS.filter(c=>c.moneda==='ARS' && c.estado==='activo').sort((a,b)=>a.nombre.localeCompare(b.nombre));
   const fmt = n => '$ ' + Math.round(Number(n)||0).toLocaleString('es-AR');
   const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
@@ -8029,11 +8470,16 @@ function renderAbonosInflacion(cont){
     </div></div>
     ${abonoSubtabsHTML()}
     <div class="abo-infl-box">
-      <div class="abo-infl-hint">Ajuste trimestral <b>solo para clientes en pesos</b>. Cargá la inflación de los últimos 3 meses. El cálculo es compuesto (cada mes se aplica sobre el monto ya ajustado del anterior). El nuevo monto rige desde <b>${esc(abonoMesLabel(ym))}</b> inclusive.</div>
+      <div class="abo-infl-hint">Ajuste trimestral <b>solo para clientes en pesos</b>. Cargá la inflación de <b>${esc(inflTrimestreLabels().join(', '))}</b>. El cálculo es compuesto (cada mes se aplica sobre el monto ya ajustado del anterior). <b>No es retroactivo</b>: el monto nuevo rige desde el mes que elijas, hacia adelante.</div>
       <div class="abo-infl-inputs">
         <div class="abo-infl-fld"><label>Inflación ${mesesLbl[0]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl1" value="${esc(ABONOS_INFL_INPUT[0])}" placeholder="Ej: 4,2" oninput="abonoInflInput(0,this.value)"></div>
         <div class="abo-infl-fld"><label>Inflación ${mesesLbl[1]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl2" value="${esc(ABONOS_INFL_INPUT[1])}" placeholder="Ej: 3,8" oninput="abonoInflInput(1,this.value)"></div>
         <div class="abo-infl-fld"><label>Inflación ${mesesLbl[2]} (%)</label><input type="text" inputmode="decimal" id="abonoInfl3" value="${esc(ABONOS_INFL_INPUT[2])}" placeholder="Ej: 3,1" oninput="abonoInflInput(2,this.value)"></div>
+      </div>
+      <div class="abo-infl-desde">
+        <label>El nuevo monto rige desde</label>
+        <input type="month" value="${esc(abonoInflDesde())}" onchange="abonoInflSetDesde(this.value)">
+        <span class="abo-infl-desde-n">inclusive · los meses anteriores no se tocan</span>
       </div>
       <div class="abo-infl-acc">
         <button class="abo-infl-aplicar" onclick="abonoConfirmarInflacion()">Aplicar ajuste</button>
@@ -8054,7 +8500,7 @@ function renderAbonosInflacion(cont){
 function abonoInflInput(i, v){
   ABONOS_INFL_INPUT[i] = v;
   // refrescar solo la vista previa sin perder foco: recalcular columnas
-  const ym = abonoMesActual();
+  const ym = abonoInflDesde();
   const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
   const hayInfl = infl.some(x=>x>0);
   const fmt = n => '$ ' + Math.round(Number(n)||0).toLocaleString('es-AR');
@@ -8072,11 +8518,12 @@ function abonoInflInput(i, v){
 function abonoConfirmarInflacion(){
   const infl = ABONOS_INFL_INPUT.map(x=>Number(String(x).replace(',','.'))||0);
   if(!infl.some(x=>x>0)){ aricToast('Cargá los porcentajes de inflación'); return; }
-  const ym = abonoMesActual();
+  const ym = abonoInflDesde();
   const cant = ABONOS.filter(c=>c.moneda==='ARS'&&c.estado==='activo').length;
-  if(!confirm('¿Aplicar el ajuste por inflación a los '+cant+' clientes en pesos?\n\nLos montos regirán desde '+abonoMesLabel(ym)+'. Podés deshacerlo después si algo sale mal.')) return;
+  if(!confirm('¿Aplicar el ajuste por inflación a los '+cant+' clientes en pesos?\n\nLos montos regirán desde '+abonoMesLabel(ym)+' inclusive; los meses anteriores no se tocan. Podés deshacerlo después si algo sale mal.')) return;
   if(abonoAplicarInflacion(infl, ym)){
-    ABONOS_INFL_INPUT = ['','',''];
+    ABONOS_INFL_INPUT = ['','','']; ABONOS_INFL_DESDE = '';
+    inflAvanzarAncla();
     abonoMarcarInflVisto(); // el aviso de este mes queda atendido
     aricToast('Ajuste aplicado a clientes en pesos');
     ABONOS_SUBTAB = 'montos'; // llevar a la tabla de montos para ver/avisar
@@ -9613,6 +10060,7 @@ function __navToInterno(p) {
     if (p === 'ariccame') { renderAric(); }
     if (p === 'abonos') { renderAbonosPagina(); }
     if (p === 'ingresos') { renderIngresos(); }
+    if (p === 'welegal') { renderWeLegal(); }
     rielMarcarActivo(p);
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
@@ -10507,18 +10955,23 @@ function calcularPlazo() {
 const UMA_META_KEY = 'jc-uma-meta-v1';
 let __umaEstado = '';
 const UMA_FUENTE = 'https://www.cpacf.org.ar/noticia/5201/valores-uma-pjn-ley-27423';
-const UMA_SEED = { monto: 98112, res: 'Res 1352/26', fecha: '09/06/2026' };
+const UMA_SEED = { monto: 100173, res: 'Res 1718/26', fecha: '13/07/2026' };
+// Valores que este mismo archivo sembró en versiones anteriores. Si el guardado es
+// uno de estos, quedó viejo y se pisa con el nuevo; un valor cargado a mano no se toca.
+const UMA_SEEDS_VIEJOS = [98112];
 function sembrarUmaSiFalta() {
   const v = parseFloat(appStore.getItem(UMA_KEY));
   let meta = {};
   try { meta = JSON.parse(appStore.getItem(UMA_META_KEY) || '{}'); } catch (e) {}
-  // Si no hay valor, o hay valor pero sin resolución (dato viejo), sembrar el conocido
-  if (!(v > 0)) {
+  const fijar = () => {
     appStore.setItem(UMA_KEY, String(UMA_SEED.monto));
     appStore.setItem(UMA_META_KEY, JSON.stringify({ res: UMA_SEED.res, fecha: UMA_SEED.fecha }));
-  } else if (!meta.res) {
-    appStore.setItem(UMA_META_KEY, JSON.stringify({ res: UMA_SEED.res, fecha: UMA_SEED.fecha }));
-  }
+    if (typeof sbPushConfig === 'function') sbPushConfig('uma', UMA_SEED.monto);
+  };
+  // Si no hay valor, o hay valor pero sin resolución (dato viejo), sembrar el conocido
+  if (!(v > 0)) fijar();
+  else if (UMA_SEEDS_VIEJOS.indexOf(Math.round(v)) !== -1) fijar();   // quedó una resolución superada
+  else if (!meta.res) appStore.setItem(UMA_META_KEY, JSON.stringify({ res: UMA_SEED.res, fecha: UMA_SEED.fecha }));
 }
 function cargarUmaCampo() {
   sembrarUmaSiFalta();
@@ -11598,9 +12051,13 @@ function registrarMovSoc() {
     if (cp) m.comisionPara = cp;
   }
   // Cuotas (solo ingresos): crear/actualizar plan y linkear
-  let cliIdSoc = null, esCuotaSoc = false, etiquetaServ = '';
+  let cliIdSoc = null, esCuotaSoc = false, etiquetaServ = '', fichaNuevaSoc = false;
   if (tipo === 'ingreso') {
-    if (typeof CLIENTES !== 'undefined') { const mm = CLIENTES.find(c => (c.entidad||'').trim().toLowerCase() === contraparte.toLowerCase()); if (mm) cliIdSoc = mm.id; }
+    if (typeof crmAsegurarFicha === 'function') {
+      const r = crmAsegurarFicha(contraparte, '', fecha,
+        (typeof socPackDe === 'function' && socPackDe({ concepto })) ? 'wl' : 'soc');
+      if (r.cli) { cliIdSoc = r.cli.id; fichaNuevaSoc = r.creada; }
+    } else if (typeof CLIENTES !== 'undefined') { const mm = CLIENTES.find(c => (c.entidad||'').trim().toLowerCase() === contraparte.toLowerCase()); if (mm) cliIdSoc = mm.id; }
     if (cliIdSoc != null) m.clienteId = cliIdSoc;
     const infoCuota = cjProcesarCuota('soc', { cliente: contraparte, clienteId: cliIdSoc, concepto, monto, moneda: m.moneda });
     if (infoCuota) {
@@ -11614,7 +12071,11 @@ function registrarMovSoc() {
   CAJASOC.push(m); saveCajaSoc(); sbPushMovSoc(m);
   // Ofrecer sumarlo al historial de servicios del cliente (sea pago suelto o plan de cuotas)
   const conceptoServSoc = esCuotaSoc ? etiquetaServ : concepto;
-  if (tipo === 'ingreso' && cliIdSoc && conceptoServSoc && typeof agregarServicioContratado === 'function') {
+  if (fichaNuevaSoc) {
+    if (conceptoServSoc) agregarServicioContratado(cliIdSoc, conceptoServSoc, fecha);
+    if (typeof aricToast === 'function') aricToast('Se creó la ficha de ' + crmNombreProlijo(contraparte) + ' en el CRM');
+  }
+  if (tipo === 'ingreso' && cliIdSoc && conceptoServSoc && !fichaNuevaSoc && typeof agregarServicioContratado === 'function') {
     setTimeout(() => {
       const cli = clientePorId(cliIdSoc);
       if (cli && confirm('¿Registrar «' + conceptoServSoc + '» como servicio contratado de ' + cli.entidad + '?')) {
@@ -11631,6 +12092,8 @@ function registrarMovSoc() {
   }
   ['csContra','csConcepto','csMonto','csReceptor','csDolarDia','csHonorarios','csGastos'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   const cp = document.getElementById('csComisionPara'); if (cp) cp.value = '';
+  const pk = document.getElementById('csPack'); if (pk) pk.value = '';
+  try { csPackHint(); } catch(e){}
   const cd = document.getElementById('csTieneGastos'); if (cd) cd.checked = false;
   const db = document.getElementById('csDesgloseBox'); if (db) db.classList.add('oculto');
   cjResetCuota('soc');
@@ -11657,6 +12120,9 @@ function eliminarMovSoc(id) {
     } else if (mov.concepto && cid != null && typeof quitarServicioContratado === 'function') {
       quitarServicioContratado(cid, mov.concepto);
     }
+    if (typeof crmLimpiarFichaHuerfana === 'function'
+        && crmLimpiarFichaHuerfana(cid, mov.contraparte) && typeof aricToast === 'function')
+      aricToast('También se borró la ficha de ' + crmNombreProlijo(mov.contraparte) + ' del CRM');
   }
   renderCajaSoc();
 }
@@ -11665,7 +12131,10 @@ function __clienteIdPorNombre(nombre) {
   if (typeof CLIENTES === 'undefined' || typeof __normNombre !== 'function') return null;
   const n = __normNombre(nombre);
   const c = CLIENTES.find(x => __normNombre(x.entidad) === n);
-  return c ? c.id : null;
+  if (c) return c.id;
+  // Si no coincide el nombre exacto, se busca con el criterio amplio (entidad o referente)
+  if (typeof crmBuscarCliente === 'function') { const r = crmBuscarCliente(nombre); if (r) return r.cli.id; }
+  return null;
 }
 function __socDatosMes(mes) {
   const movs = CAJASOC.filter(m => (m.fecha || '').startsWith(mes)).sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
@@ -11673,14 +12142,22 @@ function __socDatosMes(mes) {
   const gastosOrd = movs.filter(m => m.tipo === 'gasto');
   const gastosEsc = movs.filter(m => m.tipo === 'gasto_esc');
   const t = { inArs: 0, inUsd: 0, goArs: 0, goUsd: 0, geArs: 0, geUsd: 0,
-              honArs: 0, honUsd: 0, gincArs: 0, gincUsd: 0, nDesglose: 0 };
+              honArs: 0, honUsd: 0, gincArs: 0, gincUsd: 0, nDesglose: 0,
+              brutoArs: 0, brutoUsd: 0, wlArs: 0, wlUsd: 0, nPacks: 0 };
   ingresos.forEach(m => {
-    if (m.moneda === 'USD') t.inUsd += m.monto; else t.inArs += m.monto;
-    // Desglose honorarios / gastos incluidos en el ingreso
+    // Lo que entró por la caja, antes de repartir
+    if (m.moneda === 'USD') t.brutoUsd += m.monto; else t.brutoArs += m.monto;
+    // Si el cobro es un pack, a la caja societaria le corresponde solo su porcentaje;
+    // el resto se contabiliza en la caja WE Legal.
+    const rep = (typeof socReparto === 'function') ? socReparto(m) : null;
+    const propio = rep ? rep.soc : m.monto;
+    if (rep){ t.nPacks++; if (m.moneda === 'USD') t.wlUsd += rep.wl; else t.wlArs += rep.wl; }
+    if (m.moneda === 'USD') t.inUsd += propio; else t.inArs += propio;
+    // Desglose honorarios / gastos incluidos en el ingreso (los gastos no se reparten)
     const tieneDes = m.gastosIncl > 0;
     if (tieneDes) t.nDesglose++;
-    const hon = tieneDes ? (m.honorarios || 0) : m.monto;
     const ginc = tieneDes ? m.gastosIncl : 0;
+    const hon = propio - ginc;
     if (m.moneda === 'USD') { t.honUsd += hon; t.gincUsd += ginc; }
     else { t.honArs += hon; t.gincArs += ginc; }
   });
@@ -11765,15 +12242,19 @@ function renderCajaSoc() {
   const { movs, ingresos, gastosOrd, gastosEsc, t } = __socDatosMes(mes);
   const inPes = t.inArs + t.inUsd * dolar, goPes = t.goArs + t.goUsd * dolar, gePes = t.geArs + t.geUsd * dolar;
   const honPes = t.honArs + t.honUsd * dolar, gincPes = t.gincArs + t.gincUsd * dolar;
+  // Si hubo packs, se aclara que el total ya viene neto de la parte de WE Legal
+  const notaPack = t.nPacks
+    ? `<div class="cs-nota-pack">no incluye ${t.wlArs ? '$ ' + fmtNumStr(t.wlArs) : ''}${t.wlArs && t.wlUsd ? ' · ' : ''}${t.wlUsd ? 'u$s ' + fmtNumStr(t.wlUsd) : ''} de ${t.nPacks} pack${t.nPacks !== 1 ? 's' : ''}, que van a WE Legal</div>`
+    : '';
   document.getElementById('csTiles').innerHTML = pesif ? `
-    <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(inPes)}</div><div class="lbl">Ingresos pesificados</div><div class="sub">$ ${fmtNumStr(t.inArs)} + u$s ${fmtNumStr(t.inUsd)} × ${fmtNumStr(dolar)}</div></div>
+    <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(inPes)}</div><div class="lbl">Ingresos pesificados</div><div class="sub">$ ${fmtNumStr(t.inArs)} + u$s ${fmtNumStr(t.inUsd)} × ${fmtNumStr(dolar)}${notaPack}</div></div>
     ${gincPes > 0 ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">$ ${fmtNumStr(gincPes)}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: $ ${fmtNumStr(honPes)} · ${t.nDesglose} pago${t.nDesglose !== 1 ? 's' : ''} con gastos</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(goPes)}</div><div class="lbl">G. ordinarios pesificados</div><div class="sub">$ ${fmtNumStr(t.goArs)} + u$s ${fmtNumStr(t.goUsd)} × ${fmtNumStr(dolar)}</div></div>
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(gePes)}</div><div class="lbl">G. escribanía pesificados</div><div class="sub">$ ${fmtNumStr(t.geArs)} + u$s ${fmtNumStr(t.geUsd)} × ${fmtNumStr(dolar)}</div></div>` : `
     <div class="tile"><div class="cs-lbl">Ingresos</div>
       <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inArs)}</span></div>
       <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inUsd)}</span></div>
-      <div class="cs-sub">${ingresos.length} mov.</div></div>
+      <div class="cs-sub">${ingresos.length} mov.${notaPack}</div></div>
     ${(t.gincArs > 0 || t.gincUsd > 0) ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="cs-lbl">De eso, gastos</div>
       <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincArs||0)}</span></div>
       <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincUsd||0)}</span></div>
@@ -11793,10 +12274,16 @@ function renderCajaSoc() {
     const comMonto = comisionSocDe(m, dolar);
     const comChip = m.comisionPara ? ` <span class="chip-com">${esc(comSocNombre(m.comisionPara))}</span>` : '';
     const comLinea = (m.comisionPara && comMonto > 0) ? `<div class="com-linea">Comisión ${esc(comSocNombre(m.comisionPara))}: $ ${fmtNumStr(comMonto)}</div>` : (m.comisionPara && m.planId != null && Number(m.nroCuota) !== 1 ? `<div class="com-linea com-linea-info">Comisión ${esc(comSocNombre(m.comisionPara))} (imputada en la 1ª cuota)</div>` : '');
+    // Packs: se muestra cuánto quedó en societario y cuánto fue a la caja WE Legal
+    const rep = (typeof socReparto === 'function') ? socReparto(m) : null;
+    const packChip = rep ? ` <span class="chip-pack">${esc(rep.pack.nombre)}</span>` : '';
+    const packLinea = rep
+      ? `<div class="pack-linea">Societario <b>${sim}${fmtNumStr(Math.round(rep.soc))}</b> (${Math.round(rep.pack.soc*100)}%) · WE Legal <b>${sim}${fmtNumStr(Math.round(rep.wl))}</b> (${Math.round(rep.pack.wl*100)}%)</div>`
+      : '';
     return `<tr>
       <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
       <td style="font-weight:600">${esc(m.contraparte || '—')}${comChip}</td>
-      <td>${esc(m.concepto || '—')}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.honorarios || 0)} honorarios · ${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.gastosIncl)} gastos</div>` : ''}${comLinea}</td>
+      <td>${esc(m.concepto || '—')}${packChip}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.honorarios || 0)} honorarios · ${(m.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(m.gastosIncl)} gastos</div>` : ''}${packLinea}${comLinea}</td>
       <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
       <td style="font-size:11.5px">${met}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
       <td>${CAJASOC_ADJ[m.id]
@@ -11851,6 +12338,147 @@ function renderCajaSoc() {
   }
   try { renderComisionesDetalle(); } catch(e) {}
   renderCuotasPendientes('Soc');
+}
+
+// ── Selector de pack prearmado en el formulario societario ──
+function csPackChange(){
+  const sel = document.getElementById('csPack');
+  const con = document.getElementById('csConcepto');
+  if (!sel || !con) return;
+  const p = packPorId(sel.value);
+  if (p) con.value = p.concepto;
+  else if (socPackDe({ concepto: con.value })) con.value = '';   // sacar el pack deja el concepto libre
+  csPackHint();
+}
+// Si el concepto se escribe a mano, el selector acompaña
+function csPackSync(){
+  const sel = document.getElementById('csPack');
+  const con = document.getElementById('csConcepto');
+  if (!sel || !con) return;
+  const p = socPackDe({ concepto: con.value });
+  sel.value = p ? p.id : '';
+  csPackHint();
+}
+function csPackHint(){
+  const box = document.getElementById('csPackHint');
+  if (!box) return;
+  const con = document.getElementById('csConcepto');
+  const p = socPackDe({ concepto: (con||{}).value });
+  const tipo = (document.getElementById('csTipo')||{}).value;
+  if (!p || (tipo && tipo !== 'ingreso')){ box.style.display = 'none'; box.innerHTML = ''; return; }
+  const monto = numDe((document.getElementById('csMonto')||{}).value) || 0;
+  const mon = (document.getElementById('csMoneda')||{}).value === 'USD' ? 'u$s ' : '$ ';
+  const chk = document.getElementById('csTieneGastos');
+  const gas = (chk && chk.checked) ? (numDe((document.getElementById('csGastos')||{}).value) || 0) : 0;
+  const hon = (chk && chk.checked) ? (numDe((document.getElementById('csHonorarios')||{}).value) || 0) : monto;
+  const base = gas > 0 ? hon : monto;
+  const pSoc = Math.round(p.soc*100), pWl = Math.round(p.wl*100);
+  box.style.display = '';
+  box.innerHTML = `<b>${esc(p.nombre)}</b>: se reparte ${pSoc}% societario / ${pWl}% WE Legal`
+    + (gas > 0 ? ' sobre los honorarios (los gastos adelantados quedan en societario)' : '')
+    + (base > 0 ? ` · societario <b>${mon}${fmtNumStr(Math.round(base*p.soc + gas))}</b> · WE Legal <b>${mon}${fmtNumStr(Math.round(base*p.wl))}</b>` : '');
+}
+
+// ── Módulo Caja WE Legal (solo lectura: los cobros se cargan desde la societaria) ──
+const WL_DOLAR_KEY = 'jc-wl-dolar-v1';
+function wlMesActual(){
+  const el = document.getElementById('wlMes');
+  return (el && el.value) ? el.value : hoyISO().slice(0,7);
+}
+function wlGuardarDolar(){
+  const v = numDe((document.getElementById('wlDolar')||{}).value);
+  if (v > 0){ appStore.setItem(DOLAR_KEY, String(v)); if (typeof sbPushConfig === 'function') sbPushConfig('dolar', v); }
+}
+function wlValorDolar(){
+  const v = numDe((document.getElementById('wlDolar')||{}).value);
+  if (v > 0) return v;
+  const g = parseFloat(appStore.getItem(DOLAR_KEY));
+  return g > 0 ? g : 0;
+}
+function renderWeLegal(){
+  const mesEl = document.getElementById('wlMes');
+  if (!mesEl) return;
+  if (!mesEl.value) mesEl.value = hoyISO().slice(0,7);
+  const dolEl = document.getElementById('wlDolar');
+  if (dolEl && !dolEl.value){ const g = parseFloat(appStore.getItem(DOLAR_KEY)); if (g > 0) dolEl.value = fmtNumStr(g); }
+  const mes = mesEl.value;
+  const w = welegalDelMes(mes);
+  const dolar = wlValorDolar();
+  const pes = w.ars + w.usd * dolar;
+
+  const tiles = document.getElementById('wlTiles');
+  if (tiles) tiles.innerHTML = `
+    <div class="abo-kpi wl"><div class="lbl">Entró a WE Legal (pesos)</div>
+      <div class="val">$ ${fmtNumStr(Math.round(w.ars))}</div>
+      <div class="sub">${w.n} cobro${w.n !== 1 ? 's' : ''} de packs · ${mesLargo(mes)}</div></div>
+    <div class="abo-kpi usd"><div class="lbl">Entró a WE Legal (dólares)</div>
+      <div class="val">u$s ${fmtNumStr(Math.round(w.usd))}</div>
+      <div class="sub">${dolar > 0 ? 'total pesificado: $ ' + fmtNumStr(Math.round(pes)) : 'cargá el dólar para pesificar'}</div></div>
+    <div class="abo-kpi neutral"><div class="lbl">Quedó en societario</div>
+      <div class="val">$ ${fmtNumStr(Math.round(w.socArs))}</div>
+      <div class="sub">${w.socUsd ? 'u$s ' + fmtNumStr(Math.round(w.socUsd)) + ' · ' : ''}de los mismos cobros</div></div>`;
+
+  const mini = document.getElementById('wlMini');
+  if (mini) mini.textContent = w.n + ' cobro' + (w.n !== 1 ? 's' : '') + ' · ' + mesLargo(mes);
+
+  const tabla = document.getElementById('wlTabla');
+  const vacia = document.getElementById('wlVacia');
+  const sim = m => m === 'USD' ? 'u$s ' : '$ ';
+  if (!w.filas.length){
+    if (tabla) tabla.innerHTML = '';
+    if (vacia) vacia.style.display = 'block';
+  } else {
+    if (vacia) vacia.style.display = 'none';
+    if (tabla) tabla.innerHTML = '<thead><tr><th>Fecha</th><th>Cliente</th><th>Pack</th>'
+      + '<th style="text-align:right">Cobrado</th><th style="text-align:right">Base repartible</th>'
+      + '<th style="text-align:right">Societario</th><th style="text-align:right">WE Legal</th></tr></thead><tbody>'
+      + w.filas.map(f => {
+          const s = sim(f.moneda);
+          const cuota = f.mov.planId != null ? ' ' + etiquetaCuota(f.mov.planId, f.mov.nroCuota) : '';
+          const gas = f.gastos > 0 ? `<div class="desglose-linea">menos ${s}${fmtNumStr(Math.round(f.gastos))} de gastos adelantados</div>` : '';
+          return `<tr>
+            <td style="white-space:nowrap">${formatFechaCorta(f.mov.fecha)}</td>
+            <td style="font-weight:600">${esc(f.mov.contraparte || '—')}${cuota}</td>
+            <td><span class="chip-pack">${esc(f.pack.nombre)}</span> <span class="pack-pct">${Math.round(f.pack.soc*100)} / ${Math.round(f.pack.wl*100)}</span></td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums">${s}${fmtNumStr(Math.round(f.mov.monto))}</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums">${s}${fmtNumStr(Math.round(f.base))}${gas}</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums">${s}${fmtNumStr(Math.round(f.soc))}</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#8a5a2b">${s}${fmtNumStr(Math.round(f.wl))}</td>
+          </tr>`;
+        }).join('')
+      + `</tbody><tfoot><tr>
+          <td colspan="5" style="text-align:right;font-weight:700;padding-top:8px">Total del mes:</td>
+          <td style="text-align:right;font-weight:700;padding-top:8px">$ ${fmtNumStr(Math.round(w.socArs))}${w.socUsd?(' · u$s '+fmtNumStr(Math.round(w.socUsd))):''}</td>
+          <td style="text-align:right;font-weight:800;padding-top:8px;color:#8a5a2b">$ ${fmtNumStr(Math.round(w.ars))}${w.usd?(' · u$s '+fmtNumStr(Math.round(w.usd))):''}</td>
+        </tr></tfoot>`;
+  }
+
+  // Rankings: por pack y por cliente, siempre sobre la parte de WE Legal
+  const filaRank = (r, i, max) => `
+    <div class="rank-item">
+      <span class="rank-pos">${i + 1}</span>
+      <div style="flex:1;min-width:0">
+        <div class="rank-nombre">${esc(r.nombre)}</div>
+        <div class="rank-barra"><i style="width:${Math.max(4, Math.round(r.clave / max * 100))}%"></i></div>
+      </div>
+      <span class="rank-monto">${r.ars ? '$ ' + fmtNumStr(Math.round(r.ars)) : ''}${r.ars && r.usd ? ' · ' : ''}${r.usd ? 'u$s ' + fmtNumStr(Math.round(r.usd)) : ''}</span>
+    </div>`;
+  const pintaRank = (id, arr) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const orden = arr.map(x => ({ ...x, clave: x.ars + x.usd * (dolar || 1) })).sort((a,b)=> b.clave - a.clave);
+    const max = orden.length ? orden[0].clave : 1;
+    el.innerHTML = orden.length ? orden.slice(0,8).map((r,i)=> filaRank(r,i,max)).join('')
+      : '<div class="panel-empty">Sin cobros de packs este mes.</div>';
+  };
+  pintaRank('wlRankPack', w.porPack);
+  const porCli = {};
+  w.filas.forEach(f => {
+    const k = (f.mov.contraparte || '').trim() || '(sin cliente)';
+    porCli[k] = porCli[k] || { nombre: k, ars: 0, usd: 0 };
+    if (f.moneda === 'USD') porCli[k].usd += f.wl; else porCli[k].ars += f.wl;
+  });
+  pintaRank('wlRankCli', Object.values(porCli));
 }
 
 function renderComisionesDetalle() {
@@ -12040,22 +12668,16 @@ function labelReceptor() {
 }
 let __cjSugSel = -1;
 function cjSugItems(q) {
-  q = __normBusqueda(q).trim();
-  const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).map(c => ({ n: c.entidad, tipo: c.tipo || '', enc: c.encargada || '', crm: true }));
+  const texto = q || '';
+  const nq = __normBusqueda(texto).trim();
+  const crm = cjClientesSugeridos(texto).map(r => ({ n: r.cli.entidad, via: r.via, tipo: r.cli.tipo || '', enc: r.cli.encargada || '', crm: true }));
   const crmSet = new Set(crm.map(c => c.n.trim().toUpperCase()));
-  const hist = [...new Set(cajaVisiblePara().map(x => (x.cliente || '').trim()).filter(Boolean))]
+  let hist = [...new Set(cajaVisiblePara().map(x => (x.cliente || '').trim()).filter(Boolean))]
     .filter(n => !crmSet.has(n.toUpperCase()))
-    .map(n => ({ n, tipo: '', enc: '', crm: false }));
-  let todos = [...crm, ...hist];
-  if (q) {
-    // primero los que empiezan con la búsqueda, después los que la contienen
-    const emp = todos.filter(c => __normBusqueda(c.n).startsWith(q));
-    const cont = todos.filter(c => !__normBusqueda(c.n).startsWith(q) && __normBusqueda(c.n).includes(q));
-    todos = [...emp, ...cont];
-  } else {
-    todos.sort((a, b) => a.n.localeCompare(b.n));
-  }
-  return todos.slice(0, 8);
+    .map(n => ({ n, via: '', tipo: '', enc: '', crm: false }));
+  if (nq) hist = hist.filter(c => __normBusqueda(c.n).includes(nq));
+  else hist.sort((a, b) => a.n.localeCompare(b.n));
+  return [...crm, ...hist].slice(0, 8);
 }
 function cjSugRender() {
   const inp = document.getElementById('cjCliente');
@@ -12065,7 +12687,7 @@ function cjSugRender() {
   __cjSugSel = -1;
   if (!items.length) { box.style.display = 'none'; return; }
   box.innerHTML = items.map((c, i) => `<div class="cj-sug-it" data-i="${i}" onmousedown="event.preventDefault();cjSugElegir(${i})">
-    <span class="n">${esc(c.n)}</span>
+    <span class="n">${esc(c.n)}${c.via ? `<small class="via">referente: ${esc(c.via)}</small>` : ''}</span>
   </div>`).join('');
   box.__items = items;
   box.style.display = 'block';
@@ -12099,18 +12721,15 @@ document.addEventListener('click', function(e) {
 // Autocompletado de cliente/proveedor en caja societaria (mismos clientes del CRM + históricos propios)
 let __csSugSel = -1;
 function csSugItems(q) {
-  q = __normBusqueda(q).trim();
-  const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).map(c => ({ n: c.entidad }));
+  const texto = q || '';
+  const nq = __normBusqueda(texto).trim();
+  const crm = cjClientesSugeridos(texto).map(r => ({ n: r.cli.entidad, via: r.via }));
   const crmSet = new Set(crm.map(c => c.n.trim().toUpperCase()));
-  const hist = [...new Set((CAJASOC || []).map(x => (x.contraparte || '').trim()).filter(Boolean))]
-    .filter(n => !crmSet.has(n.toUpperCase())).map(n => ({ n }));
-  let todos = [...crm, ...hist];
-  if (q) {
-    const emp = todos.filter(c => __normBusqueda(c.n).startsWith(q));
-    const cont = todos.filter(c => !__normBusqueda(c.n).startsWith(q) && __normBusqueda(c.n).includes(q));
-    todos = [...emp, ...cont];
-  } else todos.sort((a, b) => a.n.localeCompare(b.n));
-  return todos.slice(0, 8);
+  let hist = [...new Set((CAJASOC || []).map(x => (x.contraparte || '').trim()).filter(Boolean))]
+    .filter(n => !crmSet.has(n.toUpperCase())).map(n => ({ n, via: '' }));
+  if (nq) hist = hist.filter(c => __normBusqueda(c.n).includes(nq));
+  else hist.sort((a, b) => a.n.localeCompare(b.n));
+  return [...crm, ...hist].slice(0, 8);
 }
 function csSugRender() {
   const inp = document.getElementById('csContra');
@@ -12119,7 +12738,7 @@ function csSugRender() {
   const items = csSugItems(inp.value);
   __csSugSel = -1;
   if (!items.length) { box.style.display = 'none'; return; }
-  box.innerHTML = items.map((c, i) => `<div class="cj-sug-it" data-i="${i}" onmousedown="event.preventDefault();csSugElegir(${i})"><span class="n">${esc(c.n)}</span></div>`).join('');
+  box.innerHTML = items.map((c, i) => `<div class="cj-sug-it" data-i="${i}" onmousedown="event.preventDefault();csSugElegir(${i})"><span class="n">${esc(c.n)}${c.via ? `<small class="via">referente: ${esc(c.via)}</small>` : ''}</span></div>`).join('');
   box.__items = items;
   box.style.display = 'block';
 }
@@ -12494,9 +13113,13 @@ function registrarPago() {
   if (!fecha) { document.getElementById('cjFecha').focus(); return; }
   if (!cliente) { document.getElementById('cjCliente').focus(); return; }
   if (!monto || monto <= 0) { document.getElementById('cjMonto').focus(); return; }
-  // Vincular con un cliente del CRM si el nombre coincide (exacto, sin distinguir mayúsculas)
-  let clienteId = null;
-  if (typeof CLIENTES !== 'undefined') {
+  // Vincular con un cliente del CRM. Si todavía no tiene ficha, se le arma una
+  // como cliente esporádico con el nombre y el servicio que surgen de la caja.
+  let clienteId = null, fichaNueva = false;
+  if (typeof crmAsegurarFicha === 'function') {
+    const r = crmAsegurarFicha(cliente, '', fecha, 'jud');
+    if (r.cli) { clienteId = r.cli.id; fichaNueva = r.creada; }
+  } else if (typeof CLIENTES !== 'undefined') {
     const match = CLIENTES.find(c => (c.entidad || '').trim().toLowerCase() === cliente.toLowerCase());
     if (match) clienteId = match.id;
   }
@@ -12521,7 +13144,11 @@ function registrarPago() {
   sbPushPago(pago);
   // Ofrecer sumarlo al historial de servicios del cliente (sea pago suelto o plan de cuotas)
   const conceptoServJud = infoCuota ? etiquetaServJud : concepto;
-  if (clienteId && conceptoServJud && typeof agregarServicioContratado === 'function') {
+  if (fichaNueva) {
+    // Ficha recién creada: el servicio se suma solo, sin preguntar
+    if (conceptoServJud) agregarServicioContratado(clienteId, conceptoServJud, fecha);
+    if (typeof aricToast === 'function') aricToast('Se creó la ficha de ' + crmNombreProlijo(cliente) + ' en el CRM');
+  } else if (clienteId && conceptoServJud && typeof agregarServicioContratado === 'function') {
     setTimeout(() => {
       const cli = clientePorId(clienteId);
       if (cli && confirm('¿Registrar «' + conceptoServJud + '» como servicio contratado de ' + cli.entidad + '?')) {
@@ -12559,10 +13186,16 @@ function eliminarPago(id) {
     if (etiqueta && !planPorId(pago.planId) && pago.clienteId && typeof quitarServicioContratado === 'function') {
       quitarServicioContratado(pago.clienteId, etiqueta);
     }
-  } else if (pago && pago.clienteId && pago.concepto && typeof quitarServicioContratado === 'function') {
-    // Pago suelto: quitar el servicio contratado que se había sumado desde él
-    quitarServicioContratado(pago.clienteId, pago.concepto);
+  } else if (pago && pago.concepto && typeof quitarServicioContratado === 'function') {
+    // Pago suelto: quitar el servicio contratado que se había sumado desde él.
+    // Si el pago no tenía el vínculo guardado, se resuelve por nombre igual que al cargarlo.
+    const cid = pago.clienteId != null ? pago.clienteId : __clienteIdPorNombre(pago.cliente);
+    if (cid != null) quitarServicioContratado(cid, pago.concepto);
   }
+  // Si la ficha se había creado sola por este cobro y ya no queda ninguno, se borra
+  if (pago && typeof crmLimpiarFichaHuerfana === 'function'
+      && crmLimpiarFichaHuerfana(pago.clienteId, pago.cliente) && typeof aricToast === 'function')
+    aricToast('También se borró la ficha de ' + crmNombreProlijo(pago.cliente) + ' del CRM');
   renderCaja();
 }
 // ═══════════════════════════════════════════════════════════════════
@@ -12710,18 +13343,18 @@ function renderCaja() {
 
   if (modoOri) {
     document.getElementById('cajaTiles').innerHTML = `
-      <div class="tile tile-destacada"><div class="num">$ ${fmtNumStr(t.oArs)}</div><div class="lbl">Mi comisión del mes (ARS)</div><div class="sub">${pagos.length} pago${pagos.length !== 1 ? 's' : ''} con comisión</div></div>
-      <div class="tile"><div class="num">u$s ${fmtNumStr(t.oUsd)}</div><div class="lbl">Mi comisión del mes (USD)</div><div class="sub">5 % de cada pago marcado</div></div>`;
+      <div class="abo-kpi"><div class="lbl">Mi comisión del mes (ARS)</div><div class="val">$ ${fmtNumStr(t.oArs)}</div><div class="sub">${pagos.length} pago${pagos.length !== 1 ? 's' : ''} con comisión</div></div>
+      <div class="abo-kpi usd"><div class="lbl">Mi comisión del mes (USD)</div><div class="val">u$s ${fmtNumStr(t.oUsd)}</div><div class="sub">5 % de cada pago marcado</div></div>`;
   } else
   document.getElementById('cajaTiles').innerHTML = pesif ? `
-    <div class="tile tile-destacada"><div class="num">$ ${fmtNumStr(totalPes)}</div><div class="lbl">Total del mes pesificado</div><div class="sub">$ ${fmtNumStr(t.ars)} + u$s ${fmtNumStr(t.usd)} × ${fmtNumStr(dolar)}</div></div>
-    <div class="tile"><div class="num">$ ${fmtNumStr(kPes)}</div><div class="lbl">Comisión Kevin (pesificada)</div><div class="sub">$ ${fmtNumStr(t.kArs)} · u$s ${fmtNumStr(t.kUsd)}</div></div>
-    <div class="tile"><div class="num">$ ${fmtNumStr(oPes)}</div><div class="lbl">Comisión Ori (pesificada)</div><div class="sub">$ ${fmtNumStr(t.oArs)} · u$s ${fmtNumStr(t.oUsd)}</div></div>
-    <div class="tile"><div class="num">${pagos.length}</div><div class="lbl">Pagos registrados</div><div class="sub">${pagos.filter(p => CAJA_ADJ[p.id]).length} con comprobante · ${pagos.filter(p => p.revisado).length} revisados</div></div>` : `
-    <div class="tile"><div class="num">$ ${fmtNumStr(t.ars)}</div><div class="lbl">Ingresos en pesos</div><div class="sub">${pagos.filter(p => p.moneda !== 'USD').length} pagos</div></div>
-    <div class="tile"><div class="num">u$s ${fmtNumStr(t.usd)}</div><div class="lbl">Ingresos en dólares</div><div class="sub">${pagos.filter(p => p.moneda === 'USD').length} pagos</div></div>
-    ${dolar > 0 ? `<div class="tile tile-destacada"><div class="num">$ ${fmtNumStr(totalPes)}</div><div class="lbl">Total pesificado</div><div class="sub">dólar a $ ${fmtNumStr(dolar)}</div></div>` : ''}
-    <div class="tile"><div class="num">${pagos.length}</div><div class="lbl">Pagos registrados</div><div class="sub">${pagos.filter(p => CAJA_ADJ[p.id]).length} con comprobante · ${pagos.filter(p => p.revisado).length} revisados</div></div>`;
+    <div class="abo-kpi"><div class="lbl">Total del mes pesificado</div><div class="val">$ ${fmtNumStr(totalPes)}</div><div class="sub">$ ${fmtNumStr(t.ars)} + u$s ${fmtNumStr(t.usd)} × ${fmtNumStr(dolar)}</div></div>
+    <div class="abo-kpi neutral"><div class="lbl">Comisión Kevin (pesificada)</div><div class="val">$ ${fmtNumStr(kPes)}</div><div class="sub">$ ${fmtNumStr(t.kArs)} · u$s ${fmtNumStr(t.kUsd)}</div></div>
+    <div class="abo-kpi neutral"><div class="lbl">Comisión Ori (pesificada)</div><div class="val">$ ${fmtNumStr(oPes)}</div><div class="sub">$ ${fmtNumStr(t.oArs)} · u$s ${fmtNumStr(t.oUsd)}</div></div>
+    <div class="abo-kpi sello"><div class="lbl">Pagos registrados</div><div class="val">${pagos.length}</div><div class="sub">${pagos.filter(p => CAJA_ADJ[p.id]).length} con comprobante · ${pagos.filter(p => p.revisado).length} revisados</div></div>` : `
+    <div class="abo-kpi"><div class="lbl">Ingresos en pesos</div><div class="val">$ ${fmtNumStr(t.ars)}</div><div class="sub">${pagos.filter(p => p.moneda !== 'USD').length} pago${pagos.filter(p => p.moneda !== 'USD').length !== 1 ? 's' : ''}</div></div>
+    <div class="abo-kpi usd"><div class="lbl">Ingresos en dólares</div><div class="val">u$s ${fmtNumStr(t.usd)}</div><div class="sub">${pagos.filter(p => p.moneda === 'USD').length} pago${pagos.filter(p => p.moneda === 'USD').length !== 1 ? 's' : ''}</div></div>
+    ${dolar > 0 ? `<div class="abo-kpi neutral"><div class="lbl">Total pesificado</div><div class="val">$ ${fmtNumStr(totalPes)}</div><div class="sub">dólar a $ ${fmtNumStr(dolar)}</div></div>` : ''}
+    <div class="abo-kpi sello"><div class="lbl">Pagos registrados</div><div class="val">${pagos.length}</div><div class="sub">${pagos.filter(p => CAJA_ADJ[p.id]).length} con comprobante · ${pagos.filter(p => p.revisado).length} revisados</div></div>`;
 
   const tabla = document.getElementById('cajaTabla');
   const vacia = document.getElementById('cajaVacia');
@@ -12810,6 +13443,9 @@ let SUELDO = null;
 let SUELDO_MES = null;                 // 'YYYY-MM' visible; null = mes actual
 let SUELDO_VISTA = 'cobros';           // 'cobros' | 'inflacion'
 let SUELDO_INFL_INPUT = ['', '', ''];
+let SUELDO_INFL_DESDE = '';            // mes desde el que rige (vacío = cierre del trimestre)
+function sueldoInflDesde(){ return SUELDO_INFL_DESDE || inflMesCierre(); }
+function sueldoInflSetDesde(v){ SUELDO_INFL_DESDE = v || ''; renderSueldo(); }
 let SUELDO_ADJ = null;                 // comprobante que se está por adjuntar
 
 function loadSueldo(){
@@ -12852,16 +13488,49 @@ function sueldoCalculo(ym){
 // Pagos recibidos en el mes
 function sueldoPagosMes(ym){ loadSueldo(); return SUELDO.pagos[ym] || []; }
 function sueldoCobrado(ym){ return sueldoPagosMes(ym).reduce((a,p)=> a + (Number(p.monto)||0), 0); }
+
+// ── Excedente que se traslada al mes siguiente ──
+// Si en un mes se cobró de más, ese sobrante arranca el mes siguiente como ya cobrado.
+// El encadenado se recalcula desde el primer mes con cobros registrados.
+function sueldoMesPrev(ym){
+  const y = Number(ym.slice(0,4)), m = Number(ym.slice(5,7));
+  const d = new Date(y, m - 2, 1);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+}
+function sueldoPrimerMes(){
+  loadSueldo();
+  const ks = Object.keys(SUELDO.pagos || {}).filter(k => /^\d{4}-\d{2}$/.test(k)).sort();
+  return ks.length ? ks[0] : null;
+}
+// Sobrante acumulado que entra a un mes desde los anteriores
+function sueldoArrastre(ym){
+  const ini = sueldoPrimerMes();
+  if (!ini || ym <= ini) return 0;
+  const meses = [];
+  let m = sueldoMesPrev(ym);
+  for (let i = 0; i < 600 && m >= ini; i++){ meses.push(m); m = sueldoMesPrev(m); }
+  meses.reverse();
+  let acum = 0;
+  for (const mm of meses){
+    const total = sueldoCobrado(mm) + acum;
+    const ex = total - sueldoCalculo(mm).aCobrar;
+    acum = ex > 1 ? ex : 0;
+  }
+  return acum;
+}
 function sueldoEstado(ym){
   const c = sueldoCalculo(ym);
-  const cobrado = sueldoCobrado(ym);
+  const pagado = sueldoCobrado(ym);          // cobros registrados en el mes
+  const arrastre = sueldoArrastre(ym);       // sobrante que viene del mes anterior
+  const cobrado = pagado + arrastre;
   const bruto = c.aCobrar - cobrado;
   // El monto a cobrar tiene centavos y los cobros se registran en pesos enteros:
   // una diferencia menor a un peso se considera saldada.
   const saldado = bruto < 1;
-  const falta = saldado ? 0 : bruto;
+  const falta = saldado ? (bruto <= -1 ? bruto : 0) : bruto;
+  const excedente = falta < 0 ? -falta : 0;  // pasa al mes siguiente
   const estado = cobrado <= 0 ? 'pendiente' : (saldado ? 'pagado' : 'parcial');
-  return { ...c, cobrado, falta, estado };
+  return { ...c, pagado, arrastre, cobrado, falta, excedente, estado };
 }
 function sueldoAgregarPago(ym, datos){
   loadSueldo();
@@ -12953,6 +13622,204 @@ function sueldoDesdeNube(cfg, pagos){
   saveSueldo();
 }
 
+// ═══════════════ SUELDOS DEL EQUIPO ═══════════════
+// Cada persona tiene un sueldo base fijo (se ajusta por inflación cada 3 meses)
+// más las comisiones variables del mes, que salen de la caja que le corresponde:
+//   'jud' → caja judicial (Kevin y Ori)      'soc' → caja societaria (Sofi G, Sofi T, Naza)
+// El gasto del mes de cada persona es base + comisión.
+// Kevin es un caso aparte: su base, su mínimo garantizado y su cálculo viven en el
+// submódulo "Sueldo de Kevin" de la caja judicial. Acá se muestra, pero no se duplica:
+// se lee de ahí (sueldoCalculo) en lugar de tener una base propia.
+// Ivana no cobra sueldo (es dueña), por eso no figura.
+const EQUIPO_KEY = 'jc-equipo-v1';
+const EQUIPO_INFL_KEY = 'jc-equipo-infl-v1';
+const EQUIPO_PERSONAS = [
+  { id:'kevin',  nombre:'Kevin',  fuente:'jud', externo:true },
+  { id:'ori',    nombre:'Ori',    fuente:'jud' },
+  { id:'sofig',  nombre:'Sofi G', fuente:'soc', comSoc:'sofig' },
+  { id:'sofit',  nombre:'Sofi T', fuente:'soc', comSoc:'sofit' },
+  { id:'naza',   nombre:'Naza',   fuente:'soc', comSoc:'naza' },
+  { id:'brenda', nombre:'Brenda', fuente:null }
+];
+const EQUIPO_BASES_INI = { ori:1403000, sofig:936000, sofit:1230000, naza:1440000, brenda:0 };
+let EQUIPO = null;
+let EQUIPO_VISTA = 'tabla';            // 'tabla' | 'inflacion'
+let EQUIPO_INFL_INPUT = ['', '', ''];
+let EQUIPO_INFL_DESDE = '';            // mes desde el que rige el ajuste (vacío = cierre del trimestre)
+function equipoInflDesde(){ return EQUIPO_INFL_DESDE || inflMesCierre(); }
+function equipoInflSetDesde(v){ EQUIPO_INFL_DESDE = v || ''; renderIngresos(); }
+
+function equipoPersona(pid){ return EQUIPO_PERSONAS.find(p => p.id === pid) || null; }
+function equipoNombre(pid){ const p = equipoPersona(pid); return p ? p.nombre : pid; }
+// Las personas con base propia (Kevin queda afuera: su base vive en el submódulo de la caja judicial)
+function equipoConBase(){ return EQUIPO_PERSONAS.filter(p => !p.externo); }
+
+function loadEquipo(){
+  try { EQUIPO = JSON.parse(appStore.getItem(EQUIPO_KEY) || 'null'); } catch(e){ EQUIPO = null; }
+  if (!EQUIPO || typeof EQUIPO !== 'object'){
+    EQUIPO = { bases: Object.assign({}, EQUIPO_BASES_INI), hist: [] };
+    saveEquipoLocal();
+  }
+  if (!EQUIPO.bases || typeof EQUIPO.bases !== 'object') EQUIPO.bases = Object.assign({}, EQUIPO_BASES_INI);
+  if (!Array.isArray(EQUIPO.hist)) EQUIPO.hist = [];
+  // si aparece gente nueva en la lista, arranca en cero
+  equipoConBase().forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  return EQUIPO;
+}
+function saveEquipoLocal(){ try { appStore.setItem(EQUIPO_KEY, JSON.stringify(EQUIPO)); } catch(e){} }
+function saveEquipo(){ saveEquipoLocal(); sbPushEquipo(); }
+// La tabla de sueldos viaja en la tabla 'config' de Supabase (no necesita tabla propia)
+function sbPushEquipo(){
+  if (typeof SB_ON !== 'undefined' && SB_ON && typeof sbPushConfig === 'function')
+    sbPushConfig('sueldos_equipo', JSON.stringify(EQUIPO));
+}
+function equipoDesdeNube(txt){
+  if (!txt) return;
+  let d; try { d = JSON.parse(txt); } catch(e){ return; }
+  if (!d || typeof d !== 'object') return;
+  loadEquipo();
+  if (d.bases && typeof d.bases === 'object') EQUIPO.bases = d.bases;
+  EQUIPO.hist = Array.isArray(d.hist) ? d.hist : [];
+  equipoConBase().forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  saveEquipoLocal();
+}
+
+// Bases vigentes en un mes (el historial guarda cada ajuste por inflación)
+function equipoBasesVigentes(ym){
+  loadEquipo();
+  const bases = Object.assign({}, EQUIPO.bases);
+  EQUIPO.hist.slice().sort((a,b)=> a.desde.localeCompare(b.desde))
+    .forEach(x => { if (x.desde <= ym && x.bases) Object.assign(bases, x.bases); });
+  return bases;
+}
+function equipoBaseVigente(pid, ym){
+  const p = equipoPersona(pid);
+  if (p && p.externo) return (typeof sueldoVigente === 'function') ? sueldoVigente(ym).base : 0;
+  return Number(equipoBasesVigentes(ym)[pid]) || 0;
+}
+// Valor del dólar de referencia (los campos de las cajas, o el último guardado)
+function equipoDolarRef(){
+  let d = 0;
+  try { if (typeof valorDolar === 'function') d = valorDolar() || 0; } catch(e){}
+  if (!d){ try { if (typeof valorDolarSoc === 'function') d = valorDolarSoc() || 0; } catch(e){} }
+  if (!d && typeof DOLAR_KEY !== 'undefined'){ const v = parseFloat(appStore.getItem(DOLAR_KEY)); if (v > 0) d = v; }
+  return d || 0;
+}
+// Comisiones del mes de una persona, pesificadas, tomadas de su caja
+function equipoComisionesMes(pid, ym){
+  const p = equipoPersona(pid);
+  if (!p || !p.fuente) return 0;
+  const dolar = equipoDolarRef();
+  if (p.fuente === 'jud'){
+    if (typeof pagosDelMes !== 'function' || typeof totalesCaja !== 'function') return 0;
+    const t = totalesCaja(pagosDelMes(ym));
+    return p.id === 'ori' ? (t.oArs || 0) + (t.oUsd || 0) * dolar
+                          : (t.kArs || 0) + (t.kUsd || 0) * dolar;
+  }
+  if (p.fuente === 'soc'){
+    if (typeof CAJASOC === 'undefined' || typeof comisionSocDe !== 'function') return 0;
+    return CAJASOC
+      .filter(m => (m.fecha||'').slice(0,7) === ym && m.comisionPara === p.comSoc)
+      .reduce((a,m)=> a + (comisionSocDe(m, dolar) || 0), 0);
+  }
+  return 0;
+}
+// Una línea por persona: base + comisión = lo que cuesta ese mes
+function equipoLineasMes(ym){
+  return EQUIPO_PERSONAS.map(p => {
+    const comision = equipoComisionesMes(p.id, ym);
+    let base, total, minimo = 0, aplicaMinimo = false;
+    if (p.externo && typeof sueldoCalculo === 'function'){
+      // Kevin: base + comisiones, con piso garantizado (misma cuenta que la caja judicial)
+      const c = sueldoCalculo(ym);
+      base = c.base; minimo = c.minimo; aplicaMinimo = c.aplicaMinimo; total = c.aCobrar;
+    } else {
+      base = equipoBaseVigente(p.id, ym);
+      total = base + comision;
+    }
+    return { id:p.id, nombre:p.nombre, fuente:p.fuente, externo:!!p.externo,
+             base, comision, total, minimo, aplicaMinimo, sinDato: !p.externo && !base };
+  });
+}
+function equipoTotalMes(ym){ return equipoLineasMes(ym).reduce((a,x)=> a + (x.total||0), 0); }
+
+// ── Cambiar el sueldo base de una persona ──
+// Nunca es retroactivo: el monto nuevo se guarda en el historial con el mes desde el
+// que rige, así los balances de los meses anteriores quedan como estaban.
+function equipoFijarBase(pid, monto, desde){
+  const p = equipoPersona(pid);
+  if (!p || p.externo) return false;
+  if (!/^\d{4}-\d{2}$/.test(desde||'')) return false;
+  loadEquipo();
+  const ex = EQUIPO.hist.find(x => x.desde === desde);
+  if (ex){ ex.bases = Object.assign({}, ex.bases); ex.bases[pid] = Number(monto)||0; }
+  else EQUIPO.hist.push({ desde, bases: { [pid]: Number(monto)||0 } });
+  EQUIPO.hist.sort((a,b)=> a.desde.localeCompare(b.desde));
+  saveEquipo();
+  return true;
+}
+// Desde qué mes rige la base que se está usando en 'ym' (null = desde siempre)
+function equipoBaseDesde(pid, ym){
+  const p = equipoPersona(pid);
+  if (!p || p.externo) return null;
+  loadEquipo();
+  let desde = null;
+  EQUIPO.hist.slice().sort((a,b)=> a.desde.localeCompare(b.desde))
+    .forEach(x => { if (x.desde <= ym && x.bases && x.bases[pid] != null) desde = x.desde; });
+  return desde;
+}
+// Todos los cambios de base cargados, del más nuevo al más viejo
+function equipoHistorial(){
+  loadEquipo();
+  const filas = [];
+  EQUIPO.hist.forEach(x => {
+    Object.keys(x.bases||{}).forEach(pid => filas.push({ desde: x.desde, pid, nombre: equipoNombre(pid), monto: Number(x.bases[pid])||0 }));
+  });
+  return filas.sort((a,b)=> b.desde.localeCompare(a.desde) || a.nombre.localeCompare(b.nombre));
+}
+function equipoBorrarCambio(pid, desde){
+  loadEquipo();
+  const ex = EQUIPO.hist.find(x => x.desde === desde);
+  if (!ex || !ex.bases) return false;
+  delete ex.bases[pid];
+  if (!Object.keys(ex.bases).length) EQUIPO.hist = EQUIPO.hist.filter(x => x !== ex);
+  saveEquipo();
+  return true;
+}
+
+// ── Ajuste trimestral por inflación (mismo criterio que abonos y que el sueldo de Kevin) ──
+function equipoAplicarInflacion(infl, desde){
+  const vals = (infl||[]).map(x => Number(String(x).replace(',','.'))||0);
+  if (!vals.length || vals.every(x => x === 0)) return false;
+  loadEquipo();
+  const actuales = equipoBasesVigentes(desde);
+  const nuevas = {};
+  equipoConBase().forEach(p => {
+    const b = Number(actuales[p.id]) || 0;
+    if (b > 0) nuevas[p.id] = abonoCalcInflacion(b, vals);
+  });
+  if (!Object.keys(nuevas).length) return false;
+  try { appStore.setItem(EQUIPO_INFL_KEY, JSON.stringify({ desde, infl: vals, histPrev: JSON.parse(JSON.stringify(EQUIPO.hist)) })); } catch(e){}
+  const ex = EQUIPO.hist.find(x => x.desde === desde);
+  if (ex) ex.bases = Object.assign({}, ex.bases, nuevas);
+  else EQUIPO.hist.push({ desde, bases: nuevas });
+  EQUIPO.hist.sort((a,b)=> a.desde.localeCompare(b.desde));
+  saveEquipo();
+  return true;
+}
+function equipoDeshacerInflacion(){
+  let snap; try { snap = JSON.parse(appStore.getItem(EQUIPO_INFL_KEY) || 'null'); } catch(e){ snap = null; }
+  if (!snap) return false;
+  loadEquipo();
+  EQUIPO.hist = Array.isArray(snap.histPrev) ? snap.histPrev : [];
+  saveEquipo();
+  try { appStore.removeItem(EQUIPO_INFL_KEY); } catch(e){}
+  return true;
+}
+function equipoHayAjusteParaDeshacer(){
+  try { return !!JSON.parse(appStore.getItem(EQUIPO_INFL_KEY) || 'null'); } catch(e){ return false; }
+}
+
 // ── Subsolapas de la caja judicial ──
 let CAJA_SUB = 'a';
 function cajaIrSub(s){
@@ -13004,6 +13871,7 @@ function renderSueldo(){
   const st = sueldoEstado(ym);
   const pagos = sueldoPagosMes(ym).slice().sort((a,b)=> (a.fecha||'').localeCompare(b.fecha||''));
   const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
+  const fmtS = n => { const v = Math.round(Number(n)||0); return (v < 0 ? '-$ ' : '$ ') + fmtNumStr(Math.abs(v)); };
   const pct = st.aCobrar ? Math.min(100, st.cobrado / st.aCobrar * 100) : 0;
 
   const filas = pagos.length ? pagos.map(p => {
@@ -13020,7 +13888,10 @@ function renderSueldo(){
     </div>`;
   }).join('') : '<div class="abo-sec-vacio">Todavía no hay cobros registrados este mes.</div>';
 
-  const chip = st.estado === 'pagado' ? '<span class="abo-estado ok">✓ Cobrado</span>'
+  const chip = st.estado === 'pagado'
+      ? (st.excedente > 0
+          ? `<span class="abo-estado ok">✓ Cobrado · sobran ${fmt(st.excedente)}</span>`
+          : '<span class="abo-estado ok">✓ Cobrado</span>')
     : st.estado === 'parcial' ? `<span class="abo-estado parcial">Parcial · falta ${fmt(st.falta)}</span>`
     : '<span class="abo-estado debe">Pendiente</span>';
 
@@ -13049,13 +13920,13 @@ function renderSueldo(){
       <div class="sue-kpi">
         <div class="lbl">Ya cobró</div>
         <div class="val">${fmt(st.cobrado)}</div>
-        <div class="sub">${pagos.length} cobro${pagos.length!==1?'s':''} registrado${pagos.length!==1?'s':''}</div>
+        <div class="sub">${pagos.length} cobro${pagos.length!==1?'s':''} registrado${pagos.length!==1?'s':''}${st.arrastre > 0 ? ' · incluye ' + fmt(st.arrastre) + ' del mes anterior' : ''}</div>
         <div class="bar"><span style="width:${pct.toFixed(1)}%"></span></div>
       </div>
       <div class="sue-kpi ${st.falta>0?'falta':'ok'}">
         <div class="lbl">Falta cobrar</div>
-        <div class="val">${fmt(st.falta)}</div>
-        <div class="sub">${chip}</div>
+        <div class="val">${fmtS(st.falta)}</div>
+        <div class="sub">${chip}${st.excedente > 0 ? '<div class="sue-arr">Se traslada al mes siguiente</div>' : ''}</div>
       </div>
     </div>
 
@@ -13066,10 +13937,12 @@ function renderSueldo(){
       <div class="sue-des-row sub"><span>Suma</span><b>${fmt(st.suma)}</b></div>
       <div class="sue-des-row"><span>Mínimo garantizado</span><b>${fmt(st.minimo)}</b></div>
       <div class="sue-des-row total"><span>${st.aplicaMinimo ? 'Cobra el mínimo, porque la suma no lo alcanza' : 'Cobra base + comisiones, porque supera el mínimo'}</span><b>${fmt(st.aCobrar)}</b></div>
+      ${st.arrastre > 0 ? `<div class="sue-des-row"><span>Excedente arrastrado del mes anterior</span><b>${fmt(st.arrastre)}</b></div>` : ''}
+      ${st.excedente > 0 ? `<div class="sue-des-row"><span>Excedente que pasa al mes siguiente</span><b>${fmt(st.excedente)}</b></div>` : ''}
     </div>
 
     <div class="abo-sec">
-      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Cobros registrados</span><span class="abo-sec-count">${fmt(st.cobrado)}</span></div>
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Cobros registrados</span><span class="abo-sec-count">${fmt(st.pagado)}</span></div>
       <div class="abo-row abo-row-head">
         <div class="sue-c-fecha">Fecha</div><div class="sue-c-metodo">Forma</div>
         <div class="sue-c-monto">Monto</div><div class="sue-c-comp">Comprobante</div>
@@ -13176,10 +14049,10 @@ function sueldoInflInput(i, v){
   if (nm) nm.textContent = hay ? fmt(abonoCalcInflacion(v0.minimo, infl)) : '—';
 }
 function renderSueldoInflacion(cont, subtabs){
-  const ym = sueldoMesActual();
+  const ym = sueldoInflDesde();
   const v = sueldoVigente(ym);
   const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
-  const meses = abonoMesesInflacion().map(s => { const n = s.split(' ')[0]; return n.charAt(0).toUpperCase() + n.slice(1); });
+  const meses = inflTrimestreLabels().map(s => s.split(' ')[0]);
   const puedeDeshacer = sueldoHayAjusteParaDeshacer();
   cont.innerHTML = `
     <div class="abo-top" style="margin-top:6px"><div>
@@ -13188,11 +14061,16 @@ function renderSueldoInflacion(cont, subtabs){
     </div></div>
     ${subtabs}
     <div class="abo-infl-box">
-      <div class="abo-infl-hint">Ajuste trimestral. El cálculo es compuesto: cada mes se aplica sobre el valor ya ajustado del anterior. Se mueven <b>la base y el mínimo garantizado</b> juntos, y rige desde <b>${esc(capPrim(sueldoMesLabel(ym)))}</b> inclusive.</div>
+      <div class="abo-infl-hint">Ajuste trimestral de <b>${esc(inflTrimestreLabels().join(', '))}</b>. El cálculo es compuesto: cada mes se aplica sobre el valor ya ajustado del anterior. Se mueven <b>la base y el mínimo garantizado</b> juntos. <b>No es retroactivo</b>: rige desde el mes que elijas, hacia adelante.</div>
       <div class="abo-infl-inputs">
         <div class="abo-infl-fld"><label>Inflación ${meses[0]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[0])}" placeholder="Ej: 4,2" oninput="sueldoInflInput(0,this.value)"></div>
         <div class="abo-infl-fld"><label>Inflación ${meses[1]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[1])}" placeholder="Ej: 3,8" oninput="sueldoInflInput(1,this.value)"></div>
         <div class="abo-infl-fld"><label>Inflación ${meses[2]} (%)</label><input type="text" inputmode="decimal" value="${esc(SUELDO_INFL_INPUT[2])}" placeholder="Ej: 3,1" oninput="sueldoInflInput(2,this.value)"></div>
+      </div>
+      <div class="abo-infl-desde">
+        <label>El sueldo nuevo rige desde</label>
+        <input type="month" value="${esc(ym)}" onchange="sueldoInflSetDesde(this.value)">
+        <span class="abo-infl-desde-n">inclusive · los meses anteriores no se tocan</span>
       </div>
       <div class="abo-infl-acc">
         <button class="abo-infl-aplicar" onclick="sueldoConfirmarInflacion()">Aplicar ajuste</button>
@@ -13220,10 +14098,10 @@ function renderSueldoInflacion(cont, subtabs){
 function sueldoConfirmarInflacion(){
   const infl = SUELDO_INFL_INPUT.map(x => Number(String(x).replace(',','.'))||0);
   if (!infl.some(x => x > 0)){ aricToast('Cargá los porcentajes de inflación'); return; }
-  const ym = sueldoMesActual();
-  if (!confirm('¿Aplicar el ajuste por inflación al sueldo?\n\nSe actualizan la base y el mínimo garantizado desde ' + sueldoMesLabel(ym) + '. Podés deshacerlo después.')) return;
+  const ym = sueldoInflDesde();
+  if (!confirm('¿Aplicar el ajuste por inflación al sueldo?\n\nSe actualizan la base y el mínimo garantizado desde ' + sueldoMesLabel(ym) + ' inclusive; los meses anteriores no se tocan. Podés deshacerlo después.')) return;
   if (sueldoAplicarInflacion(infl, ym)){
-    SUELDO_INFL_INPUT = ['','',''];
+    SUELDO_INFL_INPUT = ['','','']; SUELDO_INFL_DESDE = '';
     aricToast('Sueldo actualizado por inflación');
     SUELDO_VISTA = 'cobros';
     renderSueldo();
@@ -13644,7 +14522,7 @@ const PERFILES = {
 const USUARIOS = {
   kevindaich: { mail: 'kevin@welegal.ar',     nombre: 'Kevin',  perfil: 'total'  },
   ivana:      { mail: 'ivana@welegal.ar',     nombre: 'Ivana',  perfil: 'total'  },
-  brenda:     { mail: 'bren@welegal.ar',      nombre: 'Brenda', perfil: 'brenda' },
+  brenda:     { mail: 'brenda@welegal.ar',    nombre: 'Brenda', perfil: 'brenda' },
   ori:        { mail: 'oriana@welegal.ar',    nombre: 'Oriana', perfil: 'ori'    },
   sofig:      { mail: 'sofi@welegal.ar',      nombre: 'Sofi G', perfil: 'sofig'  },
   sofit:      { mail: 'sofia@welegal.ar',     nombre: 'Sofi T', perfil: 'basico' },
@@ -13812,6 +14690,8 @@ function cerrarSesion() {
 const ARIC_USERS = ['naza', 'kevindaich', 'sofig', 'ivana'];
 const ABONOS_USERS = ['kevindaich', 'sofig', 'brenda', 'ivana'];
 const INGRESOS_USERS = ['kevindaich', 'ivana'];
+// Caja WE Legal (packs): lista cerrada, no depende del acceso a la caja societaria
+const WELEGAL_USERS = ['kevindaich', 'ivana', 'brenda', 'sofig'];
 // ═══ RIEL DE NAVEGACIÓN LATERAL ═══
 // Reemplaza las barras horizontales. Los ítems llevan data-nav para que el sistema
 // de permisos que ya existe los muestre u oculte sin lógica duplicada.
@@ -13823,8 +14703,9 @@ const RIEL_ITEMS = [
   { grupo:'Finanzas' },
   { nav:'caja',          emo:'💰', txt:'Caja judicial',   go:"navTo('caja')" },
   { nav:'cajasoc',       emo:'💼', txt:'Caja societaria', go:"navTo('cajasoc')" },
+  { nav:'welegal',       emo:'🏛', txt:'Caja WE Legal (packs)', go:"navTo('welegal')" },
   { nav:'abonos',        emo:'🔁', txt:'Abonos',          go:"navTo('abonos')" },
-  { nav:'ingresos',      emo:'📊', txt:'Ingresos',        go:"navTo('ingresos')" },
+  { nav:'ingresos',      emo:'📊', txt:'Control financiero', go:"navTo('ingresos')" },
   { grupo:'Clientes' },
   { nav:'crm',           emo:'👤', txt:'CRM',             go:"navTo('crm')" },
   { grupo:'ARICCAME' },
@@ -13883,6 +14764,9 @@ function rielAjustarPermisos(){
   if(cj) cj.style.display = (pf.cajaJud !== false) ? '' : 'none';
   const cs = document.querySelector('#rielItems [data-nav="cajasoc"]');
   if(cs) cs.style.display = pf.cajaSoc ? '' : 'none';
+  // Caja WE Legal: solo la lista habilitada
+  const wl = document.querySelector('#rielItems [data-nav="welegal"]');
+  if(wl) wl.style.display = (WELEGAL_USERS.indexOf(usuarioActual()) !== -1) ? '' : 'none';
   // ARICCAME: cáñamo y cannabis solo para quienes lo tienen habilitado
   const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('#rielItems [data-nav="ariccame"]').forEach(b => b.style.display = verAric ? '' : 'none');
@@ -13910,6 +14794,7 @@ function permisoPagina(p) {
   if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'ingresos') return INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
+  if (p === 'welegal') return WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
   return true;
 }
 function aplicarPermisos() {
@@ -13936,6 +14821,8 @@ function aplicarPermisos() {
   document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
   const verIngresos = INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
+  const verWeLegal = WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('[data-nav="welegal"]').forEach(b => b.style.display = verWeLegal ? '' : 'none');
   rielConstruir();
   rielAjustarPermisos();
   rielOcultarGruposVacios();
@@ -14298,6 +15185,38 @@ function calcularUltimoContacto(cli) {
 
 function clientePorId(id) { return (CLIENTES || []).find(c => c.id === id); }
 
+// ── Autocompletado inteligente de las cajas ──
+// Además del nombre de la entidad se busca por el del referente, así escribiendo
+// "caparra" o "nico deglise" aparece la asociación a la que hay que imputarle el pago.
+// Devuelve null si no coincide, o { punt, via } donde 'via' dice por qué coincidió.
+function cjPuntajeCliente(c, q, qt){
+  const ent = __normBusqueda(c.entidad || '').trim();
+  const ref = __normBusqueda(c.referente || '').trim();
+  if (!q) return { punt: 0, via: '' };
+  if (ent.startsWith(q)) return { punt: 100 - (ent.length - q.length) / 100, via: '' };
+  if (ref && ref.startsWith(q)) return { punt: 80 - (ref.length - q.length) / 100, via: c.referente };
+  if (ent.includes(q)) return { punt: 60, via: '' };
+  if (ref && ref.includes(q)) return { punt: 50, via: c.referente };
+  // Palabra suelta: "caparra" contra el referente "JUAN CAPARRA"
+  if (qt && qt.length){
+    const et = (typeof crmTokens === 'function') ? crmTokens(c.entidad) : [];
+    const rt = (typeof crmTokens === 'function') ? crmTokens(c.referente) : [];
+    if (et.length && qt.every(t => et.includes(t))) return { punt: 45, via: '' };
+    if (rt.length && qt.every(t => rt.includes(t))) return { punt: 40, via: c.referente };
+  }
+  return null;
+}
+// Ordena los clientes del CRM según lo que se escribió. q vacío = todos, alfabético.
+function cjClientesSugeridos(texto){
+  const q = __normBusqueda(texto || '').trim();
+  const qt = (typeof crmTokens === 'function') ? crmTokens(texto) : [];
+  const crm = (typeof CLIENTES !== 'undefined' ? CLIENTES : []);
+  if (!q) return crm.map(c => ({ cli: c, via: '' })).sort((a,b)=> (a.cli.entidad||'').localeCompare(b.cli.entidad||''));
+  return crm.map(c => { const p = cjPuntajeCliente(c, q, qt); return p ? { cli: c, via: p.via, punt: p.punt } : null; })
+    .filter(Boolean)
+    .sort((a,b)=> b.punt - a.punt || (a.cli.entidad||'').localeCompare(b.cli.entidad||''));
+}
+
 // Buscar clientes por nombre (para el autocompletado de caja)
 function buscarClientes(texto) {
   const t = __normBusqueda(texto).trim();
@@ -14412,11 +15331,143 @@ function plazoCorto(vence) {
 }
 
 // ── Servicios contratados (se suman desde caja) ──
+// ═══════════ FICHAS AUTOMÁTICAS DE CLIENTES ESPORÁDICOS ═══════════
+// Cuando se registra un cobro de alguien que todavía no está en el CRM, se le arma
+// la ficha sola: solo el nombre (en mayúsculas, por prolijidad) y el servicio que
+// surge de la caja. El resto queda en blanco y se completa cuando haga falta.
+//
+// Antes de crear nada se busca al cliente con criterio amplio: se compara contra el
+// nombre de la entidad Y contra el del referente, y alcanza con que el nombre del
+// pago esté contenido en cualquiera de los dos. Así un pago a "Caparra" se le imputa
+// a la asociación cuyo referente es "Juan Caparra", en vez de abrir una ficha nueva.
+// La ficha esporádica se crea SOLO si no hay ninguna entidad ni ningún referente
+// que coincida.
+//
+// El estado guarda de qué caja salió: 'esporadico_jud' | 'esporadico_soc' | 'esporadico_wl'
+// ('esporadico' a secas es el que se marca a mano desde la ficha).
+const CRM_ESPORADICO = 'esporadico';
+const CRM_ORIGEN_LBL = { jud: 'caja judicial', soc: 'caja societaria', wl: 'caja WE Legal (packs)' };
+function crmEsEsporadico(c){ return !!c && /^esporadico/.test(c.estado || ''); }
+function crmOrigenDe(c){
+  const m = /^esporadico_(\w+)$/.exec((c && c.estado) || '');
+  return m ? (CRM_ORIGEN_LBL[m[1]] || '') : '';
+}
+function crmNombreProlijo(n){ return (n || '').trim().replace(/\s+/g, ' ').toUpperCase(); }
+// Palabras demasiado genéricas para decidir por sí solas que dos nombres son la misma persona
+const CRM_STOP = new Set(['asociacion','asociación','civil','sociedad','anonima','anónima','sas','srl','sa',
+  'cooperativa','limitada','de','del','la','el','los','las','y','e','sr','sra','dr','dra','don','na']);
+function crmTokens(s){
+  return __normBusqueda(s || '').split(/[^a-z0-9]+/).filter(t => t.length >= 3 && !CRM_STOP.has(t));
+}
+// Busca al cliente por nombre de entidad o de referente, con tolerancia.
+// Devuelve { cli, motivo } o null. Ante empate se queda con la coincidencia más fuerte.
+function crmBuscarCliente(nombre){
+  const q = __normBusqueda(nombre || '').trim();
+  if (!q || typeof CLIENTES === 'undefined') return null;
+  const qt = crmTokens(nombre);
+  let mejor = null;
+  (CLIENTES || []).forEach(c => {
+    const ent = __normBusqueda(c.entidad || '').trim();
+    const ref = __normBusqueda(c.referente || '').trim();
+    let punt = 0, motivo = '';
+    if (ent && ent === q){ punt = 100; motivo = 'entidad'; }
+    else if (ref && ref === q){ punt = 90; motivo = 'referente'; }
+    else if (qt.length){
+      // Todas las palabras significativas del pago tienen que aparecer en el nombre
+      const et = crmTokens(c.entidad), rt = crmTokens(c.referente);
+      if (et.length && qt.every(t => et.includes(t))){ punt = 70 - Math.abs(et.length - qt.length); motivo = 'entidad'; }
+      else if (rt.length && qt.every(t => rt.includes(t))){ punt = 60 - Math.abs(rt.length - qt.length); motivo = 'referente'; }
+    }
+    if (punt && (!mejor || punt > mejor.punt)) mejor = { cli: c, motivo, punt };
+  });
+  return mejor ? { cli: mejor.cli, motivo: mejor.motivo } : null;
+}
+// Compatibilidad con el nombre viejo
+function crmBuscarPorNombre(nombre){ const r = crmBuscarCliente(nombre); return r ? r.cli : null; }
+
+// Devuelve la ficha del cliente; si no existe la crea como esporádico.
+// origen: 'jud' | 'soc' | 'wl'. Devuelve { cli, creada, motivo }.
+function crmAsegurarFicha(nombre, concepto, fecha, origen){
+  const limpio = (nombre || '').trim();
+  if (!limpio || typeof CLIENTES === 'undefined') return { cli: null, creada: false, motivo: '' };
+  const ex = crmBuscarCliente(limpio);
+  if (ex){
+    // Ya existe (por entidad o por referente): solo se le suma el servicio si es nuevo
+    if (concepto && !(ex.cli.servicios || []).some(s => __normBusqueda(s.concepto || '') === __normBusqueda(concepto)))
+      agregarServicioContratado(ex.cli.id, concepto, fecha);
+    return { cli: ex.cli, creada: false, motivo: ex.motivo };
+  }
+  const cli = clienteVacio();
+  cli.id = Date.now() + Math.floor(Math.random() * 1000);
+  cli.entidad = crmNombreProlijo(limpio);
+  cli.tipo = '';                       // sin clasificar: no sabemos qué es
+  cli.registro = '';
+  cli.estado = CRM_ESPORADICO + (CRM_ORIGEN_LBL[origen] ? '_' + origen : '');
+  cli.packSituacion = '';
+  cli.servicios = concepto ? [{ concepto, fecha: fecha || hoyISO() }] : [];
+  cli.observaciones = 'Ficha creada automáticamente al registrar un cobro en la '
+    + (CRM_ORIGEN_LBL[origen] || 'caja') + (fecha ? ' (' + fmtFechaCortaCRM(fecha) + ')' : '') + '.';
+  CLIENTES.push(cli);
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  return { cli, creada: true, motivo: 'nueva' };
+}
+
+// ── Borrar la ficha cuando se elimina el cobro que la originó ──
+// Solo se borra si la ficha es esporádica creada automáticamente y ya no queda
+// ningún movimiento en ninguna de las dos cajas que le corresponda.
+function crmTieneMovimientos(cli){
+  if (!cli) return false;
+  const coincide = n => { const r = crmBuscarCliente(n); return !!r && r.cli.id === cli.id; };
+  const enJud = (typeof CAJA !== 'undefined' ? CAJA : [])
+    .some(p => p.clienteId === cli.id || coincide(p.cliente));
+  if (enJud) return true;
+  return (typeof CAJASOC !== 'undefined' ? CAJASOC : [])
+    .filter(m => m.tipo === 'ingreso' || !m.tipo)
+    .some(m => m.clienteId === cli.id || coincide(m.contraparte));
+}
+function crmLimpiarFichaHuerfana(clienteId, nombre){
+  if (typeof CLIENTES === 'undefined') return false;
+  let cli = clienteId != null ? clientePorId(clienteId) : null;
+  if (!cli && nombre){ const r = crmBuscarCliente(nombre); cli = r ? r.cli : null; }
+  if (!cli || !crmEsEsporadico(cli)) return false;
+  if (crmFichaEditada(cli)) return false;          // si alguien ya la completó, no se toca
+  if (crmTieneMovimientos(cli)) return false;
+  eliminarCliente(cli.id);
+  return true;
+}
+
+// Campos que delatan que alguien trabajó la ficha, para no borrarla sin querer.
+// Ojo: 'tipo', 'packSituacion' y 'reproTienen' NO sirven como señal, porque Supabase
+// los devuelve con un valor por defecto aunque se hayan guardado vacíos.
+function crmCamposEditados(c){
+  const out = [];
+  if (c.cuit) out.push('CUIT');
+  if (c.telefono) out.push('teléfono');
+  if (c.mail) out.push('mail');
+  if (c.referente) out.push('referente');
+  if (c.encargada) out.push('encargada');
+  if (c.driveLink) out.push('Drive');
+  if ((c.bitacora || []).length) out.push('bitácora');
+  if ((c.reuniones || []).length) out.push('reuniones');
+  if ((c.tramites || []).length) out.push('trámites');
+  if (c.packTipo || c.packVence) out.push('pack');
+  if (c.docPendiente) out.push('doc. pendiente');
+  if (c.proximoContacto) out.push('próximo contacto');
+  return out;
+}
+function crmFichaEditada(c){ return crmCamposEditados(c).length > 0; }
+
 function agregarServicioContratado(id, concepto, fecha) {
   const cli = clientePorId(id);
   if (!cli) return;
   if (!cli.servicios) cli.servicios = [];
-  cli.servicios.unshift({ concepto: concepto || '', fecha: fecha || hoyISO() });
+  const f = fecha || hoyISO();
+  // Si ya está exactamente el mismo servicio en la misma fecha, no se duplica:
+  // al borrar el pago se quita una sola entrada y la copia quedaría huérfana.
+  const norm = s => (typeof __normBusqueda === 'function') ? __normBusqueda(s || '') : (s || '').toLowerCase();
+  if (cli.servicios.some(s => norm(s.concepto) === norm(concepto) && (s.fecha || '') === f)) return;
+  cli.servicios.unshift({ concepto: concepto || '', fecha: f });
   saveClientesLocal();
   if (typeof sbPushCliente === 'function') sbPushCliente(cli);
 }
@@ -14617,7 +15668,7 @@ function pagosDeCliente(id) {
 // ══════════════════════════════════════════════════════════════════
 //  MÓDULO CRM — vista (listado paginado + filtros)  · Etapa 1
 // ══════════════════════════════════════════════════════════════════
-var __crmFiltros = { texto: '', tipo: '', encargada: '', repro: '', pack: '', situacion: '', doc: '', reunion: '', vencePack: '', orden: 'proximo' };
+var __crmFiltros = { texto: '', tipo: '', encargada: '', repro: '', pack: '', situacion: '', doc: '', reunion: '', vencePack: '', estado: '', orden: 'proximo' };
 
 const TIPO_LABEL = { 'AC': 'Asoc. Civil', 'Sociedad': 'Sociedad', 'Cooperativa': 'Cooperativa', 'Persona fisica': 'Persona física' };
 const TIPO_CLS = { 'AC': 'ac', 'Sociedad': 'sas', 'Cooperativa': 'coop', 'Persona fisica': 'pf' };
@@ -14670,6 +15721,10 @@ function clientesFiltrados() {
   if (f.repro) arr = arr.filter(c => (c.reproTienen || 'no_aplica') === f.repro);
   if (f.pack) arr = arr.filter(c => (c.packTipo || '') === f.pack);
   if (f.situacion) arr = arr.filter(c => (c.packSituacion || '') === f.situacion);
+  if (f.estado === CRM_ESPORADICO) arr = arr.filter(c => crmEsEsporadico(c));
+  else if (f.estado === 'no_esporadico') arr = arr.filter(c => !crmEsEsporadico(c));
+  else if (/^esporadico_/.test(f.estado)) arr = arr.filter(c => (c.estado || '') === f.estado);
+  else if (f.estado) arr = arr.filter(c => (c.estado || '') === f.estado);
   if (f.doc === 'si') arr = arr.filter(c => c.docPendiente);
   if (f.doc === 'no') arr = arr.filter(c => !c.docPendiente);
   if (f.reunion === 'si') arr = arr.filter(c => tieneReunionPendiente(c));
@@ -14724,6 +15779,8 @@ function renderCRM() {
     const nota = ultimaNota(c);
     const noContactar = c.estado === 'no_contactar';
     const exCliente = c.estado === 'ex_cliente';
+    const esporadico = crmEsEsporadico(c);
+    const origenCaja = crmOrigenDe(c);
 
     // Chips: pack, situación, doc pendiente
     let chips = '';
@@ -14765,6 +15822,7 @@ function renderCRM() {
           ${c.encargada ? `<span class="tag-enc">👤 ${esc(c.encargada)}</span>` : '<span class="tag-enc vacia">Sin encargada</span>'}
           ${noContactar ? '<span class="tag nocontactar">⚠ No contactar</span>' : ''}
           ${exCliente ? '<span class="tag excliente">Ex cliente</span>' : ''}
+          ${esporadico ? `<span class="tag esporadico">◆ Cliente esporádico${origenCaja ? ' · ' + esc(origenCaja) : ''}</span>` : ''}
         </div>
         <div class="crm-sub">
           ${c.referente ? `<span>${esc(c.referente)}</span>` : ''}
@@ -14804,7 +15862,7 @@ function crmToggleChip(campo) {
   renderCRM();
 }
 function crmLimpiarFiltros() {
-  __crmFiltros = { texto: '', tipo: '', encargada: '', repro: '', pack: '', situacion: '', doc: '', reunion: '', vencePack: '', orden: __crmFiltros.orden };
+  __crmFiltros = { texto: '', tipo: '', encargada: '', repro: '', pack: '', situacion: '', doc: '', reunion: '', vencePack: '', estado: '', orden: __crmFiltros.orden };
   const b = document.getElementById('crmBuscar'); if (b) b.value = '';
   __paginas['crm'] = 0;
   renderCRM();
@@ -14817,9 +15875,10 @@ function sincronizarControlesCRM() {
   // reflejar en los selects (por si se limpió), y recién ahí marcar los activos
   const set = (id, v) => { const el = document.getElementById(id); if (el && el.value !== v) el.value = v; };
   set('crmFiltroTipo', f.tipo); set('crmFiltroEncargada', f.encargada); set('crmFiltroRepro', f.repro);
-  set('crmFiltroPack', f.pack); set('crmFiltroSituacion', f.situacion); set('crmFiltroDoc', f.doc); set('crmOrden', f.orden);
+  set('crmFiltroPack', f.pack); set('crmFiltroSituacion', f.situacion); set('crmFiltroDoc', f.doc);
+  set('crmFiltroEstado', f.estado); set('crmOrden', f.orden);
   const marcar = (id) => { const el = document.getElementById(id); if (el) el.classList.toggle('activo', !!el.value); };
-  ['crmFiltroTipo','crmFiltroEncargada','crmFiltroRepro','crmFiltroPack','crmFiltroSituacion','crmFiltroDoc'].forEach(marcar);
+  ['crmFiltroTipo','crmFiltroEncargada','crmFiltroRepro','crmFiltroPack','crmFiltroSituacion','crmFiltroDoc','crmFiltroEstado'].forEach(marcar);
 }
 // Panel de métricas de cartera (sobre TODOS los clientes, no los filtrados)
 function renderCrmMetricas() {
@@ -14938,7 +15997,7 @@ function htmlFormNuevoCliente() {
         <div class="crm-fgrid">
           <div class="crm-fld full"><label>Entidad / Nombre</label><input id="nc_entidad" placeholder="Ej: Asociación Civil Cosecha Perfecta"></div>
           <div class="crm-fld"><label>Tipo</label><select id="nc_tipo"><option value="AC">Asociación Civil</option><option value="Sociedad">Sociedad</option><option value="Cooperativa">Cooperativa</option><option value="Persona fisica">Persona física</option></select></div>
-          <div class="crm-fld"><label>Estado</label><select id="nc_estado"><option value="">Sin marca (normal)</option><option value="no_contactar">No contactar</option><option value="ex_cliente">Ex cliente</option></select></div>
+          <div class="crm-fld"><label>Estado</label><select id="nc_estado"><option value="">Sin marca (normal)</option><option value="esporadico">Cliente esporádico</option><option value="no_contactar">No contactar</option><option value="ex_cliente">Ex cliente</option></select></div>
           <div class="crm-fld"><label>CUIT</label><input id="nc_cuit" placeholder="30-00000000-0"></div>
           <div class="crm-fld"><label>Registro</label><select id="nc_registro"><option value="IGJ">IGJ</option><option value="DPPJ">DPPJ</option><option value="INAES">INAES</option><option value="Otro">Otro</option></select></div>
           <div class="crm-fld"><label>Encargada</label><select id="nc_encargada">${opcionesEncargada('')}</select></div>
