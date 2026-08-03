@@ -1182,6 +1182,26 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-kpi.wl::before{background:#8a5a2b}
 .abo-kpi.wl .val{color:#8a5a2b}
 .pack-pct{font-size:10px;color:var(--tinta-suave);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* Estado replicado en la subventana Abonos actas de la caja societaria */
+.est-actas{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;
+  letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;line-height:1.6}
+.est-actas.ok{background:#eaf1e9;color:#1e7a48;border:1px solid #cfe0cd}
+.est-actas.parc{background:#f8f0dd;color:#a86e17;border:1px solid #ebdcb8;text-transform:none;
+  letter-spacing:0;font-weight:700}
+.est-actas.debe{background:#f9e3df;color:#b3372a;border:1px solid #eecac3}
+.fila-actas.pendiente td,.fila-actas.parcial td{background:#fdfcf8}
+
+/* Abonos de actas: la parte de los abonos que es ingreso societario */
+.abo-kpi.actas::before{background:var(--sello,#1b3a6b)}
+.abo-kpi.actas .val{color:var(--sello,#1b3a6b);font-size:19px}
+.abo-nota-actas{margin-top:7px;padding-top:6px;border-top:1px solid var(--filo);
+  font-size:10.5px;color:var(--sello,#1b3a6b);line-height:1.35}
+.tile.tile-actas{box-shadow:inset 3px 0 0 var(--sello,#1b3a6b);background:#f4f6fa}
+.tile.tile-actas .cs-val,.tile.tile-actas .num{color:var(--sello,#1b3a6b)}
+.chip-actas{display:inline-block;padding:1px 8px;border-radius:20px;font-size:10px;font-weight:800;
+  letter-spacing:.4px;text-transform:uppercase;background:#e8eef7;color:#1b3a6b;border:1px solid #cbd9ea;
+  vertical-align:middle;white-space:nowrap}
+.chip-actas.mixto{background:#f0e4d4;color:#8a5a2b;border-color:#e0cbb0}
 .chip-pack{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10px;font-weight:800;
   letter-spacing:.4px;text-transform:uppercase;background:#f0e4d4;color:#8a5a2b;border:1px solid #e0cbb0;
   vertical-align:middle;white-space:nowrap}
@@ -1400,6 +1420,55 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-m-desde input{width:100%;padding:8px 11px;border:1px solid var(--filo);border-radius:7px;font-family:var(--f-ui,inherit);font-size:13px;box-sizing:border-box}
 .abo-m-desde input:focus{outline:none;border-color:#14294a}
 .abo-mrow .abo-c-nom{flex:2}
+
+/* ── Etiqueta de distribución en los listados de abonos ── */
+/* Solo se marca lo que se sale de la regla general: societario y mixto.
+   Los abonos comunes no llevan etiqueta, porque son la mayoría. */
+.chip-caja{display:inline-block;flex:0 0 auto;padding:2px 8px;border-radius:20px;
+  font-size:9.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+  white-space:nowrap;line-height:1.5;font-family:var(--f-ui,inherit)}
+.chip-caja.soc{background:#efe7f7;color:#5b3d8c;border:1px solid #d9c9ee}
+.chip-caja.mix{background:#faf7fd;color:#5b3d8c;border:1px dashed #b79ede}
+/* El nombre y la etiqueta van en la misma línea; el que se recorta es el nombre */
+.abo-row .abo-c-nom{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow:hidden}
+.abo-row .abo-c-nom>.abo-c-nom-t{flex:0 1 auto;min-width:0}
+
+/* ── Subsolapa Distribución de abonos ── */
+.abo-row.abo-crow{
+  display:grid;
+  grid-template-columns:minmax(0,2.4fr) 158px 196px minmax(0,2.2fr);
+  gap:16px;align-items:center;
+}
+.abo-row.abo-crow>div{min-width:0}
+.abo-row.abo-crow .abo-c-nom{display:block;overflow:hidden;cursor:default;flex:none}
+.abo-row.abo-crow .abo-c-nom>.abo-c-nom-t{display:block;max-width:100%;border-bottom:none;padding-bottom:0}
+.abo-c-tipo{display:block;font-size:10.5px;color:var(--tinta-suave);font-weight:400;
+  margin-top:2px;text-transform:none;letter-spacing:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.abo-c-caja select{width:100%;padding:6px 8px;font-size:12.5px;border:1px solid var(--filo);
+  border-radius:5px;background:var(--carta);color:var(--tinta);font-family:inherit;cursor:pointer}
+.abo-c-caja select:focus{outline:2px solid #b79ede;outline-offset:1px}
+.abo-c-pct{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--tinta-suave);
+  white-space:nowrap}
+.abo-c-pct input{width:64px;flex:0 0 auto;padding:6px 7px;font-size:12.5px;border:1px solid var(--filo);
+  border-radius:5px;background:var(--carta);color:var(--tinta);font-family:inherit;
+  font-variant-numeric:tabular-nums;text-align:right}
+.abo-c-pct input:focus{outline:2px solid #b79ede;outline-offset:1px}
+.abo-c-pct-fijo,.pct-sig{font-size:11.5px;color:var(--tinta-suave)}
+.abo-c-reparto{font-size:12px;color:var(--tinta-suave);line-height:1.45;
+  text-transform:none;letter-spacing:0}
+.abo-c-reparto b{color:#5b3d8c;font-weight:700}
+.abo-c-solo{color:var(--tinta-suave)}
+.abo-hint-tot{margin-top:7px;color:#5b3d8c}
+/* En pantallas medianas se achican las columnas antes de apilar */
+@media (max-width:1080px){
+  .abo-row.abo-crow{grid-template-columns:minmax(0,2fr) 140px 175px minmax(0,1.8fr);gap:12px}
+}
+@media (max-width:860px){
+  .abo-row.abo-crow{grid-template-columns:1fr;gap:8px;align-items:start}
+  .abo-row.abo-crow .abo-c-caja select,.abo-row.abo-crow .abo-c-pct input{max-width:220px}
+  .abo-row-head.abo-crow{display:none}
+}
 .abo-row-acc{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex:0 0 176px}
 .abo-wa-mini{width:32px;height:32px;flex:0 0 auto;border:none;background:#25d366;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
 .abo-wa-mini:hover{background:#1eb85a}
@@ -2615,6 +2684,16 @@ body.locked .app{margin-left:0}
         <div class="panel-h"><h3>▲ Ingresos del mes</h3><span class="mini" id="csMiniIn"></span></div>
         <div style="overflow-x:auto"><table class="tabla-caja" id="csTablaIn"></table></div>
         <div class="panel-empty" id="csVaciaIn" style="display:none">Sin ingresos registrados este mes.</div>
+      </div>
+
+      <!-- Abonos de actas: se cobran en la solapa Abonos; acá solo se reflejan -->
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelActas">
+        <div class="panel-h"><h3>📑 Abonos actas</h3><span class="mini" id="csMiniActas"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Réplica de los abonos que le corresponden a societario. El pago se registra siempre desde <b>Abonos mensuales</b> y el estado se actualiza acá solo. Al balance de la caja <b>suma únicamente lo ya cobrado</b>: lo pendiente se muestra pero no se cuenta.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="csTablaActas"></table></div>
+          <div class="panel-empty" id="csVaciaActas" style="display:none">Ningún abono de actas cobrado este mes.</div>
+        </div>
       </div>
 
       <div class="panel lista-amplia" style="margin-top:16px">
@@ -6400,6 +6479,8 @@ async function __sbCargarTodoInterno() {
     if (cfg.dolar) appStore.setItem(DOLAR_KEY, cfg.dolar);
     // Tabla de sueldos del equipo (viaja en config, no tiene tabla propia)
     if (cfg.sueldos_equipo && typeof equipoDesdeNube === 'function') equipoDesdeNube(cfg.sueldos_equipo);
+    // Reparto de cada abono entre la caja de abonos y societario
+    if (cfg.abonos_caja) { try { appStore.setItem(ABONOS_CAJA_KEY, cfg.abonos_caja); } catch(e){} }
     // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
     if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
@@ -7184,9 +7265,9 @@ function renderIngresos(){
     <div class="ing-fuentes-h">Desglose por fuente (bruto)</div>
     <div class="ing-fuentes">
       ${fuente('Caja judicial', d.jud, d.jud.n+' mov.')}
-      ${fuente('Caja societaria', d.soc, d.soc.n+' mov.')}
+      ${fuente('Caja societaria', d.soc, d.soc.n + ' mov.' + (d.actas.n ? ' + ' + d.actas.n + ' abono' + (d.actas.n!==1?'s':'') + ' de actas' : ''))}
       ${fuente('Caja WE Legal', d.wl, d.wl.n ? (d.wl.n+' pack'+(d.wl.n!==1?'s':'')) : 'sin packs')}
-      ${fuente('Abonos', d.abo, '')}
+      ${fuente('Abonos', d.abo, d.actas.n ? 'sin los de actas' : '')}
     </div>
     <div class="ing-part-h">Participación de cada fuente</div>
     ${ingBarrasParticipacion(d)}`;
@@ -7977,6 +8058,137 @@ function welegalDelMes(ym){
 
 // ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
 // Devuelve los ingresos de un mes 'YYYY-MM' por fuente y moneda (pesos y dólares separados).
+// ═══════════ ABONOS DE ACTAS (parte societaria de los abonos) ═══════════
+// Algunos abonos son en realidad ingresos de societario: los de actas. Otros son
+// mixtos (una parte actas, otra parte el abono de WhatsApp).
+//
+// Se siguen cargando y cobrando desde la solapa de Abonos mensuales — esa es la
+// única fuente de carga. La caja societaria los REFLEJA, no los duplica.
+//
+// Regla de oro para Control financiero: cada peso se cuenta una sola vez. La parte
+// de actas suma del lado de la caja societaria y se le descuenta a la fuente Abonos.
+// El total general no se mueve. Es el mismo criterio que la Caja WE Legal.
+//
+// El reparto se guarda como PORCENTAJE societario, así el ajuste por inflación o un
+// aumento del abono se reparten solos en la misma proporción. Los pagos parciales se
+// reparten proporcionalmente.
+const ABONOS_CAJA_KEY = 'jc-abonos-caja-v1';
+const ABO_CAJAS = { abono: 'Abono', societario: 'Societario', mixto: 'Mixto' };
+// Reparto inicial, según la planilla del estudio. Solo se aplica una vez:
+// después manda lo que esté guardado.
+const ABONOS_CAJA_SEED = [
+  { nom: '33 orientales',  caja: 'societario', pct: 100 },
+  { nom: 'le creme',       caja: 'societario', pct: 100 },
+  { nom: 'ropin',          caja: 'societario', pct: 100 },
+  { nom: '23 lunas',       caja: 'societario', pct: 100 },
+  { nom: 'cosecha libre',  caja: 'mixto',      pct: 50  },
+  { nom: 'comunidad rusa', caja: 'mixto',      pct: 50  }
+];
+function abonoCajaMapa(){
+  let m = null;
+  try { m = JSON.parse(appStore.getItem(ABONOS_CAJA_KEY) || 'null'); } catch(e){ m = null; }
+  if (m && typeof m === 'object') return m;
+  // Primera vez: se siembra desde la planilla, buscando por nombre
+  m = {};
+  const norm = s => (typeof __normBusqueda === 'function') ? __normBusqueda(s || '') : (s || '').toLowerCase();
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
+    const n = norm(c.nombre);
+    const s = ABONOS_CAJA_SEED.find(x => n.indexOf(x.nom) !== -1);
+    if (s) m[String(c.id)] = { caja: s.caja, pct: s.pct };
+  });
+  abonoCajaGuardar(m);
+  return m;
+}
+function abonoCajaGuardar(m){
+  try { appStore.setItem(ABONOS_CAJA_KEY, JSON.stringify(m)); } catch(e){}
+  if (typeof sbPushConfig === 'function') sbPushConfig('abonos_caja', JSON.stringify(m));
+}
+// { caja, pct } — pct es el porcentaje que va a la caja societaria
+function abonoCajaDe(cli){
+  if (!cli) return { caja: 'abono', pct: 0 };
+  const r = abonoCajaMapa()[String(cli.id)];
+  if (!r) return { caja: 'abono', pct: 0 };
+  const caja = ABO_CAJAS[r.caja] ? r.caja : 'abono';
+  if (caja === 'abono') return { caja: 'abono', pct: 0 };
+  if (caja === 'societario') return { caja: 'societario', pct: 100 };
+  let pct = Number(r.pct);
+  if (!isFinite(pct)) pct = 50;
+  return { caja: 'mixto', pct: Math.max(0, Math.min(100, pct)) };
+}
+function abonoCajaSet(cliId, caja, pct){
+  const m = abonoCajaMapa();
+  const k = String(cliId);
+  if (caja === 'abono') delete m[k];
+  else if (caja === 'societario') m[k] = { caja: 'societario', pct: 100 };
+  else {
+    let p = Number(pct);
+    if (!isFinite(p)) p = 50;
+    m[k] = { caja: 'mixto', pct: Math.max(0, Math.min(100, p)) };
+  }
+  abonoCajaGuardar(m);
+}
+function abonoEsActas(cli){ return abonoCajaDe(cli).caja !== 'abono'; }
+// Etiqueta para el listado: de un vistazo se ve a qué caja va cada abono.
+// compacta = solo la marca; si no, aclara el reparto del mixto.
+function abonoEtiquetaCaja(cli, compacta){
+  const r = abonoCajaDe(cli);
+  if (r.caja === 'societario') return '<span class="chip-caja soc">Societario</span>';
+  if (r.caja === 'mixto') return '<span class="chip-caja mix">Mixto'
+    + (compacta ? '' : ' ' + Math.round(r.pct) + '/' + (100 - Math.round(r.pct))) + '</span>';
+  return '';   // abono común: sin etiqueta, es la regla general
+}
+// Cuánto de lo COBRADO en el mes va a cada lado. Reparto proporcional.
+function abonoRepartoMes(cli, ym){
+  const cobrado = abonoTotalMes(cli, ym);
+  const r = abonoCajaDe(cli);
+  const soc = cobrado * r.pct / 100;
+  return { cobrado, soc, abo: cobrado - soc, pct: r.pct, caja: r.caja };
+}
+// Cuánto se ESPERA de actas en el mes (para el pendiente), sin depender del cobro
+function abonoEsperadoSoc(cli, ym){
+  const r = abonoCajaDe(cli);
+  if (!r.pct) return 0;
+  return (abonoMontoVigente(cli, ym) || 0) * r.pct / 100;
+}
+// Resumen del mes: la parte societaria de todos los abonos de actas.
+//
+// Las filas incluyen TODOS los abonos que le corresponden a societario, estén
+// cobrados o no, para que la caja societaria pueda replicar el listado completo
+// con su estado. Pero los totales (ars/usd) suman SOLO lo efectivamente cobrado:
+// un abono pendiente no entra al balance hasta que se registre el pago.
+//
+// El estado no se toca desde la caja societaria: sale de la solapa de Abonos y
+// acá se refleja.
+function abonoActasDelMes(ym){
+  const out = { ars: 0, usd: 0, aboArs: 0, aboUsd: 0,
+                espArs: 0, espUsd: 0, pendArs: 0, pendUsd: 0,
+                n: 0, nPend: 0, filas: [] };
+  (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
+    if (!abonoEsActas(c)) return;
+    if (c.estado && c.estado !== 'activo') return;      // los pausados no se listan
+    const r = abonoRepartoMes(c, ym);
+    const esp = abonoEsperadoSoc(c, ym);
+    const st = abonoEstadoMes(c, ym);
+    // Lo que falta cobrar, en la proporción que le toca a societario
+    const falta = Math.max(0, esp - r.soc);
+    if (c.moneda === 'USD'){ out.espUsd += esp; out.pendUsd += falta; }
+    else { out.espArs += esp; out.pendArs += falta; }
+    if (r.cobrado){
+      out.n++;
+      if (c.moneda === 'USD'){ out.usd += r.soc; out.aboUsd += r.abo; }
+      else { out.ars += r.soc; out.aboArs += r.abo; }
+    }
+    if (st.estado !== 'pagado') out.nPend++;
+    out.filas.push({ cli: c, nombre: c.nombre, moneda: c.moneda,
+                     cobrado: r.cobrado, soc: r.soc, abo: r.abo, pct: r.pct, caja: r.caja,
+                     estado: st.estado, esperadoSoc: esp, faltaSoc: falta });
+  });
+  // Primero lo que falta cobrar, que es lo accionable
+  const orden = { pendiente: 0, parcial: 1, pagado: 2 };
+  out.filas.sort((a,b)=> (orden[a.estado] - orden[b.estado]) || a.nombre.localeCompare(b.nombre));
+  return out;
+}
+
 function ingresosDelMes(ym){
   // Caja judicial: todos los pagos de CAJA son ingresos
   const jud = (typeof CAJA !== 'undefined' ? CAJA : []).filter(p => (p.fecha||'').slice(0,7) === ym);
@@ -8015,6 +8227,11 @@ function ingresosDelMes(ym){
     if(!cobrado) return;
     if(c.moneda === 'USD') aboUsd += cobrado; else aboArs += cobrado;
   });
+  // Abonos de actas: son ingreso de societario. Se pasan de la fuente Abonos a la
+  // fuente Caja societaria — NO se suman de nuevo. Cada peso se cuenta una sola vez.
+  const actas = (typeof abonoActasDelMes === 'function') ? abonoActasDelMes(ym) : { ars:0, usd:0, n:0 };
+  aboArs -= actas.ars; aboUsd -= actas.usd;
+  socArs += actas.ars; socUsd += actas.usd;
 
   // El bruto suma la caja societaria ENTERA: socArs ya viene con la parte de WE Legal
   // descontada, así que se la devolvemos acá. Repartir no cambia cuánta plata entró.
@@ -8029,6 +8246,7 @@ function ingresosDelMes(ym){
   return {
     jud: { ars: judArs, usd: judUsd, n: jud.length },
     soc: { ars: socArs, usd: socUsd, n: socIn.length },
+    actas: { ars: actas.ars, usd: actas.usd, n: actas.n },
     wl:  { ars: wlArs,  usd: wlUsd,  n: wlN },
     abo: { ars: aboArs, usd: aboUsd },
     gastos: { incArs: gincArs, incUsd: gincUsd, ordArs: gOrdArs, ordUsd: gOrdUsd, escArs: gEscArs, escUsd: gEscUsd,
@@ -8264,6 +8482,7 @@ function abonoSubtabsHTML(){
   return `<div class="abo-subtabs">
     <button class="${ABONOS_SUBTAB==='cobros'?'on':''}" onclick="abonoIrSubtab('cobros')">Cobros del mes</button>
     <button class="${ABONOS_SUBTAB==='montos'?'on':''}" onclick="abonoIrSubtab('montos')">Actualizar montos</button>
+    <button class="${ABONOS_SUBTAB==='caja'?'on':''}" onclick="abonoIrSubtab('caja')">Distribución</button>
     <button class="${ABONOS_SUBTAB==='inflacion'?'on':''}" onclick="abonoIrSubtab('inflacion')">Ajuste por inflación</button>
   </div>`;
 }
@@ -8271,6 +8490,7 @@ function renderAbonos(){
   const cont = document.getElementById('abonosPanel');
   if (!cont) return;
   if (ABONOS_SUBTAB === 'montos'){ renderAbonosMontos(cont); return; }
+  if (ABONOS_SUBTAB === 'caja'){ renderAbonosCaja(cont); return; }
   if (ABONOS_SUBTAB === 'inflacion'){ renderAbonosInflacion(cont); return; }
   const ym = abonoMesActual();
   const activos = ABONOS.filter(c=>c.estado==='activo');
@@ -8289,6 +8509,8 @@ function renderAbonos(){
     return { cs, esperado, cobrado, pagados, total: cs.length };
   };
   const ars = calc('ARS'), usd = calc('USD');
+  // Parte de los abonos que en realidad es ingreso de societario (actas)
+  const act = (typeof abonoActasDelMes === 'function') ? abonoActasDelMes(ym) : { ars:0, usd:0, n:0 };
   const fmtM = (n,mon)=> (mon==='USD'?'US$ ':'$ ') + Math.round(n).toLocaleString('es-AR');
 
   const cabecera = `
@@ -8309,12 +8531,19 @@ function renderAbonos(){
         <div class="val">${fmtM(ars.cobrado,'ARS')}</div>
         <div class="sub">de ${fmtM(ars.esperado,'ARS')} · ${ars.pagados}/${ars.total} pagaron</div>
         <div class="bar"><span style="width:${ars.esperado?Math.min(100,ars.cobrado/ars.esperado*100):0}%"></span></div>
+        ${act.ars ? `<div class="abo-nota-actas">incluye ${fmtM(act.ars,'ARS')} de abonos de actas</div>` : ''}
       </div>
       <div class="abo-kpi usd">
         <div class="lbl">Dólares — cobrado</div>
         <div class="val">${fmtM(usd.cobrado,'USD')}</div>
         <div class="sub">de ${fmtM(usd.esperado,'USD')} · ${usd.pagados}/${usd.total} pagaron</div>
         <div class="bar"><span style="width:${usd.esperado?Math.min(100,usd.cobrado/usd.esperado*100):0}%"></span></div>
+        ${act.usd ? `<div class="abo-nota-actas">incluye ${fmtM(act.usd,'USD')} de abonos de actas</div>` : ''}
+      </div>
+      <div class="abo-kpi actas">
+        <div class="lbl">Abonos de actas</div>
+        <div class="val">${act.ars ? fmtM(act.ars,'ARS') : ''}${act.ars && act.usd ? ' · ' : ''}${act.usd ? fmtM(act.usd,'USD') : (act.ars ? '' : fmtM(0,'USD'))}</div>
+        <div class="sub">va a la caja societaria${act.n ? ' · ' + act.n + ' cobrado' + (act.n!==1?'s':'') : ''}</div>
       </div>
       <div class="abo-kpi neutral">
         <div class="lbl">Pendientes de cobro</div>
@@ -8362,7 +8591,7 @@ function renderAbonos(){
     const fechaTxt = ultFecha ? formatFechaCorta(ultFecha) : '—';
     const btnLabel = parciales.length ? 'Registrar / editar' : 'Registrar';
     return `<div class="abo-row ${st.estado==='pagado'?'pg':st.estado==='parcial'?'parc':''}" data-cli="${c.id}">
-      <div class="abo-c-nom"><span class="abo-c-nom-t" onclick="abonoAbrirRegistro(${c.id})">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="abo-c-nom"><span class="abo-c-nom-t" onclick="abonoAbrirRegistro(${c.id})">${esc(c.nombre.toUpperCase())}</span>${abonoEtiquetaCaja(c)}</div>
       <div class="abo-c-monto">${montoTxt}</div>
       <div class="abo-c-abonado">${abonadoTxt}</div>
       <div class="abo-c-comprob">${comprobCell}</div>
@@ -8549,6 +8778,74 @@ function abonoConfirmarDeshacer(){
   }
 }
 
+// ── Subsolapa "Caja": define a qué caja va cada abono ──
+function abonoCajaCambiar(cliId, caja){
+  const act = abonoCajaDe(abonoBuscarCli(cliId));
+  abonoCajaSet(cliId, caja, caja === 'mixto' ? (act.caja === 'mixto' ? act.pct : 50) : null);
+  renderAbonos();
+}
+function abonoPctCambiar(cliId, valor){
+  let p = Number(String(valor).replace(',', '.'));
+  if (!isFinite(p)) return;
+  p = Math.max(0, Math.min(100, p));
+  abonoCajaSet(cliId, 'mixto', p);
+  renderAbonos();
+}
+function renderAbonosCaja(cont){
+  const ym = abonoMesActual();
+  const activos = ABONOS.filter(c => c.estado === 'activo');
+  const fmtM = (n, mon) => (mon === 'USD' ? 'US$ ' : '$ ') + Math.round(Number(n) || 0).toLocaleString('es-AR');
+  const filaCli = c => {
+    const r = abonoCajaDe(c);
+    const vig = abonoMontoVigente(c, ym) || 0;
+    const soc = vig * r.pct / 100;
+    const opt = (v, t) => `<option value="${v}"${r.caja === v ? ' selected' : ''}>${t}</option>`;
+    return `<div class="abo-row abo-crow" data-cli="${c.id}">
+      <div class="abo-c-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span>${c.tipo ? `<span class="abo-c-tipo">${esc(c.tipo)}</span>` : ''}</div>
+      <div class="abo-c-caja">
+        <select onchange="abonoCajaCambiar('${c.id}', this.value)">
+          ${opt('abono', 'Abono')}${opt('societario', 'Societario')}${opt('mixto', 'Mixto')}
+        </select>
+      </div>
+      <div class="abo-c-pct">${r.caja === 'mixto'
+        ? `<input type="number" min="0" max="100" step="5" value="${Math.round(r.pct)}" onchange="abonoPctCambiar('${c.id}', this.value)"><span class="pct-sig">% a societario</span>`
+        : `<span class="abo-c-pct-fijo">${r.caja === 'societario' ? '100 % a societario' : '100 % a abonos'}</span>`}</div>
+      <div class="abo-c-reparto">${vig
+        ? (r.pct ? `<b>${fmtM(soc, c.moneda)}</b> societario${r.pct < 100 ? ` · ${fmtM(vig - soc, c.moneda)} abonos` : ''}`
+                 : `<span class="abo-c-solo">${fmtM(vig, c.moneda)} a la caja de abonos</span>`)
+        : '—'}</div>
+    </div>`;
+  };
+  const seccion = (titulo, lista) => lista.length ? `
+    <div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">${titulo}</span><span class="abo-sec-count">${lista.length}</span></div>
+      <div class="abo-row abo-row-head abo-crow">
+        <div class="abo-c-nom">Cliente</div>
+        <div class="abo-c-caja">Va a</div>
+        <div class="abo-c-pct">Reparto</div>
+        <div class="abo-c-reparto">Cómo se imputa el abono vigente</div>
+      </div>
+      ${lista.map(filaCli).join('')}
+    </div>` : '';
+  // Primero los que tienen algo de societario, que son los que importan acá
+  const orden = l => l.slice().sort((a, b) => {
+    const pa = abonoCajaDe(a).pct, pb = abonoCajaDe(b).pct;
+    if ((pa > 0) !== (pb > 0)) return pb - pa;
+    return a.nombre.localeCompare(b.nombre);
+  });
+  const act = abonoActasDelMes(ym);
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Abonos mensuales</div>
+      <h1 class="abo-h1">Distribución de abonos</h1>
+    </div></div>
+    ${abonoSubtabsHTML()}
+    <div class="abo-montos-hint">Los abonos de <b>actas</b> son ingreso de la caja societaria, aunque se cobren desde acá. Marcá cada uno como <b>Abono</b> (queda entero en la caja de abonos), <b>Societario</b> (va entero a societario) o <b>Mixto</b> (se reparte por porcentaje). Los cobros parciales se reparten en la misma proporción.
+      ${(act.ars || act.usd) ? `<div class="abo-hint-tot">Este mes ya se cobraron <b>${act.ars ? fmtM(act.ars,'ARS') : ''}${act.ars && act.usd ? ' · ' : ''}${act.usd ? fmtM(act.usd,'USD') : ''}</b> que se imputan a societario.</div>` : ''}</div>
+    ${seccion('Abonos en dólares', orden(activos.filter(c => c.moneda === 'USD')))}
+    ${seccion('Abonos en pesos', orden(activos.filter(c => c.moneda === 'ARS')))}`;
+}
+
 function renderAbonosMontos(cont){
   const ym = abonoMesActual();
   const activos = ABONOS.filter(c=>c.estado==='activo');
@@ -8557,7 +8854,7 @@ function renderAbonosMontos(cont){
   const filaCli = (c)=>{
     const vig = abonoMontoVigente(c, ym);
     return `<div class="abo-row abo-mrow" data-cli="${c.id}">
-      <div class="abo-c-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span></div>
+      <div class="abo-c-nom"><span class="abo-c-nom-t">${esc(c.nombre.toUpperCase())}</span>${abonoEtiquetaCaja(c, true)}</div>
       <div class="abo-m-actual">${vig?fmtM(vig,c.moneda):'—'}</div>
       <div class="abo-m-nuevo"><input type="text" inputmode="numeric" id="abom-nuevo-${c.id}" placeholder="Nuevo monto (${c.moneda==='USD'?'US$':'$'})" oninput="abonoFmtInput(this)"></div>
       <div class="abo-m-desde"><input type="month" id="abom-desde-${c.id}" value="${ym}"></div>
@@ -12174,8 +12471,79 @@ function __socDatosMes(mes) {
   });
   gastosOrd.forEach(m => { if (m.moneda === 'USD') t.goUsd += m.monto; else t.goArs += m.monto; });
   gastosEsc.forEach(m => { if (m.moneda === 'USD') t.geUsd += m.monto; else t.geArs += m.monto; });
-  return { movs, ingresos, gastosOrd, gastosEsc, t };
+  // Abonos de actas: se cobran desde la solapa de Abonos, pero son ingreso societario.
+  // Suman al total de la caja; se listan aparte, en su propia subventana.
+  const actas = (typeof abonoActasDelMes === 'function') ? abonoActasDelMes(mes) : { ars:0, usd:0, n:0, filas:[] };
+  t.actasArs = actas.ars; t.actasUsd = actas.usd; t.actasN = actas.n;
+  t.inArs += actas.ars; t.inUsd += actas.usd;
+  t.honArs += actas.ars; t.honUsd += actas.usd;   // no traen gastos adelantados
+  return { movs, ingresos, gastosOrd, gastosEsc, t, actas };
 }
+// ── Subventana "Abonos actas" de la caja societaria (solo lectura) ──
+// Replica los abonos que le corresponden a societario, en la proporción que toca.
+// El estado (pendiente / parcial / cobrado) NO se modifica desde acá: se registra
+// el pago en la solapa de Abonos y se refleja solo. Al balance de la caja suma
+// únicamente lo que ya tiene el pago registrado.
+function renderActasSoc(mes){
+  const tabla = document.getElementById('csTablaActas');
+  const vacia = document.getElementById('csVaciaActas');
+  const mini  = document.getElementById('csMiniActas');
+  const panel = document.getElementById('panelActas');
+  if (!tabla || !panel) return;
+  const a = (typeof abonoActasDelMes === 'function') ? abonoActasDelMes(mes)
+          : { filas: [], ars:0, usd:0, aboArs:0, aboUsd:0, pendArs:0, pendUsd:0, n:0, nPend:0 };
+
+  if (mini) mini.textContent = a.filas.length
+    ? a.filas.length + ' abono' + (a.filas.length !== 1 ? 's' : '')
+      + ' · ' + a.n + ' con cobro' + (a.nPend ? ' · ' + a.nPend + ' pendiente' + (a.nPend !== 1 ? 's' : '') : '')
+    : 'ningún abono asignado a societario';
+
+  if (!a.filas.length){
+    tabla.innerHTML = '';
+    if (vacia) vacia.style.display = 'block';
+    return;
+  }
+  if (vacia) vacia.style.display = 'none';
+
+  const sim = m => m === 'USD' ? 'u$s ' : '$ ';
+  const monto = (v, m) => sim(m) + fmtNumStr(Math.round(v));
+  const badge = f => {
+    if (f.estado === 'pagado')  return '<span class="est-actas ok">✓ Cobrado</span>';
+    if (f.estado === 'parcial') return `<span class="est-actas parc">Parcial · falta ${monto(f.faltaSoc, f.moneda)}</span>`;
+    return '<span class="est-actas debe">Pendiente de cobro</span>';
+  };
+  const par = (ars, usd) => (ars ? '$ ' + fmtNumStr(Math.round(ars)) : '')
+    + (ars && usd ? ' · ' : '') + (usd ? 'u$s ' + fmtNumStr(Math.round(usd)) : '')
+    || '—';
+
+  tabla.innerHTML = '<thead><tr><th>Cliente</th><th>Reparto</th><th>Estado</th>'
+    + '<th style="text-align:right">Le toca a societario</th>'
+    + '<th style="text-align:right">Cobrado</th>'
+    + '<th style="text-align:right">Suma al balance</th></tr></thead><tbody>'
+    + a.filas.map(f => {
+        const chip = f.caja === 'mixto'
+          ? `<span class="chip-actas mixto">Mixto ${Math.round(f.pct)} / ${100 - Math.round(f.pct)}</span>`
+          : '<span class="chip-actas">Societario</span>';
+        return `<tr class="fila-actas ${f.estado}">
+          <td style="font-weight:600">${esc(f.nombre.toUpperCase())}</td>
+          <td>${chip}</td>
+          <td>${badge(f)}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums;color:var(--tinta-suave)">${monto(f.esperadoSoc, f.moneda)}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums">${f.cobrado ? monto(f.cobrado, f.moneda) : '—'}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:${f.soc ? 'var(--sello)' : 'var(--tinta-suave)'}">${f.soc ? monto(f.soc, f.moneda) : '—'}</td>
+        </tr>`;
+      }).join('')
+    + `</tbody><tfoot><tr>
+        <td colspan="3" style="text-align:right;font-weight:700;padding-top:8px">Total que suma al balance:</td>
+        <td style="text-align:right;padding-top:8px;color:var(--tinta-suave);font-variant-numeric:tabular-nums">${par(a.espArs, a.espUsd)}</td>
+        <td style="padding-top:8px"></td>
+        <td style="text-align:right;font-weight:800;padding-top:8px;color:var(--sello);font-variant-numeric:tabular-nums">${par(a.ars, a.usd)}</td>
+      </tr>${(a.pendArs || a.pendUsd) ? `<tr>
+        <td colspan="5" style="text-align:right;font-size:11.5px;color:var(--warn);padding-top:2px">Falta cobrar (todavía no suma):</td>
+        <td style="text-align:right;font-size:11.5px;color:var(--warn);font-weight:700;padding-top:2px;font-variant-numeric:tabular-nums">${par(a.pendArs, a.pendUsd)}</td>
+      </tr>` : ''}</tfoot>`;
+}
+
 function __socRank(lista, campo, fallback, dolar) {
   const g = {};
   lista.forEach(m => {
@@ -12254,18 +12622,26 @@ function renderCajaSoc() {
   const inPes = t.inArs + t.inUsd * dolar, goPes = t.goArs + t.goUsd * dolar, gePes = t.geArs + t.geUsd * dolar;
   const honPes = t.honArs + t.honUsd * dolar, gincPes = t.gincArs + t.gincUsd * dolar;
   // Si hubo packs, se aclara que el total ya viene neto de la parte de WE Legal
+  // Cápsula propia de los abonos de actas: se ve de dónde viene esa parte del total
+  const tileActas = (t.actasArs || t.actasUsd) ? `
+    <div class="tile tile-actas"><div class="cs-lbl">Abonos de actas</div>
+      <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val">${fmtNumStr(t.actasArs)}</span></div>
+      <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val">${fmtNumStr(t.actasUsd)}</span></div>
+      <div class="cs-sub">incluido en ingresos · se cobra en Abonos</div></div>` : '';
   const notaPack = t.nPacks
     ? `<div class="cs-nota-pack">no incluye ${t.wlArs ? '$ ' + fmtNumStr(t.wlArs) : ''}${t.wlArs && t.wlUsd ? ' · ' : ''}${t.wlUsd ? 'u$s ' + fmtNumStr(t.wlUsd) : ''} de ${t.nPacks} pack${t.nPacks !== 1 ? 's' : ''}, que van a WE Legal</div>`
     : '';
   document.getElementById('csTiles').innerHTML = pesif ? `
     <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(inPes)}</div><div class="lbl">Ingresos pesificados</div><div class="sub">$ ${fmtNumStr(t.inArs)} + u$s ${fmtNumStr(t.inUsd)} × ${fmtNumStr(dolar)}${notaPack}</div></div>
+    ${t.actasN ? `<div class="tile tile-actas"><div class="num">$ ${fmtNumStr(t.actasArs + t.actasUsd * dolar)}</div><div class="lbl">Abonos de actas (pesificados)</div><div class="sub">${t.actasN} abono${t.actasN!==1?'s':''} · ya incluidos arriba</div></div>` : ''}
     ${gincPes > 0 ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">$ ${fmtNumStr(gincPes)}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: $ ${fmtNumStr(honPes)} · ${t.nDesglose} pago${t.nDesglose !== 1 ? 's' : ''} con gastos</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(goPes)}</div><div class="lbl">G. ordinarios pesificados</div><div class="sub">$ ${fmtNumStr(t.goArs)} + u$s ${fmtNumStr(t.goUsd)} × ${fmtNumStr(dolar)}</div></div>
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(gePes)}</div><div class="lbl">G. escribanía pesificados</div><div class="sub">$ ${fmtNumStr(t.geArs)} + u$s ${fmtNumStr(t.geUsd)} × ${fmtNumStr(dolar)}</div></div>` : `
     <div class="tile"><div class="cs-lbl">Ingresos</div>
       <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inArs)}</span></div>
       <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#1e7a48">${fmtNumStr(t.inUsd)}</span></div>
-      <div class="cs-sub">${ingresos.length} mov.${notaPack}</div></div>
+      <div class="cs-sub">${ingresos.length} mov.${t.actasN ? ' + ' + t.actasN + ' de actas' : ''}${notaPack}</div></div>
+    ${tileActas}
     ${(t.gincArs > 0 || t.gincUsd > 0) ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="cs-lbl">De eso, gastos</div>
       <div class="cs-monto"><span class="cs-cur">$</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincArs||0)}</span></div>
       <div class="cs-monto usd"><span class="cs-cur">u$s</span><span class="cs-val" style="color:#8a6d1f">${fmtNumStr(t.gincUsd||0)}</span></div>
@@ -12315,6 +12691,7 @@ function renderCajaSoc() {
   pinta(ingresos, 'csTablaIn', 'csVaciaIn', 'csMiniIn', 'ingreso');
   pinta(gastosOrd, 'csTablaGa', 'csVaciaGa', 'csMiniGa', 'gasto ordinario');
   pinta(gastosEsc, 'csTablaEsc', 'csVaciaEsc', 'csMiniEsc', 'gasto de escribanía');
+  try { renderActasSoc(mes); } catch(e) {}
   // Rankings (solo ingresos)
   const filaRankS = (r, i, max) => `
     <div class="rank-item">
