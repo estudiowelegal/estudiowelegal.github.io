@@ -1,6 +1,6 @@
 {
-  "name": "Lexia — Estudio WE Legal",
-  "short_name": "Lexia",
+  "name": "WE Legal — Sistema de gestión",
+  "short_name": "WE Legal",
   "description": "Sistema de gestión interna del estudio: expedientes, agenda, cajas, CRM y control financiero.",
   "lang": "es-AR",
   "dir": "ltr",
@@ -8,11 +8,18 @@
   "scope": "./",
   "id": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
-  "background_color": "#0a1626",
-  "theme_color": "#0a1626",
-  "categories": ["business", "productivity"],
+  "background_color": "#f7f7f7",
+  "theme_color": "#062240",
+  "categories": [
+    "business",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "icono-192.png",
