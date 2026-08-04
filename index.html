@@ -6013,6 +6013,7 @@ function renderCausaDetalle(exp) {
               ? `<button onclick="registrarContestacion(${exp.id},${pi},${oi})" style="font-size:10px;background:#155724;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;white-space:nowrap">✓ Contestaron</button>
                  <button onclick="registrarReiteracion(${exp.id},${pi},${oi})" style="font-size:10px;background:#856404;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;white-space:nowrap">↻ Reiterar</button>`
               : ''}
+            <button onclick="corregirOficio(${exp.id},${pi},${oi})" style="font-size:10px;background:none;border:1px solid #c8c4bc;color:#6a6858;padding:4px 8px;border-radius:4px;cursor:pointer;white-space:nowrap" title="Corregir fechas o volver atrás el estado">✎ Corregir</button>
           </div>
         </div>`;
       });
@@ -6231,6 +6232,55 @@ function registrarReiteracion(expId, pi, oi) {
   if (!of.reiteraciones) of.reiteraciones = [];
   of.reiteraciones.push(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
   saveExpedientes(); abrirCausaDetalle(expId);
+}
+
+// Permite corregir cualquier estado de un oficio, incluso volver atrás uno que se
+// marcó contestado por error. Sin esto, un clic equivocado quedaba fijo para siempre.
+function corregirOficio(expId, pi, oi) {
+  const exp = expedientes.find(e => e.id === expId);
+  const of = exp && exp.partes[pi] && exp.partes[pi].informativa && exp.partes[pi].informativa[oi];
+  if (!of) return;
+  const dm = iso => iso ? iso.split('-').reverse().join('/') : '';
+  const aISO = txt => {
+    const t = (txt || '').trim();
+    if (!t) return null;
+    const [d, m, y] = t.split('/');
+    if (!d || !m || !y) return undefined;          // formato inválido
+    return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  };
+  const env = prompt('Fecha de ENVÍO (DD/MM/AAAA).\nDejalo vacío para marcarlo como no diligenciado.', dm(of.enviado));
+  if (env === null) return;
+  const envISO = aISO(env);
+  if (envISO === undefined) { alert('La fecha de envío tiene que ser DD/MM/AAAA.'); return; }
+
+  const cont = prompt('Fecha en que CONTESTARON (DD/MM/AAAA).\nDejalo vacío si todavía no contestaron.', dm(of.contestado));
+  if (cont === null) return;
+  const contISO = aISO(cont);
+  if (contISO === undefined) { alert('La fecha de contestación tiene que ser DD/MM/AAAA.'); return; }
+
+  if (contISO && !envISO) { alert('No puede figurar contestado sin fecha de envío.'); return; }
+  if (contISO && envISO && contISO < envISO) { alert('La contestación no puede ser anterior al envío.'); return; }
+
+  const reits = (of.reiteraciones || []);
+  if (reits.length) {
+    const txt = prompt('Reiteraciones, separadas por coma (DD/MM/AAAA).\nDejalo vacío para borrarlas todas.',
+                       reits.map(dm).join(', '));
+    if (txt === null) return;
+    const nuevas = [];
+    for (const t of txt.split(',').map(s => s.trim()).filter(Boolean)) {
+      const iso = aISO(t);
+      if (iso === undefined) { alert('Reiteración con formato inválido: ' + t); return; }
+      nuevas.push(iso);
+    }
+    of.reiteraciones = nuevas.sort();
+  }
+  of.enviado = envISO;
+  of.contestado = contISO;
+  if (!envISO) of.reiteraciones = [];             // sin envío no puede haber reiteraciones
+  saveExpedientes();
+  if (typeof sbPushExpediente === 'function') { try { sbPushExpediente(exp); } catch(e){} }
+  abrirCausaDetalle(expId);
+  if (typeof aricToast === 'function') aricToast('Oficio actualizado');
 }
 
 function agregarOficio(expId, pi) {
@@ -6798,6 +6848,8 @@ async function __sbCargarTodoInterno() {
     if (cfg.abonos_caja) { try { appStore.setItem(ABONOS_CAJA_KEY, cfg.abonos_caja); } catch(e){} }
     // Costo y seña de las reuniones, con su historial de vigencias
     if (cfg.reuniones_cfg) { try { appStore.setItem(REU_CFG_KEY, cfg.reuniones_cfg); } catch(e){} }
+    // Turno de la rotación de encargadas, para que la rueda siga igual en todas las máquinas
+    if (cfg.encargada_turno != null) { try { appStore.setItem(ENC_TURNO_KEY, String(cfg.encargada_turno)); } catch(e){} }
     // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
     if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
@@ -8594,7 +8646,7 @@ function reuLimpiarFicha(r){
   // Movimientos en las cajas
   if (typeof crmTieneMovimientos === 'function' && crmTieneMovimientos(cli)) return false;
   // Datos que haya cargado una persona (el teléfono lo trajo la reunión, no cuenta)
-  if (cli.cuit || cli.mail || cli.referente || cli.encargada || cli.driveLink
+  if (cli.cuit || cli.mail || cli.referente || cli.driveLink
       || (cli.reuniones || []).length || (cli.tramites || []).length
       || cli.packTipo || cli.packVence || cli.docPendiente || cli.proximoContacto) return false;
   // Notas que no vengan de una reunión
@@ -16259,6 +16311,8 @@ const ABONOS_USERS = ['kevindaich', 'sofig', 'brenda', 'ivana'];
 const INGRESOS_USERS = ['kevindaich', 'ivana'];
 // Caja WE Legal (packs): lista cerrada, no depende del acceso a la caja societaria
 const WELEGAL_USERS = ['kevindaich', 'ivana', 'brenda', 'sofig'];
+// Reuniones: lista cerrada, independiente de qué cajas vea cada uno
+const REUNIONES_USERS = ['kevindaich', 'ivana', 'brenda', 'sofig'];
 // ═══ RIEL DE NAVEGACIÓN LATERAL ═══
 // Reemplaza las barras horizontales. Los ítems llevan data-nav para que el sistema
 // de permisos que ya existe los muestre u oculte sin lógica duplicada.
@@ -16267,7 +16321,6 @@ const RIEL_ITEMS = [
   { nav:'jurisprudencia',emo:'⚖',  txt:'Jurisprudencia',  go:"navTo('jurisprudencia')" },
   { nav:'expedientes',   emo:'📁', txt:'Expedientes',     go:"navTo('expedientes')" },
   { nav:'agenda',        emo:'📅', txt:'Agenda',          go:"navTo('agenda')" },
-  { nav:'reuniones',     emo:'🤝', txt:'Reuniones',       go:"navTo('reuniones')" },
   { grupo:'Finanzas' },
   { nav:'caja',          emo:'💰', txt:'Caja judicial',   go:"navTo('caja')" },
   { nav:'cajasoc',       emo:'💼', txt:'Caja societaria', go:"navTo('cajasoc')" },
@@ -16275,6 +16328,7 @@ const RIEL_ITEMS = [
   { nav:'abonos',        emo:'🔁', txt:'Abonos',          go:"navTo('abonos')" },
   { nav:'ingresos',      emo:'📊', txt:'Control financiero', go:"navTo('ingresos')" },
   { grupo:'Clientes' },
+  { nav:'reuniones',     emo:'🤝', txt:'Reuniones',       go:"navTo('reuniones')" },
   { nav:'crm',           emo:'👤', txt:'CRM',             go:"navTo('crm')" },
   { grupo:'ARICCAME' },
   { nav:'ariccame',      emo:'🌱', txt:'Cáñamo',   sub:'Res. 1/2024',  tip:'ARICCAME', aric:'canamo',  go:"aricIr('canamo')" },
@@ -16335,6 +16389,8 @@ function rielAjustarPermisos(){
   // Caja WE Legal: solo la lista habilitada
   const wl = document.querySelector('#rielItems [data-nav="welegal"]');
   if(wl) wl.style.display = (WELEGAL_USERS.indexOf(usuarioActual()) !== -1) ? '' : 'none';
+  const reu = document.querySelector('#rielItems [data-nav="reuniones"]');
+  if(reu) reu.style.display = (REUNIONES_USERS.indexOf(usuarioActual()) !== -1) ? '' : 'none';
   // ARICCAME: cáñamo y cannabis solo para quienes lo tienen habilitado
   const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('#rielItems [data-nav="ariccame"]').forEach(b => b.style.display = verAric ? '' : 'none');
@@ -16363,7 +16419,7 @@ function permisoPagina(p) {
   if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'ingresos') return INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'welegal') return WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'reuniones') return !!(pf.caja || pf.cajaSoc);
+  if (p === 'reuniones') return REUNIONES_USERS.indexOf(usuarioActual()) !== -1;
   return true;
 }
 function aplicarPermisos() {
@@ -16392,6 +16448,8 @@ function aplicarPermisos() {
   document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
   const verWeLegal = WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
   document.querySelectorAll('[data-nav="welegal"]').forEach(b => b.style.display = verWeLegal ? '' : 'none');
+  const verReu = REUNIONES_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('[data-nav="reuniones"]').forEach(b => b.style.display = verReu ? '' : 'none');
   rielConstruir();
   rielAjustarPermisos();
   rielOcultarGruposVacios();
@@ -16978,6 +17036,7 @@ function crmAsegurarFicha(nombre, concepto, fecha, origen){
   cli.servicios = concepto ? [{ concepto, fecha: fecha || hoyISO() }] : [];
   cli.observaciones = 'Ficha creada automáticamente al registrar un cobro en la '
     + (CRM_ORIGEN_LBL[origen] || 'caja') + (fecha ? ' (' + fmtFechaCortaCRM(fecha) + ')' : '') + '.';
+  if (typeof encAsignar === 'function') encAsignar(cli);   // sigue el orden rotativo
   CLIENTES.push(cli);
   saveClientesLocal();
   if (typeof sbPushCliente === 'function') sbPushCliente(cli);
@@ -17017,7 +17076,6 @@ function crmCamposEditados(c){
   if (c.telefono) out.push('teléfono');
   if (c.mail) out.push('mail');
   if (c.referente) out.push('referente');
-  if (c.encargada) out.push('encargada');
   if (c.driveLink) out.push('Drive');
   if ((c.bitacora || []).length) out.push('bitácora');
   if ((c.reuniones || []).length) out.push('reuniones');
@@ -17551,6 +17609,15 @@ function guardarNuevoCliente() {
   })).filter(s => s.nombre);
 
   const cli = agregarCliente(datos);
+  // Si no se eligió encargada a mano, la asigna la rotación
+  if (cli && !(cli.encargada || '').trim() && typeof encAsignar === 'function'){
+    const e = encAsignar(cli);
+    if (e){
+      saveClientesLocal();
+      if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+      if (typeof aricToast === 'function') aricToast('Encargada asignada: ' + e);
+    }
+  }
   cerrarNuevoCliente();
   renderCRM();
   return cli;
@@ -17640,6 +17707,37 @@ function veTodaLaCartera() {
   return u === 'kevindaich' || u === 'ivana' || u === 'brenda';
 }
 // Genera <option>s para un select de encargada, incluyendo la actual aunque no esté en la lista
+// ═══════════ REPARTO AUTOMÁTICO DE ENCARGADAS ═══════════
+// Cada cliente nuevo se asigna siguiendo un orden fijo y rotativo, no al azar:
+// Sofi G → Sofi T → Naza → Ori → Sofi G → …
+// El puntero se guarda para que la rueda siga donde quedó, aunque cambie de máquina.
+const ENC_ROTACION = ['SOFI G', 'SOFI T', 'NAZA', 'ORI'];
+const ENC_TURNO_KEY = 'jc-encargada-turno-v1';
+function encTurnoActual(){
+  const n = parseInt(appStore.getItem(ENC_TURNO_KEY), 10);
+  return (isFinite(n) && n >= 0) ? n % ENC_ROTACION.length : 0;
+}
+function encTurnoGuardar(n){
+  const v = ((n % ENC_ROTACION.length) + ENC_ROTACION.length) % ENC_ROTACION.length;
+  try { appStore.setItem(ENC_TURNO_KEY, String(v)); } catch(e){}
+  if (typeof sbPushConfig === 'function') sbPushConfig('encargada_turno', String(v));
+}
+// Quién sigue, sin consumir el turno
+function encProxima(){ return ENC_ROTACION[encTurnoActual()]; }
+// Toma la siguiente y avanza la rueda
+function encTomarTurno(){
+  const i = encTurnoActual();
+  encTurnoGuardar(i + 1);
+  return ENC_ROTACION[i];
+}
+// Asigna encargada a un cliente si no tiene. Devuelve la asignada, o '' si ya tenía.
+function encAsignar(cli){
+  if (!cli || (cli.encargada || '').trim()) return '';
+  cli.encargada = encTomarTurno();
+  return cli.encargada;
+}
+// Reparte entre los clientes que todavía no tienen encargada.
+// dryRun=true por defecto: no escribe, solo devuelve qué haría.
 function opcionesEncargada(actual) {
   const set = ENCARGADAS.slice();
   if (actual && !set.includes(actual)) set.unshift(actual);
