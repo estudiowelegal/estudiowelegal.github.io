@@ -6576,8 +6576,24 @@ function sbPubUrl(path) { // URL pública de un archivo del Storage ("bucket/arc
 // Hace falta porque el navegador frena los temporizadores cuando la pestaña queda
 // en segundo plano o la máquina se suspende: al volver, la renovación programada
 // puede no haber corrido y el pedido fallaría por credencial vencida.
+// Se resuelve cuando la sesión guardada terminó de restaurarse al abrir la app.
+// Sin esto, lo que se dispara durante la carga (por ejemplo el valor del UMA) sale
+// con la credencial vencida y devuelve "JWT expired".
+let __sbListaResolver;
+const SB_LISTA = new Promise(res => { __sbListaResolver = res; });
+function sbMarcarLista(){ if (__sbListaResolver){ __sbListaResolver(true); __sbListaResolver = null; } }
+
 async function sbFetch(url, opciones, extraHeaders) {
   const armar = () => Object.assign({}, opciones || {}, { headers: sbHeaders(extraHeaders) });
+  // Esperar a que la sesión esté restaurada, con un tope por si algo se cuelga
+  try {
+    await Promise.race([SB_LISTA, new Promise(res => setTimeout(res, 8000))]);
+  } catch(e){}
+  // Si la credencial ya venció (o está por vencer), renovarla ANTES de pedir nada
+  const s = sbSesionLeer();
+  if (s && s.refresh_token && s.expires_at && (s.expires_at * 1000) - Date.now() < 30000) {
+    await sbRefrescarSesion();
+  }
   let r = await fetch(url, armar());
   if ((r.status === 401 || r.status === 403) && typeof sbRefrescarSesion === 'function') {
     const ok = await sbRefrescarSesion();
@@ -16203,7 +16219,15 @@ async function sbIngresar(email, password){
 
 // ── Renovación automática ──
 // La credencial vence al rato; sin esto la sesión se cortaría en medio del trabajo.
-async function sbRefrescarSesion(){
+let __refrescoEnCurso = null;
+function sbRefrescarSesion(){
+  // Si ya hay un refresco andando, todos esperan el mismo: el refresh_token es
+  // de un solo uso y dos llamadas simultáneas se pisarían entre sí.
+  if (__refrescoEnCurso) return __refrescoEnCurso;
+  __refrescoEnCurso = __sbRefrescarAhora().finally(() => { __refrescoEnCurso = null; });
+  return __refrescoEnCurso;
+}
+async function __sbRefrescarAhora(){
   const s = sbSesionLeer();
   if (!s || !s.refresh_token) return false;
   try {
@@ -16580,8 +16604,9 @@ if (!sesionActiva()) {
 // para no obligar a ingresar de nuevo en cada visita.
 (async function(){
   try {
-    if (typeof sbRestaurarSesion !== 'function') return;
+    if (typeof sbRestaurarSesion !== 'function') { sbMarcarLista(); return; }
     const ok = await sbRestaurarSesion();
+    sbMarcarLista();
     if (ok && usuarioActual()){
       document.body.classList.remove('locked');
       aplicarPermisos();
@@ -16594,6 +16619,7 @@ if (!sesionActiva()) {
       document.body.classList.add('locked');
     }
   } catch(e){}
+  finally { try { sbMarcarLista(); } catch(e){} }   // que nunca quede nadie esperando
 })();
 
 // ── Vigilante del timeout de sesión ──
