@@ -1,4 +1,4 @@
-/* Lexia — service worker
+/* WE Legal — service worker
  *
  * Criterio: RED PRIMERO para el sistema, caché solo como red de seguridad.
  * El objetivo es que una versión nueva llegue en el próximo arranque, sin que
@@ -9,7 +9,7 @@
  * descarta la caché anterior de una.
  */
 
-const CACHE_VERSION = 'lexia-v1';
+const CACHE_VERSION = 'welegal-v2';
 const ESENCIALES = [
   './',
   './manifest.webmanifest',
