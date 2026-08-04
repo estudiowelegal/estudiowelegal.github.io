@@ -1182,6 +1182,141 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-kpi.wl::before{background:#8a5a2b}
 .abo-kpi.wl .val{color:#8a5a2b}
 .pack-pct{font-size:10px;color:var(--tinta-suave);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* Modales de reuniones — mismo patrón visual que el registro de abonos */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(12,20,15,.5);z-index:344;
+  align-items:center;justify-content:center;padding:20px}
+.modal-card{background:var(--carta);border-radius:var(--radio,12px);width:560px;max-width:96vw;
+  max-height:92vh;overflow:auto;box-shadow:0 22px 64px rgba(12,20,15,.32);
+  display:flex;flex-direction:column}
+.modal-h{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:18px 24px;border-bottom:2px solid var(--oro,#c9a961);background:#14294a;flex:0 0 auto}
+.modal-h h3{margin:0;font-family:var(--serif,'Palatino Linotype');font-size:19px;font-weight:700;color:#fff}
+.modal-x{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer;
+  padding:2px 8px;border-radius:6px;flex:0 0 auto;line-height:1}
+.modal-x:hover{background:rgba(255,255,255,.15)}
+.modal-b{padding:20px 24px;overflow:auto;flex:1 1 auto}
+.modal-b .f-row{margin-bottom:14px}
+.modal-b .f-col{margin-bottom:14px}
+.modal-b .f-row .f-col{margin-bottom:0}
+.modal-b label{display:block;font-size:11.5px;font-weight:600;color:var(--tinta-suave);
+  text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.modal-b input[type=text],.modal-b input[type=date],.modal-b input[type=month],
+.modal-b select,.modal-b textarea{width:100%;padding:10px 12px;border:1px solid var(--filo);
+  border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;
+  color:var(--tinta);background:var(--carta);box-sizing:border-box}
+.modal-b input:focus,.modal-b select:focus,.modal-b textarea:focus{outline:none;border-color:#14294a}
+.modal-b textarea{resize:vertical}
+.modal-f{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:16px 24px;
+  border-top:1px solid var(--filo);background:var(--papel);flex:0 0 auto}
+.reu-modal .f-row{display:flex;gap:14px;flex-wrap:wrap}
+.reu-modal .f-col{flex:1;min-width:0}
+#reuSugBox{position:absolute;z-index:9;left:0;right:0}
+.reu-cli-wrap{position:relative}
+
+/* ══════════ REUNIONES ══════════ */
+.reu-kpis{grid-template-columns:repeat(auto-fit,minmax(205px,1fr))}
+.abo-kpi.jud::before{background:var(--ok,#1e7a48)}
+.abo-kpi.soc::before{background:var(--sello,#1b3a6b)}
+.abo-kpi.wl::before{background:#8a5a2b}
+.abo-kpi.jud .val{color:var(--ok,#1e7a48)}
+.abo-kpi.soc .val{color:var(--sello,#1b3a6b)}
+.abo-kpi.wl .val{color:#8a5a2b}
+.abo-estado.bonif{background:#eef1ec;color:#7a8578;border:1px solid #dfe4dd}
+
+.reu-barra{display:flex;gap:12px;align-items:center;margin:16px 0 12px;flex-wrap:wrap}
+.reu-buscar{flex:1;min-width:200px;padding:9px 13px;border:1px solid var(--filo);border-radius:7px;
+  background:var(--carta);font-family:inherit;font-size:13.5px;color:var(--tinta)}
+.reu-buscar:focus{outline:2px solid var(--sello,#1b3a6b);outline-offset:1px}
+
+.abo-row.reu-row{display:grid;
+  grid-template-columns:92px minmax(0,4fr) 104px minmax(0,1.5fr) 132px 158px 212px;
+  gap:12px;align-items:center}
+.abo-row.reu-row>div{min-width:0}
+.reu-c-fecha{font-size:12.5px;color:var(--tinta);white-space:nowrap}
+.reu-c-fecha b{font-weight:700;display:block}
+.reu-c-fecha small{font-size:10.5px;color:var(--tinta-suave)}
+.reu-nom{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;color:var(--tinta);
+  cursor:pointer;border-bottom:2px solid var(--oro,#c9a961);padding-bottom:1px;
+  display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+
+.reu-mod{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.reu-mod.virtual{background:#e8eef7;color:#1b3a6b;border:1px solid #cbd9ea}
+.reu-mod.presencial{background:#f4ece0;color:#8a5a2b;border:1px solid #e3d3bd}
+.reu-chip{display:inline-block;margin:1px 4px 1px 0;padding:2px 8px;border-radius:20px;font-size:9.5px;
+  font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.reu-chip.kevin{background:#eaf1e9;color:#1e7a48;border:1px solid #cfe0cd}
+.reu-chip.brenda{background:#e8eef7;color:#1b3a6b;border:1px solid #cbd9ea}
+.reu-chip.ivana{background:#f4ece0;color:#8a5a2b;border:1px solid #e3d3bd}
+.reu-chip.sin{background:#f9e3df;color:#b3372a;border:1px solid #eecac3}
+.reu-c-monto{font-size:13px;font-weight:600;color:var(--tinta);white-space:nowrap;font-variant-numeric:tabular-nums}
+.reu-c-monto small{display:block;font-size:10.5px;font-weight:400;color:var(--tinta-suave);margin-top:1px}
+.reu-c-acc{display:flex;gap:6px;justify-content:flex-end;flex-wrap:nowrap;align-items:center}
+.abo-reg.ico{padding:7px 9px;line-height:1;font-size:13px;flex:0 0 auto}
+.abo-reg.del{color:var(--mal,#b3372a)}
+.abo-reg.del:hover{background:var(--mal-bg,#f9e3df)}
+.abo-row.reu-row.pendiente{background:#fdfcf8}
+.abo-row.reu-row.pagada{background:#fbfdfb}
+.reu-futuro{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  background:#f8f0dd;color:#a86e17;padding:1px 6px;border-radius:20px;border:1px solid #ebdcb8}
+.reu-sin-adj{color:var(--tinta-suave)}
+
+/* Modal de reunión */
+.reu-modal{max-width:660px}
+.reu-asig{display:flex;gap:10px;flex-wrap:wrap}
+.reu-chk{flex:1 1 170px;min-width:0;display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border:1px solid var(--filo);border-radius:var(--radio-s,9px);background:var(--carta);cursor:pointer}
+.reu-chk input{width:17px;height:17px;flex:0 0 auto;margin:0;cursor:pointer;accent-color:#14294a}
+.reu-chk>div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.reu-chk span{font-size:13px;font-weight:700;color:var(--tinta);line-height:1.25}
+.reu-chk small{font-size:10.5px;color:var(--tinta-suave);line-height:1.3;
+  text-transform:none;letter-spacing:0;font-weight:400}
+.reu-chk.on{border-color:#14294a;background:#f4f6fa}
+.reu-bonif{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--tinta);cursor:pointer;
+  padding:9px 0;white-space:nowrap}
+.reu-pago-alta{margin-top:4px;padding-top:16px;border-top:1px solid var(--filo)}
+.reu-switch{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--tinta);
+  cursor:pointer;padding:10px 14px;background:var(--papel);border-radius:var(--radio-s,9px);
+  border:1px solid var(--filo);margin-bottom:0}
+.reu-switch input{width:17px;height:17px;flex:0 0 auto;margin:0;cursor:pointer;accent-color:var(--ok,#1e7a48)}
+.reu-switch span{text-transform:none;letter-spacing:0}
+#reuPagoAltaBox{margin-top:14px}
+/* Modal de pagos */
+.reu-res-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;
+  padding:12px 14px;background:var(--papel);border:1px solid var(--filo);border-radius:7px;margin-bottom:14px}
+.reu-res-g>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.reu-res-g .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta-suave);font-weight:700}
+.reu-res-g .v{font-size:15px;font-weight:700;color:var(--tinta);font-variant-numeric:tabular-nums}
+.reu-res-g .v.ok{color:var(--ok,#1e7a48)}
+.reu-res-g .v.debe{color:var(--mal,#b3372a)}
+.reu-res-b{padding:12px 14px;background:#eef1ec;border:1px solid #dfe4dd;border-radius:7px;
+  color:#7a8578;font-size:13px;margin-bottom:14px}
+.reu-comprob{margin-bottom:7px}
+.reu-adj{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--sello,#1b3a6b);
+  background:#e8eef7;border:1px solid #cbd9ea;border-radius:7px;padding:5px 10px}
+.reu-adj button{background:none;border:none;cursor:pointer;color:var(--tinta-suave);font-size:13px;padding:0}
+.reu-adj-vacio{font-size:12px;color:var(--tinta-suave)}
+.reu-pagos-lista{margin-top:16px;border-top:1px solid var(--filo);padding-top:12px}
+.reu-pagos-h{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--tinta-suave);margin-bottom:8px}
+.reu-pagos-vacio{font-size:12.5px;color:var(--tinta-suave)}
+.reu-pago-it{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:7px 0;
+  border-bottom:1px solid var(--filo-suave);font-size:12.5px}
+.reu-pago-it:last-child{border-bottom:none}
+.reu-pago-it .f{color:var(--tinta-suave);white-space:nowrap}
+.reu-pago-it .m{font-weight:700;font-variant-numeric:tabular-nums}
+.reu-pago-it .t{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;
+  padding:1px 7px;border-radius:20px;background:#f4ece0;color:#8a5a2b;border:1px solid #e3d3bd}
+.reu-pago-it .t.resto{background:#eaf1e9;color:#1e7a48;border-color:#cfe0cd}
+.reu-pago-it .me{font-size:11px;color:var(--tinta-suave);text-transform:capitalize}
+.reu-pago-it .o{font-size:11px;color:var(--tinta-suave);flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:1100px){
+  .abo-row.reu-row{grid-template-columns:1fr;gap:7px}
+  .abo-row.reu-row.abo-row-head{display:none}
+  .reu-c-acc{justify-content:flex-start}
+}
+
 /* Estado replicado en la subventana Abonos actas de la caja societaria */
 .est-actas{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;
   letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;line-height:1.6}
@@ -2536,6 +2671,16 @@ body.locked .app{margin-left:0}
           <div class="panel-b" id="cajaComisionesO"></div>
         </div>
       </div>
+      <!-- Reuniones de Kevin: se cargan y cobran en el módulo Reuniones -->
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelReuJud">
+        <div class="panel-h"><h3>🤝 Reuniones</h3><span class="mini" id="reuJudMini"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Las reuniones se cargan y se cobran desde el módulo <b>Reuniones</b>. Acá se refleja la parte que le corresponde a esta caja, que <b>ya está sumada</b> en los ingresos de arriba. Si hay más de un asignado, lo cobrado se divide en partes iguales.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="reuJudTabla"></table></div>
+          <div class="panel-empty" id="reuJudVacia" style="display:none">Ninguna reunión con cobro registrado este mes.</div>
+        </div>
+      </div>
+
       </div>
     </div>
   </div>
@@ -2686,6 +2831,16 @@ body.locked .app{margin-left:0}
         <div class="panel-empty" id="csVaciaIn" style="display:none">Sin ingresos registrados este mes.</div>
       </div>
 
+      <!-- Reuniones de Brenda: se cargan y cobran en el módulo Reuniones -->
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelReuSoc">
+        <div class="panel-h"><h3>🤝 Reuniones</h3><span class="mini" id="reuSocMini"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Las reuniones se cargan y se cobran desde el módulo <b>Reuniones</b>. Acá se refleja la parte que le corresponde a esta caja, que <b>ya está sumada</b> en los ingresos de arriba. Si hay más de un asignado, lo cobrado se divide en partes iguales.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="reuSocTabla"></table></div>
+          <div class="panel-empty" id="reuSocVacia" style="display:none">Ninguna reunión con cobro registrado este mes.</div>
+        </div>
+      </div>
+
       <!-- Abonos de actas: se cobran en la solapa Abonos; acá solo se reflejan -->
       <div class="panel lista-amplia" style="margin-top:16px" id="panelActas">
         <div class="panel-h"><h3>📑 Abonos actas</h3><span class="mini" id="csMiniActas"></span></div>
@@ -2801,6 +2956,16 @@ body.locked .app{margin-left:0}
         </div>
       </div>
 
+      <!-- Reuniones de Ivana: se cargan y cobran en el módulo Reuniones -->
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelReuWl">
+        <div class="panel-h"><h3>🤝 Reuniones</h3><span class="mini" id="reuWlMini"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Las reuniones se cargan y se cobran desde el módulo <b>Reuniones</b>. Acá se refleja la parte que le corresponde a esta caja, que <b>ya está sumada</b> en los ingresos de arriba. Si hay más de un asignado, lo cobrado se divide en partes iguales.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="reuWlTabla"></table></div>
+          <div class="panel-empty" id="reuWlVacia" style="display:none">Ninguna reunión con cobro registrado este mes.</div>
+        </div>
+      </div>
+
       <div class="grid-caja-4" style="margin-top:16px">
         <div class="panel">
           <div class="panel-h"><h3>Aporte por pack</h3><span class="mini">qué pack trajo más plata este mes</span></div>
@@ -2811,6 +2976,149 @@ body.locked .app{margin-left:0}
           <div id="wlRankCli"></div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PÁGINA REUNIONES ═══════════ -->
+<div id="paginaReuniones" class="page-shell" style="display:none">
+  <div class="ribbon">
+    <div>
+      <div class="ribbon-brand" onclick="navTo('inicio')">Lex<em>ia</em></div>
+      <div class="ribbon-sub">Estudio WE Legal</div>
+    </div>
+    <div class="ribbon-sep"></div>
+    <nav class="ribbon-nav" data-navbar>
+      <button class="pill-nav" data-nav="inicio" onclick="navTo('inicio')">🏠 Inicio</button>
+      <button class="pill-nav" data-nav="expedientes" onclick="navTo('expedientes')">📁 Expedientes</button>
+      <button class="pill-nav" data-nav="agenda" onclick="navTo('agenda')">📅 Agenda</button>
+      <button class="pill-nav" data-nav="reuniones" onclick="navTo('reuniones')">🤝 Reuniones</button>
+      <button class="pill-nav" data-nav="caja" onclick="navTo('caja')">💰 Caja judicial</button>
+      <button class="pill-nav" data-nav="cajasoc" onclick="navTo('cajasoc')">💼 Caja societaria</button>
+      <button class="pill-nav" data-nav="abonos" onclick="navTo('abonos')">🔁 Abonos</button>
+      <button class="pill-nav" data-nav="crm" onclick="navTo('crm')">👤 CRM</button>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-inner" id="reunionesPanel"></div>
+  </div>
+</div>
+
+<!-- Modal: alta y edición de reunión -->
+<div class="modal-bg" id="reuModal" style="display:none" onclick="if(event.target===this)reuCerrarModal()">
+  <div class="modal-card reu-modal">
+    <div class="modal-h"><h3 id="reuModalTit">Nueva reunión</h3>
+      <button class="modal-x" onclick="reuCerrarModal()">✕</button></div>
+    <div class="modal-b">
+      <div class="f-row">
+        <div class="f-col reu-cli-wrap" style="flex:2"><label>Cliente</label>
+          <input type="text" id="reuCliente" placeholder="Nombre y apellido" autocomplete="off"
+                 oninput="reuSugRender()" onblur="setTimeout(reuSugCerrar,150)">
+          <div class="cj-sug" id="reuSugBox" style="display:none"></div></div>
+        <div class="f-col"><label>Teléfono</label>
+          <input type="text" id="reuTelefono" placeholder="54 9 11 1234-5678"></div>
+      </div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 150px"><label>Fecha</label><input type="date" id="reuFecha"></div>
+        <div class="f-col" style="flex:0 0 120px"><label>Hora</label><input type="text" id="reuHora" placeholder="11 hs"></div>
+        <div class="f-col" style="flex:0 0 150px"><label>Modalidad</label>
+          <select id="reuModalidad">
+            <option value="virtual">Virtual</option>
+            <option value="presencial">Presencial</option>
+          </select></div>
+      </div>
+      <div class="f-col"><label>Con quién es la reunión</label>
+        <div class="reu-asig" id="reuAsignados">
+          <label class="reu-chk"><input type="checkbox" value="kevin" onchange="reuPintarAsignados()"><div><span>Kevin</span><small>Caja judicial</small></div></label>
+          <label class="reu-chk"><input type="checkbox" value="brenda" onchange="reuPintarAsignados()"><div><span>Brenda</span><small>Caja societaria</small></div></label>
+          <label class="reu-chk"><input type="checkbox" value="ivana" onchange="reuPintarAsignados()"><div><span>Ivana</span><small>Caja WE Legal</small></div></label>
+        </div>
+        <div class="cuota-hint" style="margin-top:6px">Si elegís más de una, lo cobrado se reparte en partes iguales entre sus cajas.</div>
+      </div>
+      <div class="f-col"><label>Motivo de la consulta</label>
+        <textarea id="reuMotivo" rows="3" placeholder="Qué necesita el cliente"></textarea>
+        <div class="cuota-hint" style="margin-top:4px">Se guarda también en la bitácora de la ficha del CRM.</div></div>
+      <div class="f-row" style="align-items:end">
+        <div class="f-col" style="flex:0 0 190px"><label>Monto de la reunión</label>
+          <input type="text" inputmode="numeric" id="reuMonto" placeholder="" oninput="fmtMiles(this)">
+          <div class="cuota-hint" id="reuMontoHint" style="margin-top:4px"></div></div>
+        <div class="f-col" style="flex:0 0 auto">
+          <label class="reu-bonif"><input type="checkbox" id="reuBonificada" onchange="reuToggleBonif()"> Bonificada</label></div>
+      </div>
+
+      <div class="reu-pago-alta" id="reuPagoAlta">
+        <label class="reu-switch"><input type="checkbox" id="reuConPago" onchange="reuTogglePagoAlta()">
+          <span>Registrar el pago ahora</span></label>
+        <div id="reuPagoAltaBox" style="display:none">
+          <div class="f-row">
+            <div class="f-col" style="flex:0 0 150px"><label>Fecha del pago</label><input type="date" id="reuAltaFecha"></div>
+            <div class="f-col" style="flex:0 0 160px"><label>Monto</label>
+              <input type="text" inputmode="numeric" id="reuAltaMonto" oninput="fmtMiles(this)"></div>
+            <div class="f-col" style="flex:0 0 180px"><label>Concepto</label>
+              <select id="reuAltaTipo">
+                <option value="sena">Seña</option>
+                <option value="complemento">Complemento de seña</option>
+                <option value="total" selected>Pago total</option>
+              </select></div>
+          </div>
+          <div class="f-row">
+            <div class="f-col" style="flex:0 0 170px"><label>Medio de pago</label>
+              <select id="reuAltaMetodo">
+                <option value="transferencia">Transferencia</option>
+                <option value="efectivo">Efectivo</option>
+              </select></div>
+            <div class="f-col"><label>Comprobante</label>
+              <div class="reu-comprob" id="reuAltaComprob"></div>
+              <input type="file" id="reuAltaFile" accept="image/*,application/pdf" onchange="reuSubirComprobAlta(this)" hidden>
+              <button class="abo-reg" onclick="document.getElementById('reuAltaFile').click()">📎 Adjuntar</button>
+              <div class="cuota-hint" id="reuAltaStatus" style="margin-top:4px"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn-ghost" onclick="reuCerrarModal()">Cancelar</button>
+      <button class="btn-primary" onclick="reuGuardarDesdeModal()">Guardar reunión</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: registrar pago -->
+<div class="modal-bg" id="reuPagoModal" style="display:none" onclick="if(event.target===this)reuCerrarPago()">
+  <div class="modal-card">
+    <div class="modal-h"><h3 id="reuPagoTit">Registrar pago</h3>
+      <button class="modal-x" onclick="reuCerrarPago()">✕</button></div>
+    <div class="modal-b">
+      <div class="reu-pago-res" id="reuPagoRes"></div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 150px"><label>Fecha</label><input type="date" id="reuPagoFecha"></div>
+        <div class="f-col" style="flex:0 0 160px"><label>Monto</label>
+          <input type="text" inputmode="numeric" id="reuPagoMonto" oninput="fmtMiles(this)"></div>
+        <div class="f-col" style="flex:0 0 150px"><label>Concepto</label>
+          <select id="reuPagoTipo">
+            <option value="sena">Seña</option>
+            <option value="complemento">Complemento de seña</option>
+            <option value="total">Pago total</option>
+          </select></div>
+      </div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 170px"><label>Medio de pago</label>
+          <select id="reuPagoMetodo">
+            <option value="transferencia">Transferencia</option>
+            <option value="efectivo">Efectivo</option>
+          </select></div>
+        <div class="f-col"><label>Observaciones</label><input type="text" id="reuPagoObs" placeholder="Opcional"></div>
+      </div>
+      <div class="f-col"><label>Comprobante</label>
+        <div class="reu-comprob" id="reuPagoComprob"></div>
+        <input type="file" id="reuPagoFile" accept="image/*,application/pdf" onchange="reuSubirComprob(this)" hidden>
+        <button class="btn-ghost" onclick="document.getElementById('reuPagoFile').click()">📎 Adjuntar comprobante</button>
+        <div class="cuota-hint" id="reuComprobStatus" style="margin-top:4px"></div></div>
+      <div class="reu-pagos-lista" id="reuPagosLista"></div>
+    </div>
+    <div class="modal-f">
+      <button class="btn-ghost" onclick="reuCerrarPago()">Cerrar</button>
+      <button class="btn-primary" onclick="reuAgregarPagoDesdeModal()">Agregar pago</button>
     </div>
   </div>
 </div>
@@ -6383,7 +6691,7 @@ async function sbCargarTodo() {
 async function __sbCargarTodoInterno() {
   if (!SB_ON) return;
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag, rReu] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -6398,7 +6706,8 @@ async function __sbCargarTodoInterno() {
       sbSelect('sueldo_pagos').catch(() => null),
       sbSelect('gastos_estudio').catch(() => null),
       sbSelect('abonos_clientes').catch(() => null),
-      sbSelect('abonos_pagos').catch(() => null)
+      sbSelect('abonos_pagos').catch(() => null),
+      sbSelect('reuniones').catch(() => null)
     ]);
 
     // Planes de cuotas (tabla nueva; si no existe todavía, se queda con lo local)
@@ -6411,6 +6720,12 @@ async function __sbCargarTodoInterno() {
     if (rAboCli && rAboCli.length) {
       abonosDesdeNube(rAboCli, rAboPag);
       if (typeof renderAbonos === 'function' && document.getElementById('abonosPanel')) renderAbonos();
+    }
+
+    // Reuniones (tabla reuniones; si todavía no existe, se queda con lo local)
+    if (rReu){
+      reunionesDesdeNube(rReu);
+      if (typeof renderReuniones === 'function' && document.getElementById('reunionesPanel')) renderReuniones();
     }
 
     // Gastos del estudio (tabla gastos_estudio)
@@ -6481,6 +6796,8 @@ async function __sbCargarTodoInterno() {
     if (cfg.sueldos_equipo && typeof equipoDesdeNube === 'function') equipoDesdeNube(cfg.sueldos_equipo);
     // Reparto de cada abono entre la caja de abonos y societario
     if (cfg.abonos_caja) { try { appStore.setItem(ABONOS_CAJA_KEY, cfg.abonos_caja); } catch(e){} }
+    // Costo y seña de las reuniones, con su historial de vigencias
+    if (cfg.reuniones_cfg) { try { appStore.setItem(REU_CFG_KEY, cfg.reuniones_cfg); } catch(e){} }
     // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
     if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
@@ -6786,7 +7103,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', reuniones:'paginaReuniones', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -8052,12 +8369,858 @@ function welegalDelMes(ym){
     porPack[r.pack.id].n++;
     return { mov: m, ...r };
   });
-  return { filas, movs, ars, usd, socArs, socUsd,
+  // Reuniones asignadas a Ivana: se cobran en el módulo Reuniones y suman acá
+  const reuWl = (typeof reuDeCaja === 'function') ? reuDeCaja('welegal', ym) : { total:0, n:0 };
+  ars += reuWl.total;
+  return { filas, movs, ars, usd, socArs, socUsd, reuArs: reuWl.total, reuN: reuWl.n,
            porPack: Object.values(porPack).filter(x => x.n > 0), n: movs.length };
 }
 
 // ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
 // Devuelve los ingresos de un mes 'YYYY-MM' por fuente y moneda (pesos y dólares separados).
+// ═══════════════════════════════════════════════════════════════════
+// REUNIONES
+// Consultas iniciales con clientes. Cada reunión se asigna a una o más
+// personas (Ivana, Kevin, Brenda) y lo cobrado se replica en la caja de
+// cada una, en partes iguales:
+//   Kevin → caja judicial · Brenda → caja societaria · Ivana → caja WE Legal
+// La carga y el cobro se hacen SIEMPRE desde este módulo; las cajas solo
+// lo reflejan en una subventana de solo lectura.
+//
+// El costo de la reunión y la seña se guardan con vigencia: un cambio rige
+// desde el mes que se elija y NUNCA afecta reuniones anteriores.
+// ═══════════════════════════════════════════════════════════════════
+const REU_KEY = 'jc-reuniones-v1';
+const REU_CFG_KEY = 'jc-reuniones-cfg-v1';
+const REU_PERSONAS = {
+  kevin:  { nombre: 'Kevin',  mail: 'kevin@welegal.ar',  caja: 'judicial',   cajaLbl: 'Caja judicial' },
+  brenda: { nombre: 'Brenda', mail: 'brenda@welegal.ar', caja: 'societaria', cajaLbl: 'Caja societaria' },
+  ivana:  { nombre: 'Ivana',  mail: 'ivana@welegal.ar',  caja: 'welegal',    cajaLbl: 'Caja WE Legal' }
+};
+const REU_CFG_SEED = { costo: [{ desde: '2026-01', monto: 140000 }],
+                       sena:  [{ desde: '2026-01', monto: 30000 }] };
+var REUNIONES = [];
+
+// ── Persistencia ──
+function loadReuniones(){
+  try { REUNIONES = JSON.parse(appStore.getItem(REU_KEY) || '[]'); } catch(e){ REUNIONES = []; }
+  if (!Array.isArray(REUNIONES)) REUNIONES = [];
+}
+function saveReuniones(){
+  try { appStore.setItem(REU_KEY, JSON.stringify(REUNIONES)); } catch(e){}
+}
+function reuCfg(){
+  let c = null;
+  try { c = JSON.parse(appStore.getItem(REU_CFG_KEY) || 'null'); } catch(e){ c = null; }
+  if (!c || !Array.isArray(c.costo) || !Array.isArray(c.sena)) c = JSON.parse(JSON.stringify(REU_CFG_SEED));
+  return c;
+}
+function reuCfgGuardar(c){
+  try { appStore.setItem(REU_CFG_KEY, JSON.stringify(c)); } catch(e){}
+  if (typeof sbPushConfig === 'function') sbPushConfig('reuniones_cfg', JSON.stringify(c));
+}
+// Valor vigente al mes ym. Sin retroactividad: una reunión vieja conserva su precio.
+function reuValorVigente(cual, ym){
+  const hist = (reuCfg()[cual] || []).slice().sort((a,b)=> String(a.desde).localeCompare(String(b.desde)));
+  let v = 0;
+  hist.forEach(x => { if (String(x.desde) <= String(ym)) v = Number(x.monto) || 0; });
+  if (!v && hist.length) v = Number(hist[0].monto) || 0;   // antes del primer tramo
+  return v;
+}
+function reuCostoVigente(ym){ return reuValorVigente('costo', ym); }
+function reuSenaVigente(ym){ return reuValorVigente('sena', ym); }
+// Agenda un cambio de precio a partir de un mes. Reemplaza el tramo si ya existía.
+function reuCfgSet(cual, desde, monto){
+  const c = reuCfg();
+  const lista = (c[cual] || []).filter(x => x.desde !== desde);
+  lista.push({ desde, monto: Number(monto) || 0 });
+  lista.sort((a,b)=> String(a.desde).localeCompare(String(b.desde)));
+  c[cual] = lista;
+  reuCfgGuardar(c);
+}
+function reuCfgQuitar(cual, desde){
+  const c = reuCfg();
+  const lista = (c[cual] || []).filter(x => x.desde !== desde);
+  if (!lista.length) return false;          // siempre queda al menos un tramo
+  c[cual] = lista; reuCfgGuardar(c); return true;
+}
+
+// ── Datos de una reunión ──
+function reuVacia(){
+  return { id: null, cliente: '', telefono: '', fecha: hoyISO(), hora: '',
+           modalidad: 'virtual', asignados: [], motivo: '',
+           monto: null, bonificada: false, pagos: [], clienteId: null, creada: hoyISO() };
+}
+function reuPorId(id){ return REUNIONES.find(r => String(r.id) === String(id)) || null; }
+function reuMes(r){ return String(r.fecha || '').slice(0, 7); }
+// Lo que hay que cobrar: el monto propio si se cargó, si no el vigente del mes de la reunión
+function reuMontoDe(r){
+  if (r.bonificada) return 0;
+  if (r.monto != null && r.monto !== '') return Number(r.monto) || 0;
+  return reuCostoVigente(reuMes(r));
+}
+function reuCobrado(r){
+  return (r.pagos || []).reduce((s, p) => s + (Number(p.monto) || 0), 0);
+}
+function reuSaldo(r){ return Math.max(0, reuMontoDe(r) - reuCobrado(r)); }
+function reuEstado(r){
+  if (r.bonificada) return 'bonificada';
+  const tot = reuMontoDe(r), cob = reuCobrado(r);
+  if (!(r.pagos || []).length) return 'pendiente';
+  if (tot > 0 && cob < tot) return 'sena';       // pagó algo pero no todo
+  return 'pagada';
+}
+const REU_ESTADO_LBL = { pendiente: 'Sin pagar', sena: 'Seña', pagada: 'Pagada', bonificada: 'Bonificada' };
+const REU_CONCEPTO_LBL = { sena: 'Seña', complemento: 'Complemento de seña', total: 'Pago total' };
+
+// ── Reparto entre las cajas ──
+// Partes iguales entre los asignados. Devuelve [{ persona, caja, monto }]
+function reuRepartoDe(r, monto){
+  const asig = (r.asignados || []).filter(a => REU_PERSONAS[a]);
+  if (!asig.length) return [];
+  const parte = (Number(monto) || 0) / asig.length;
+  return asig.map(a => ({ persona: a, caja: REU_PERSONAS[a].caja, monto: parte }));
+}
+// Cobrado de una reunión dentro de un mes (agrupado, no pago por pago)
+function reuCobradoEnMes(r, ym){
+  return (r.pagos || [])
+    .filter(p => String(p.fecha || '').slice(0, 7) === ym)
+    .reduce((s, p) => s + (Number(p.monto) || 0), 0);
+}
+// Lo que le toca a una caja en un mes. Una fila por reunión.
+function reuDeCaja(caja, ym){
+  const out = { total: 0, n: 0, filas: [] };
+  (REUNIONES || []).forEach(r => {
+    const cobrado = reuCobradoEnMes(r, ym);
+    if (!cobrado) return;
+    const parte = reuRepartoDe(r, cobrado).filter(x => x.caja === caja);
+    if (!parte.length) return;
+    const monto = parte.reduce((s, x) => s + x.monto, 0);
+    if (!monto) return;
+    const pagosMes = (r.pagos || []).filter(p => String(p.fecha || '').slice(0, 7) === ym);
+    out.total += monto; out.n++;
+    out.filas.push({ reu: r, cliente: r.cliente, fecha: r.fecha, motivo: r.motivo,
+                     asignados: r.asignados || [], cobrado, monto,
+                     partes: (r.asignados || []).length, pagos: pagosMes });
+  });
+  out.filas.sort((a,b)=> String(a.fecha).localeCompare(String(b.fecha)));
+  return out;
+}
+// Todas las cajas de un mes, para el control financiero
+function reuTotalesMes(ym){
+  return { judicial: reuDeCaja('judicial', ym).total,
+           societaria: reuDeCaja('societaria', ym).total,
+           welegal: reuDeCaja('welegal', ym).total };
+}
+
+// ── Alta y edición ──
+// Al guardar una reunión se le arma o actualiza la ficha del cliente en el CRM,
+// con el teléfono y el motivo de consulta.
+function reuGuardar(datos){
+  const r = datos.id != null ? reuPorId(datos.id) : null;
+  const nueva = r || reuVacia();
+  Object.assign(nueva, {
+    cliente: (datos.cliente || '').trim(),
+    telefono: (datos.telefono || '').trim(),
+    fecha: datos.fecha || hoyISO(),
+    hora: (datos.hora || '').trim(),
+    modalidad: datos.modalidad || 'virtual',
+    asignados: (datos.asignados || []).filter(a => REU_PERSONAS[a]),
+    motivo: (datos.motivo || '').trim(),
+    bonificada: !!datos.bonificada,
+    monto: (datos.monto === '' || datos.monto == null) ? null : Number(datos.monto)
+  });
+  if (nueva.id == null){
+    nueva.id = Date.now() + Math.floor(Math.random() * 1000);
+    nueva.creada = hoyISO();
+    REUNIONES.push(nueva);
+  }
+  // Ficha del CRM: se crea si no existe, y se completa lo que falte
+  const ficha = reuSincronizarCRM(nueva);
+  if (ficha) nueva.clienteId = ficha.id;
+  saveReuniones();
+  if (typeof sbPushReunion === 'function') sbPushReunion(nueva);
+  return nueva;
+}
+// Crea o completa la ficha del cliente. No pisa datos ya cargados a mano.
+function reuSincronizarCRM(r){
+  if (!r.cliente || typeof crmAsegurarFicha !== 'function') return null;
+  const res = crmAsegurarFicha(r.cliente, 'Reunión de consulta', r.fecha, 'reu');
+  const cli = res && res.cli;
+  if (!cli) return null;
+  let cambio = false;
+  if (r.telefono && !cli.telefono){ cli.telefono = r.telefono; cambio = true; }
+  // El motivo de consulta queda en la bitácora, fechado
+  if (r.motivo){
+    if (!cli.bitacora) cli.bitacora = [];
+    const marca = 'Reunión ' + formatFechaCorta(r.fecha) + ': ' + r.motivo;
+    if (!cli.bitacora.some(b => (b.nota || '') === marca)){
+      cli.bitacora.unshift({ fecha: r.fecha, nota: marca });
+      cambio = true;
+    }
+  }
+  if (cambio){
+    if (typeof calcularUltimoContacto === 'function') cli.ultimoContacto = calcularUltimoContacto(cli);
+    saveClientesLocal();
+    if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  }
+  return cli;
+}
+function reuEliminar(id){
+  const r = reuPorId(id);
+  if (!r) return;
+  REUNIONES = REUNIONES.filter(x => String(x.id) !== String(id));
+  saveReuniones();
+  if (typeof sbDelReunion === 'function') sbDelReunion(id);
+  // Si la ficha se había creado sola por esta reunión y no le queda nada, se va
+  try { reuLimpiarFicha(r); } catch(e){}
+}
+// Borra la ficha del CRM que había creado esta reunión, si ya no tiene razón de existir.
+// No cuentan como "datos cargados a mano" ni el teléfono ni las notas de bitácora que
+// puso la propia reunión: eso lo escribió el sistema, no una persona.
+function reuLimpiarFicha(r){
+  if (!r || typeof CLIENTES === 'undefined') return false;
+  let cli = r.clienteId != null ? clientePorId(r.clienteId) : null;
+  if (!cli && r.cliente && typeof crmBuscarCliente === 'function'){
+    const m = crmBuscarCliente(r.cliente);
+    cli = m ? m.cli : null;
+  }
+  if (!cli) return false;
+  if ((cli.estado || '') !== 'esporadico_reu') return false;      // no la creó una reunión
+  // Otra reunión que siga usándola
+  const otra = (REUNIONES || []).some(x => String(x.id) !== String(r.id) &&
+    (x.clienteId === cli.id || __normBusqueda(x.cliente || '') === __normBusqueda(cli.entidad || '')));
+  if (otra) return false;
+  // Movimientos en las cajas
+  if (typeof crmTieneMovimientos === 'function' && crmTieneMovimientos(cli)) return false;
+  // Datos que haya cargado una persona (el teléfono lo trajo la reunión, no cuenta)
+  if (cli.cuit || cli.mail || cli.referente || cli.encargada || cli.driveLink
+      || (cli.reuniones || []).length || (cli.tramites || []).length
+      || cli.packTipo || cli.packVence || cli.docPendiente || cli.proximoContacto) return false;
+  // Notas que no vengan de una reunión
+  const propias = (cli.bitacora || []).filter(b => !/^Reunión \d/.test(b.nota || ''));
+  if (propias.length) return false;
+  eliminarCliente(cli.id);
+  return true;
+}
+
+// ── Pagos ──
+function reuAgregarPago(id, datos){
+  const r = reuPorId(id);
+  if (!r) return null;
+  if (!r.pagos) r.pagos = [];
+  const p = { id: Date.now() + Math.floor(Math.random() * 1000),
+              fecha: datos.fecha || hoyISO(),
+              monto: (datos.monto === '' || datos.monto == null) ? null : Number(datos.monto),
+              metodo: datos.metodo || '',
+              tipo: datos.tipo || '',              // 'sena' | 'resto' | ''
+              obs: (datos.obs || '').trim(),
+              comprobante: datos.comprobante || null };
+  r.pagos.push(p);
+  r.pagos.sort((a,b)=> String(a.fecha).localeCompare(String(b.fecha)));
+  saveReuniones();
+  if (typeof sbPushReunion === 'function') sbPushReunion(r);
+  return p;
+}
+function reuQuitarPago(id, pagoId){
+  const r = reuPorId(id);
+  if (!r || !r.pagos) return;
+  r.pagos = r.pagos.filter(p => String(p.id) !== String(pagoId));
+  saveReuniones();
+  if (typeof sbPushReunion === 'function') sbPushReunion(r);
+}
+// ── Evento de Google Calendar, invitando a los asignados ──
+function reuCalendarURL(r){
+  if (!r || !r.fecha) return null;
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate())
+                 + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + '00';
+  // La hora viene como "11 hs", "11:30", "15" … se toma lo primero que parezca hora
+  const m = /(\d{1,2})(?:[:.](\d{2}))?/.exec(r.hora || '');
+  let ini, fin, dates;
+  if (m){
+    ini = parseISO(r.fecha);
+    ini.setHours(Number(m[1]), Number(m[2] || 0), 0, 0);
+    fin = new Date(ini.getTime() + 60 * 60000);          // 1 hora
+    dates = fmt(ini) + '/' + fmt(fin);
+  } else {
+    const d0 = parseISO(r.fecha), d1 = new Date(d0);
+    d1.setDate(d1.getDate() + 1);
+    dates = r.fecha.replace(/-/g,'') + '/' + isoDe(d1).replace(/-/g,'');
+  }
+  const invitados = (r.asignados || []).map(a => REU_PERSONAS[a] && REU_PERSONAS[a].mail).filter(Boolean);
+  const det = [ r.motivo ? 'Motivo: ' + r.motivo : '',
+                r.telefono ? 'Contacto: ' + r.telefono : '',
+                'Modalidad: ' + (r.modalidad === 'presencial' ? 'Presencial' : 'Virtual') ].filter(Boolean).join('\n');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent('Reunión — ' + (r.cliente || 'Consulta'))
+    + '&dates=' + dates
+    + '&details=' + encodeURIComponent(det)
+    + (r.modalidad === 'presencial' ? '&location=' + encodeURIComponent('Estudio WE Legal') : '')
+    + (invitados.length ? '&add=' + encodeURIComponent(invitados.join(',')) : '')
+    + '&ctz=America/Argentina/Buenos_Aires';
+}
+function reuAbrirCalendar(id){
+  const r = reuPorId(id);
+  const url = reuCalendarURL(r);
+  if (!url){ if (typeof aricToast === 'function') aricToast('Cargá la fecha de la reunión'); return; }
+  window.open(url, '_blank', 'noopener');
+}
+
+// ── Panel de reuniones (estética de abonos) ──
+var REU_MES = null, REU_FILTRO = '', REU_EDIT = null, REU_PAGO_ID = null, REU_PAGO_ADJ = null, REU_ALTA_ADJ = null;
+var REU_SUBTAB = 'lista';
+function reuMesActual(){ return REU_MES || hoyISO().slice(0,7); }
+function reuIrMes(delta){
+  const [a, m] = reuMesActual().split('-').map(Number);
+  const d = new Date(a, m - 1 + delta, 1);
+  REU_MES = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+  renderReuniones();
+}
+function reuSetFiltro(v){
+  const el = document.getElementById('reuBuscar');
+  const pos = el ? el.selectionStart : null;
+  REU_FILTRO = v || '';
+  renderReuniones();
+  const nuevo = document.getElementById('reuBuscar');
+  if (nuevo){
+    nuevo.focus();
+    if (pos != null) { try { nuevo.setSelectionRange(pos, pos); } catch(e){} }
+  }
+}
+function reuIrSubtab(s){ REU_SUBTAB = s; renderReuniones(); }
+function reuMesHoy(){ REU_MES = hoyISO().slice(0,7); renderReuniones(); }
+function reuFmt(n){ return '$ ' + Math.round(Number(n) || 0).toLocaleString('es-AR'); }
+function reuSubtabsHTML(){
+  return `<div class="abo-subtabs">
+    <button class="${REU_SUBTAB==='lista'?'on':''}" onclick="reuIrSubtab('lista')">Reuniones del mes</button>
+    <button class="${REU_SUBTAB==='precio'?'on':''}" onclick="reuIrSubtab('precio')">Costo y seña</button>
+  </div>`;
+}
+function reuDelMes(ym){
+  return REUNIONES.filter(r => reuMes(r) === ym)
+    .sort((a,b)=> String(b.fecha).localeCompare(String(a.fecha)) || String(a.hora).localeCompare(String(b.hora)));
+}
+function renderReuniones(){
+  const cont = document.getElementById('reunionesPanel');
+  if (!cont) return;
+  if (REU_SUBTAB === 'precio'){ renderReuPrecio(cont); return; }
+  const ym = reuMesActual();
+  let lista = reuDelMes(ym);
+  const q = __normBusqueda(REU_FILTRO || '').trim();
+  if (q) lista = lista.filter(r => __normBusqueda(r.cliente + ' ' + (r.motivo||'')).includes(q));
+
+  // Totales del mes
+  let esperado = 0, cobrado = 0, pend = 0, bonif = 0;
+  reuDelMes(ym).forEach(r => {
+    if (r.bonificada){ bonif++; return; }
+    esperado += reuMontoDe(r);
+    cobrado += reuCobrado(r);
+    if (reuEstado(r) !== 'pagada') pend++;
+  });
+  const porCaja = reuTotalesMes(ym);
+
+  const badge = r => {
+    const e = reuEstado(r);
+    if (e === 'bonificada') return '<span class="abo-estado bonif">Bonificada</span>';
+    if (e === 'pagada') return '<span class="abo-estado ok">✓ Pagada</span>';
+    if (e === 'sena') return `<span class="abo-estado parcial">Seña · falta ${reuFmt(reuSaldo(r))}</span>`;
+    return '<span class="abo-estado debe">Sin pagar</span>';
+  };
+  const chipsAsig = r => (r.asignados || []).length
+    ? (r.asignados || []).map(a => `<span class="reu-chip ${a}">${REU_PERSONAS[a] ? REU_PERSONAS[a].nombre : a}</span>`).join('')
+    : '<span class="reu-chip sin">Sin asignar</span>';
+
+  const fila = r => `<div class="abo-row reu-row ${reuEstado(r)}" data-reu="${r.id}">
+    <div class="reu-c-fecha"><b>${formatFechaCorta(r.fecha)}</b></div>
+    <div class="reu-c-cli">
+      <span class="reu-nom" onclick="reuAbrirEdicion('${r.id}')" title="${esc(r.motivo || '')}">${esc((r.cliente||'').toUpperCase())}</span>
+    </div>
+    <div class="reu-c-mod"><span class="reu-mod ${r.modalidad}">${r.modalidad === 'presencial' ? 'Presencial' : 'Virtual'}</span></div>
+    <div class="reu-c-asig">${chipsAsig(r)}</div>
+    <div class="reu-c-monto">${r.bonificada ? '—' : reuFmt(reuMontoDe(r))}${(!r.bonificada && reuCobrado(r)) ? `<small>cobrado ${reuFmt(reuCobrado(r))}</small>` : ''}</div>
+    <div class="reu-c-estado">${badge(r)}</div>
+    <div class="reu-c-acc">
+      <button class="abo-reg ico" onclick="reuAbrirCalendar('${r.id}')" title="Agendar en Google Calendar">📅</button>
+      <button class="abo-reg ico" onclick="reuAbrirEdicion('${r.id}')" title="Editar reunión">✎</button>
+      <button class="abo-reg ico del" onclick="reuBorrar('${r.id}')" title="Eliminar reunión">🗑</button>
+      <button class="abo-reg" onclick="reuAbrirPago('${r.id}')">${reuEstado(r)==='pendiente' ? 'Registrar pago' : 'Ver pagos'}</button>
+    </div>
+  </div>`;
+
+  cont.innerHTML = `
+    <div class="abo-top">
+      <div>
+        <div class="abo-eyebrow">Consultas iniciales</div>
+        <h1 class="abo-h1">${esc(capPrim(mesLargo(ym)))}</h1>
+      </div>
+      <div class="abo-mesnav">
+        <button onclick="reuIrMes(-1)" title="Mes anterior">‹</button>
+        <button onclick="reuMesHoy()" class="hoy">Mes actual</button>
+        <button onclick="reuIrMes(1)" title="Mes siguiente">›</button>
+      </div>
+    </div>
+    ${reuSubtabsHTML()}
+    <div class="abo-kpis reu-kpis">
+      <div class="abo-kpi">
+        <div class="lbl">Cobrado en el mes</div>
+        <div class="val">${reuFmt(cobrado)}</div>
+        <div class="sub">de ${reuFmt(esperado)} · ${reuDelMes(ym).length} reunion${reuDelMes(ym).length!==1?'es':''}</div>
+        <div class="bar"><span style="width:${esperado?Math.min(100,cobrado/esperado*100):0}%"></span></div>
+      </div>
+      <div class="abo-kpi neutral">
+        <div class="lbl">Pendientes de cobro</div>
+        <div class="val">${pend}</div>
+        <div class="sub">${esperado - cobrado > 0 ? 'falta ' + reuFmt(esperado - cobrado) : 'todo al día'}${bonif ? ' · ' + bonif + ' bonificada' + (bonif!==1?'s':'') : ''}</div>
+      </div>
+      <div class="abo-kpi jud">
+        <div class="lbl">A caja judicial · Kevin</div>
+        <div class="val">${reuFmt(porCaja.judicial)}</div>
+        <div class="sub">parte de lo cobrado este mes</div>
+      </div>
+      <div class="abo-kpi soc">
+        <div class="lbl">A caja societaria · Brenda</div>
+        <div class="val">${reuFmt(porCaja.societaria)}</div>
+        <div class="sub">parte de lo cobrado este mes</div>
+      </div>
+      <div class="abo-kpi wl">
+        <div class="lbl">A caja WE Legal · Ivana</div>
+        <div class="val">${reuFmt(porCaja.welegal)}</div>
+        <div class="sub">parte de lo cobrado este mes</div>
+      </div>
+    </div>
+    <div class="reu-barra">
+      <input type="text" class="reu-buscar" id="reuBuscar" placeholder="Buscar por cliente o motivo…" value="${esc(REU_FILTRO)}" oninput="reuSetFiltro(this.value)">
+      <button class="btn-primary" onclick="reuAbrirEdicion()">+ Nueva reunión</button>
+    </div>
+    <div class="abo-sec">
+      <div class="abo-row abo-row-head reu-row">
+        <div class="reu-c-fecha">Fecha</div>
+        <div class="reu-c-cli">Cliente</div>
+        <div class="reu-c-mod">Modalidad</div>
+        <div class="reu-c-asig">Con quién</div>
+        <div class="reu-c-monto">Monto</div>
+        <div class="reu-c-estado">Estado</div>
+        <div class="reu-c-acc"></div>
+      </div>
+      ${lista.length ? lista.map(fila).join('')
+        : `<div class="panel-empty">${q ? 'Ninguna reunión coincide con la búsqueda.' : 'No hay reuniones cargadas en ' + mesLargo(ym) + '.'}</div>`}
+    </div>`;
+}
+
+// ── Subsolapa: costo y seña, con vigencia ──
+function renderReuPrecio(cont){
+  const ym = reuMesActual();
+  const cfg = reuCfg();
+  const tramos = (cual, titulo, ayuda) => {
+    const lista = (cfg[cual] || []).slice().sort((a,b)=> String(b.desde).localeCompare(String(a.desde)));
+    return `<div class="panel" style="margin-bottom:16px">
+      <div class="panel-h"><h3>${titulo}</h3><span class="mini">vigente hoy: ${reuFmt(reuValorVigente(cual, ym))}</span></div>
+      <div style="padding:14px 16px">
+        <div class="cuota-hint" style="margin:0 0 12px">${ayuda}</div>
+        <div class="f-row" style="align-items:end">
+          <div class="f-col" style="flex:0 0 170px"><label>Nuevo monto</label>
+            <input type="text" inputmode="numeric" id="reuNuevo-${cual}" oninput="fmtMiles(this)" placeholder="$"></div>
+          <div class="f-col" style="flex:0 0 160px"><label>Rige desde</label>
+            <input type="month" id="reuDesde-${cual}" value="${ym}"></div>
+          <div class="f-col" style="flex:0 0 auto">
+            <button class="btn-primary" onclick="reuGuardarPrecio('${cual}')">Aplicar</button></div>
+        </div>
+        <table class="tabla-caja" style="margin-top:14px">
+          <thead><tr><th>Rige desde</th><th style="text-align:right">Monto</th><th></th></tr></thead>
+          <tbody>${lista.map(t => `<tr>
+            <td>${mesLargo(t.desde)}${t.desde <= ym ? '' : ' <span class="reu-futuro">futuro</span>'}</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">${reuFmt(t.monto)}</td>
+            <td style="text-align:right">${lista.length > 1 ? `<button class="abo-reg ico del" onclick="reuBorrarPrecio('${cual}','${t.desde}')" title="Quitar tramo">🗑</button>` : ''}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+  };
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Reuniones</div>
+      <h1 class="abo-h1">Costo y seña</h1>
+    </div></div>
+    ${reuSubtabsHTML()}
+    <div class="abo-montos-hint">Los cambios <b>nunca son retroactivos</b>: rigen desde el mes que elijas y las reuniones anteriores conservan el monto que tenían cuando se hicieron.</div>
+    ${tramos('costo', 'Costo de la reunión', 'Es el monto que se cobra por una consulta inicial. Se aplica solo si la reunión no tiene un monto propio cargado a mano.')}
+    ${tramos('sena', 'Seña de las presenciales', 'En las presenciales el cliente suele dejar una seña y completar el pago después. Este monto se sugiere al registrar el primer pago.')}`;
+}
+function reuGuardarPrecio(cual){
+  const v = numDe((document.getElementById('reuNuevo-' + cual) || {}).value);
+  const desde = (document.getElementById('reuDesde-' + cual) || {}).value;
+  if (!(v > 0)){ aricToast('Cargá un monto válido'); return; }
+  if (!desde){ aricToast('Elegí desde qué mes rige'); return; }
+  reuCfgSet(cual, desde, v);
+  aricToast((cual === 'costo' ? 'Costo' : 'Seña') + ' de ' + reuFmt(v) + ' desde ' + mesLargo(desde));
+  renderReuniones();
+}
+function reuBorrarPrecio(cual, desde){
+  if (!confirm('¿Quitar el tramo que rige desde ' + mesLargo(desde) + '?')) return;
+  if (!reuCfgQuitar(cual, desde)) aricToast('Tiene que quedar al menos un tramo');
+  renderReuniones();
+}
+
+// ── Modal de alta y edición ──
+function reuAbrirEdicion(id){
+  REU_EDIT = id != null ? String(id) : null;
+  const r = REU_EDIT ? reuPorId(REU_EDIT) : null;
+  const set = (k, v) => { const e = document.getElementById(k); if (e) e.value = v; };
+  document.getElementById('reuModalTit').textContent = r ? 'Editar reunión' : 'Nueva reunión';
+  set('reuCliente', r ? r.cliente : '');
+  set('reuTelefono', r ? r.telefono : '');
+  set('reuFecha', r ? r.fecha : hoyISO());
+  set('reuHora', r ? r.hora : '');
+  set('reuModalidad', r ? r.modalidad : 'virtual');
+  set('reuMotivo', r ? r.motivo : '');
+  // El monto arranca con el vigente del mes, editable
+  const ymEd = r ? reuMes(r) : hoyISO().slice(0,7);
+  const montoPre = (r && r.monto != null) ? r.monto : reuCostoVigente(ymEd);
+  set('reuMonto', montoPre ? Math.round(montoPre).toLocaleString('es-AR') : '');
+  const bon = document.getElementById('reuBonificada');
+  if (bon) bon.checked = !!(r && r.bonificada);
+  document.querySelectorAll('#reuAsignados input').forEach(ch => {
+    ch.checked = !!(r && (r.asignados || []).indexOf(ch.value) !== -1);
+  });
+  reuToggleBonif();
+  reuPintarAsignados();
+  const hint = document.getElementById('reuMontoHint');
+  if (hint) hint.innerHTML = 'Costo vigente de ' + mesLargo(ymEd) + ': <b>' + reuFmt(reuCostoVigente(ymEd)) + '</b>. Podés cambiarlo.';
+  // El pago al vuelo solo se ofrece al crear, no al editar
+  REU_ALTA_ADJ = null;
+  const cp = document.getElementById('reuConPago');
+  if (cp) cp.checked = false;
+  const alta = document.getElementById('reuPagoAlta');
+  if (alta) alta.style.display = r ? 'none' : '';
+  set('reuAltaFecha', r ? r.fecha : hoyISO());
+  set('reuAltaMonto', montoPre ? Math.round(montoPre).toLocaleString('es-AR') : '');
+  set('reuAltaTipo', 'total'); set('reuAltaMetodo', 'transferencia');
+  const st = document.getElementById('reuAltaStatus'); if (st) st.textContent = '';
+  reuTogglePagoAlta();
+  reuPintarComprobAlta();
+  document.getElementById('reuModal').style.display = 'flex';
+}
+function reuCerrarModal(){ document.getElementById('reuModal').style.display = 'none'; REU_EDIT = null; REU_ALTA_ADJ = null; reuSugCerrar(); }
+function reuPintarAsignados(){
+  document.querySelectorAll('#reuAsignados .reu-chk').forEach(l => {
+    const c = l.querySelector('input');
+    l.classList.toggle('on', !!(c && c.checked));
+  });
+}
+function reuTogglePagoAlta(){
+  const on = !!(document.getElementById('reuConPago') || {}).checked;
+  const box = document.getElementById('reuPagoAltaBox');
+  if (box) box.style.display = on ? '' : 'none';
+}
+function reuPintarComprobAlta(){
+  const c = document.getElementById('reuAltaComprob');
+  if (c) c.innerHTML = REU_ALTA_ADJ
+    ? `<span class="reu-adj">📎 ${esc(REU_ALTA_ADJ.nombre)} <button onclick="REU_ALTA_ADJ=null;reuPintarComprobAlta()">✕</button></span>`
+    : '<span class="reu-adj-vacio">Sin comprobante</span>';
+}
+async function reuSubirComprobAlta(input){
+  const file = input.files && input.files[0];
+  input.value = '';
+  if (!file) return;
+  if (file.size > 3 * 1024 * 1024){ alert('El archivo supera los 3 MB. Comprimí la imagen antes de adjuntarla.'); return; }
+  const st = document.getElementById('reuAltaStatus');
+  if (st) st.textContent = 'Subiendo ' + file.name + '…';
+  try {
+    let info = { path: null, url: null };
+    if (typeof sbUploadFile === 'function' && typeof SB_ON !== 'undefined' && SB_ON){
+      const path = await sbUploadFile('abonos', `reunion-nueva-${Date.now()}-${file.name}`, file);
+      info = { path, url: (typeof sbPubUrl === 'function') ? sbPubUrl(path) : null };
+    } else {
+      info.url = await new Promise((res, rej) => { const rd = new FileReader(); rd.onload = () => res(rd.result); rd.onerror = rej; rd.readAsDataURL(file); });
+    }
+    REU_ALTA_ADJ = { nombre: file.name, tipo: file.type, path: info.path, url: info.url };
+    if (st) st.textContent = '';
+    reuPintarComprobAlta();
+  } catch(err){
+    console.error(err);
+    if (st) st.textContent = 'No se pudo subir. Probá de nuevo.';
+  }
+}
+function reuToggleBonif(){
+  const bon = document.getElementById('reuBonificada');
+  const m = document.getElementById('reuMonto');
+  if (!bon || !m) return;
+  m.disabled = bon.checked;
+  m.style.opacity = bon.checked ? '.45' : '';
+}
+function reuGuardarDesdeModal(){
+  const val = k => (document.getElementById(k) || {}).value || '';
+  const cliente = val('reuCliente').trim();
+  if (!cliente){ aricToast('Cargá el nombre del cliente'); return; }
+  const asignados = [...document.querySelectorAll('#reuAsignados input')].filter(c => c.checked).map(c => c.value);
+  const bonificada = !!(document.getElementById('reuBonificada') || {}).checked;
+  const montoRaw = numDe(val('reuMonto'));
+  const guardada = reuGuardar({ id: REU_EDIT, cliente, telefono: val('reuTelefono'), fecha: val('reuFecha'),
+               hora: val('reuHora'), modalidad: val('reuModalidad'), asignados,
+               motivo: val('reuMotivo'), bonificada,
+               monto: bonificada ? null : (montoRaw > 0 ? montoRaw : null) });
+  // Pago cargado en el mismo formulario
+  const conPago = !!(document.getElementById('reuConPago') || {}).checked;
+  const eraNueva = !REU_EDIT;
+  if (eraNueva && conPago && !bonificada){
+    const mp = numDe(val('reuAltaMonto'));
+    if (mp > 0 || REU_ALTA_ADJ){
+      reuAgregarPago(guardada.id, { fecha: val('reuAltaFecha') || val('reuFecha'), monto: mp > 0 ? mp : null,
+                                    metodo: val('reuAltaMetodo'), tipo: val('reuAltaTipo'),
+                                    comprobante: REU_ALTA_ADJ ? { ...REU_ALTA_ADJ } : null });
+    }
+  }
+  reuCerrarModal();
+  REU_MES = String(val('reuFecha') || hoyISO()).slice(0,7);
+  renderReuniones();
+  aricToast(eraNueva ? ('Reunión agendada · ficha del cliente en el CRM' + (conPago ? ' · pago registrado' : ''))
+                     : 'Reunión actualizada');
+}
+function reuBorrar(id){
+  const r = reuPorId(id);
+  if (!r) return;
+  const borraFicha = (typeof reuLimpiarFicha === 'function') && (function(){
+    const c = r.clienteId != null ? clientePorId(r.clienteId) : null;
+    return !!c && (c.estado || '') === 'esporadico_reu';
+  })();
+  if (!confirm('¿Eliminar la reunión de ' + (r.cliente || '—') + ' del ' + formatFechaCorta(r.fecha) + '?'
+      + '\n\nSe borran también sus pagos registrados.'
+      + (borraFicha ? '\nSi la ficha del cliente en el CRM se había creado por esta reunión y no tiene otros datos, también se borra.' : ''))) return;
+  reuEliminar(id);
+  renderReuniones();
+}
+// Autocompletado de cliente contra el CRM
+function reuSugItems(q){ return (typeof cjClientesSugeridos === 'function') ? cjClientesSugeridos(q).slice(0, 8) : []; }
+function reuSugRender(){
+  const inp = document.getElementById('reuCliente'), box = document.getElementById('reuSugBox');
+  if (!inp || !box) return;
+  const items = inp.value.trim() ? reuSugItems(inp.value) : [];
+  if (!items.length){ box.style.display = 'none'; return; }
+  box.innerHTML = items.map((x, i) => `<div class="cj-sug-it" onmousedown="event.preventDefault();reuSugElegir(${i})">
+    <span class="n">${esc(x.cli.entidad)}${x.via ? `<small class="via">referente: ${esc(x.via)}</small>` : ''}</span></div>`).join('');
+  box.dataset.items = JSON.stringify(items.map(x => ({ n: x.cli.entidad, tel: x.cli.telefono || '' })));
+  box.style.display = 'block';
+}
+function reuSugElegir(i){
+  const box = document.getElementById('reuSugBox');
+  let items = [];
+  try { items = JSON.parse(box.dataset.items || '[]'); } catch(e){}
+  const x = items[i];
+  if (!x) return;
+  document.getElementById('reuCliente').value = x.n;
+  const tel = document.getElementById('reuTelefono');
+  if (tel && !tel.value && x.tel) tel.value = x.tel;
+  reuSugCerrar();
+}
+function reuSugCerrar(){ const b = document.getElementById('reuSugBox'); if (b) b.style.display = 'none'; }
+
+// ── Modal de pagos ──
+function reuAbrirPago(id){
+  const r = reuPorId(id);
+  if (!r) return;
+  REU_PAGO_ID = String(id); REU_PAGO_ADJ = null;
+  document.getElementById('reuPagoTit').textContent = 'Pagos · ' + (r.cliente || '');
+  const set = (k, v) => { const e = document.getElementById(k); if (e) e.value = v; };
+  set('reuPagoFecha', hoyISO());
+  set('reuPagoMetodo', ''); set('reuPagoObs', '');
+  // Sugerencia: si no pagó nada y es presencial, la seña; si no, el saldo
+  const saldo = reuSaldo(r);
+  const sena = reuSenaVigente(reuMes(r));
+  const sug = (!(r.pagos || []).length && r.modalidad === 'presencial' && sena > 0 && sena < saldo) ? sena : saldo;
+  set('reuPagoMonto', sug > 0 ? Math.round(sug).toLocaleString('es-AR') : '');
+  set('reuPagoTipo', (sug === sena && sug !== saldo) ? 'sena' : ((r.pagos || []).length ? 'complemento' : 'total'));
+  const st = document.getElementById('reuComprobStatus'); if (st) st.textContent = '';
+  reuPintarPago();
+  document.getElementById('reuPagoModal').style.display = 'flex';
+}
+function reuCerrarPago(){
+  document.getElementById('reuPagoModal').style.display = 'none';
+  REU_PAGO_ID = null; REU_PAGO_ADJ = null;
+  renderReuniones();
+}
+function reuPintarPago(){
+  const r = reuPorId(REU_PAGO_ID);
+  if (!r) return;
+  const res = document.getElementById('reuPagoRes');
+  const tot = reuMontoDe(r), cob = reuCobrado(r), saldo = reuSaldo(r);
+  if (res) res.innerHTML = r.bonificada
+    ? '<div class="reu-res-b">Reunión bonificada · sin cargo</div>'
+    : `<div class="reu-res-g">
+        <div><span class="k">Monto</span><span class="v">${reuFmt(tot)}</span></div>
+        <div><span class="k">Cobrado</span><span class="v ok">${reuFmt(cob)}</span></div>
+        <div><span class="k">Saldo</span><span class="v ${saldo ? 'debe' : 'ok'}">${reuFmt(saldo)}</span></div>
+        <div><span class="k">Seña vigente</span><span class="v">${reuFmt(reuSenaVigente(reuMes(r)))}</span></div>
+      </div>`;
+  // Comprobante en curso
+  const c = document.getElementById('reuPagoComprob');
+  if (c) c.innerHTML = REU_PAGO_ADJ
+    ? `<span class="reu-adj">📎 ${esc(REU_PAGO_ADJ.nombre)} <button onclick="REU_PAGO_ADJ=null;reuPintarPago()">✕</button></span>`
+    : '<span class="reu-adj-vacio">Sin comprobante adjunto</span>';
+  // Pagos ya registrados
+  const lista = document.getElementById('reuPagosLista');
+  if (!lista) return;
+  const pagos = (r.pagos || []);
+  lista.innerHTML = pagos.length ? `
+    <div class="reu-pagos-h">Pagos registrados</div>
+    ${pagos.map(p => `<div class="reu-pago-it">
+      <span class="f">${formatFechaCorta(p.fecha)}</span>
+      <span class="m">${p.monto != null ? reuFmt(p.monto) : '—'}</span>
+      ${p.tipo ? `<span class="t ${p.tipo}">${REU_CONCEPTO_LBL[p.tipo] || p.tipo}</span>` : ''}
+      ${p.metodo ? `<span class="me">${esc(p.metodo)}</span>` : ''}
+      ${p.comprobante ? `<button class="abo-reg ico" onclick="reuVerComprobante('${r.id}','${p.id}')" title="Ver comprobante">📎</button>` : ''}
+      ${p.obs ? `<span class="o">${esc(p.obs)}</span>` : ''}
+      <button class="abo-reg ico del" onclick="reuBorrarPago('${r.id}','${p.id}')" title="Quitar pago">🗑</button>
+    </div>`).join('')}` : '<div class="reu-pagos-vacio">Todavía no hay pagos registrados.</div>';
+}
+async function reuSubirComprob(input){
+  const file = input.files && input.files[0];
+  input.value = '';
+  if (!file) return;
+  if (file.size > 3 * 1024 * 1024){ alert('El archivo supera los 3 MB. Comprimí la imagen antes de adjuntarla.'); return; }
+  const st = document.getElementById('reuComprobStatus');
+  if (st) st.textContent = 'Subiendo ' + file.name + '…';
+  try {
+    let info = { path: null, url: null };
+    if (typeof sbUploadFile === 'function' && typeof SB_ON !== 'undefined' && SB_ON){
+      const nombre = `reunion-${REU_PAGO_ID}-${Date.now()}-${file.name}`;
+      const path = await sbUploadFile('abonos', nombre, file);
+      info = { path, url: (typeof sbPubUrl === 'function') ? sbPubUrl(path) : null };
+    } else {
+      info.url = await new Promise((res, rej) => { const rd = new FileReader(); rd.onload = () => res(rd.result); rd.onerror = rej; rd.readAsDataURL(file); });
+    }
+    REU_PAGO_ADJ = { nombre: file.name, tipo: file.type, path: info.path, url: info.url };
+    if (st) st.textContent = '';
+    reuPintarPago();
+  } catch(err){
+    console.error(err);
+    if (st) st.textContent = 'No se pudo subir. Probá de nuevo.';
+  }
+}
+function reuAgregarPagoDesdeModal(){
+  const r = reuPorId(REU_PAGO_ID);
+  if (!r) return;
+  const val = k => (document.getElementById(k) || {}).value || '';
+  const monto = numDe(val('reuPagoMonto'));
+  if (!(monto > 0) && !REU_PAGO_ADJ){ aricToast('Cargá el monto o adjuntá el comprobante'); return; }
+  reuAgregarPago(REU_PAGO_ID, { fecha: val('reuPagoFecha') || hoyISO(), monto: monto > 0 ? monto : null,
+                                metodo: val('reuPagoMetodo'), tipo: val('reuPagoTipo'), obs: val('reuPagoObs'),
+                                comprobante: REU_PAGO_ADJ ? { ...REU_PAGO_ADJ } : null });
+  REU_PAGO_ADJ = null;
+  const set = (k, v) => { const e = document.getElementById(k); if (e) e.value = v; };
+  set('reuPagoMonto', ''); set('reuPagoObs', ''); set('reuPagoTipo', 'complemento');
+  reuPintarPago();
+  aricToast('Pago registrado · se replica en la caja del asignado');
+}
+function reuBorrarPago(id, pagoId){
+  if (!confirm('¿Quitar este pago?')) return;
+  reuQuitarPago(id, pagoId);
+  reuPintarPago();
+}
+function reuVerComprobante(id, pagoId){
+  const r = reuPorId(id);
+  const p = r && (r.pagos || []).find(x => String(x.id) === String(pagoId));
+  if (!p || !p.comprobante) return;
+  const c = p.comprobante;
+  if (typeof sbAbrirArchivo === 'function' && (c.path || c.url)){ sbAbrirArchivo(c, { nombre: c.nombre }); return; }
+  const a = document.createElement('a');
+  a.href = c.url || c.data; a.target = '_blank'; a.rel = 'noopener'; a.click();
+}
+
+// ── Subventana "Reuniones" replicada en cada caja (solo lectura) ──
+// La carga y el cobro se hacen en el módulo de Reuniones. Acá solo se refleja
+// la parte que le toca a esa caja, con el comprobante a mano.
+function renderReuCaja(caja, ym, ids){
+  const tabla = document.getElementById(ids.tabla);
+  const vacia = document.getElementById(ids.vacia);
+  const mini  = document.getElementById(ids.mini);
+  if (!tabla) return;
+  const d = reuDeCaja(caja, ym);
+  if (mini) mini.textContent = d.n ? (d.n + ' reunión' + (d.n !== 1 ? 'es' : '') + ' con cobro') : 'sin cobros este mes';
+  if (!d.filas.length){
+    tabla.innerHTML = '';
+    if (vacia) vacia.style.display = 'block';
+    return;
+  }
+  if (vacia) vacia.style.display = 'none';
+  const comprob = f => {
+    const conAdj = (f.pagos || []).filter(p => p.comprobante);
+    if (!conAdj.length) return '<span class="reu-sin-adj">—</span>';
+    return conAdj.map(p => `<button class="abo-reg ico" onclick="reuVerComprobante('${f.reu.id}','${p.id}')" title="Comprobante del ${formatFechaCorta(p.fecha)}">📎</button>`).join(' ');
+  };
+  tabla.innerHTML = '<thead><tr><th>Fecha</th><th>Cliente</th><th>Con quién</th>'
+    + '<th style="text-align:right">Cobrado</th><th style="text-align:right">Le toca a esta caja</th>'
+    + '<th style="text-align:center">Comprob.</th></tr></thead><tbody>'
+    + d.filas.map(f => `<tr>
+        <td style="white-space:nowrap">${formatFechaCorta(f.fecha)}</td>
+        <td style="font-weight:600">${esc((f.cliente || '').toUpperCase())}${f.motivo ? `<div class="desglose-linea">${esc(f.motivo.slice(0, 70))}${f.motivo.length > 70 ? '…' : ''}</div>` : ''}</td>
+        <td>${(f.asignados || []).map(a => `<span class="reu-chip ${a}">${REU_PERSONAS[a] ? REU_PERSONAS[a].nombre : a}</span>`).join('')}</td>
+        <td style="text-align:right;font-variant-numeric:tabular-nums">${reuFmt(f.cobrado)}${f.partes > 1 ? `<div class="desglose-linea">÷ ${f.partes} personas</div>` : ''}</td>
+        <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--sello)">${reuFmt(f.monto)}</td>
+        <td style="text-align:center">${comprob(f)}</td>
+      </tr>`).join('')
+    + `</tbody><tfoot><tr>
+        <td colspan="4" style="text-align:right;font-weight:700;padding-top:8px">Total del mes:</td>
+        <td style="text-align:right;font-weight:800;padding-top:8px;color:var(--sello);font-variant-numeric:tabular-nums">${reuFmt(d.total)}</td>
+        <td></td>
+      </tr></tfoot>`;
+}
+function reuPanelHTML(id){
+  return `      <div class="panel lista-amplia" style="margin-top:16px" id="panelReu${id}">
+        <div class="panel-h"><h3>🤝 Reuniones</h3><span class="mini" id="reu${id}Mini"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Las reuniones se cargan y se cobran desde el módulo <b>Reuniones</b>. Acá se refleja la parte que le corresponde a esta caja, que <b>ya está sumada</b> en los ingresos de arriba. Si hay más de un asignado, lo cobrado se divide en partes iguales.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="reu${id}Tabla"></table></div>
+          <div class="panel-empty" id="reu${id}Vacia" style="display:none">Ninguna reunión con cobro registrado este mes.</div>
+        </div>
+      </div>`;
+}
+
+// ── Sincronización con Supabase (tabla reuniones) ──
+// Los pagos van como JSON en una sola columna: son pocos por reunión y siempre
+// se leen y escriben juntos, así que no justifica una tabla aparte.
+function reunionAFila(r){
+  return { id: r.id, cliente: r.cliente || '', telefono: r.telefono || null,
+           fecha: r.fecha || null, hora: r.hora || null,
+           modalidad: r.modalidad || 'virtual',
+           asignados: (r.asignados || []).join(','),
+           motivo: r.motivo || null,
+           monto: r.monto ?? null, bonificada: !!r.bonificada,
+           pagos: JSON.stringify(r.pagos || []),
+           cliente_id: r.clienteId ?? null, creada: r.creada || null };
+}
+function filaAReunion(f){
+  let pagos = [];
+  try { pagos = JSON.parse(f.pagos || '[]'); } catch(e){ pagos = []; }
+  if (!Array.isArray(pagos)) pagos = [];
+  return { id: Number(f.id), cliente: f.cliente || '', telefono: f.telefono || '',
+           fecha: f.fecha || '', hora: f.hora || '',
+           modalidad: f.modalidad || 'virtual',
+           asignados: String(f.asignados || '').split(',').map(s => s.trim()).filter(Boolean),
+           motivo: f.motivo || '', monto: f.monto ?? null, bonificada: !!f.bonificada,
+           pagos, clienteId: f.cliente_id ?? null, creada: f.creada || '' };
+}
+function sbPushReunion(r){
+  if (typeof SB_ON === 'undefined' || !SB_ON) return;
+  sbUpsert('reuniones', reunionAFila(r)).catch(sbAvisarError);
+}
+function sbDelReunion(id){
+  if (typeof SB_ON === 'undefined' || !SB_ON) return;
+  sbDelete('reuniones', id).catch(sbAvisarError);
+}
+function reunionesDesdeNube(filas){
+  if (!Array.isArray(filas)) return;
+  REUNIONES = filas.map(filaAReunion);
+  saveReuniones();
+}
+// Sube al Supabase todo lo que hoy está solo en el navegador
+function reunionesSubirTodo(){
+  if (!(typeof SB_ON !== 'undefined' && SB_ON)){ aricToast('Supabase está desactivado'); return; }
+  let n = 0;
+  (REUNIONES || []).forEach(r => { sbUpsert('reuniones', reunionAFila(r)).catch(sbAvisarError); n++; });
+  aricToast('Se subieron ' + n + ' reuniones');
+}
+
 // ═══════════ ABONOS DE ACTAS (parte societaria de los abonos) ═══════════
 // Algunos abonos son en realidad ingresos de societario: los de actas. Otros son
 // mixtos (una parte actas, otra parte el abono de WhatsApp).
@@ -8192,7 +9355,7 @@ function abonoActasDelMes(ym){
 function ingresosDelMes(ym){
   // Caja judicial: todos los pagos de CAJA son ingresos
   const jud = (typeof CAJA !== 'undefined' ? CAJA : []).filter(p => (p.fecha||'').slice(0,7) === ym);
-  const judArs = jud.filter(p => p.moneda !== 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
+  let judArs = jud.filter(p => p.moneda !== 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
   const judUsd = jud.filter(p => p.moneda === 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
 
   // Caja societaria: SOLO tipo 'ingreso' (o sin tipo). Los tipos 'gasto' y 'gasto_esc' NO son ingreso.
@@ -8232,6 +9395,12 @@ function ingresosDelMes(ym){
   const actas = (typeof abonoActasDelMes === 'function') ? abonoActasDelMes(ym) : { ars:0, usd:0, n:0 };
   aboArs -= actas.ars; aboUsd -= actas.usd;
   socArs += actas.ars; socUsd += actas.usd;
+  // Reuniones: la parte de cada asignado suma a su caja. Es plata nueva y no se
+  // duplica con nada, porque solo se carga desde el módulo de Reuniones.
+  const reu = (typeof reuTotalesMes === 'function') ? reuTotalesMes(ym) : { judicial:0, societaria:0, welegal:0 };
+  judArs += reu.judicial;
+  socArs += reu.societaria;
+  wlArs  += reu.welegal;
 
   // El bruto suma la caja societaria ENTERA: socArs ya viene con la parte de WE Legal
   // descontada, así que se la devolvemos acá. Repartir no cambia cuánta plata entró.
@@ -10369,6 +11538,7 @@ function __navToInterno(p) {
     if (p === 'abonos') { renderAbonosPagina(); }
     if (p === 'ingresos') { renderIngresos(); }
     if (p === 'welegal') { renderWeLegal(); }
+    if (p === 'reuniones') { renderReuniones(); }
     rielMarcarActivo(p);
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
   } catch(e) { console.error(e); }
@@ -11263,10 +12433,10 @@ function calcularPlazo() {
 const UMA_META_KEY = 'jc-uma-meta-v1';
 let __umaEstado = '';
 const UMA_FUENTE = 'https://www.cpacf.org.ar/noticia/5201/valores-uma-pjn-ley-27423';
-const UMA_SEED = { monto: 100173, res: 'Res 1718/26', fecha: '13/07/2026' };
+const UMA_SEED = { monto: 102076, res: 'Res 1785/26', fecha: '03/08/2026' };
 // Valores que este mismo archivo sembró en versiones anteriores. Si el guardado es
 // uno de estos, quedó viejo y se pisa con el nuevo; un valor cargado a mano no se toca.
-const UMA_SEEDS_VIEJOS = [98112];
+const UMA_SEEDS_VIEJOS = [98112, 100173];
 function sembrarUmaSiFalta() {
   const v = parseFloat(appStore.getItem(UMA_KEY));
   let meta = {};
@@ -12477,7 +13647,11 @@ function __socDatosMes(mes) {
   t.actasArs = actas.ars; t.actasUsd = actas.usd; t.actasN = actas.n;
   t.inArs += actas.ars; t.inUsd += actas.usd;
   t.honArs += actas.ars; t.honUsd += actas.usd;   // no traen gastos adelantados
-  return { movs, ingresos, gastosOrd, gastosEsc, t, actas };
+  // Reuniones asignadas a Brenda: la parte que le toca a esta caja
+  const reuSoc = (typeof reuDeCaja === 'function') ? reuDeCaja('societaria', mes) : { total:0, n:0 };
+  t.reuArs = reuSoc.total; t.reuN = reuSoc.n;
+  t.inArs += reuSoc.total; t.honArs += reuSoc.total;
+  return { movs, ingresos, gastosOrd, gastosEsc, t, actas, reuSoc };
 }
 // ── Subventana "Abonos actas" de la caja societaria (solo lectura) ──
 // Replica los abonos que le corresponden a societario, en la proporción que toca.
@@ -12692,6 +13866,7 @@ function renderCajaSoc() {
   pinta(gastosOrd, 'csTablaGa', 'csVaciaGa', 'csMiniGa', 'gasto ordinario');
   pinta(gastosEsc, 'csTablaEsc', 'csVaciaEsc', 'csMiniEsc', 'gasto de escribanía');
   try { renderActasSoc(mes); } catch(e) {}
+  try { renderReuCaja('societaria', mes, { tabla:'reuSocTabla', vacia:'reuSocVacia', mini:'reuSocMini' }); } catch(e) {}
   // Rankings (solo ingresos)
   const filaRankS = (r, i, max) => `
     <div class="rank-item">
@@ -12867,6 +14042,7 @@ function renderWeLegal(){
     if (f.moneda === 'USD') porCli[k].usd += f.wl; else porCli[k].ars += f.wl;
   });
   pintaRank('wlRankCli', Object.values(porCli));
+  try { renderReuCaja('welegal', mes, { tabla:'reuWlTabla', vacia:'reuWlVacia', mini:'reuWlMini' }); } catch(e) {}
 }
 
 function renderComisionesDetalle() {
@@ -13723,11 +14899,14 @@ function renderCaja() {
   const dolar = valorDolar();
   const pesif = document.getElementById('cajaPesificar').checked && dolar > 0;
   const t = totalesCaja(pagos);
+  const reuJud = (typeof reuDeCaja === 'function') ? reuDeCaja('judicial', mes) : { total:0, n:0 };
+  t.ars += reuJud.total;                       // reuniones asignadas a Kevin
   const totalPes = t.ars + t.usd * dolar;
   const kPes = t.kArs + t.kUsd * dolar;
   const oPes = t.oArs + t.oUsd * dolar;
 
   document.getElementById('cajaMesLabel').textContent = pagos.length + ' pago' + (pagos.length !== 1 ? 's' : '') + ' · ' + mesLargo(mes);
+  try { renderReuCaja('judicial', mes, { tabla:'reuJudTabla', vacia:'reuJudVacia', mini:'reuJudMini' }); } catch(e) {}
 
   if (modoOri) {
     document.getElementById('cajaTiles').innerHTML = `
@@ -15088,6 +16267,7 @@ const RIEL_ITEMS = [
   { nav:'jurisprudencia',emo:'⚖',  txt:'Jurisprudencia',  go:"navTo('jurisprudencia')" },
   { nav:'expedientes',   emo:'📁', txt:'Expedientes',     go:"navTo('expedientes')" },
   { nav:'agenda',        emo:'📅', txt:'Agenda',          go:"navTo('agenda')" },
+  { nav:'reuniones',     emo:'🤝', txt:'Reuniones',       go:"navTo('reuniones')" },
   { grupo:'Finanzas' },
   { nav:'caja',          emo:'💰', txt:'Caja judicial',   go:"navTo('caja')" },
   { nav:'cajasoc',       emo:'💼', txt:'Caja societaria', go:"navTo('cajasoc')" },
@@ -15183,6 +16363,7 @@ function permisoPagina(p) {
   if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'ingresos') return INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
   if (p === 'welegal') return WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
+  if (p === 'reuniones') return !!(pf.caja || pf.cajaSoc);
   return true;
 }
 function aplicarPermisos() {
@@ -15261,6 +16442,7 @@ loadCajaSoc();
 loadPlanes();
 loadAric();
 try { sembrarUmaSiFalta(); actualizarUmaDesdeCPACF(); } catch (e) {}
+try { loadReuniones(); } catch (e) {}
 // Botón de caja societaria + menú combinado "Cajas" en todas las barras
 document.querySelectorAll('[data-navbar]').forEach(nav => {
   const ref = nav.querySelector('[data-nav="caja"]');
@@ -15734,7 +16916,8 @@ function plazoCorto(vence) {
 // El estado guarda de qué caja salió: 'esporadico_jud' | 'esporadico_soc' | 'esporadico_wl'
 // ('esporadico' a secas es el que se marca a mano desde la ficha).
 const CRM_ESPORADICO = 'esporadico';
-const CRM_ORIGEN_LBL = { jud: 'caja judicial', soc: 'caja societaria', wl: 'caja WE Legal (packs)' };
+const CRM_ORIGEN_LBL = { jud: 'caja judicial', soc: 'caja societaria', wl: 'caja WE Legal (packs)',
+                         reu: 'reuniones' };
 function crmEsEsporadico(c){ return !!c && /^esporadico/.test(c.estado || ''); }
 function crmOrigenDe(c){
   const m = /^esporadico_(\w+)$/.exec((c && c.estado) || '');
