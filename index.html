@@ -1215,6 +1215,53 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 #reuSugBox{position:absolute;z-index:9;left:0;right:0}
 .reu-cli-wrap{position:relative}
 
+/* ══════════ VENCIMIENTOS DEL CLIENTE ══════════ */
+.venc-lista{border:1px solid var(--filo);border-radius:var(--radio-s,9px);overflow:hidden;margin-bottom:14px}
+.venc-it{display:grid;grid-template-columns:104px minmax(0,1fr) 152px 74px;gap:12px;align-items:center;
+  padding:9px 13px;border-bottom:1px solid var(--filo-suave);font-size:13px;background:var(--carta)}
+.venc-it:last-child{border-bottom:none}
+.venc-it.cab{background:var(--papel);font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--tinta-suave)}
+.venc-it.vencido{background:#fdf4f2}
+.venc-it.proximo{background:#fdfaf1}
+.venc-f{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.venc-t{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.venc-auto{display:inline-block;margin-left:7px;padding:1px 7px;border-radius:20px;font-size:9px;
+  font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#e8eef7;color:#1b3a6b;
+  border:1px solid #cbd9ea;vertical-align:middle}
+.venc-a{display:flex;gap:5px;justify-content:flex-end}
+.venc-nota{font-size:10px;color:var(--tinta-suave);font-style:italic}
+.acc-editbtn.del{color:var(--crm-rojo,#b3372a)}
+.venc-chip{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;
+  letter-spacing:.3px;white-space:nowrap;line-height:1.6}
+.venc-chip.mal{background:#f9e3df;color:#b3372a;border:1px solid #eecac3}
+.venc-chip.warn{background:#f8f0dd;color:#a86e17;border:1px solid #ebdcb8}
+.venc-chip.ok{background:#eaf1e9;color:#1e7a48;border:1px solid #cfe0cd}
+.venc-alta{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;
+  padding:12px 13px;background:var(--papel);border:1px solid var(--filo);border-radius:var(--radio-s,9px)}
+.crm-hint{font-size:11.5px;color:var(--tinta-suave);margin-top:9px;line-height:1.5}
+.crm-vacio{font-size:12.5px;color:var(--tinta-suave);padding:4px 0 14px}
+/* Panel del inicio */
+.venc-inicio{padding:4px 0}
+.venc-fila{display:grid;grid-template-columns:96px minmax(0,1fr) auto auto;gap:14px;align-items:center;
+  padding:10px 16px;border-bottom:1px solid var(--filo-suave);cursor:pointer;font-size:13px}
+.venc-fila:last-child{border-bottom:none}
+.venc-fila:hover{background:var(--papel)}
+.venc-fila.vencido{box-shadow:inset 3px 0 0 #b3372a}
+.venc-fila.proximo{box-shadow:inset 3px 0 0 #a86e17}
+.venc-fecha{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.venc-cli{min-width:0}
+.venc-cli b{display:block;font-size:13px;color:var(--tinta);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.venc-cli small{display:block;font-size:11.5px;color:var(--tinta-suave);margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.venc-enc{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--tinta-suave);white-space:nowrap}
+@media (max-width:760px){
+  .venc-it,.venc-fila{grid-template-columns:1fr;gap:5px}
+  .venc-it.cab{display:none}
+  .venc-a{justify-content:flex-start}
+}
+
 /* ══════════ REUNIONES ══════════ */
 .reu-kpis{grid-template-columns:repeat(auto-fit,minmax(205px,1fr))}
 .abo-kpi.jud::before{background:var(--ok,#1e7a48)}
@@ -2171,6 +2218,9 @@ body.locked .app{margin-left:0}
         <div class="doble-filete"></div>
         <div id="inicioFeria"></div>
       </div>
+
+      <!-- Vencimientos de los clientes a cargo, dentro de los 30 días -->
+      <div id="inicioVencClientes"></div>
 
       <!-- Mi semana: foco en lo que vence en los próximos 7 días -->
       <div class="panel panel-misemana" id="panelMiSemana" style="display:none">
@@ -6607,6 +6657,7 @@ async function sbSelect(tabla) {
   return r.json();
 }
 async function sbUpsert(tabla, fila) {
+  if (!sbSesionActiva()) return;      // sin ingresar: queda local y sube al iniciar sesión
   const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}`, {
     method: 'POST',
     body: JSON.stringify(fila)
@@ -6614,6 +6665,7 @@ async function sbUpsert(tabla, fila) {
   if (!r.ok) throw new Error(tabla + ' upsert ' + r.status + ': ' + (await r.text()).slice(0, 120));
 }
 async function sbDelete(tabla, id) {
+  if (!sbSesionActiva()) return;      // ídem: no se toca la nube sin credencial propia
   const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}?id=eq.${id}`, { method: 'DELETE' }, { 'Prefer': 'return=minimal' });
   if (!r.ok && r.status !== 404) throw new Error(tabla + ' delete ' + r.status);
 }
@@ -6641,6 +6693,9 @@ let __sbAvisado = false;
 function sbAvisarError(e) {
   console.error('[Supabase]', e);
   window.__ultimoErrorSB = (e && e.message) ? e.message : String(e);
+  // Sin sesión iniciada no hay nada que sincronizar ni nada que la persona pueda
+  // hacer: queda registrado, pero no se muestra el cartel.
+  if (typeof sbSesionActiva === 'function' && !sbSesionActiva()) return;
   if (__sbAvisado) return; __sbAvisado = true;
   const b = document.createElement('div');
   b.style.cssText = 'position:fixed;bottom:16px;left:16px;z-index:9998;background:#b3372a;color:#fff;padding:10px 14px;border-radius:9px;font-size:12px;max-width:360px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer';
@@ -6701,8 +6756,10 @@ function filaATarea(f) {
 
 
 // ── CRM: mapeo cliente ↔ fila Supabase ──
+// Se enciende cuando la nube devuelve la columna de vencimientos
+var SB_TIENE_VENCIMIENTOS = false;
 function clienteAFila(c) {
-  return {
+  const f = {
     id: c.id, entidad: c.entidad || '', tipo: c.tipo || null, estado: c.estado || null,
     cuit: c.cuit || null, registro: c.registro || null, encargada: c.encargada || null,
     referente: c.referente || null, telefono: c.telefono || null, mail: c.mail || null,
@@ -6720,6 +6777,10 @@ function clienteAFila(c) {
     proximo_nota: c.proximoNota || null, bitacora: c.bitacora || [],
     servicios: c.servicios || [], tramites: c.tramites || [], observaciones: c.observaciones || null
   };
+  // Los vencimientos van solo si la columna ya existe en la base. Si todavía no se
+  // corrió el SQL, se omiten y quedan guardados en el dispositivo, sin romper nada.
+  if (SB_TIENE_VENCIMIENTOS) f.vencimientos = c.vencimientos || [];
+  return f;
 }
 function filaACliente(f) {
   return {
@@ -6735,6 +6796,7 @@ function filaACliente(f) {
     packEstadoTxt: f.pack_estado_txt || '', packVence: f.pack_vence || '', packServicios: f.pack_servicios || [],
     docPendiente: !!f.doc_pendiente, docPendienteQue: f.doc_pendiente_que || '',
     reuniones: f.reuniones || [],
+    vencimientos: Array.isArray(f.vencimientos) ? f.vencimientos : [],
     ultimoContacto: f.ultimo_contacto || '', proximoContacto: f.proximo_contacto || '',
     proximoNota: f.proximo_nota || '', bitacora: f.bitacora || [],
     servicios: f.servicios || [], tramites: f.tramites || [], observaciones: f.observaciones || ''
@@ -6868,6 +6930,9 @@ async function __sbCargarTodoInterno() {
     if (cfg.reuniones_cfg) { try { appStore.setItem(REU_CFG_KEY, cfg.reuniones_cfg); } catch(e){} }
     // Turno de la rotación de encargadas, para que la rueda siga igual en todas las máquinas
     if (cfg.encargada_turno != null) { try { appStore.setItem(ENC_TURNO_KEY, String(cfg.encargada_turno)); } catch(e){} }
+    // El valor de la nube puede traer una resolución de UMA ya superada. Se vuelve a
+    // aplicar la actualización acá, que ahora sí tiene sesión para poder subirla.
+    try { sembrarUmaSiFalta(); if (typeof cargarUmaCampo === 'function') cargarUmaCampo(); } catch(e){}
     // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
     if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
@@ -6886,6 +6951,8 @@ async function __sbCargarTodoInterno() {
     }
 
     // CRM (clientes)
+    if (rClientes && rClientes.length && Object.prototype.hasOwnProperty.call(rClientes[0], 'vencimientos'))
+      SB_TIENE_VENCIMIENTOS = true;
     if (rClientes && typeof CLIENTES !== 'undefined') {
       CLIENTES = rClientes.map(filaACliente);
       if (typeof saveClientesLocal === 'function') saveClientesLocal();
@@ -11996,6 +12063,8 @@ function renderInicio() {
     ? `<div class="banner-feria">🏛 Rige la <strong>&nbsp;${esc(feriaHoy.nombre)}&nbsp;</strong> (${formatFechaCorta(feriaHoy.desde)} – ${formatFechaCorta(feriaHoy.hasta)}): los plazos procesales están suspendidos salvo habilitación.</div>`
     : '';
 
+  try { vencPanelInicio(); } catch(e) {}
+
   const oficios = getOficiosPendientes();
   const ofVencidos = oficios.filter(o => o.vencimiento && o.vencimiento <= hoy).length;
   const tareasPend = getTareasPendientes();
@@ -16193,6 +16262,12 @@ function sbSesionVigente(){
   const s = sbSesionLeer();
   return !!(s && s.access_token && s.expires_at && (s.expires_at * 1000) > Date.now());
 }
+// Hay credencial propia (aunque esté por vencer: se renueva sola antes de usarla).
+// Si no la hay, cualquier escritura viajaría con la clave pública y sería rechazada.
+function sbSesionActiva(){
+  const s = sbSesionLeer();
+  return !!(s && s.access_token && s.refresh_token);
+}
 
 // ── Ingreso ──
 async function sbIngresar(email, password){
@@ -16826,6 +16901,7 @@ function clienteVacio() {
     reproAmparo: false, reproAmparoFecha: '', reproAprobFecha: '',
     packTipo: '', packSituacion: 'vigente', packEstadoTxt: '', packVence: '', packServicios: [],
     docPendiente: false, docPendienteQue: '',
+    vencimientos: [],
     reuniones: [],
     ultimoContacto: '', proximoContacto: '', proximoNota: '', bitacora: [],
     servicios: [], tramites: [], observaciones: ''
@@ -18055,6 +18131,218 @@ function guardarTramiteNuevo(id) {
   });
 }
 
+// ═══════════ VENCIMIENTOS DEL CLIENTE ═══════════
+// Cada cliente puede tener varios vencimientos con fecha y descripción: renovación
+// de autoridades, informes semestrales, lo que haga falta. Cuando faltan 30 días o
+// menos, le aparecen en el inicio a la encargada de ese cliente.
+//
+// Los informes semestrales de REPROCANN NO se cargan a mano: se calculan solos a
+// partir de la fecha de aprobación, cada seis meses, y siempre se muestra el
+// próximo que vence. Al renovar algo, se edita la fecha y deja de estar vencido.
+const VENC_AVISO_DIAS = 30;
+
+function vencLista(c){ return Array.isArray(c && c.vencimientos) ? c.vencimientos : []; }
+function vencDiasHasta(fecha, hoy){
+  if (!fecha) return null;
+  const h = parseISO(hoy || hoyISO()), f = parseISO(fecha);
+  if (!h || !f) return null;
+  return Math.round((f - h) / 86400000);
+}
+// Suma meses cuidando los fines de mes (31 de agosto + 6 meses = 28/29 de febrero)
+function vencSumarMeses(iso, meses){
+  const d = parseISO(iso);
+  if (!d) return '';
+  const dia = d.getDate();
+  const t = new Date(d.getFullYear(), d.getMonth() + meses, 1);
+  const ultimo = new Date(t.getFullYear(), t.getMonth() + 1, 0).getDate();
+  t.setDate(Math.min(dia, ultimo));
+  return isoDe(t);
+}
+// El próximo informe semestral de REPROCANN, contando de a seis meses desde la
+// aprobación. Devuelve { fecha, nro } o null si el cliente no tiene aprobación.
+function vencProximoSemestral(c, hoy){
+  if (!c || c.reproTienen !== 'aprobado' || !c.reproAprobFecha) return null;
+  hoy = hoy || hoyISO();
+  let nro = 1, fecha = vencSumarMeses(c.reproAprobFecha, 6);
+  // Se avanza hasta el primero que todavía no pasó; si uno ya venció, se muestra ese
+  while (fecha && fecha < hoy && nro < 60){
+    const sig = vencSumarMeses(c.reproAprobFecha, 6 * (nro + 1));
+    if (!sig || sig >= hoy) {
+      // el actual ya pasó: si el siguiente aún no llegó, el vencido es el que importa
+      const diasPasado = vencDiasHasta(fecha, hoy);
+      if (diasPasado !== null && diasPasado > -30) break;   // venció hace poco: se sigue mostrando
+      nro++; fecha = sig; break;
+    }
+    nro++; fecha = sig;
+  }
+  return fecha ? { fecha, nro } : null;
+}
+// Todos los vencimientos de un cliente, los cargados a mano y el semestral automático
+function vencDeCliente(c, hoy){
+  hoy = hoy || hoyISO();
+  const out = vencLista(c).map((v, i) => ({
+    idx: i, fecha: v.fecha || '', texto: v.texto || '', auto: false,
+    dias: vencDiasHasta(v.fecha, hoy)
+  })).filter(v => v.fecha);
+  const sem = vencProximoSemestral(c, hoy);
+  if (sem) out.push({ idx: -1, fecha: sem.fecha, auto: true, nro: sem.nro,
+                      texto: 'Informe semestral REPROCANN n.º ' + sem.nro,
+                      dias: vencDiasHasta(sem.fecha, hoy) });
+  return out.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+}
+function vencEstado(dias){
+  if (dias === null) return 'lejos';
+  if (dias < 0) return 'vencido';
+  if (dias <= VENC_AVISO_DIAS) return 'proximo';
+  return 'lejos';
+}
+// Vencimientos a la vista para una encargada (o para todos, si no se pasa ninguna)
+function vencProximos(encargada, hoy){
+  hoy = hoy || hoyISO();
+  const enc = (encargada || '').trim().toUpperCase();
+  const out = [];
+  (typeof CLIENTES !== 'undefined' ? CLIENTES : []).forEach(c => {
+    if (c.estado === 'ex_cliente') return;
+    if (enc && (c.encargada || '').trim().toUpperCase() !== enc) return;
+    vencDeCliente(c, hoy).forEach(v => {
+      const est = vencEstado(v.dias);
+      if (est === 'lejos') return;
+      out.push({ ...v, estado: est, cliente: c.entidad, clienteId: c.id, encargada: c.encargada || '' });
+    });
+  });
+  return out.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+}
+// ── Alta, edición y baja ──
+function vencAgregar(cliId, fecha, texto){
+  const c = clientePorId(cliId);
+  if (!c || !fecha) return false;
+  if (!Array.isArray(c.vencimientos)) c.vencimientos = [];
+  c.vencimientos.push({ fecha, texto: (texto || '').trim() });
+  c.vencimientos.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(c);
+  return true;
+}
+function vencEditar(cliId, idx, fecha, texto){
+  const c = clientePorId(cliId);
+  const v = c && vencLista(c)[idx];
+  if (!v) return false;
+  if (fecha) v.fecha = fecha;
+  if (texto != null) v.texto = String(texto).trim();
+  c.vencimientos.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(c);
+  return true;
+}
+function vencQuitar(cliId, idx){
+  const c = clientePorId(cliId);
+  if (!c || !vencLista(c)[idx]) return false;
+  c.vencimientos.splice(idx, 1);
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(c);
+  return true;
+}
+
+// ── Sección "Vencimientos" en la ficha del cliente ──
+function accVencimientos(c, editar){
+  const id = c.id, hoy = hoyISO();
+  const todos = vencDeCliente(c, hoy);
+  const alerta = todos.filter(v => vencEstado(v.dias) !== 'lejos');
+  const resumen = todos.length
+    ? (alerta.length ? `<span style="color:var(--crm-rojo)">${alerta.length} por vencer</span> · ${todos.length} en total`
+                     : `${todos.length} cargado${todos.length !== 1 ? 's' : ''}`)
+    : 'sin vencimientos';
+
+  const chip = v => {
+    const e = vencEstado(v.dias);
+    if (e === 'vencido') return `<span class="venc-chip mal">Vencido hace ${Math.abs(v.dias)} día${Math.abs(v.dias) !== 1 ? 's' : ''}</span>`;
+    if (e === 'proximo') return `<span class="venc-chip warn">${v.dias === 0 ? 'Vence hoy' : 'Faltan ' + v.dias + ' día' + (v.dias !== 1 ? 's' : '')}</span>`;
+    return `<span class="venc-chip ok">Faltan ${v.dias} días</span>`;
+  };
+
+  const fila = v => `<div class="venc-it ${vencEstado(v.dias)}">
+    <div class="venc-f">${fmtFechaCortaCRM(v.fecha)}</div>
+    <div class="venc-t">${esc(v.texto)}${v.auto ? '<span class="venc-auto">automático</span>' : ''}</div>
+    <div class="venc-e">${chip(v)}</div>
+    <div class="venc-a">${v.auto
+      ? '<span class="venc-nota" title="Se calcula desde la fecha de aprobación del REPROCANN, cada seis meses">calculado</span>'
+      : `<button class="acc-editbtn" onclick="vencAbrirEdicion(${id},${v.idx})" title="Editar">✎</button>
+         <button class="acc-editbtn del" onclick="vencBorrar(${id},${v.idx})" title="Eliminar">🗑</button>`}</div>
+  </div>`;
+
+  const body = `
+    ${todos.length ? `<div class="venc-lista">
+      <div class="venc-it cab"><div class="venc-f">Fecha</div><div class="venc-t">Qué vence</div><div class="venc-e">Estado</div><div class="venc-a"></div></div>
+      ${todos.map(fila).join('')}
+    </div>` : '<div class="crm-vacio">Todavía no hay vencimientos cargados para este cliente.</div>'}
+    <div class="venc-alta">
+      <div class="crm-fld" style="flex:0 0 155px"><label>Fecha</label><input type="date" id="venc_f_${id}"></div>
+      <div class="crm-fld" style="flex:1"><label>Qué vence</label><input id="venc_t_${id}" placeholder="Ej: renovación de autoridades" onkeydown="if(event.key==='Enter')vencGuardarNuevo(${id})"></div>
+      <button class="crm-btn-guardar" onclick="vencGuardarNuevo(${id})">Agregar</button>
+    </div>
+    <div class="crm-hint">Cuando falten ${VENC_AVISO_DIAS} días o menos, el vencimiento le aparece en el inicio a ${c.encargada ? esc(c.encargada) : 'la encargada del cliente'}.${
+      (c.reproTienen === 'aprobado' && c.reproAprobFecha)
+        ? ' Los informes semestrales de REPROCANN se calculan solos desde la aprobación del ' + fmtFechaCortaCRM(c.reproAprobFecha) + '.'
+        : ''}</div>`;
+
+  return `<div class="${accCls(id,'venc', alerta.length > 0)}">${accHead(id, 'venc', 'VENCIMIENTOS', resumen, false)}<div class="acc-body">${body}</div></div>`;
+}
+function vencGuardarNuevo(id){
+  const f = (document.getElementById('venc_f_' + id) || {}).value;
+  const t = (document.getElementById('venc_t_' + id) || {}).value;
+  if (!f){ aricToast('Cargá la fecha del vencimiento'); return; }
+  if (!(t || '').trim()){ aricToast('Escribí qué es lo que vence'); return; }
+  vencAgregar(id, f, t);
+  refrescarFicha(id);
+  aricToast('Vencimiento agregado');
+}
+function vencAbrirEdicion(id, idx){
+  const c = clientePorId(id), v = c && vencLista(c)[idx];
+  if (!v) return;
+  const f = prompt('Nueva fecha de vencimiento (AAAA-MM-DD).\n\nSi lo renovaste, poné la fecha nueva y deja de figurar como vencido.', v.fecha);
+  if (f === null) return;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test((f || '').trim())){ alert('La fecha tiene que ser con el formato AAAA-MM-DD.'); return; }
+  const t = prompt('¿Qué vence?', v.texto);
+  if (t === null) return;
+  vencEditar(id, idx, f.trim(), t);
+  refrescarFicha(id);
+  aricToast('Vencimiento actualizado');
+}
+function vencBorrar(id, idx){
+  const c = clientePorId(id), v = c && vencLista(c)[idx];
+  if (!v) return;
+  if (!confirm('¿Eliminar el vencimiento «' + (v.texto || fmtFechaCortaCRM(v.fecha)) + '»?')) return;
+  vencQuitar(id, idx);
+  refrescarFicha(id);
+}
+// ── Panel del inicio: lo que vence para la encargada que está mirando ──
+function vencPanelInicio(){
+  const cont = document.getElementById('inicioVencClientes');
+  if (!cont) return;
+  const u = (typeof usuarioActual === 'function') ? usuarioActual() : null;
+  const enc = (typeof USUARIO_A_ENCARGADA !== 'undefined') ? USUARIO_A_ENCARGADA[u] : null;
+  // Kevin e Ivana ven todo; cada encargada ve lo suyo
+  const verTodo = (u === 'kevindaich' || u === 'ivana');
+  const lista = vencProximos(verTodo ? null : enc);
+  if (!lista.length){ cont.innerHTML = ''; return; }
+  const vencidos = lista.filter(v => v.estado === 'vencido').length;
+  cont.innerHTML = `
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-h"><h3>⏳ Vencimientos próximos</h3>
+        <span class="mini">${lista.length} en los próximos ${VENC_AVISO_DIAS} días${vencidos ? ' · ' + vencidos + ' ya vencido' + (vencidos !== 1 ? 's' : '') : ''}</span></div>
+      <div class="venc-inicio">
+        ${lista.map(v => `<div class="venc-fila ${v.estado}" onclick="navTo('crm');setTimeout(function(){abrirClienteDetalle(${v.clienteId})},120)">
+          <div class="venc-fecha">${fmtFechaCortaCRM(v.fecha)}</div>
+          <div class="venc-cli"><b>${esc(v.cliente)}</b><small>${esc(v.texto)}</small></div>
+          ${verTodo && v.encargada ? `<div class="venc-enc">${esc(v.encargada)}</div>` : ''}
+          <div class="venc-dias">${v.estado === 'vencido'
+            ? '<span class="venc-chip mal">Vencido</span>'
+            : `<span class="venc-chip warn">${v.dias === 0 ? 'Hoy' : v.dias + ' día' + (v.dias !== 1 ? 's' : '')}</span>`}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
 function htmlFichaCliente(c) {
   const id = c.id;
   const ed = s => secEnEdicion(id, s);
@@ -18067,6 +18355,12 @@ function htmlFichaCliente(c) {
     <div class="crm-alerta ambar"><div class="a-lbl">Último contacto</div><b>${fD(ult)}</b></div>
     <div class="crm-alerta ${c.docPendiente ? 'rojo' : 'verde'}"><div class="a-lbl">Doc. pendiente</div><b>${c.docPendiente ? 'Sí' : 'No'}</b>${c.docPendiente && c.docPendienteQue ? `<div style="font-size:11px;margin-top:2px">${esc(c.docPendienteQue)}</div>` : ''}</div>
     <div class="crm-alerta ${c.reproTienen === 'aprobado' ? 'verde' : (c.reproTienen === 'en_tramite' ? 'ambar' : (c.reproTienen === 'no_iniciado' ? 'ini' : 'rojo'))}"><div class="a-lbl">REPROCANN</div><b>${REPRO_LABEL[c.reproTienen] || '—'}</b></div>
+    ${(function(){
+      const vs = vencDeCliente(c, hoy).filter(v => vencEstado(v.dias) !== 'lejos');
+      if (!vs.length) return '';
+      const peor = vs[0];
+      return `<div class="crm-alerta ${vencEstado(peor.dias) === 'vencido' ? 'rojo' : 'ambar'}"><div class="a-lbl">Próximo vencimiento</div><b>${fmtFechaCortaCRM(peor.fecha)}</b><div style="font-size:11px;margin-top:2px">${esc(peor.texto)}</div></div>`;
+    })()}
   </div>`;
 
   return `<div class="crm-modal crm-ficha">
@@ -18084,6 +18378,7 @@ function htmlFichaCliente(c) {
       ${accRepro(c, ed('repro'))}
       ${accPack(c, ed('pack'))}
       ${accDoc(c, ed('doc'))}
+      ${accVencimientos(c, ed('venc'))}
       ${accReuniones(c, ed('reuniones'))}
       ${accPagos(c)}
       ${accBitacora(c)}
