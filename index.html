@@ -1215,6 +1215,20 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 #reuSugBox{position:absolute;z-index:9;left:0;right:0}
 .reu-cli-wrap{position:relative}
 
+/* Cambio de contraseña */
+.riel-pass{margin-bottom:6px}
+.riel-pass .lbl{color:#d8dee7}
+.riel-pass:hover{background:rgba(255,255,255,.07)}
+.modal-b input[type=password]{width:100%;padding:10px 12px;border:1px solid var(--filo);
+  border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;
+  color:var(--tinta);background:var(--carta);box-sizing:border-box}
+.modal-b input[type=password]:focus{outline:none;border-color:#14294a}
+.pass-quien{font-size:12.5px;color:var(--tinta-suave);margin-bottom:16px;
+  padding-bottom:12px;border-bottom:1px solid var(--filo-suave)}
+.pass-quien b{color:var(--tinta)}
+.pass-err{font-size:12.5px;color:var(--mal,#b3372a);min-height:17px;line-height:1.45}
+.pass-ok{font-size:12.5px;color:var(--ok,#1e7a48);min-height:0;line-height:1.45;font-weight:600}
+
 /* ══════════ VENCIMIENTOS DEL CLIENTE ══════════ */
 .venc-lista{border:1px solid var(--filo);border-radius:var(--radio-s,9px);overflow:hidden;margin-bottom:14px}
 .venc-it{display:grid;grid-template-columns:104px minmax(0,1fr) 152px 74px;gap:12px;align-items:center;
@@ -1827,10 +1841,12 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .riel-items::-webkit-scrollbar-track{background:transparent}
 .riel-items::-webkit-scrollbar-thumb{background:rgba(201,169,97,.32);border-radius:3px}
 .riel-items::-webkit-scrollbar-thumb:hover{background:rgba(201,169,97,.62)}
+/* flex-shrink:0 es clave: sin eso, cuando no entra todo, el riel aplasta justo
+   los títulos de sección y quedan cortados por la mitad. */
 .riel-grupo{font-size:8.5px;text-transform:uppercase;letter-spacing:1.1px;color:#7f97b8;
   font-weight:700;padding:11px 10px 5px;white-space:nowrap;opacity:0;height:0;overflow:hidden;
-  transition:opacity .13s}
-.riel.abierto .riel-grupo{opacity:1;height:auto}
+  flex-shrink:0;box-sizing:content-box;line-height:1.35;transition:opacity .13s}
+.riel.abierto .riel-grupo{opacity:1;height:auto;min-height:12px}
 .riel-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 10px;flex-shrink:0}
 .riel.abierto .riel-sep{display:none}
 .riel-item{display:flex;align-items:center;gap:11px;background:transparent;border:none;border-radius:8px;
@@ -1942,6 +1958,23 @@ body.locked .app{margin-left:0}
 .gas-desde{flex:1.2;font-size:12px;color:var(--tinta-suave);white-space:nowrap}
 .gas-estado{flex:1;font-size:12px;color:var(--tinta-suave);white-space:nowrap}
 .gas-activo{color:var(--ok,#1e7a48);font-weight:600}
+.gas-futuro{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+.gas-desde-txt{font-size:12px;color:var(--tinta-suave)}
+/* Edición dentro de la propia fila */
+.abo-row.gas-edit{background:#fbfaf6;box-shadow:inset 3px 0 0 var(--oro,#c9a961)}
+.gas-edit input{width:100%;padding:6px 9px;border:1px solid var(--filo);border-radius:6px;
+  font-family:inherit;font-size:13px;color:var(--tinta);background:var(--carta);box-sizing:border-box}
+.gas-edit input:focus{outline:2px solid #14294a;outline-offset:1px;border-color:#14294a}
+.gas-edit .gas-monto{display:flex;align-items:center;gap:6px}
+.gas-edit .ged-cur{font-size:12px;color:var(--tinta-suave);flex:0 0 auto}
+.gas-edit .gas-monto input{text-align:right;font-variant-numeric:tabular-nums}
+.ged-nota{font-size:10.5px;color:var(--tinta-suave);line-height:1.35}
+.mini-btn.ged-ok{background:#14294a;color:#fff;border-color:#14294a;font-weight:700}
+.mini-btn.ged-ok:hover{background:#1b3a6b}
+.gas-prog-nota{font-size:11.5px;color:var(--tinta-suave);padding:8px 16px 4px;line-height:1.45}
+  background:#f8f0dd;color:#a86e17;padding:2px 8px;border-radius:20px;border:1px solid #ebdcb8;white-space:nowrap}
+.gas-reemp{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  background:#eef1ec;color:#7a8578;padding:2px 8px;border-radius:20px;border:1px solid #dfe4dd;white-space:nowrap}
 .gas-acc{flex:0 0 168px;display:flex;align-items:center;justify-content:flex-end;gap:6px}
 .abo-row.gas-baja{opacity:.55}
 .abo-row-head .gas-con,.abo-row-head .gas-monto,.abo-row-head .gas-desde,.abo-row-head .gas-estado{font-size:10.5px}
@@ -2014,6 +2047,10 @@ body.locked .app{margin-left:0}
   </div>
   <div class="riel-items" id="rielItems"></div>
   <div class="riel-pie">
+    <button class="riel-logout riel-pass" onclick="abrirCambiarPass()" title="Cambiar mi contraseña">
+      <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+      <span class="lbl">Cambiar contraseña</span>
+    </button>
     <button class="riel-logout" onclick="cerrarSesion()" title="Cerrar sesión y cambiar de usuario">
       <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5b49" stroke-width="2.6" stroke-linecap="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="11"/></svg></span>
       <span class="lbl">Cerrar sesión</span>
@@ -3028,6 +3065,32 @@ body.locked .app{margin-left:0}
           <div id="wlRankCli"></div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cambiar la propia contraseña -->
+<div class="modal-bg" id="passModal" style="display:none" onclick="if(event.target===this)cerrarCambiarPass()">
+  <div class="modal-card" style="max-width:440px">
+    <div class="modal-h"><h3>Cambiar contraseña</h3>
+      <button class="modal-x" onclick="cerrarCambiarPass()">✕</button></div>
+    <div class="modal-b">
+      <div class="pass-quien">Cuenta: <b id="passQuien"></b></div>
+      <div class="f-col"><label>Contraseña actual</label>
+        <input type="password" id="passActual" autocomplete="current-password"></div>
+      <div class="f-col"><label>Contraseña nueva</label>
+        <input type="password" id="passNueva" autocomplete="new-password"
+               onkeydown="if(event.key==='Enter')document.getElementById('passRepetir').focus()">
+        <div class="cuota-hint" style="margin-top:4px">Al menos 8 caracteres. Que no sea la misma que usás en otro lado.</div></div>
+      <div class="f-col"><label>Repetir la contraseña nueva</label>
+        <input type="password" id="passRepetir" autocomplete="new-password"
+               onkeydown="if(event.key==='Enter')guardarCambioPass()"></div>
+      <div class="pass-err" id="passError"></div>
+      <div class="pass-ok" id="passOk"></div>
+    </div>
+    <div class="modal-f">
+      <button class="btn-ghost" onclick="cerrarCambiarPass()">Cancelar</button>
+      <button class="btn-primary" id="passBtn" onclick="guardarCambioPass()">CAMBIAR CONTRASEÑA</button>
     </div>
   </div>
 </div>
@@ -7620,9 +7683,9 @@ let INGRESOS_MON = 'ARS';   // moneda del ranking: 'ARS' | 'USD'
 function ingMoneda(m){ INGRESOS_MON = m; renderIngresos(); }
 function ingMesActual(){ return INGRESOS_MES || hoyISO().slice(0,7); }
 function ingMesLabel(ym){ const [y,m]=ym.split('-').map(Number); return ABONO_MESES[m-1]+' '+y; }
-function ingCambiarMes(d){ const ym=ingMesActual(); const [y,m]=ym.split('-').map(Number); const nd=new Date(y,(m-1)+d,1); INGRESOS_MES=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0'); renderIngresos(); }
-function ingMesHoy(){ INGRESOS_MES=null; renderIngresos(); }
-function ingVista(v){ INGRESOS_VISTA=v; renderIngresos(); }
+function ingCambiarMes(d){ const ym=ingMesActual(); const [y,m]=ym.split('-').map(Number); const nd=new Date(y,(m-1)+d,1); INGRESOS_MES=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0'); GASTOS_EDIT=null; renderIngresos(); }
+function ingMesHoy(){ INGRESOS_MES=null; GASTOS_EDIT=null; renderIngresos(); }
+function ingVista(v){ INGRESOS_VISTA=v; GASTOS_EDIT=null; renderIngresos(); }
 function ingRango(n){ INGRESOS_RANGO=n; renderIngresos(); }
 
 function renderIngresos(){
@@ -8006,6 +8069,7 @@ const VAL_COL_W = 96;  // ancho de la columna del monto, a la derecha de cada ba
 const GASTOS_KEY = 'jc-gastos-v1';
 let GASTOS = null;
 let GASTOS_TIPO = 'fijos';   // 'fijos' | 'variables'
+let GASTOS_EDIT = null;     // id del gasto que se está editando en la propia fila
 
 function loadGastos(){
   try { GASTOS = JSON.parse(appStore.getItem(GASTOS_KEY) || 'null'); } catch(e){ GASTOS = null; }
@@ -8022,9 +8086,95 @@ function gastoFijoVigente(g, ym){
   if (g.hasta && ym > g.hasta) return false;
   return true;
 }
+// Clave con la que dos cargas se consideran el mismo gasto: mismo concepto y moneda
+function gastoFijoClave(g){
+  const c = (typeof __normBusqueda === 'function')
+    ? __normBusqueda(g.concepto || '') : String(g.concepto || '').toLowerCase().trim();
+  return c + '|' + (g.moneda || 'ARS');
+}
+// Gastos ordinarios que efectivamente rigen en el mes.
+// Si el mismo concepto se volvió a cargar con otro monto desde un mes posterior,
+// cuenta SOLO el tramo más reciente que ya empezó: es una actualización de precio,
+// no un gasto nuevo que se suma al anterior.
+function gastosFijosDelMes(ym){
+  loadGastos();
+  const vigentes = GASTOS.fijos.filter(g => gastoFijoVigente(g, ym));
+  const porClave = {};
+  vigentes.forEach(g => {
+    const k = gastoFijoClave(g);
+    const act = porClave[k];
+    if (!act || String(g.desde || '') > String(act.desde || '')) porClave[k] = g;
+  });
+  return vigentes.filter(g => porClave[gastoFijoClave(g)] === g);
+}
+// Conceptos que todavía no empezaron a regir en 'ym': el primer tramo futuro de cada uno
+function gastosFijosProgramados(ym){
+  loadGastos();
+  const rigen = new Set(gastosFijosDelMes(ym).map(x => gastoFijoClave(x)));
+  const porClave = {};
+  GASTOS.fijos.filter(g => g.desde && g.desde > ym && !(g.hasta && g.hasta < g.desde))
+    .forEach(g => {
+      const k = gastoFijoClave(g);
+      if (!porClave[k] || g.desde < porClave[k].desde) porClave[k] = g;
+    });
+  // Si el concepto ya rige este mes, el tramo futuro es solo una actualización de
+  // precio y no hace falta mostrarlo aparte: ya se ve en el historial de su fila.
+  return Object.keys(porClave).filter(k => !rigen.has(k)).map(k => porClave[k])
+    .sort((a,b)=> String(a.desde).localeCompare(String(b.desde)));
+}
+// Todos los montos cargados para un mismo concepto, del más viejo al más nuevo
+function gastoFijoTramos(g){
+  loadGastos();
+  const k = gastoFijoClave(g);
+  return GASTOS.fijos.filter(x => gastoFijoClave(x) === k)
+    .sort((a,b)=> String(a.desde||'').localeCompare(String(b.desde||'')));
+}
+// Cambiar cuánto cuesta un concepto a partir de un mes. Si ya había un monto
+// cargado para ese mismo mes, se pisa; si no, se agrega un tramo nuevo.
+// Los meses anteriores conservan lo que tenían: el historial no se toca.
+function gastoFijoFijarMonto(g, monto, desde){
+  loadGastos();
+  if (!/^\d{4}-\d{2}$/.test(desde || '')) return false;
+  const k = gastoFijoClave(g);
+  const mismo = GASTOS.fijos.find(x => gastoFijoClave(x) === k && (x.desde || '') === desde);
+  if (mismo){
+    mismo.monto = Number(monto) || 0;
+    saveGastos(); sbPushGasto('fijos', mismo);
+  } else {
+    gastoAgregar('fijos', { concepto: g.concepto, monto: Number(monto)||0,
+                            moneda: g.moneda || 'ARS', desde, hasta: g.hasta || null, obs: g.obs || '' });
+  }
+  return true;
+}
+// Renombrar o reetiquetar el concepto: se aplica a todos sus tramos, para que el
+// historial siga siendo el mismo gasto.
+function gastoFijoRenombrar(g, concepto, obs){
+  const tramos = gastoFijoTramos(g);
+  tramos.forEach(x => {
+    if (concepto != null) x.concepto = concepto;
+    if (obs != null) x.obs = obs;
+  });
+  saveGastos();
+  tramos.forEach(x => sbPushGasto('fijos', x));
+  return true;
+}
+// ¿Este gasto quedó reemplazado por una carga posterior del mismo concepto?
+// Devuelve el mes desde el que rige el reemplazo, o null.
+function gastoFijoReemplazadoDesde(g, ym){
+  loadGastos();
+  let desde = null;
+  GASTOS.fijos.forEach(x => {
+    if (x === g || x.id === g.id) return;
+    if (gastoFijoClave(x) !== gastoFijoClave(g)) return;
+    if (!x.desde || !g.desde || x.desde <= g.desde) return;
+    if (x.hasta && ym > x.hasta) return;
+    if (!desde || x.desde < desde) desde = x.desde;
+  });
+  return desde;
+}
 function gastosDelMes(ym){
   loadGastos();
-  const fijos = GASTOS.fijos.filter(g => gastoFijoVigente(g, ym));
+  const fijos = gastosFijosDelMes(ym);
   const variables = GASTOS.variables.filter(g => g.mes === ym);
   const sum = (arr, mon) => arr.filter(g => (g.moneda||'ARS') === mon).reduce((a,g)=> a + (Number(g.monto)||0), 0);
   // Sueldos del equipo: una línea por persona (base + comisión del mes), siempre en pesos
@@ -8099,7 +8249,7 @@ function gastosDesdeNube(filas){
 }
 
 // ── Vista: gastos del estudio ──
-function ingTipoGasto(t){ GASTOS_TIPO = t; renderIngresos(); }
+function ingTipoGasto(t){ GASTOS_TIPO = t; GASTOS_EDIT = null; renderIngresos(); }
 
 function renderIngresosGastos(cont, subtabs){
   const ym = ingMesActual();
@@ -8107,32 +8257,73 @@ function renderIngresosGastos(cont, subtabs){
   const fmt = n => Math.round(Number(n)||0).toLocaleString('es-AR');
   const esFijos = GASTOS_TIPO === 'fijos';
 
+  // Una fila por CONCEPTO, con lo que costó en el mes que se está mirando.
+  // El historial queda guardado: cambiar el monto de agosto no toca el de julio.
+  // Al tocar el lápiz, la fila misma se vuelve editable.
+  const mesTxt = capPrim(ingMesLabel(ym));
   const filaFijo = x => {
     const baja = !!x.hasta;
-    return `<div class="abo-row ${baja?'gas-baja':''}">
+    if (GASTOS_EDIT === x.id) return `<div class="abo-row gas-edit">
+      <div class="gas-con"><input type="text" id="gedCon-${x.id}" value="${esc(x.concepto || '')}"
+        onkeydown="if(event.key==='Enter')ingGuardarEdicion('${x.id}');if(event.key==='Escape')ingCancelarEdicion()"></div>
+      <div class="gas-monto"><span class="ged-cur">${x.moneda==='USD'?'US$':'$'}</span><input type="text" inputmode="numeric"
+        id="gedMonto-${x.id}" value="${fmt(x.monto)}" oninput="abonoFmtInput(this)"
+        onkeydown="if(event.key==='Enter')ingGuardarEdicion('${x.id}');if(event.key==='Escape')ingCancelarEdicion()"></div>
+      <div class="gas-desde"><input type="month" id="gedMes-${x.id}" value="${esc(ym)}" title="Desde qué mes rige este monto"></div>
+      <div class="gas-estado"><span class="ged-nota">los meses anteriores no cambian</span></div>
+      <div class="gas-acc">
+        <button class="mini-btn ged-ok" onclick="ingGuardarEdicion('${x.id}')">Guardar</button>
+        <button class="mini-btn" onclick="ingCancelarEdicion()">Cancelar</button>
+      </div>
+    </div>`;
+    return `<div class="abo-row ${baja ? 'gas-baja' : ''}" data-gid="${x.id}">
       <div class="gas-con">${esc(x.concepto || '—')}${x.obs?`<small>${esc(x.obs)}</small>`:''}</div>
       <div class="gas-monto">${(x.moneda==='USD'?'US$ ':'$ ')}${fmt(x.monto)}</div>
-      <div class="gas-desde">${x.desde ? ('desde ' + capPrim(ingMesLabel(x.desde))) : 'siempre'}</div>
-      <div class="gas-estado">${baja ? ('hasta ' + capPrim(ingMesLabel(x.hasta))) : '<span class="gas-activo">Activo</span>'}</div>
+      <div class="gas-desde"><span class="gas-desde-txt">${mesTxt}</span></div>
+      <div class="gas-estado">${baja
+        ? ('hasta ' + capPrim(ingMesLabel(x.hasta)))
+        : '<span class="gas-activo">Activo</span>'}</div>
       <div class="gas-acc">
+        <button class="mini-btn" onclick="ingEditarGastoFijo('${x.id}')" title="Editar este gasto">✎</button>
         ${baja
           ? `<button class="mini-btn" onclick="ingReactivarFijo('${x.id}')">Reactivar</button>`
           : `<button class="mini-btn" onclick="ingBajaFijo('${x.id}')">Dar de baja</button>`}
-        <button class="abo-pp-del" onclick="ingBorrarGasto('fijos','${x.id}')" title="Eliminar">✕</button>
+        <button class="abo-pp-del" onclick="ingBorrarConcepto('${x.id}')" title="Eliminar el gasto y todo su historial">✕</button>
       </div>
     </div>`;
   };
-  const filaVar = x => `<div class="abo-row">
+  const filaVar = x => {
+    if (GASTOS_EDIT === x.id) return `<div class="abo-row gas-edit">
+      <div class="gas-con"><input type="text" id="gedCon-${x.id}" value="${esc(x.concepto || '')}"
+        onkeydown="if(event.key==='Enter')ingGuardarEdicionVar('${x.id}');if(event.key==='Escape')ingCancelarEdicion()"></div>
+      <div class="gas-monto"><span class="ged-cur">${x.moneda==='USD'?'US$':'$'}</span><input type="text" inputmode="numeric"
+        id="gedMonto-${x.id}" value="${fmt(x.monto)}" oninput="abonoFmtInput(this)"
+        onkeydown="if(event.key==='Enter')ingGuardarEdicionVar('${x.id}');if(event.key==='Escape')ingCancelarEdicion()"></div>
+      <div class="gas-desde">${capPrim(ingMesLabel(x.mes||ym))}</div>
+      <div class="gas-estado"></div>
+      <div class="gas-acc">
+        <button class="mini-btn ged-ok" onclick="ingGuardarEdicionVar('${x.id}')">Guardar</button>
+        <button class="mini-btn" onclick="ingCancelarEdicion()">Cancelar</button>
+      </div>
+    </div>`;
+    return `<div class="abo-row" data-gid="${x.id}">
       <div class="gas-con">${esc(x.concepto || '—')}${x.obs?`<small>${esc(x.obs)}</small>`:''}</div>
       <div class="gas-monto">${(x.moneda==='USD'?'US$ ':'$ ')}${fmt(x.monto)}</div>
       <div class="gas-desde">${capPrim(ingMesLabel(x.mes||ym))}</div>
       <div class="gas-estado"></div>
-      <div class="gas-acc"><button class="abo-pp-del" onclick="ingBorrarGasto('variables','${x.id}')" title="Eliminar">✕</button></div>
+      <div class="gas-acc">
+        <button class="mini-btn" onclick="ingEditarGastoVar('${x.id}')" title="Editar">✎</button>
+        <button class="abo-pp-del" onclick="ingBorrarGasto('variables','${x.id}')" title="Eliminar">✕</button></div>
     </div>`;
+  };
 
-  // Los fijos se listan todos (incluso los dados de baja), los variables solo los del mes
+  // Los ordinarios se listan una vez por concepto, con el monto de ESTE mes.
+  // Los que arrancan más adelante van en su propia sección, para que no confundan.
   loadGastos();
-  const listaFijos = GASTOS.fijos.slice().sort((a,b)=> (b.monto||0)-(a.monto||0));
+  const listaFijos = g.fijos.slice().sort((a,b)=> (b.monto||0)-(a.monto||0));
+  const bajas = GASTOS.fijos.filter(x => x.hasta && ym > x.hasta)
+    .filter((x,i,arr)=> arr.findIndex(y => gastoFijoClave(y) === gastoFijoClave(x)) === i);
+  const programados = gastosFijosProgramados(ym);
   const listaVar = GASTOS.variables.filter(x => x.mes === ym).sort((a,b)=> (b.monto||0)-(a.monto||0));
   const lista = esFijos ? listaFijos : listaVar;
   const filas = lista.length
@@ -8180,7 +8371,7 @@ function renderIngresosGastos(cont, subtabs){
         <div class="ing-fuente-montos">
           <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${fmt(g.sueldosArs)}</span></div>
         </div>
-        <div class="gas-sue-sub">base ${'$ '+fmt(g.sueldosBase)} + comisiones ${'$ '+fmt(g.sueldosCom)}</div>
+        <div class="gas-sue-sub">base ${'$ '+fmt(g.sueldosBase)} + comisiones ${'$ '+fmt(g.sueldosCom)} · se editan en la subsolapa Sueldos</div>
       </div>
     </div>
 
@@ -8203,25 +8394,23 @@ function renderIngresosGastos(cont, subtabs){
       ${filas}
     </div>
 
-    <div class="abo-sec">
+    ${(esFijos && programados.length) ? `<div class="abo-sec">
       <div class="abo-sec-h" style="cursor:default">
-        <span class="abo-sec-tw">Sueldos del equipo · ${esc(capPrim(ingMesLabel(ym)))}</span>
-        <span class="abo-sec-count">$ ${fmt(g.sueldosArs)}</span>
+        <span class="abo-sec-tw">Programados para más adelante</span>
+        <span class="abo-sec-count">${programados.length}</span>
       </div>
-      <div class="abo-row abo-row-head">
-        <div class="gas-con">Persona</div><div class="gas-monto">Sueldo base</div>
-        <div class="gas-monto">Comisión del mes</div><div class="gas-monto">Total</div>
-        <div class="gas-acc"></div>
-      </div>
-      ${(g.sueldos||[]).map(s => `<div class="abo-row ${s.sinDato?'gas-baja':''}">
-        <div class="gas-con">${esc(s.nombre)}<small>${s.fuente==='jud'?'comisiones de la caja judicial':s.fuente==='soc'?'comisiones de la caja societaria':'sin comisiones'}${s.externo?' · base y mínimo en el submódulo de la caja judicial':''}</small></div>
-        <div class="gas-monto">${s.sinDato?'<span class="gas-sue-falta">sin dato</span>':'$ '+fmt(s.base)}</div>
-        <div class="gas-monto">${s.comision?('$ '+fmt(s.comision)):'—'}</div>
-        <div class="gas-monto"><b>$ ${fmt(s.total)}</b>${s.aplicaMinimo?'<small class="gas-sue-min">mínimo garantizado</small>':''}</div>
-        <div class="gas-acc"></div>
+      <div class="gas-prog-nota">Todavía no cuentan en ${esc(capPrim(ingMesLabel(ym)))}. Empiezan a sumar desde el mes indicado.</div>
+      ${programados.map(x => `<div class="abo-row gas-baja">
+        <div class="gas-con">${esc(x.concepto || '—')}${x.obs?`<small>${esc(x.obs)}</small>`:''}</div>
+        <div class="gas-monto">${(x.moneda==='USD'?'US$ ':'$ ')}${fmt(x.monto)}</div>
+        <div class="gas-desde"><span class="gas-futuro">Desde ${capPrim(ingMesLabel(x.desde))}</span></div>
+        <div class="gas-estado"></div>
+        <div class="gas-acc">
+          <button class="mini-btn" onclick="ingEditarGastoFijo('${x.id}')" title="Editar">✎</button>
+          <button class="abo-pp-del" onclick="ingBorrarGasto('fijos','${x.id}')" title="Eliminar solo este monto">✕</button>
+        </div>
       </div>`).join('')}
-      <div class="gas-sue-pie">Se editan en la subsolapa <b>Sueldos</b>. Ivana no cobra sueldo.</div>
-    </div>
+    </div>` : ''}
 
     <div class="sue-form">
       <div class="sue-form-h">${esFijos ? 'Agregar un gasto ordinario' : 'Agregar un gasto extraordinario de este mes'}</div>
@@ -8265,6 +8454,28 @@ function equipoGuardarBase(){
   if (!desde){ aricToast('Elegí desde qué mes rige'); return; }
   if (!equipoFijarBase(pid, Number(monto), desde)){ aricToast('No se pudo guardar'); return; }
   aricToast('Sueldo de ' + equipoNombre(pid) + ' actualizado desde ' + ingMesLabel(desde));
+  renderIngresos();
+}
+function equipoGuardarAlta(){
+  const nombre = ((document.getElementById('eqAltaNombre')||{}).value || '').trim();
+  const monto = abonoParseInput(document.getElementById('eqAltaMonto'));
+  const desde = (document.getElementById('eqAltaDesde')||{}).value;
+  if (!nombre){ aricToast('Poné el nombre del empleado'); return; }
+  if (monto === '' || monto == null){ aricToast('Poné el sueldo base'); return; }
+  if (!desde){ aricToast('Elegí desde qué mes cobra'); return; }
+  const r = equipoAgregarPersona(nombre, Number(monto), desde, null);
+  if (!r.ok){
+    aricToast(r.motivo === 'repetido' ? 'Ya hay alguien con ese nombre en el equipo' : 'Poné el nombre del empleado');
+    return;
+  }
+  aricToast(nombre + ' se sumó al equipo desde ' + ingMesLabel(desde));
+  renderIngresos();
+}
+function equipoBorrarPersona(pid){
+  const p = equipoPersona(pid);
+  if (!p) return;
+  if (!confirm('¿Quitar a ' + p.nombre + ' del equipo?\n\nSe borra su sueldo y sus cambios de sueldo. Los balances de los meses anteriores dejan de incluirlo.')) return;
+  equipoQuitarPersona(pid);
   renderIngresos();
 }
 function equipoConfirmarBorrarCambio(pid, desde){
@@ -8400,15 +8611,39 @@ function renderIngresosSueldos(cont, subtabs){
       <div class="sue-form-h">Cambiar un sueldo base</div>
       <div class="sue-form-grid">
         <div class="abo-reg-fld"><label>Persona</label>
-          <select id="eqNuevaPers">${equipoConBase().map(p => `<option value="${p.id}">${esc(p.nombre)}</option>`).join('')}</select></div>
+          <select id="eqNuevaPers">${equipoPersonas().map(p => `<option value="${p.id}">${esc(p.nombre)}${p.externo ? ' (caja judicial)' : ''}</option>`).join('')}</select></div>
         <div class="abo-reg-fld"><label>Sueldo base nuevo ($)</label>
           <input type="text" inputmode="numeric" id="eqNuevoMonto" placeholder="Ej: 1.500.000" oninput="abonoFmtInput(this)"></div>
         <div class="abo-reg-fld"><label>Rige desde</label>
           <input type="month" id="eqNuevoDesde" value="${esc(ym)}"></div>
       </div>
-      <div class="gas-sue-nota">El cambio no es retroactivo: los meses anteriores al que elijas quedan con el sueldo que tenían, así los balances ya cerrados no se mueven.</div>
+      <div class="gas-sue-nota">El cambio no es retroactivo: los meses anteriores al que elijas quedan con el sueldo que tenían, así los balances ya cerrados no se mueven. El sueldo base de Kevin se escribe en la caja judicial, así que el cambio se ve en los dos lugares.</div>
       <button class="abo-pp-add" onclick="equipoGuardarBase()">Guardar sueldo</button>
     </div>
+
+    <div class="sue-form">
+      <div class="sue-form-h">Sumar un empleado</div>
+      <div class="sue-form-grid">
+        <div class="abo-reg-fld"><label>Nombre</label>
+          <input type="text" id="eqAltaNombre" placeholder="Nombre y apellido"></div>
+        <div class="abo-reg-fld"><label>Sueldo base ($)</label>
+          <input type="text" inputmode="numeric" id="eqAltaMonto" placeholder="Ej: 1.200.000" oninput="abonoFmtInput(this)"></div>
+        <div class="abo-reg-fld"><label>Desde</label>
+          <input type="month" id="eqAltaDesde" value="${esc(ym)}"></div>
+      </div>
+      <div class="gas-sue-nota">Se suma al cuadro de sueldos y al gasto del estudio desde el mes que elijas. Por ahora entra sin comisiones; si más adelante le corresponden, lo configuramos.</div>
+      <button class="abo-pp-add" onclick="equipoGuardarAlta()">+ Agregar empleado</button>
+    </div>
+
+    ${equipoExtras().length ? `<div class="abo-sec">
+      <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Empleados agregados</span><span class="abo-sec-count">${equipoExtras().length}</span></div>
+      ${equipoExtras().map(e => `<div class="abo-row">
+        <div class="gas-con">${esc(e.nombre)}<small>sin comisiones</small></div>
+        <div class="gas-monto">$ ${fmt(equipoBaseVigente(e.id, ym))}</div>
+        <div class="gas-desde"></div><div class="gas-estado"></div>
+        <div class="gas-acc"><button class="abo-pp-del" onclick="equipoBorrarPersona('${e.id}')" title="Quitar del equipo">✕</button></div>
+      </div>`).join('')}
+    </div>` : ''}
 
     ${hist.length ? `<div class="abo-sec">
       <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">Historial de cambios</span><span class="abo-sec-count">${hist.length}</span></div>
@@ -8437,6 +8672,61 @@ function ingGuardarGasto(){
   else gastoAgregar('variables', { concepto, monto: Number(monto), moneda, mes, obs });
   renderIngresos();
   aricToast('Gasto agregado');
+}
+// Editar un gasto en la propia fila: el lápiz vuelve editables sus campos.
+function ingEditarGastoFijo(id){ GASTOS_EDIT = id; renderIngresos(); }
+function ingEditarGastoVar(id){ GASTOS_EDIT = id; renderIngresos(); }
+function ingCancelarEdicion(){ GASTOS_EDIT = null; renderIngresos(); }
+
+// Guardar un gasto ordinario. El monto se aplica al mes elegido en la fila y los
+// meses anteriores conservan el suyo: el historial no se toca.
+function ingGuardarEdicion(id){
+  loadGastos();
+  const g = GASTOS.fijos.find(x => x.id === id);
+  if (!g){ GASTOS_EDIT = null; renderIngresos(); return; }
+  const concepto = ((document.getElementById('gedCon-' + id) || {}).value || '').trim();
+  const monto = abonoParseInput(document.getElementById('gedMonto-' + id));
+  const mes = (document.getElementById('gedMes-' + id) || {}).value;
+  if (!concepto){ aricToast('El concepto no puede quedar vacío'); return; }
+  if (monto === '' || monto == null){ aricToast('Poné el monto'); return; }
+  if (!/^\d{4}-\d{2}$/.test(mes || '')){ aricToast('Elegí desde qué mes rige'); return; }
+  gastoFijoRenombrar(g, concepto, g.obs);
+  // Renombrar recarga los gastos desde el dispositivo: hay que volver a tomar la
+  // referencia, si no el monto nuevo se guardaría bajo el concepto viejo.
+  loadGastos();
+  const gg = GASTOS.fijos.find(x => x.id === id) || g;
+  gastoFijoFijarMonto(gg, Number(monto), mes);
+  GASTOS_EDIT = null;
+  aricToast(concepto + ' actualizado desde ' + ingMesLabel(mes));
+  renderIngresos();
+}
+// Guardar un gasto extraordinario
+function ingGuardarEdicionVar(id){
+  loadGastos();
+  const g = GASTOS.variables.find(x => x.id === id);
+  if (!g){ GASTOS_EDIT = null; renderIngresos(); return; }
+  const concepto = ((document.getElementById('gedCon-' + id) || {}).value || '').trim();
+  const monto = abonoParseInput(document.getElementById('gedMonto-' + id));
+  if (!concepto){ aricToast('El concepto no puede quedar vacío'); return; }
+  if (monto === '' || monto == null){ aricToast('Poné el monto'); return; }
+  g.concepto = concepto; g.monto = Number(monto);
+  saveGastos(); sbPushGasto('variables', g);
+  GASTOS_EDIT = null;
+  aricToast('Gasto actualizado');
+  renderIngresos();
+}
+// Borrar el concepto entero, con todo su historial
+function ingBorrarConcepto(id){
+  loadGastos();
+  const g = GASTOS.fijos.find(x => x.id === id);
+  if (!g) return;
+  const tramos = gastoFijoTramos(g);
+  const msg = tramos.length > 1
+    ? '¿Eliminar «' + (g.concepto || '—') + '» y sus ' + tramos.length + ' montos cargados?\n\nDeja de figurar en todos los meses, incluso en los ya cerrados.'
+    : '¿Eliminar «' + (g.concepto || '—') + '»?';
+  if (!confirm(msg)) return;
+  tramos.forEach(x => gastoQuitar('fijos', x.id));
+  renderIngresos();
 }
 function ingBorrarGasto(tipo, id){
   if (!confirm('¿Eliminar este gasto?')) return;
@@ -15348,6 +15638,18 @@ const EQUIPO_PERSONAS = [
   { id:'brenda', nombre:'Brenda', fuente:null }
 ];
 const EQUIPO_BASES_INI = { ori:1403000, sofig:936000, sofit:1230000, naza:1440000, brenda:0 };
+// Personas cargadas desde el sistema (Ivana puede sumar empleados nuevos).
+// Se guardan junto con las bases, así viajan solas a Supabase.
+function equipoExtras(){
+  loadEquipo();
+  return Array.isArray(EQUIPO.extras) ? EQUIPO.extras : [];
+}
+// La lista completa: los fijos del sistema más los agregados
+function equipoPersonas(){
+  return EQUIPO_PERSONAS.concat(equipoExtras().map(e => ({
+    id: e.id, nombre: e.nombre, fuente: e.fuente || null, comSoc: e.comSoc || null, agregado: true
+  })));
+}
 let EQUIPO = null;
 let EQUIPO_VISTA = 'tabla';            // 'tabla' | 'inflacion'
 let EQUIPO_INFL_INPUT = ['', '', ''];
@@ -15355,10 +15657,10 @@ let EQUIPO_INFL_DESDE = '';            // mes desde el que rige el ajuste (vací
 function equipoInflDesde(){ return EQUIPO_INFL_DESDE || inflMesCierre(); }
 function equipoInflSetDesde(v){ EQUIPO_INFL_DESDE = v || ''; renderIngresos(); }
 
-function equipoPersona(pid){ return EQUIPO_PERSONAS.find(p => p.id === pid) || null; }
+function equipoPersona(pid){ return equipoPersonas().find(p => p.id === pid) || null; }
 function equipoNombre(pid){ const p = equipoPersona(pid); return p ? p.nombre : pid; }
 // Las personas con base propia (Kevin queda afuera: su base vive en el submódulo de la caja judicial)
-function equipoConBase(){ return EQUIPO_PERSONAS.filter(p => !p.externo); }
+function equipoConBase(){ return equipoPersonas().filter(p => !p.externo); }
 
 function loadEquipo(){
   try { EQUIPO = JSON.parse(appStore.getItem(EQUIPO_KEY) || 'null'); } catch(e){ EQUIPO = null; }
@@ -15368,8 +15670,10 @@ function loadEquipo(){
   }
   if (!EQUIPO.bases || typeof EQUIPO.bases !== 'object') EQUIPO.bases = Object.assign({}, EQUIPO_BASES_INI);
   if (!Array.isArray(EQUIPO.hist)) EQUIPO.hist = [];
+  if (!Array.isArray(EQUIPO.extras)) EQUIPO.extras = [];
   // si aparece gente nueva en la lista, arranca en cero
-  equipoConBase().forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  EQUIPO_PERSONAS.filter(p => !p.externo).forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  EQUIPO.extras.forEach(e => { if (EQUIPO.bases[e.id] == null) EQUIPO.bases[e.id] = 0; });
   return EQUIPO;
 }
 function saveEquipoLocal(){ try { appStore.setItem(EQUIPO_KEY, JSON.stringify(EQUIPO)); } catch(e){} }
@@ -15386,7 +15690,11 @@ function equipoDesdeNube(txt){
   loadEquipo();
   if (d.bases && typeof d.bases === 'object') EQUIPO.bases = d.bases;
   EQUIPO.hist = Array.isArray(d.hist) ? d.hist : [];
-  equipoConBase().forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  EQUIPO.extras = Array.isArray(d.extras) ? d.extras : [];
+  // Ojo: acá NO se puede usar equipoConBase(), porque vuelve a leer del dispositivo
+  // y pisaría justo lo que acaba de llegar de la nube.
+  EQUIPO_PERSONAS.filter(p => !p.externo).forEach(p => { if (EQUIPO.bases[p.id] == null) EQUIPO.bases[p.id] = 0; });
+  EQUIPO.extras.forEach(e => { if (EQUIPO.bases[e.id] == null) EQUIPO.bases[e.id] = 0; });
   saveEquipoLocal();
 }
 
@@ -15432,7 +15740,7 @@ function equipoComisionesMes(pid, ym){
 }
 // Una línea por persona: base + comisión = lo que cuesta ese mes
 function equipoLineasMes(ym){
-  return EQUIPO_PERSONAS.map(p => {
+  return equipoPersonas().map(p => {
     const comision = equipoComisionesMes(p.id, ym);
     let base, total, minimo = 0, aplicaMinimo = false;
     if (p.externo && typeof sueldoCalculo === 'function'){
@@ -15449,13 +15757,56 @@ function equipoLineasMes(ym){
 }
 function equipoTotalMes(ym){ return equipoLineasMes(ym).reduce((a,x)=> a + (x.total||0), 0); }
 
+// ── Alta y baja de empleados agregados a mano ──
+function equipoAgregarPersona(nombre, base, desde, fuente){
+  const nom = (nombre || '').trim();
+  if (!nom) return { ok:false, motivo:'nombre' };
+  loadEquipo();
+  const norm = s => (typeof __normBusqueda === 'function') ? __normBusqueda(s) : String(s||'').toLowerCase().trim();
+  if (equipoPersonas().some(p => norm(p.nombre) === norm(nom))) return { ok:false, motivo:'repetido' };
+  const id = 'x' + Date.now() + Math.floor(Math.random()*100);
+  EQUIPO.extras.push({ id, nombre: nom, fuente: fuente || null, comSoc: null });
+  // La base arranca en cero: el sueldo rige desde el mes indicado y ni un mes antes,
+  // así los balances ya cerrados no cambian al sumar a alguien.
+  const conFecha = /^\d{4}-\d{2}$/.test(desde || '');
+  EQUIPO.bases[id] = conFecha ? 0 : (Number(base) || 0);
+  saveEquipo();
+  if (conFecha && Number(base) > 0) equipoFijarBase(id, Number(base), desde);
+  return { ok:true, id };
+}
+function equipoQuitarPersona(pid){
+  loadEquipo();
+  const e = EQUIPO.extras.find(x => x.id === pid);
+  if (!e) return false;                       // los del sistema no se borran
+  EQUIPO.extras = EQUIPO.extras.filter(x => x.id !== pid);
+  delete EQUIPO.bases[pid];
+  EQUIPO.hist.forEach(x => { if (x.bases) delete x.bases[pid]; });
+  EQUIPO.hist = EQUIPO.hist.filter(x => x.bases && Object.keys(x.bases).length);
+  saveEquipo();
+  return true;
+}
+
 // ── Cambiar el sueldo base de una persona ──
 // Nunca es retroactivo: el monto nuevo se guarda en el historial con el mes desde el
 // que rige, así los balances de los meses anteriores quedan como estaban.
 function equipoFijarBase(pid, monto, desde){
   const p = equipoPersona(pid);
-  if (!p || p.externo) return false;
+  if (!p) return false;
   if (!/^\d{4}-\d{2}$/.test(desde||'')) return false;
+  // Kevin: su base vive en el submódulo de la caja judicial. Se escribe allá para
+  // que el cambio se vea en los dos lugares y siga sin ser retroactivo.
+  if (p.externo){
+    if (typeof loadSueldo !== 'function') return false;
+    loadSueldo();
+    const vig = sueldoVigente(desde);
+    const ex = SUELDO.hist.find(x => x.desde === desde);
+    if (ex) ex.base = Number(monto) || 0;
+    else SUELDO.hist.push({ desde, base: Number(monto) || 0, minimo: vig.minimo });
+    SUELDO.hist.sort((a,b)=> a.desde.localeCompare(b.desde));
+    saveSueldo();
+    if (typeof sbPushConfig === 'function') sbPushConfig('sueldo', JSON.stringify(SUELDO));
+    return true;
+  }
   loadEquipo();
   const ex = EQUIPO.hist.find(x => x.desde === desde);
   if (ex){ ex.bases = Object.assign({}, ex.bases); ex.bases[pid] = Number(monto)||0; }
@@ -15467,7 +15818,14 @@ function equipoFijarBase(pid, monto, desde){
 // Desde qué mes rige la base que se está usando en 'ym' (null = desde siempre)
 function equipoBaseDesde(pid, ym){
   const p = equipoPersona(pid);
-  if (!p || p.externo) return null;
+  if (!p) return null;
+  if (p.externo){
+    loadSueldo();
+    let d = null;
+    SUELDO.hist.slice().sort((a,b)=> a.desde.localeCompare(b.desde))
+      .forEach(x => { if (x.desde <= ym) d = x.desde; });
+    return d;
+  }
   loadEquipo();
   let desde = null;
   EQUIPO.hist.slice().sort((a,b)=> a.desde.localeCompare(b.desde))
@@ -16561,6 +16919,93 @@ function aplicarPermisos() {
   const tSel = document.getElementById('tTipo');
   if (tSel && !pf.inicioJud && tSel.value === 'audiencia') { tSel.value = 'tarea'; try { toggleTipoEvento(); } catch (e) {} }
 }
+// ═══════════ CAMBIO DE CONTRASEÑA ═══════════
+// Se pide la contraseña actual y se verifica contra Supabase antes de cambiar nada:
+// así, si alguien deja la sesión abierta, no puede dejar a la persona afuera.
+async function sbCambiarPassword(actual, nueva){
+  const s = sbSesionLeer();
+  const mail = (s && s.email) || '';
+  if (!mail) throw new Error('sin_sesion');
+  // 1) Verificar la actual reingresando. Si falla, no se toca nada.
+  let data;
+  const r = await fetch(`${SB_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST',
+    headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: mail.trim().toLowerCase(), password: actual })
+  });
+  data = await r.json().catch(() => ({}));
+  if (!r.ok || !data.access_token) throw new Error('actual_incorrecta');
+  // 2) Con esa credencial recién emitida, cambiar la contraseña
+  const r2 = await fetch(`${SB_URL}/auth/v1/user`, {
+    method: 'PUT',
+    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + data.access_token,
+               'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: nueva })
+  });
+  const d2 = await r2.json().catch(() => ({}));
+  if (!r2.ok){
+    const msg = (d2 && (d2.msg || d2.message || d2.error_description)) || '';
+    if (/should be different|same/i.test(msg)) throw new Error('igual_a_la_actual');
+    if (/at least|length|weak|short/i.test(msg)) throw new Error('debil');
+    throw new Error(msg || 'error');
+  }
+  // 3) La sesión sigue siendo válida: se guarda la nueva credencial
+  sbSesionGuardar({
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
+    expires_at: data.expires_at || (Math.floor(Date.now()/1000) + (data.expires_in || 3600)),
+    email: mail
+  });
+  if (typeof sbProgramarRefresco === 'function') sbProgramarRefresco();
+  return true;
+}
+// ── Ventana ──
+function abrirCambiarPass(){
+  const m = document.getElementById('passModal');
+  if (!m) return;
+  ['passActual','passNueva','passRepetir'].forEach(k => { const e = document.getElementById(k); if (e) e.value = ''; });
+  const err = document.getElementById('passError'); if (err) err.textContent = '';
+  const ok = document.getElementById('passOk'); if (ok) ok.textContent = '';
+  const q = document.getElementById('passQuien');
+  const s = sbSesionLeer();
+  if (q) q.textContent = (s && s.email) || '';
+  m.style.display = 'flex';
+  setTimeout(() => { const e = document.getElementById('passActual'); if (e) e.focus(); }, 60);
+}
+function cerrarCambiarPass(){
+  const m = document.getElementById('passModal');
+  if (m) m.style.display = 'none';
+}
+async function guardarCambioPass(){
+  const val = k => (document.getElementById(k) || {}).value || '';
+  const err = document.getElementById('passError');
+  const ok  = document.getElementById('passOk');
+  const btn = document.getElementById('passBtn');
+  const actual = val('passActual'), nueva = val('passNueva'), rep = val('passRepetir');
+  err.textContent = ''; ok.textContent = '';
+  if (!actual || !nueva || !rep){ err.textContent = 'Completá los tres campos.'; return; }
+  if (nueva.length < 8){ err.textContent = 'La contraseña nueva tiene que tener al menos 8 caracteres.'; return; }
+  if (nueva !== rep){ err.textContent = 'La contraseña nueva y su repetición no coinciden.'; return; }
+  if (nueva === actual){ err.textContent = 'La contraseña nueva tiene que ser distinta de la actual.'; return; }
+  if (btn){ btn.disabled = true; btn.textContent = 'GUARDANDO…'; }
+  try {
+    await sbCambiarPassword(actual, nueva);
+    ok.textContent = 'Listo: tu contraseña quedó cambiada. Usala la próxima vez que ingreses.';
+    ['passActual','passNueva','passRepetir'].forEach(k => { const e = document.getElementById(k); if (e) e.value = ''; });
+    setTimeout(cerrarCambiarPass, 2200);
+  } catch(e){
+    const m = (e && e.message) || '';
+    err.textContent =
+      m === 'actual_incorrecta' ? 'La contraseña actual no es correcta.' :
+      m === 'igual_a_la_actual' ? 'La contraseña nueva tiene que ser distinta de la actual.' :
+      m === 'debil'             ? 'Esa contraseña es demasiado corta o débil. Probá con una más larga.' :
+      m === 'sin_sesion'        ? 'Volvé a ingresar antes de cambiar la contraseña.' :
+      'No se pudo cambiar. Revisá tu conexión e intentá de nuevo.';
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = 'CAMBIAR CONTRASEÑA'; }
+  }
+}
+
 async function intentarLogin() {
   const err = document.getElementById('loginError');
   const btn = document.querySelector('#loginGate .btn-primary');
