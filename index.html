@@ -17087,11 +17087,11 @@ const PERM_PLANTILLAS = [
 // permisos se reponen solos.
 const SYS_CUENTA = 'kevindaich';
 const SYS_CUENTA_MAIL = 'kevin@welegal.ar';
-// Vista reducida temporal: la cuenta técnica puede pasar unos minutos viendo el
+// Vista reducida temporal: la cuenta técnica puede pasar un rato viendo el
 // sistema con los accesos que figuran en su ficha, para revisar cómo lo ve alguien
 // con permisos recortados. Se activa con Ctrl+Alt+Shift+K y se apaga sola.
 const SYS_VISTA_KEY = 'jc-sys-vista-v1';
-const SYS_VISTA_MS = 5 * 60 * 1000;
+const SYS_VISTA_MS = 60 * 60 * 1000;   // una hora
 const PERM_SISTEMA = { expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true,
   welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, admin:true };
 function esCuentaSistema(x){
