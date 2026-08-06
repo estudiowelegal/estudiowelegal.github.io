@@ -143,6 +143,26 @@ body.caja-ori #paginaCaja .f-col:has(#cajaDolar){display:none}
 body.caja-ori #paginaCaja .check-row:has(#cajaPesificar){display:none}
 body.caja-ori #paginaCaja .grid-caja-4 .panel:not(:has(#cajaComisionesO)){display:none}
 body.caja-ori #paginaCaja th:nth-child(6),body.caja-ori #paginaCaja td:nth-child(6){display:none}
+/* Caja societaria en modo "solo gastos": queda a la vista el formulario y las dos
+   listas de gastos; todo lo que revele el balance de la caja se oculta. */
+body.cajasoc-gastos #paginaCajaSoc .page-head .f-col:has(#csDolar){display:none}
+body.cajasoc-gastos #paginaCajaSoc .page-head .check-row:has(#csPesificar){display:none}
+body.cajasoc-gastos #paginaCajaSoc .page-head button{display:none}
+body.cajasoc-gastos #paginaCajaSoc #csTiles{display:none}
+body.cajasoc-gastos #paginaCajaSoc .panel:has(#csBuscarResult){display:none}
+body.cajasoc-gastos #paginaCajaSoc .panel:has(#csTablaIn){display:none}
+body.cajasoc-gastos #paginaCajaSoc .panel:has(#csComisiones){display:none}
+body.cajasoc-gastos #paginaCajaSoc #panelReuSoc{display:none}
+body.cajasoc-gastos #paginaCajaSoc #panelActas{display:none}
+body.cajasoc-gastos #paginaCajaSoc #panelCuotasPendSoc{display:none}
+body.cajasoc-gastos #paginaCajaSoc .grid-caja-4{display:none}
+body.cajasoc-gastos #paginaCajaSoc .f-col:has(#csPack){display:none}
+body.cajasoc-gastos #paginaCajaSoc #csComisionWrap{display:none}
+body.cajasoc-gastos #paginaCajaSoc #csOpcionesWrap{display:none}
+body.cajasoc-gastos #paginaCajaSoc #csDesgloseBox{display:none}
+body.cajasoc-gastos #paginaCajaSoc #csCuotaBox{display:none}
+body.cajasoc-gastos #paginaCajaSoc #csPackHint{display:none}
+body.cajasoc-gastos #paginaCajaSoc th:nth-child(7),body.cajasoc-gastos #paginaCajaSoc td:nth-child(7){display:none}
 
 /* Rubros de la liquidación laboral: tarjetas prolijas */
 .lq-rubros-t{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8a6d1f;margin:14px 0 8px}
@@ -1672,6 +1692,59 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-wa-mini:hover{background:#1eb85a}
 .abo-wa-mini .wa-ico{width:17px;height:17px}
 .abo-reg-sp2{flex:0 0 176px}
+/* Columna de baja definitiva del abono (cruz roja al final de cada fila) */
+.abo-c-del{flex:0 0 34px;display:flex;align-items:center;justify-content:center}
+.abo-del-x{width:28px;height:28px;padding:0;flex:0 0 auto;border:1px solid var(--filo);background:var(--carta);color:var(--mal,#b3372a);border-radius:8px;font-size:14px;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.abo-del-x:hover{background:var(--mal-bg,#f9e3df);border-color:var(--mal,#b3372a)}
+.abo-nuevo-btn{border:1px solid var(--filo);background:#14294a;color:#fff;font-family:var(--f-ui,inherit);font-size:13px;font-weight:700;border-radius:8px;padding:9px 16px;cursor:pointer;white-space:nowrap}
+.abo-nuevo-btn:hover{background:#0f1f39}
+.abo-top-acc{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+/* ── Panel de administración de usuarios: misma estética que el CRM ── */
+.usr-lista{display:flex;flex-direction:column;gap:9px}
+.usr-row{background:var(--carta);border:1px solid var(--filo);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:start;transition:.13s}
+.usr-row:hover{border-color:var(--sello);box-shadow:0 3px 14px rgba(27,58,107,.1)}
+.usr-row.baja{opacity:.62;background:var(--papel)}
+.usr-main{min-width:0}
+.usr-nombre{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.02em}
+.usr-nombre .n{border-left:3px solid #c9a961;padding-left:9px;color:var(--tinta);line-height:1.3}
+.usr-mail{font-size:12px;color:var(--tinta-suave);word-break:break-all}
+.usr-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.usr-tag.ok{background:var(--crm-verde-bg,#e6f3ec);color:var(--crm-verde,#1e7a48)}
+.usr-tag.no{background:var(--crm-rojo-bg,#f9e3df);color:var(--crm-rojo,#b3372a)}
+.usr-tag.yo{background:var(--crm-azul-bg,#eef2f8);color:var(--crm-azul,#1b3a6b)}
+.usr-tag.adm{background:#f8f1de;color:#8a6d1f;border:1px solid #e6d3a0}
+.usr-grupo{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);margin:10px 0 5px}
+.usr-chips{display:flex;gap:6px;flex-wrap:wrap}
+.usr-chip{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+.usr-chip.gen{background:#f1efe7;color:#7a7566;border-color:#e0dbcd}
+.usr-chip.si{background:var(--crm-azul-bg,#eef2f8);color:var(--crm-azul,#1b3a6b);border-color:#d2dae8}
+.usr-chip.parcial{background:#f8f1de;color:#8a6d1f;border-color:#e6d3a0}
+.usr-chip.no{background:transparent;color:#b3ae9e;border:1px dashed #ddd8cc}
+.usr-acc{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.usr-btns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.usr-btn{font-size:11.5px;font-weight:600;color:#5a5648;background:#f4f2ec;border:1px solid #ddd8cc;border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:.13s}
+.usr-btn:hover{border-color:#b9b2a2}
+.usr-btn:disabled{opacity:.45;cursor:not-allowed}
+.usr-btn.mal{color:#b3372a;border-color:#e4c4c0}
+.usr-btn.mal:hover{background:#faf0ee}
+.usr-nota{font-size:12px;color:var(--tinta-suave);font-style:italic;line-height:1.45;background:#faf9f4;border-left:3px solid var(--laurel,#c9a961);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:18px}
+.usr-nota b{font-style:normal;color:var(--sello)}
+.usr-nota.warn{background:#fdf7ea;border-left-color:#c9862b;color:#8a6d1f}
+.usr-vacio{padding:26px;text-align:center;color:var(--tinta-suave);font-size:13px;background:var(--carta);border:1px dashed var(--filo);border-radius:11px}
+/* Grilla de permisos dentro del modal */
+.usr-perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:640px){.usr-perm-grid{grid-template-columns:1fr}}
+.usr-perm{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--filo);border-radius:9px;background:var(--carta);font-size:12.5px;color:var(--tinta);min-width:0}
+.usr-perm.full{grid-column:1/-1}
+.usr-perm:hover{border-color:#9db9dd}
+.usr-perm input[type=checkbox]{width:17px;height:17px;cursor:pointer;accent-color:var(--sello,#1b3a6b);flex:0 0 auto}
+.usr-perm .tx{flex:1;min-width:0;font-weight:600}
+.usr-perm .tx small{display:block;font-size:10.5px;font-weight:400;color:var(--tinta-suave);margin-top:2px;line-height:1.4;white-space:normal}
+.usr-perm select{flex:0 0 auto;width:180px;max-width:52%;padding:7px 9px;border:1px solid var(--filo);border-radius:8px;font-family:inherit;font-size:12px;background:var(--papel)}
+.usr-plantillas{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.usr-plantilla{font-size:11.5px;font-weight:600;color:#5a5648;background:#f4f2ec;border:1px solid #ddd8cc;border-radius:20px;padding:6px 13px;cursor:pointer;font-family:inherit;transition:.13s}
+.usr-plantilla:hover{border-color:#b9b2a2}
+
 .abo-m-avisado{flex:0 0 auto;width:90px;display:flex;align-items:center;justify-content:center}
 .abo-row-head .abo-m-avisado{font-size:10.5px}
 .abo-avisado-chk{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:11.5px;color:var(--tinta-suave)}
@@ -2799,7 +2872,7 @@ body.locked .app{margin-left:0}
   <div class="page-body">
     <div class="page-inner">
       <div class="page-head">
-        <div class="hero-eyebrow">Ingresos y gastos del sector societario</div>
+        <div class="hero-eyebrow" id="csEyebrow">Ingresos y gastos del sector societario</div>
         <h1 class="hero-title">Caja <em>societaria</em></h1>
         <div class="doble-filete"></div>
         <div class="f-row" style="margin-top:14px;align-items:end">
@@ -2827,7 +2900,7 @@ body.locked .app{margin-left:0}
       </div>
 
       <div class="panel">
-        <div class="panel-h"><h3>Registrar movimiento</h3><span class="mini">ingreso o gasto — queda en el mes de la fecha</span></div>
+        <div class="panel-h"><h3 id="csRegTitulo">Registrar movimiento</h3><span class="mini" id="csRegMini">ingreso o gasto — queda en el mes de la fecha</span></div>
         <div class="panel-b">
           <div class="f-row" style="align-items:end">
             <div class="f-col" style="flex:0 0 145px"><label>Fecha</label><input type="date" id="csFecha"></div>
@@ -3749,6 +3822,28 @@ body.locked .app{margin-left:0}
 
 <div id="abonoRegModal" class="abo-reg-modal" onclick="if(event.target===this)abonoCerrarRegistro()">
   <div class="abo-reg-card"><div id="abonoRegBody"></div></div>
+</div>
+
+<div id="abonoNuevoModal" class="abo-reg-modal" onclick="if(event.target===this)abonoCerrarNuevo()">
+  <div class="abo-reg-card"><div id="abonoNuevoBody"></div></div>
+</div>
+
+<div id="paginaUsuarios" class="page-shell" style="display:none">
+  <div class="page-body">
+    <div class="page-inner">
+      <div class="page-head">
+        <div class="hero-eyebrow">Administración</div>
+        <h1 class="hero-title">Usuarios · <em>accesos del equipo</em></h1>
+        <div class="doble-filete"></div>
+        <div class="crm-mini-wrap"><span id="usuariosMini" class="crm-mini"></span></div>
+      </div>
+      <div id="usuariosPanel"></div>
+    </div>
+  </div>
+</div>
+
+<div id="usuarioModal" class="crm-modal-ov" onclick="if(event.target===this)usuarioCerrarModal()">
+  <div id="usuarioModalBody"></div>
 </div>
 
 <script>
@@ -6821,6 +6916,8 @@ function filaATarea(f) {
 // ── CRM: mapeo cliente ↔ fila Supabase ──
 // Se enciende cuando la nube devuelve la columna de vencimientos
 var SB_TIENE_VENCIMIENTOS = false;
+var SB_TIENE_PROVINCIA = false;
+var SB_TIENE_CARGADO_POR = false;
 function clienteAFila(c) {
   const f = {
     id: c.id, entidad: c.entidad || '', tipo: c.tipo || null, estado: c.estado || null,
@@ -6843,6 +6940,7 @@ function clienteAFila(c) {
   // Los vencimientos van solo si la columna ya existe en la base. Si todavía no se
   // corrió el SQL, se omiten y quedan guardados en el dispositivo, sin romper nada.
   if (SB_TIENE_VENCIMIENTOS) f.vencimientos = c.vencimientos || [];
+  if (SB_TIENE_PROVINCIA) f.provincia = c.provincia || null;
   return f;
 }
 function filaACliente(f) {
@@ -6850,6 +6948,7 @@ function filaACliente(f) {
     id: f.id, entidad: f.entidad || '', tipo: f.tipo || 'AC', estado: f.estado || '',
     cuit: f.cuit || '', registro: f.registro || '', encargada: f.encargada || '',
     referente: f.referente || '', telefono: f.telefono || '', mail: f.mail || '', driveLink: f.drive_link || '',
+    provincia: f.provincia || '',
     reproTienen: f.repro_tienen || 'no_aplica', reproFechaSol: f.repro_fecha_sol || '',
     repro3132Fecha: f.repro_3132_fecha || '', repro3132Exp: f.repro_3132_exp || '',
     repro1780Fecha: f.repro_1780_fecha || '', repro1780Exp: f.repro_1780_exp || '',
@@ -6883,6 +6982,23 @@ async function sbCargarTodo() {
 }
 async function __sbCargarTodoInterno() {
   if (!SB_ON) return;
+  // Los accesos se leen primero: definen qué puede ver quien está entrando.
+  try {
+    const rUsr = await sbSelect('usuarios').catch(() => null);
+    if (Array.isArray(rUsr) && rUsr.length){
+      USUARIOS_DB = rUsr.map(filaAUsuario);
+      saveUsuariosDB();
+      const yo = usuarioActual();
+      const mio = usuarioFila(yo);
+      // Si le bloquearon el acceso mientras estaba adentro, se lo saca acá
+      if (mio && mio.activo === false){
+        alert('Tu acceso al sistema fue dado de baja. Consultá con el estudio.');
+        try { cerrarSesion(); } catch(e){}
+        return false;
+      }
+      if (typeof aplicarPermisos === 'function') aplicarPermisos();
+    }
+  } catch(e){}
   try {
     const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag, rReu] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
@@ -6944,6 +7060,8 @@ async function __sbCargarTodoInterno() {
     }
 
     // Caja societaria
+    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'cargado_por'))
+      SB_TIENE_CARGADO_POR = true;
     if (rCajaSoc) {
       CAJASOC = rCajaSoc.map(filaAMov); saveCajaSoc();
       rCajaSoc.forEach(f => {
@@ -7016,6 +7134,8 @@ async function __sbCargarTodoInterno() {
     // CRM (clientes)
     if (rClientes && rClientes.length && Object.prototype.hasOwnProperty.call(rClientes[0], 'vencimientos'))
       SB_TIENE_VENCIMIENTOS = true;
+    if (rClientes && rClientes.length && Object.prototype.hasOwnProperty.call(rClientes[0], 'provincia'))
+      SB_TIENE_PROVINCIA = true;
     if (rClientes && typeof CLIENTES !== 'undefined') {
       CLIENTES = rClientes.map(filaACliente);
       if (typeof saveClientesLocal === 'function') saveClientesLocal();
@@ -7303,7 +7423,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', reuniones:'paginaReuniones', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas'
+  caja:'paginaCaja', crm:'paginaCRM', reuniones:'paginaReuniones', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas', usuarios:'paginaUsuarios'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -10115,10 +10235,13 @@ function renderAbonos(){
         <div class="abo-eyebrow">Abonos mensuales</div>
         <h1 class="abo-h1">${capPrim(abonoMesLabel(ym))}</h1>
       </div>
+      <div class="abo-top-acc">
+      <button class="abo-nuevo-btn" onclick="abonoAbrirNuevo()">+ Nuevo abono</button>
       <div class="abo-mesnav">
         <button onclick="abonoCambiarMes(-1)" title="Mes anterior">‹</button>
         <button onclick="abonoIrMesActual()" class="hoy">Mes actual</button>
         <button onclick="abonoCambiarMes(1)" title="Mes siguiente">›</button>
+      </div>
       </div>
     </div>
     <div class="abo-kpis">
@@ -10203,6 +10326,7 @@ function renderAbonos(){
         ${st.estado!=='pagado' ? `<button class="abo-wa-mini" onclick="abonoReclamarPago(${c.id})" title="Reclamar pago por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
         <button class="abo-reg" onclick="abonoAbrirRegistro(${c.id})">${btnLabel}</button>
       </div>
+      <div class="abo-c-del"><button class="abo-del-x" onclick="event.stopPropagation();abonoEliminar(${c.id})" title="Eliminar este abono">✕</button></div>
     </div>`;
   };
 
@@ -10216,6 +10340,7 @@ function renderAbonos(){
       ${conFactura ? '<div class="abo-c-factura">Quién factura</div>' : ''}
       <div class="abo-c-estado">Estado</div>
       <div class="abo-reg-sp2"></div>
+      <div class="abo-c-del"></div>
     </div>`;
 
   const colap = abonoColapsoGet();
@@ -10247,7 +10372,8 @@ function renderAbonos(){
         <div class="abo-check-sp"></div>
         <div class="abo-c-nom">${esc(c.nombre.toUpperCase())}</div>
         <div class="abo-c-monto" style="flex:1;color:var(--tinta-suave)">En pausa</div>
-        <button class="abo-reg" onclick="abonoReactivar(${c.id})">Reactivar</button></div>`).join('')}
+        <button class="abo-reg" onclick="abonoReactivar(${c.id})">Reactivar</button>
+        <div class="abo-c-del"><button class="abo-del-x" onclick="event.stopPropagation();abonoEliminar(${c.id})" title="Eliminar este abono">✕</button></div></div>`).join('')}
     </div>` : '';
 
   // Barra de búsqueda + filtro
@@ -10582,6 +10708,135 @@ function abonoAvisarMonto(cliId){
 function abonoReactivar(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
   c.estado='activo'; saveAbonos(); sbPushAbonoCli(cliId); renderAbonos();
+}
+
+// ══════ ALTA Y BAJA DE ABONOS ══════
+// El id es numérico porque así está la columna en Supabase.
+function abonoNuevoId(){
+  let max = 0;
+  ABONOS.forEach(c => { const n = Number(c.id) || 0; if (n > max) max = n; });
+  return max + 1;
+}
+// El campo de porcentaje solo aparece cuando el abono es mixto
+function abonoNuevoPct(){
+  const sel = document.getElementById('abonoNuevoCaja');
+  const wrap = document.getElementById('abonoNuevoPctWrap');
+  if (sel && wrap) wrap.style.display = sel.value === 'mixto' ? '' : 'none';
+}
+function abonoAbrirNuevo(){
+  const body = document.getElementById('abonoNuevoBody'); if(!body) return;
+  const ym = abonoMesActual();
+  body.innerHTML = `
+    <div class="abo-reg-head">
+      <div>
+        <div class="abo-reg-cli">Nuevo abono</div>
+        <div class="abo-reg-sub">Se suma al listado de abonos mensuales</div>
+      </div>
+      <button class="abo-reg-x" onclick="abonoCerrarNuevo()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="abo-reg-fld">
+        <label>Cliente</label>
+        <input type="text" id="abonoNuevoNombre" placeholder="Nombre del cliente o entidad">
+      </div>
+      <div class="abo-reg-grid">
+        <div class="abo-reg-fld">
+          <label>Moneda</label>
+          <select id="abonoNuevoMoneda" onchange="abonoNuevoSimbolo()">
+            <option value="ARS">Pesos</option>
+            <option value="USD">Dólares</option>
+          </select>
+        </div>
+        <div class="abo-reg-fld">
+          <label>Monto mensual (<span id="abonoNuevoSimb">$</span>)</label>
+          <input type="text" inputmode="numeric" id="abonoNuevoMonto" placeholder="Cuánto paga por mes" oninput="abonoFmtInput(this)">
+        </div>
+      </div>
+      <div class="abo-reg-grid">
+        <div class="abo-reg-fld">
+          <label>Distribución</label>
+          <select id="abonoNuevoCaja" onchange="abonoNuevoPct()">
+            <option value="abono">Caja de abonos</option>
+            <option value="societario">Societario</option>
+            <option value="mixto">Mixto</option>
+          </select>
+        </div>
+        <div class="abo-reg-fld">
+          <label>Rige desde</label>
+          <input type="month" id="abonoNuevoDesde" value="${ym}">
+        </div>
+      </div>
+      <div class="abo-reg-fld" id="abonoNuevoPctWrap" style="display:none">
+        <label>Qué porcentaje va a societario</label>
+        <input type="number" min="0" max="100" step="5" id="abonoNuevoPctInput" value="50">
+      </div>
+      <div class="abo-montos-hint" style="margin:0">El monto rige desde el mes que elijas en adelante: los meses anteriores quedan en cero, así no se altera ningún balance ya cerrado. La distribución define a qué caja se imputa lo que se cobre; después la podés cambiar desde la subsolapa <b>Distribución</b>.</div>
+    </div>
+    <div class="abo-reg-foot">
+      <div class="abo-reg-foot-r" style="margin-left:auto">
+        <button class="abo-reg-cancel" onclick="abonoCerrarNuevo()">Cancelar</button>
+        <button class="abo-reg" onclick="abonoCrearNuevo()">Crear abono</button>
+      </div>
+    </div>`;
+  const m = document.getElementById('abonoNuevoModal'); if(m) m.style.display = 'flex';
+  setTimeout(()=>{ const i = document.getElementById('abonoNuevoNombre'); if(i) i.focus(); }, 60);
+}
+function abonoNuevoSimbolo(){
+  const sel = document.getElementById('abonoNuevoMoneda');
+  const sp = document.getElementById('abonoNuevoSimb');
+  if(sel && sp) sp.textContent = sel.value === 'USD' ? 'US$' : '$';
+}
+function abonoCerrarNuevo(){
+  const m = document.getElementById('abonoNuevoModal'); if(m) m.style.display = 'none';
+}
+function abonoCrearNuevo(){
+  const iNom = document.getElementById('abonoNuevoNombre');
+  const nombre = iNom ? (iNom.value||'').trim() : '';
+  if(!nombre){ aricToast('Poné el nombre del cliente'); if(iNom) iNom.focus(); return; }
+  const selMon = document.getElementById('abonoNuevoMoneda');
+  const moneda = (selMon && selMon.value === 'USD') ? 'USD' : 'ARS';
+  const montoRaw = abonoParseInput(document.getElementById('abonoNuevoMonto'));
+  const monto = montoRaw === '' ? 0 : Number(montoRaw) || 0;
+  const selCaja = document.getElementById('abonoNuevoCaja');
+  const caja = (selCaja && ABO_CAJAS[selCaja.value]) ? selCaja.value : 'abono';
+  const iPct = document.getElementById('abonoNuevoPctInput');
+  const pct = iPct ? Math.max(0, Math.min(100, Number(iPct.value) || 0)) : 50;
+  const iDesde = document.getElementById('abonoNuevoDesde');
+  const desde = (iDesde && iDesde.value) ? iDesde.value : abonoMesActual();
+  const rep = ABONOS.find(c => (c.nombre||'').trim().toLowerCase() === nombre.toLowerCase());
+  if(rep && !confirm('Ya hay un abono cargado a nombre de «'+rep.nombre+'».\n\n¿Lo agregás igual?')) return;
+  const c = { id: abonoNuevoId(), nombre, moneda, monto: 0, tipo: '', estado: 'activo', pagos: [],
+              montoHist: monto ? [{ desde, monto }] : [] };
+  ABONOS.push(c);
+  saveAbonos();
+  sbPushAbonoCli(c.id);
+  try { abonoCajaSet(c.id, caja, pct); } catch(e){}
+  abonoCerrarNuevo();
+  ABONOS_MES = null;
+  renderAbonos();
+  aricToast('Abono creado');
+}
+// Baja definitiva: se lleva el abono, sus pagos y su regla de distribución.
+function abonoEliminar(cliId){
+  const c = abonoBuscarCli(cliId); if(!c) return;
+  const nPagos = (c.pagos||[]).reduce((a,p)=> a + ((p.parciales||[]).length), 0);
+  const aviso = '¿Eliminar el abono de «'+c.nombre+'»?\n\n'
+    + (nPagos ? 'Se borran también los '+nPagos+' pago'+(nPagos!==1?'s':'')+' registrados.\n' : '')
+    + 'No se puede deshacer. Si solo querés dejar de cobrarlo, usá «Pausar abono».';
+  if(!confirm(aviso)) return;
+  // Pagos en la nube (van por su propio id)
+  (c.pagos||[]).forEach(p => (p.parciales||[]).forEach(x => { if(x.id && typeof sbDelAbonoPago === 'function') sbDelAbonoPago(x.id); }));
+  ABONOS = ABONOS.filter(x => String(x.id) !== String(cliId));
+  saveAbonos();
+  if (typeof SB_ON !== 'undefined' && SB_ON) sbDelete('abonos_clientes', cliId).catch(sbAvisarError);
+  // Regla de reparto abono/societario del cliente eliminado
+  try {
+    const m = abonoCajaMapa();
+    if (Object.prototype.hasOwnProperty.call(m, String(cliId))) { delete m[String(cliId)]; abonoCajaGuardar(m); }
+  } catch(e){}
+  abonoCerrarRegistro();
+  renderAbonos();
+  aricToast('Abono eliminado');
 }
 
 // ── Modal de registro de pago del abono ──
@@ -11968,6 +12223,7 @@ function __navToInterno(p) {
     if (p === 'reuniones') { renderReuniones(); }
     rielMarcarActivo(p);
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
+    if (p === 'usuarios') { renderUsuarios(); }
   } catch(e) { console.error(e); }
 }
 
@@ -12390,7 +12646,7 @@ function renderInicio() {
       <div class="num">${pagosMesAct.length}</div><div class="lbl">Caja judicial — pagos este mes</div>
       <div class="sub">$ ${fmtNumStr(cajaArs)} · u$s ${fmtNumStr(cajaUsd)}</div>
     </div>` : '';
-  const __tileCajaSoc = __pf.cajaSoc ? `<div class="tile" onclick="navTo('cajasoc')">
+  const __tileCajaSoc = __pf.cajaSoc === true ? `<div class="tile" onclick="navTo('cajasoc')">
       <div class="num">${movsSocMes.length}</div><div class="lbl">Caja societaria — movimientos</div>
       <div class="sub">▲ $ ${fmtNumStr(socInArs)} · ▼ $ ${fmtNumStr(socGaArs)}</div>
     </div>` : '';
@@ -13715,12 +13971,12 @@ function saveCajaSocAdj() { appStore.setItem(CAJASOC_ADJ_KEY, JSON.stringify(CAJ
 function movAFila(m) {  /* incluye plan de cuotas */
   return { id: m.id, fecha: m.fecha, tipo: m.tipo, contraparte: m.contraparte || '',
     concepto: m.concepto || '', monto: m.monto, moneda: m.moneda, metodo: m.metodo || '',
-    receptor: m.receptor || '', cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, comision_para: m.comisionPara || null, revisado: !!m.revisado, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
+    receptor: m.receptor || '', cargado_por: (typeof SB_TIENE_CARGADO_POR !== 'undefined' && SB_TIENE_CARGADO_POR) ? (m.cargadoPor || null) : undefined, cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, comision_para: m.comisionPara || null, revisado: !!m.revisado, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
 }
 function filaAMov(f) {
   return { id: f.id, fecha: f.fecha, tipo: f.tipo, contraparte: f.contraparte || '',
     concepto: f.concepto || '', monto: Number(f.monto) || 0, moneda: f.moneda || 'ARS',
-    metodo: f.metodo || '', receptor: f.receptor || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, comisionPara: f.comision_para || '', revisado: !!f.revisado };
+    metodo: f.metodo || '', receptor: f.receptor || '', cargadoPor: f.cargado_por || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, comisionPara: f.comision_para || '', revisado: !!f.revisado };
 }
 function toggleRevisadoSoc(id) {
   const m = CAJASOC.find(x => x.id === id);
@@ -13845,6 +14101,23 @@ function csToggleDolarDia() {
     if (campo && !campo.value) { const ref = appStore.getItem(DOLAR_KEY); if (ref) campo.value = fmtNumStr(parseFloat(ref)); }
   }
 }
+// En modo gastos el desplegable de tipo pierde la opción de ingreso.
+function cajaSocAjustarTipo(){
+  const sel = document.getElementById('csTipo'); if(!sel) return;
+  const solo = cajaSocSoloGastos();
+  const opIn = sel.querySelector('option[value="ingreso"]');
+  if (opIn){ opIn.hidden = solo; opIn.disabled = solo; }
+  if (solo && sel.value === 'ingreso') sel.value = 'gasto';
+  const eye = document.getElementById('csEyebrow');
+  if (eye) eye.textContent = solo ? 'Gastos del sector societario' : 'Ingresos y gastos del sector societario';
+  const rt = document.getElementById('csRegTitulo');
+  if (rt) rt.textContent = solo ? 'Registrar gasto' : 'Registrar movimiento';
+  const rm = document.getElementById('csRegMini');
+  if (rm) rm.textContent = solo ? 'ordinario o de escribanía — queda en el mes de la fecha' : 'ingreso o gasto — queda en el mes de la fecha';
+  const bt = document.getElementById('csBtnRegistrar');
+  if (bt) bt.textContent = solo ? '+ Registrar gasto' : '+ Registrar';
+  try { csToggleCuotaVisibilidad(); } catch(e){}
+}
 function csToggleCuotaVisibilidad() {
   const tipo = document.getElementById('csTipo').value;
   const esIngreso = tipo === 'ingreso';
@@ -13935,9 +14208,11 @@ function registrarMovSoc() {
   // Chequeos propios de una cuota de plan societario (moneda del pago, dólar del día, exceso de saldo).
   // Devuelve false para frenar el registro (falta un dato o el usuario tiene que confirmar el exceso).
   if (!__validarCuotaSoc(tipo, monto)) return;
+  if (cajaSocSoloGastos() && tipo === 'ingreso') { alert('Solo podés registrar gastos en esta caja.'); return; }
   const m = { id: Date.now(), fecha, tipo, contraparte, concepto, monto,
     moneda: document.getElementById('csMoneda').value, metodo: document.getElementById('csMetodo').value,
-    receptor: document.getElementById('csReceptor').value.trim() };
+    receptor: document.getElementById('csReceptor').value.trim(),
+    cargadoPor: (typeof usuarioActual === 'function') ? (usuarioActual() || '') : '' };
   // Valor del dólar del día: se guarda siempre que esté cargado. Sirve para la
   // dolarización del balance (pagos en ARS) y para convertir un pago a la moneda del
   // plan cuando difieren (ej: plan en ARS y pago en USD, o viceversa).
@@ -14009,6 +14284,12 @@ function registrarMovSoc() {
   renderCajaSocDatalists(); renderCajaSoc();
 }
 function eliminarMovSoc(id) {
+  {
+    const mv = CAJASOC.find(m => m.id === id);
+    if (cajaSocSoloGastos() && (!mv || mv.tipo === 'ingreso' || mv.cargadoPor !== usuarioActual())) {
+      alert('Solo podés eliminar los gastos que cargaste vos.'); return;
+    }
+  }
   if (!confirm('¿Eliminar este movimiento?')) return;
   const mov = CAJASOC.find(m => m.id === id);
   CAJASOC = CAJASOC.filter(m => m.id !== id);
@@ -14044,7 +14325,7 @@ function __clienteIdPorNombre(nombre) {
   return null;
 }
 function __socDatosMes(mes) {
-  const movs = CAJASOC.filter(m => (m.fecha || '').startsWith(mes)).sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
+  const movs = cajaSocVisiblePara(CAJASOC).filter(m => (m.fecha || '').startsWith(mes)).sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
   const ingresos = movs.filter(m => m.tipo === 'ingreso' || !m.tipo);
   const gastosOrd = movs.filter(m => m.tipo === 'gasto');
   const gastosEsc = movs.filter(m => m.tipo === 'gasto_esc');
@@ -15264,7 +15545,7 @@ function cajaSocBuscarRender(){
   const q=(document.getElementById('csBuscarInput')||{}).value||''; CS_BUSQ=q;
   if(!q.trim()){ cont.innerHTML='<div class="panel-empty">Escribí un cliente/proveedor, concepto o fecha para buscar en todo el historial.</div>';
     const selm=document.getElementById('csBuscarMes'); if(selm) selm.innerHTML='<option value="">Todos los meses</option>'; return; }
-  let hits=CAJASOC.filter(m=>{
+  let hits=cajaSocVisiblePara(CAJASOC).filter(m=>{
     const fechaTxt=(m.fecha||'')+' '+formatFechaCorta(m.fecha||'');
     return cbMatch(m.contraparte,q)||cbMatch(m.concepto,q)||cbMatch(fechaTxt,q)
       ||cbMatch((m.contraparte||'')+' '+(m.concepto||''),q);
@@ -16576,13 +16857,26 @@ function __sesionVencida() {
 }
 // ── Usuarios y perfiles de acceso ──
 // cajaJud: 'full' (todo) | 'ori' (solo cargar pagos + ver sus comisiones) | false (sin acceso)
+// cajaSoc: true (todo) | 'gastos' (solo cargar, ver y borrar los gastos propios) | false (sin acceso)
 const PERFILES = {
-  total:  { expedientes: true,  cajaJud: 'full', cajaSoc: true,  inicioJud: true  },
-  brenda: { expedientes: false, cajaJud: false,  cajaSoc: true,  inicioJud: false },
-  ori:    { expedientes: true,  cajaJud: 'ori',  cajaSoc: false, inicioJud: true  },
-  sofig:  { expedientes: true,  cajaJud: false,  cajaSoc: false, inicioJud: true  },
-  basico: { expedientes: false, cajaJud: false,  cajaSoc: false, inicioJud: false }
+  total:  { expedientes: true,  cajaJud: 'full', cajaSoc: true,     inicioJud: true  },
+  brenda: { expedientes: false, cajaJud: false,  cajaSoc: true,     inicioJud: false },
+  ori:    { expedientes: true,  cajaJud: 'ori',  cajaSoc: false,    inicioJud: true  },
+  sofig:  { expedientes: true,  cajaJud: false,  cajaSoc: 'gastos', inicioJud: true  },
+  basico: { expedientes: false, cajaJud: false,  cajaSoc: 'gastos', inicioJud: false }
 };
+// ¿El usuario entra a la caja societaria solo para cargar gastos?
+function cajaSocSoloGastos(){
+  return (typeof perfilActual === 'function') && perfilActual().cajaSoc === 'gastos';
+}
+// Movimientos que el usuario tiene permitido ver en la caja societaria.
+// En modo gastos: únicamente los gastos que cargó él.
+function cajaSocVisiblePara(lista){
+  const base = lista || (typeof CAJASOC !== 'undefined' ? CAJASOC : []);
+  if (!cajaSocSoloGastos()) return base;
+  const yo = (typeof usuarioActual === 'function') ? usuarioActual() : '';
+  return base.filter(m => m.tipo !== 'ingreso' && m.tipo && m.cargadoPor === yo);
+}
 const USUARIOS = {
   kevindaich: { mail: 'kevin@welegal.ar',     nombre: 'Kevin',  perfil: 'total'  },
   ivana:      { mail: 'ivana@welegal.ar',     nombre: 'Ivana',  perfil: 'total'  },
@@ -16728,6 +17022,8 @@ async function sbSalir(){
 // Del mail al usuario de la aplicación (los permisos siguen viviendo en este archivo)
 function usuarioPorMail(mail){
   const m = (mail || '').trim().toLowerCase();
+  const f = (typeof usuarioFilaPorMail === 'function') ? usuarioFilaPorMail(m) : null;
+  if (f) return f.usuario;
   for (const u in USUARIOS){ if ((USUARIOS[u].mail || '').toLowerCase() === m) return u; }
   return null;
 }
@@ -16744,20 +17040,462 @@ function usuarioActual() {
     const v = appStore.getItem(AUTH_KEY) || '';
     if (!v) return null;
     if (__sesionVencida()) { try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {} return null; }
-    if (v.startsWith('u:') && USUARIOS[v.slice(2)]) return v.slice(2);
+    // Vale tanto quien está en la lista escrita en el archivo como quien fue dado
+    // de alta desde el panel de usuarios.
+    if (v.startsWith('u:') && (USUARIOS[v.slice(2)] || (typeof usuarioFila === 'function' && usuarioFila(v.slice(2))))) return v.slice(2);
   } catch (e) {}
   return null;
 }
+// ═══════════ USUARIOS Y PERMISOS ═══════════
+// Los accesos viven en la tabla `usuarios` de Supabase y se editan desde el panel
+// de administración. Mientras esa tabla no exista (o esté vacía), el sistema cae
+// en las listas escritas más arriba, así nada se rompe antes de correr el SQL.
+const PERM_VACIO = { expedientes:false, cajaJud:false, cajaSoc:false, inicioJud:false,
+  aric:false, abonos:false, ingresos:false, welegal:false, reuniones:false, admin:false };
+// Qué se puede tildar en el panel. 'sel' es un acceso parcial.
+const PERM_MODULOS = [
+  { k:'expedientes', txt:'Expedientes',            tipo:'bool' },
+  { k:'inicioJud',   txt:'Sector judicial en el inicio', tipo:'bool',
+    ayuda:'Oficios, causas y vencimientos judiciales en la pantalla de inicio' },
+  { k:'cajaJud',     txt:'Caja judicial',          tipo:'sel',
+    ops:[['full','Completo'],['ori','Solo sus pagos y comisiones'],['','Sin acceso']] },
+  { k:'cajaSoc',     txt:'Caja societaria',        tipo:'sel',
+    ops:[['si','Completo'],['gastos','Solo cargar gastos'],['','Sin acceso']] },
+  { k:'welegal',     txt:'Caja WE Legal (packs)',  tipo:'bool' },
+  { k:'abonos',      txt:'Abonos',                 tipo:'bool' },
+  { k:'ingresos',    txt:'Control financiero',     tipo:'bool' },
+  { k:'reuniones',   txt:'Reuniones',              tipo:'bool' },
+  { k:'aric',        txt:'ARICCAME',               tipo:'bool' },
+  { k:'admin',       txt:'Administrar usuarios',   tipo:'bool',
+    ayuda:'Puede dar de alta, bloquear y cambiar los accesos de los demás' }
+];
+// Jurisprudencia, Agenda, CRM y Herramientas los ve todo el mundo.
+const PERM_PLANTILLAS = [
+  { id:'total',   txt:'Acceso total',
+    p:{ expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true, welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, admin:false } },
+  { id:'societario', txt:'Societario (como Brenda)',
+    p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:true, welegal:true, abonos:true, ingresos:false, reuniones:true, aric:false, admin:false } },
+  { id:'judicial', txt:'Judicial parcial (como Ori)',
+    p:{ expedientes:true, inicioJud:true, cajaJud:'ori', cajaSoc:false, welegal:false, abonos:false, ingresos:false, reuniones:false, aric:false, admin:false } },
+  { id:'gastos',  txt:'Carga de gastos (como Naza)',
+    p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:'gastos', welegal:false, abonos:false, ingresos:false, reuniones:false, aric:true, admin:false } },
+  { id:'minimo',  txt:'Mínimo (CRM y agenda)',
+    p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:false, welegal:false, abonos:false, ingresos:false, reuniones:false, aric:false, admin:false } }
+];
+// La cuenta técnica es la que mantiene el sistema: nunca puede quedar sin acceso,
+// porque es la que repara la configuración si algo la deja inconsistente. Sus
+// permisos se reponen solos.
+const SYS_CUENTA = 'kevindaich';
+const SYS_CUENTA_MAIL = 'kevin@welegal.ar';
+// Vista reducida temporal: la cuenta técnica puede pasar unos minutos viendo el
+// sistema con los accesos que figuran en su ficha, para revisar cómo lo ve alguien
+// con permisos recortados. Se activa con Ctrl+Alt+Shift+K y se apaga sola.
+const SYS_VISTA_KEY = 'jc-sys-vista-v1';
+const SYS_VISTA_MS = 5 * 60 * 1000;
+const PERM_SISTEMA = { expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true,
+  welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, admin:true };
+function esCuentaSistema(x){
+  const v = String(x || '').trim().toLowerCase();
+  return v === SYS_CUENTA || v === SYS_CUENTA_MAIL;
+}
+function sysVistaLimitada(){
+  try {
+    const t = parseInt(appStore.getItem(SYS_VISTA_KEY) || '0', 10);
+    return !!t && Date.now() < t;
+  } catch(e){ return false; }
+}
+function sysAlternarVista(){
+  try {
+    if (sysVistaLimitada()) appStore.removeItem(SYS_VISTA_KEY);
+    else appStore.setItem(SYS_VISTA_KEY, String(Date.now() + SYS_VISTA_MS));
+  } catch(e){}
+  try { if (typeof aplicarPermisos === 'function') aplicarPermisos(); } catch(e){}
+  try { if (typeof navTo === 'function') navTo('inicio'); } catch(e){}
+}
+const USUARIOS_DB_KEY = 'jc-usuarios-v1';
+let USUARIOS_DB = [];
+function loadUsuariosDB(){
+  try { const v = JSON.parse(appStore.getItem(USUARIOS_DB_KEY) || '[]'); USUARIOS_DB = Array.isArray(v) ? v : []; }
+  catch(e){ USUARIOS_DB = []; }
+}
+function saveUsuariosDB(){ try { appStore.setItem(USUARIOS_DB_KEY, JSON.stringify(USUARIOS_DB)); } catch(e){} }
+function usuariosFilas(){ return Array.isArray(USUARIOS_DB) ? USUARIOS_DB : []; }
+function usuarioFila(slug){ return usuariosFilas().find(u => u.usuario === slug) || null; }
+function usuarioFilaPorMail(mail){
+  const m = (mail || '').trim().toLowerCase();
+  return usuariosFilas().find(u => (u.mail || '').toLowerCase() === m) || null;
+}
+function usuarioNombre(slug){
+  const f = usuarioFila(slug);
+  if (f) return f.nombre || slug;
+  return (USUARIOS[slug] && USUARIOS[slug].nombre) || slug || '';
+}
+// Accesos según las listas viejas, para cuando todavía no hay tabla en la nube
+function permisosLegado(u){
+  const base = PERFILES[(u && USUARIOS[u] && USUARIOS[u].perfil) || 'total'] || PERFILES.total;
+  return Object.assign({}, PERM_VACIO, base, {
+    aric:      ARIC_USERS.indexOf(u) !== -1,
+    abonos:    ABONOS_USERS.indexOf(u) !== -1,
+    ingresos:  INGRESOS_USERS.indexOf(u) !== -1,
+    welegal:   WELEGAL_USERS.indexOf(u) !== -1,
+    reuniones: REUNIONES_USERS.indexOf(u) !== -1,
+    admin:     u === 'kevindaich' || u === 'ivana'
+  });
+}
+// Normaliza lo que viene del panel al formato que usa el resto del sistema
+function permisosNormalizar(p){
+  const o = Object.assign({}, PERM_VACIO, p || {});
+  if (o.cajaJud !== 'full' && o.cajaJud !== 'ori') o.cajaJud = false;
+  if (o.cajaSoc === 'si' || o.cajaSoc === true) o.cajaSoc = true;
+  else if (o.cajaSoc !== 'gastos') o.cajaSoc = false;
+  return o;
+}
 function perfilActual() {
   const u = usuarioActual();
-  return PERFILES[(u && USUARIOS[u] && USUARIOS[u].perfil) || 'total'] || PERFILES.total;
+  if (esCuentaSistema(u) && !sysVistaLimitada()) return Object.assign({}, PERM_VACIO, PERM_SISTEMA);
+  const f = usuarioFila(u);
+  if (f) return f.activo === false ? Object.assign({}, PERM_VACIO) : permisosNormalizar(f.permisos);
+  return permisosLegado(u);
 }
+
+// ── Ida y vuelta con la tabla `usuarios` de Supabase ──
+function usuarioAFila(u){
+  const f = { usuario: u.usuario, nombre: u.nombre || '', mail: (u.mail || '').trim().toLowerCase(),
+              permisos: permisosNormalizar(u.permisos), activo: u.activo !== false };
+  if (u.id) f.id = u.id;
+  return f;
+}
+function filaAUsuario(f){
+  return { id: f.id, usuario: f.usuario, nombre: f.nombre || '', mail: f.mail || '',
+           permisos: permisosNormalizar(f.permisos), activo: f.activo !== false,
+           modificado: f.modificado || '' };
+}
+function sbPushUsuario(u){
+  // La base sella la fecha con un disparador; acá se refleja en la copia local
+  u.modificado = new Date().toISOString();
+  saveUsuariosDB();
+  if (typeof SB_ON !== 'undefined' && SB_ON) return sbUpsert('usuarios', usuarioAFila(u));
+  return Promise.resolve();
+}
+// Pedidos a la API de autenticación (invitación y recuperación de contraseña).
+// No hace falta clave de administrador: son los mismos endpoints que usa el login.
+async function sbAuthPost(ruta, cuerpo){
+  const r = await fetch(SB_URL + '/auth/v1/' + ruta, {
+    method: 'POST',
+    headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(cuerpo)
+  });
+  const txt = await r.text();
+  let j = null; try { j = JSON.parse(txt); } catch(e){}
+  if (!r.ok) throw new Error((j && (j.msg || j.error_description || j.message)) || ('HTTP ' + r.status));
+  return j;
+}
+function usuarioSlugDe(mail, nombre){
+  const base = (String(mail || '').split('@')[0] || String(nombre || ''))
+    .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+  let s = base || 'usuario', n = 2;
+  while (usuarioFila(s) || USUARIOS[s]) { s = base + n; n++; }
+  return s;
+}
+function usuarioAdminsActivos(){
+  return usuariosFilas().filter(u => u.activo !== false && permisosNormalizar(u.permisos).admin);
+}
+
+// ═══════════ PANEL DE ADMINISTRACIÓN DE USUARIOS ═══════════
+// Módulos que ve todo el mundo y no se pueden restringir
+const PERM_GENERALES = ['Inicio', 'Jurisprudencia', 'Agenda', 'CRM', 'Herramientas'];
+// Cómo se muestra cada acceso restringible en la ficha de la persona
+function usuariosChipsAcceso(p){
+  const perm = permisosNormalizar(p);
+  const chip = (txt, estado) => `<span class="usr-chip ${estado}">${esc(txt)}</span>`;
+  const bool = (k, txt) => chip(txt, perm[k] ? 'si' : 'no');
+  const out = [];
+  out.push(bool('expedientes', 'Expedientes'));
+  out.push(bool('inicioJud', 'Sector judicial'));
+  out.push(perm.cajaJud === 'full' ? chip('Caja judicial', 'si')
+         : perm.cajaJud === 'ori'  ? chip('Caja judicial · solo lo suyo', 'parcial')
+         : chip('Caja judicial', 'no'));
+  out.push(perm.cajaSoc === true     ? chip('Caja societaria', 'si')
+         : perm.cajaSoc === 'gastos' ? chip('Caja societaria · solo gastos', 'parcial')
+         : chip('Caja societaria', 'no'));
+  out.push(bool('welegal', 'Caja WE Legal'));
+  out.push(bool('abonos', 'Abonos'));
+  out.push(bool('ingresos', 'Control financiero'));
+  out.push(bool('reuniones', 'Reuniones'));
+  out.push(bool('aric', 'ARICCAME'));
+  out.push(bool('admin', 'Administrar usuarios'));
+  return out.join('');
+}
+function usuariosChipsGenerales(){
+  return PERM_GENERALES.map(t => `<span class="usr-chip gen">${esc(t)}</span>`).join('');
+}
+function renderUsuarios(){
+  const cont = document.getElementById('usuariosPanel');
+  if (!cont) return;
+  // La página comparte la cinta superior con el resto del sistema
+  const pag = document.getElementById('paginaUsuarios');
+  if (pag && !pag.querySelector('.ribbon')){
+    const orig = document.querySelector('#paginaCRM .ribbon');
+    if (orig) pag.insertBefore(orig.cloneNode(true), pag.firstChild);
+  }
+  const yo = usuarioActual();
+  const filas = usuariosFilas().slice().sort((a,b) => {
+    if ((a.activo !== false) !== (b.activo !== false)) return (a.activo === false) ? 1 : -1;
+    return (a.nombre || '').localeCompare(b.nombre || '');
+  });
+  const activos = filas.filter(u => u.activo !== false).length;
+  const mini = document.getElementById('usuariosMini');
+  if (mini) mini.textContent = filas.length
+    ? filas.length + ' persona' + (filas.length !== 1 ? 's' : '') + ' cargada' + (filas.length !== 1 ? 's' : '') + ' · ' + activos + ' con acceso activo'
+    : '';
+
+  const sinTabla = !filas.length;
+  const nota = sinTabla
+    ? `<div class="usr-nota warn">Todavía no está creada la tabla de usuarios en Supabase. Mientras tanto los accesos siguen saliendo de la lista escrita en el sistema y no se pueden editar desde acá. Corré el SQL de <b>usuarios</b> y volvé a entrar.</div>`
+    : `<div class="usr-nota">Cada persona entra con su mail y una contraseña que elige ella. Vos definís a qué módulos accede y podés bloquearla cuando deje el estudio. <b>Inicio, Jurisprudencia, Agenda, CRM y Herramientas los ve todo el mundo</b>: no se pueden restringir.</div>`;
+
+  const tarjeta = u => {
+    const activo = u.activo !== false;
+    const esYo = u.usuario === yo;
+    const esAdmin = permisosNormalizar(u.permisos).admin;
+    return `<div class="usr-row ${activo ? '' : 'baja'}">
+      <div class="usr-main">
+        <div class="usr-nombre">
+          <span class="n">${esc(u.nombre || u.usuario)}</span>
+          <span class="usr-tag ${activo ? 'ok' : 'no'}">${activo ? 'Activo' : 'Bloqueado'}</span>
+          ${esAdmin ? '<span class="usr-tag adm">Administra</span>' : ''}
+          ${esYo ? '<span class="usr-tag yo">Vos</span>' : ''}
+        </div>
+        <div class="usr-mail">${esc(u.mail || '')}</div>
+        <div class="usr-grupo">Acceso general</div>
+        <div class="usr-chips">${usuariosChipsGenerales()}</div>
+        <div class="usr-grupo">Módulos</div>
+        <div class="usr-chips">${usuariosChipsAcceso(u.permisos)}</div>
+      </div>
+      <div class="usr-acc">
+        <div class="usr-btns">
+          <button class="usr-btn" onclick="usuarioAbrirEditar('${u.usuario}')">Accesos</button>
+          <button class="usr-btn" onclick="usuarioResetPass('${u.usuario}')" title="Le llega un mail para que elija una contraseña nueva">Restablecer contraseña</button>
+        </div>
+        <div class="usr-btns">
+          ${activo
+            ? `<button class="usr-btn mal" onclick="usuarioBloquear('${u.usuario}')" ${esYo ? 'disabled title="No podés bloquearte a vos misma"' : ''}>Bloquear</button>`
+            : `<button class="usr-btn" onclick="usuarioReactivar('${u.usuario}')">Reactivar</button>
+               <button class="usr-btn mal" onclick="usuarioQuitar('${u.usuario}')" title="Sacarlo de la lista">Quitar</button>`}
+        </div>
+      </div>
+    </div>`;
+  };
+
+  cont.innerHTML = `
+    <div class="crm-toolbar">
+      <div class="crm-search"><input id="usuariosBuscar" placeholder="Buscar por nombre o mail…" value="${esc(USUARIOS_Q)}" oninput="usuariosBuscar(this.value)"></div>
+      <button class="crm-btn-nuevo" onclick="usuarioAbrirNuevo()">+ Nuevo usuario</button>
+    </div>
+    ${nota}
+    ${filas.length ? '<div class="usr-lista">' + filas.map(tarjeta).join('') + '</div>' : '<div class="usr-vacio">Sin usuarios cargados todavía.</div>'}`;
+  usuariosAplicarBusqueda();
+}
+// Filtrado en vivo, sin volver a dibujar (para no perder el foco del buscador)
+let USUARIOS_Q = '';
+function usuariosBuscar(v){ USUARIOS_Q = (v || '').trim().toLowerCase(); usuariosAplicarBusqueda(); }
+function usuariosAplicarBusqueda(){
+  const filas = usuariosFilas().slice().sort((a,b) => {
+    if ((a.activo !== false) !== (b.activo !== false)) return (a.activo === false) ? 1 : -1;
+    return (a.nombre || '').localeCompare(b.nombre || '');
+  });
+  const cajas = document.querySelectorAll('#usuariosPanel .usr-row');
+  cajas.forEach((el, i) => {
+    const u = filas[i]; if (!u) return;
+    const txt = ((u.nombre || '') + ' ' + (u.mail || '')).toLowerCase();
+    el.style.display = (!USUARIOS_Q || txt.indexOf(USUARIOS_Q) !== -1) ? '' : 'none';
+  });
+}
+
+// ── Alta y edición ──
+let USUARIO_EDIT = null;   // slug en edición; null = alta
+function usuarioFormPermisos(perm){
+  const p = permisosNormalizar(perm);
+  return PERM_MODULOS.map(m => {
+    const ayuda = m.ayuda ? `<small>${esc(m.ayuda)}</small>` : '';
+    if (m.tipo === 'sel'){
+      const val = m.k === 'cajaSoc' ? (p.cajaSoc === true ? 'si' : (p.cajaSoc || '')) : (p.cajaJud || '');
+      return `<label class="usr-perm full">
+        <span class="tx">${esc(m.txt)}${ayuda}</span>
+        <select id="uperm_${m.k}">${m.ops.map(o => `<option value="${o[0]}"${String(val) === String(o[0]) ? ' selected' : ''}>${esc(o[1])}</option>`).join('')}</select>
+      </label>`;
+    }
+    return `<label class="usr-perm${m.k === 'admin' ? ' full' : ''}">
+      <input type="checkbox" id="uperm_${m.k}" ${p[m.k] ? 'checked' : ''}>
+      <span class="tx">${esc(m.txt)}${ayuda}</span>
+    </label>`;
+  }).join('');
+}
+function usuarioLeerPermisos(){
+  const p = {};
+  PERM_MODULOS.forEach(m => {
+    const el = document.getElementById('uperm_' + m.k);
+    if (!el) return;
+    p[m.k] = (m.tipo === 'sel') ? (el.value || false) : el.checked;
+  });
+  return permisosNormalizar(p);
+}
+function usuarioAplicarPlantilla(id){
+  const pl = PERM_PLANTILLAS.find(x => x.id === id); if (!pl) return;
+  const p = permisosNormalizar(pl.p);
+  PERM_MODULOS.forEach(m => {
+    const el = document.getElementById('uperm_' + m.k); if (!el) return;
+    if (m.tipo === 'sel') el.value = m.k === 'cajaSoc' ? (p.cajaSoc === true ? 'si' : (p.cajaSoc || '')) : (p.cajaJud || '');
+    else el.checked = !!p[m.k];
+  });
+}
+function usuarioPintarModal(u){
+  const body = document.getElementById('usuarioModalBody'); if (!body) return;
+  const esAlta = !u;
+  body.innerHTML = `<div class="crm-modal">
+    <div class="crm-modal-cab">
+      <button class="crm-modal-x" onclick="usuarioCerrarModal()">✕</button>
+      <h2>${esAlta ? 'Nuevo usuario' : esc(u.nombre || u.usuario)}</h2>
+      <div class="sub">${esAlta ? 'Se le manda un mail para que elija su contraseña' : 'Accesos de esta persona'}</div>
+    </div>
+    <div class="crm-modal-body">
+      <div class="crm-fsec">
+        <div class="crm-fsec-h">Identidad</div>
+        <div class="crm-fgrid">
+          <div class="crm-fld"><label>Nombre</label>
+            <input type="text" id="usrNombre" value="${esAlta ? '' : esc(u.nombre || '')}" placeholder="Cómo lo ve el equipo"></div>
+          <div class="crm-fld"><label>Mail</label>
+            <input type="email" id="usrMail" value="${esAlta ? '' : esc(u.mail || '')}" placeholder="nombre@welegal.ar" ${esAlta ? '' : 'disabled'}></div>
+        </div>
+        ${esAlta ? '' : '<div class="crm-editor-note">El mail no se puede cambiar: es con lo que la persona inicia sesión. Si está mal, bloqueá este usuario y creá uno nuevo.</div>'}
+      </div>
+      <div class="crm-fsec">
+        <div class="crm-fsec-h">Accesos</div>
+        <div class="crm-editor-note">Inicio, Jurisprudencia, Agenda, CRM y Herramientas los ve todo el mundo: no aparecen acá.</div>
+        <div class="usr-perm-grid">${usuarioFormPermisos(esAlta ? {} : u.permisos)}</div>
+      </div>
+      ${esAlta ? '<div class="crm-editor-note">Al crearlo le llega un mail con un link para que ponga su propia contraseña.</div>' : ''}
+      <div class="crm-modal-foot">
+        <button class="crm-btn-cancelar" onclick="usuarioCerrarModal()">Cancelar</button>
+        <button class="crm-btn-guardar" id="usrGuardar" onclick="usuarioGuardarModal()">${esAlta ? 'Crear y enviar invitación' : 'Guardar accesos'}</button>
+      </div>
+    </div>
+  </div>`;
+  const m = document.getElementById('usuarioModal'); if (m) m.classList.add('on');
+}
+function usuarioAbrirNuevo(){
+  if (!perfilActual().admin) return;
+  USUARIO_EDIT = null;
+  usuarioPintarModal(null);
+  setTimeout(()=>{ const i = document.getElementById('usrNombre'); if (i) i.focus(); }, 60);
+}
+function usuarioAbrirEditar(slug){
+  if (!perfilActual().admin) return;
+  const u = usuarioFila(slug); if (!u) return;
+  USUARIO_EDIT = slug;
+  usuarioPintarModal(u);
+}
+function usuarioCerrarModal(){
+  const m = document.getElementById('usuarioModal'); if (m) m.classList.remove('on');
+  USUARIO_EDIT = null;
+}
+async function usuarioGuardarModal(){
+  if (!perfilActual().admin) return;
+  const nombre = (document.getElementById('usrNombre').value || '').trim();
+  const mailEl = document.getElementById('usrMail');
+  const permisos = usuarioLeerPermisos();
+  if (!nombre){ aricToast('Poné el nombre'); return; }
+
+  if (USUARIO_EDIT){
+    const u = usuarioFila(USUARIO_EDIT); if (!u) return;
+    // No puede quedar el sistema sin nadie que administre usuarios
+    if (!permisos.admin && u.activo !== false && permisosNormalizar(u.permisos).admin && usuarioAdminsActivos().length <= 1){
+      alert('Tiene que quedar al menos una persona que pueda administrar usuarios.'); return;
+    }
+    u.nombre = nombre; u.permisos = permisos;
+    saveUsuariosDB();
+    try { await sbPushUsuario(u); } catch(e){ sbAvisarError(e); }
+    usuarioCerrarModal(); renderUsuarios(); aplicarPermisos();
+    aricToast('Accesos actualizados');
+    return;
+  }
+
+  const mail = (mailEl.value || '').trim().toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ aricToast('Revisá el mail'); mailEl.focus(); return; }
+  if (usuarioFilaPorMail(mail)){ aricToast('Ya hay un usuario con ese mail'); return; }
+  const btn = document.getElementById('usrGuardar');
+  if (btn){ btn.disabled = true; btn.textContent = 'Creando…'; }
+  const slug = usuarioSlugDe(mail, nombre);
+  // Se crea la cuenta con una contraseña al azar que nadie ve, y enseguida se le
+  // manda el mail de recuperación para que ponga la suya.
+  let clave = '';
+  try {
+    const b = new Uint8Array(24);
+    (window.crypto || window.msCrypto).getRandomValues(b);
+    clave = Array.from(b).map(x => x.toString(16).padStart(2, '0')).join('');
+  } catch(e){ clave = 'Wl' + Date.now() + Math.random().toString(36).slice(2) + '!'; }
+  try {
+    await sbAuthPost('signup', { email: mail, password: clave });
+  } catch(e){
+    const msg = String(e.message || '');
+    if (!/already/i.test(msg)){
+      if (btn){ btn.disabled = false; btn.textContent = 'Crear y enviar invitación'; }
+      alert('No se pudo crear la cuenta: ' + msg); return;
+    }
+  }
+  const u = { usuario: slug, nombre, mail, permisos, activo: true };
+  USUARIOS_DB.push(u); saveUsuariosDB();
+  try { await sbPushUsuario(u); } catch(e){ sbAvisarError(e); }
+  try { await sbAuthPost('recover', { email: mail }); }
+  catch(e){ alert('El usuario quedó creado, pero no salió el mail para configurar la contraseña: ' + (e.message || '') + '\nProbá con el botón «Restablecer contraseña».'); }
+  usuarioCerrarModal(); renderUsuarios();
+  aricToast('Usuario creado · le llegó el mail a ' + mail);
+}
+async function usuarioResetPass(slug){
+  const u = usuarioFila(slug); if (!u) return;
+  if (!confirm('¿Mandarle a ' + (u.nombre || slug) + ' un mail para que elija una contraseña nueva?\n\nLe llega a ' + u.mail + '. Vos no ves ni elegís la contraseña.')) return;
+  try {
+    await sbAuthPost('recover', { email: u.mail });
+    aricToast('Mail enviado a ' + u.mail);
+  } catch(e){ alert('No se pudo enviar el mail: ' + (e.message || '')); }
+}
+async function usuarioBloquear(slug){
+  if (!perfilActual().admin) return;
+  const u = usuarioFila(slug); if (!u) return;
+  if (slug === usuarioActual()){ alert('No podés bloquearte a vos misma.'); return; }
+  if (permisosNormalizar(u.permisos).admin && usuarioAdminsActivos().length <= 1){
+    alert('Tiene que quedar al menos una persona que pueda administrar usuarios.'); return;
+  }
+  if (!confirm('¿Bloquear el acceso de ' + (u.nombre || slug) + '?\n\nDeja de poder entrar y de poder leer o escribir datos. Lo que cargó queda tal cual. Podés reactivarlo cuando quieras.')) return;
+  u.activo = false; saveUsuariosDB();
+  try { await sbPushUsuario(u); } catch(e){ sbAvisarError(e); }
+  renderUsuarios(); aricToast('Acceso bloqueado');
+}
+async function usuarioReactivar(slug){
+  if (!perfilActual().admin) return;
+  const u = usuarioFila(slug); if (!u) return;
+  u.activo = true; saveUsuariosDB();
+  try { await sbPushUsuario(u); } catch(e){ sbAvisarError(e); }
+  renderUsuarios(); aricToast('Acceso reactivado');
+}
+async function usuarioQuitar(slug){
+  if (!perfilActual().admin) return;
+  const u = usuarioFila(slug); if (!u) return;
+  if (u.activo !== false){ alert('Bloquealo primero.'); return; }
+  if (!confirm('¿Sacar a ' + (u.nombre || slug) + ' de la lista?\n\nOjo: la cuenta de mail y contraseña sigue existiendo en Supabase, solo que sin ningún acceso. Para borrarla del todo hay que hacerlo desde el panel de Supabase, en Authentication.')) return;
+  USUARIOS_DB = usuariosFilas().filter(x => x.usuario !== slug);
+  saveUsuariosDB();
+  if (u.id && typeof SB_ON !== 'undefined' && SB_ON) sbDelete('usuarios', u.id).catch(sbAvisarError);
+  renderUsuarios(); aricToast('Usuario quitado de la lista');
+}
+
 function sesionActiva() { return !!usuarioActual(); }
 function cerrarSesion() {
   try { sbSalir(); } catch (e) {}
   try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {}
   document.body.classList.add('locked');
   document.body.classList.remove('caja-ori');
+  document.body.classList.remove('cajasoc-gastos');
   document.body.classList.remove('sin-jud');
   document.body.classList.remove('inicio-crm-first');
   const u = document.getElementById('loginUser'), p = document.getElementById('loginPass');
@@ -16793,7 +17531,8 @@ const RIEL_ITEMS = [
   { nav:'ariccame',      emo:'🌱', txt:'Cáñamo',   sub:'Res. 1/2024',  tip:'ARICCAME', aric:'canamo',  go:"aricIr('canamo')" },
   { nav:'ariccame',      emo:'🌿', txt:'Cannabis', sub:'Res. 41/2026', tip:'ARICCAME', aric:'cannabis', go:"aricIr('cannabis')" },
   { grupo:'Sistema' },
-  { nav:'herramientas',  emo:'🧮', txt:'Herramientas',    go:"navTo('herramientas')" }
+  { nav:'herramientas',  emo:'🧮', txt:'Herramientas',    go:"navTo('herramientas')" },
+  { nav:'usuarios',      emo:'🔑', txt:'Usuarios',  sub:'accesos del equipo', tip:'Administración', go:"navTo('usuarios')" }
 ];
 
 function rielConstruir(){
@@ -16847,12 +17586,14 @@ function rielAjustarPermisos(){
   if(cs) cs.style.display = pf.cajaSoc ? '' : 'none';
   // Caja WE Legal: solo la lista habilitada
   const wl = document.querySelector('#rielItems [data-nav="welegal"]');
-  if(wl) wl.style.display = (WELEGAL_USERS.indexOf(usuarioActual()) !== -1) ? '' : 'none';
+  if(wl) wl.style.display = pf.welegal ? '' : 'none';
   const reu = document.querySelector('#rielItems [data-nav="reuniones"]');
-  if(reu) reu.style.display = (REUNIONES_USERS.indexOf(usuarioActual()) !== -1) ? '' : 'none';
+  if(reu) reu.style.display = pf.reuniones ? '' : 'none';
   // ARICCAME: cáñamo y cannabis solo para quienes lo tienen habilitado
-  const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
+  const verAric = !!pf.aric;
   document.querySelectorAll('#rielItems [data-nav="ariccame"]').forEach(b => b.style.display = verAric ? '' : 'none');
+  const us = document.querySelector('#rielItems [data-nav="usuarios"]');
+  if(us) us.style.display = pf.admin ? '' : 'none';
 }
 // Un encabezado de grupo no tiene sentido si ninguno de sus módulos está visible.
 function rielOcultarGruposVacios(){
@@ -16874,11 +17615,12 @@ function permisoPagina(p) {
   if (p === 'expedientes') return !!pf.expedientes;
   if (p === 'caja') return pf.cajaJud !== false;
   if (p === 'cajasoc') return !!pf.cajaSoc;
-  if (p === 'ariccame') return ARIC_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'abonos') return ABONOS_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'ingresos') return INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'welegal') return WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
-  if (p === 'reuniones') return REUNIONES_USERS.indexOf(usuarioActual()) !== -1;
+  if (p === 'ariccame') return !!pf.aric;
+  if (p === 'abonos') return !!pf.abonos;
+  if (p === 'ingresos') return !!pf.ingresos;
+  if (p === 'welegal') return !!pf.welegal;
+  if (p === 'reuniones') return !!pf.reuniones;
+  if (p === 'usuarios') return !!pf.admin;
   return true;
 }
 function aplicarPermisos() {
@@ -16894,20 +17636,23 @@ function aplicarPermisos() {
   const pv = document.getElementById('panelInicioVenc');
   if (pv) pv.style.display = pf.inicioJud ? '' : 'none';
   document.body.classList.toggle('caja-ori', pf.cajaJud === 'ori');
+  document.body.classList.toggle('cajasoc-gastos', pf.cajaSoc === 'gastos');
+  cajaSocAjustarTipo();
   document.body.classList.toggle('sin-jud', !pf.inicioJud);
   document.body.classList.toggle('inicio-crm-first', usuarioActual() === 'ivana');
   document.body.classList.toggle('inicio-kevin', usuarioActual() === 'kevindaich');
   document.body.classList.toggle('inicio-sofig', usuarioActual() === 'sofig');
   // ARICCAME: visible sólo para NAZA, KEVIN, SOFI G e IVANA
-  const verAric = ARIC_USERS.indexOf(usuarioActual()) !== -1;
+  const verAric = !!pf.aric;
   document.querySelectorAll('[data-nav-aric]').forEach(w => w.style.display = verAric ? '' : 'none');
-  const verAbonos = ABONOS_USERS.indexOf(usuarioActual()) !== -1;
+  const verAbonos = !!pf.abonos;
   document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
-  const verIngresos = INGRESOS_USERS.indexOf(usuarioActual()) !== -1;
+  document.querySelectorAll('[data-nav="usuarios"]').forEach(b => b.style.display = pf.admin ? '' : 'none');
+  const verIngresos = !!pf.ingresos;
   document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
-  const verWeLegal = WELEGAL_USERS.indexOf(usuarioActual()) !== -1;
+  const verWeLegal = !!pf.welegal;
   document.querySelectorAll('[data-nav="welegal"]').forEach(b => b.style.display = verWeLegal ? '' : 'none');
-  const verReu = REUNIONES_USERS.indexOf(usuarioActual()) !== -1;
+  const verReu = !!pf.reuniones;
   document.querySelectorAll('[data-nav="reuniones"]').forEach(b => b.style.display = verReu ? '' : 'none');
   rielConstruir();
   rielAjustarPermisos();
@@ -17040,6 +17785,28 @@ async function intentarLogin() {
 }
 
 // ── Arranque ──
+try { loadUsuariosDB(); } catch (e) {}
+// Atajo de la cuenta técnica para mirar el sistema con accesos recortados
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.altKey && e.shiftKey && String(e.key || '').toLowerCase() === 'k'){
+    if (typeof esCuentaSistema === 'function' && esCuentaSistema(usuarioActual())){
+      e.preventDefault();
+      sysAlternarVista();
+    }
+  }
+});
+// Cuando se vence el rato, la vista completa vuelve sola
+setInterval(() => {
+  try {
+    if (!esCuentaSistema(usuarioActual())) return;
+    const marcada = document.body.dataset.sysVista === '1';
+    const ahora = sysVistaLimitada();
+    if (marcada !== ahora){
+      document.body.dataset.sysVista = ahora ? '1' : '0';
+      if (!ahora && typeof aplicarPermisos === 'function') aplicarPermisos();
+    }
+  } catch(e){}
+}, 15000);
 loadConfig();
 loadCaja();
 loadCajaSoc();
@@ -17340,7 +18107,7 @@ function clienteVacio() {
   return {
     id: Date.now(),
     entidad: '', tipo: 'AC', estado: '', cuit: '', registro: 'IGJ',
-    encargada: '', referente: '', telefono: '', mail: '', driveLink: '',
+    encargada: '', referente: '', telefono: '', mail: '', driveLink: '', provincia: '',
     reproTienen: 'no_aplica', reproFechaSol: '', repro3132Fecha: '', repro3132Exp: '',
     repro1780Fecha: '', repro1780Exp: '', reproComplFecha: '',
     reproAmparo: false, reproAmparoFecha: '', reproAprobFecha: '',
@@ -17626,6 +18393,7 @@ function crmCamposEditados(c){
   if (c.mail) out.push('mail');
   if (c.referente) out.push('referente');
   if (c.driveLink) out.push('Drive');
+  if (c.provincia) out.push('provincia');
   if ((c.bitacora || []).length) out.push('bitácora');
   if ((c.reuniones || []).length) out.push('reuniones');
   if ((c.tramites || []).length) out.push('trámites');
@@ -18114,7 +18882,7 @@ function abrirNuevoCliente(prefill) {
   }
   // Prefill opcional (ej: desde caja con el nombre ya escrito)
   ov.querySelector('#nc_entidad').value = (prefill && prefill.entidad) || '';
-  ['tipo','estado','cuit','registro','encargada','referente','telefono','mail','driveLink',
+  ['tipo','estado','cuit','registro','encargada','referente','telefono','mail','driveLink','provincia',
    'reproTienen','reproFechaSol','reproAprobFecha','packTipo','packSituacion','packEstadoTxt','packVence',
    'docPendiente_sel','docPendienteQue','proximoContacto','proximoNota','bitaNota','observaciones'].forEach(k => {
     const el = ov.querySelector('#nc_' + k); if (el) el.value = '';
@@ -18140,7 +18908,7 @@ function guardarNuevoCliente() {
   const datos = {
     entidad, tipo: g('tipo'), estado: g('estado'), cuit: g('cuit'), registro: g('registro'),
     encargada: g('encargada'), referente: g('referente'), telefono: g('telefono'),
-    mail: g('mail'), driveLink: g('driveLink'),
+    mail: g('mail'), driveLink: g('driveLink'), provincia: g('provincia'),
     reproTienen: g('reproTienen'), reproFechaSol: g('reproFechaSol'), reproAprobFecha: g('reproAprobFecha'),
     packTipo: g('packTipo'), packSituacion: g('packSituacion') || 'vigente', packEstadoTxt: g('packEstadoTxt'), packVence: fechaAISO(g('packVence')) || '',
     docPendiente: gc('docPendiente'), docPendienteQue: g('docPendienteQue'),
@@ -18189,6 +18957,7 @@ function htmlFormNuevoCliente() {
           <div class="crm-fld"><label>Registro</label><select id="nc_registro"><option value="IGJ">IGJ</option><option value="DPPJ">DPPJ</option><option value="INAES">INAES</option><option value="Otro">Otro</option></select></div>
           <div class="crm-fld"><label>Encargada</label><select id="nc_encargada">${opcionesEncargada('')}</select></div>
           <div class="crm-fld"><label>Referente</label><input id="nc_referente" placeholder="Nombre del referente"></div>
+          <div class="crm-fld"><label>Provincia</label><input id="nc_provincia" placeholder="Ej: Buenos Aires"></div>
           <div class="crm-fld"><label>Teléfono</label><input id="nc_telefono" placeholder="+54 9 11 ..."></div>
           <div class="crm-fld"><label>Mail</label><input id="nc_mail" placeholder="cliente@mail.com"></div>
           <div class="crm-fld"><label>Link carpeta Drive</label><input id="nc_driveLink" placeholder="https://drive.google.com/..."></div>
@@ -18352,7 +19121,7 @@ function guardarSeccion(id, sec) {
   const cambios = {};
 
   if (sec === 'identidad') {
-    ['entidad', 'tipo', 'estado', 'cuit', 'registro', 'encargada', 'referente', 'telefono', 'mail', 'driveLink'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
+    ['entidad', 'tipo', 'estado', 'cuit', 'registro', 'encargada', 'referente', 'telefono', 'mail', 'driveLink', 'provincia'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
   } else if (sec === 'repro') {
     ['reproTienen', 'reproFechaSol', 'repro3132Fecha', 'repro3132Exp', 'repro1780Fecha', 'repro1780Exp', 'reproComplFecha', 'reproAmparoFecha', 'reproAprobFecha'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
     const amp = gc('reproAmparo'); if (amp !== undefined) cambios.reproAmparo = amp;
@@ -18895,6 +19664,7 @@ function accIdentidad(c, editar) {
       <div class="crm-fld"><label>Referente</label><input id="f_referente" value="${esc(c.referente || '')}"></div>
       <div class="crm-fld"><label>Teléfono</label><input id="f_telefono" value="${esc(c.telefono || '')}"></div>
       <div class="crm-fld"><label>Mail</label><input id="f_mail" value="${esc(c.mail || '')}"></div>
+      <div class="crm-fld"><label>Provincia</label><input id="f_provincia" value="${esc(c.provincia || '')}" placeholder="Ej: Buenos Aires"></div>
       <div class="crm-fld"><label>Link Drive</label><input id="f_driveLink" value="${esc(c.driveLink || '')}"></div>
       </div>
       <div class="crm-sec-btns"><button class="crm-btn-cancelar" onclick="toggleEditSeccion(${id},'identidad')">Cancelar</button><button class="crm-btn-guardar" onclick="guardarSeccion(${id},'identidad')">Guardar sección</button></div>`;
@@ -18904,6 +19674,7 @@ function accIdentidad(c, editar) {
       <div class="crm-dato"><span>Referente</span><b>${val(c.referente)}</b></div>
       <div class="crm-dato"><span>Teléfono</span><b>${val(c.telefono)}</b></div>
       <div class="crm-dato"><span>Mail</span><b>${val(c.mail)}</b></div>
+      <div class="crm-dato"><span>Provincia</span><b>${val(c.provincia)}</b></div>
       <div class="crm-dato"><span>Carpeta Drive</span><b>${c.driveLink ? `<a href="${esc(normalizarLink(c.driveLink))}" target="_blank" rel="noopener">📁 Abrir carpeta</a>` : '—'}</b></div>
       <div class="crm-dato"><span>CUIT</span><b>${val(c.cuit)}</b></div>
       <div class="crm-dato"><span>Registro</span><b>${val(c.registro)}</b></div>
