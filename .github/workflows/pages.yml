@@ -1,0 +1,42 @@
+# Publica el sitio en GitHub Pages sin pasar por el pipeline de Jekyll.
+# Ubicación en el repo: .github/workflows/pages.yml
+# Después de subirlo: Settings → Pages → Source → "GitHub Actions".
+
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # permite lanzarlo a mano desde la pestaña Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si se pisan dos publicaciones, gana la última y la anterior se cancela
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Traer el repo
+        uses: actions/checkout@v4
+
+      - name: Preparar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empaquetar la raíz del repo
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar
+        id: deploy
+        uses: actions/deploy-pages@v4
