@@ -1701,7 +1701,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-top-acc{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 /* ── Panel de administración de usuarios: misma estética que el CRM ── */
 .usr-lista{display:flex;flex-direction:column;gap:9px}
-.usr-row{background:var(--carta);border:1px solid var(--filo);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:start;transition:.13s}
+.usr-row{background:var(--carta);border:1px solid var(--filo);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:start;transition:.13s;cursor:pointer}
 .usr-row:hover{border-color:var(--sello);box-shadow:0 3px 14px rgba(27,58,107,.1)}
 .usr-row.baja{opacity:.62;background:var(--papel)}
 .usr-main{min-width:0}
@@ -1744,6 +1744,38 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .usr-plantillas{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .usr-plantilla{font-size:11.5px;font-weight:600;color:#5a5648;background:#f4f2ec;border:1px solid #ddd8cc;border-radius:20px;padding:6px 13px;cursor:pointer;font-family:inherit;transition:.13s}
 .usr-plantilla:hover{border-color:#b9b2a2}
+/* ── Módulo INASE: mismo lenguaje visual que el CRM ── */
+.ina-grupo{margin-bottom:20px}
+.ina-grupo-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sello);border-bottom:2px solid var(--sello);display:inline-block;padding-bottom:3px;margin-bottom:11px}
+.ina-lista{display:flex;flex-direction:column;gap:9px}
+.ina-row{background:var(--carta);border:1px solid var(--filo);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:8px 16px;cursor:pointer;transition:.13s;align-items:start}
+.ina-row:hover{border-color:var(--sello);box-shadow:0 3px 14px rgba(27,58,107,.1)}
+.ina-main{min-width:0}
+.ina-nombre{font-size:14px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.02em}
+.ina-nombre .n{border-left:3px solid #c9a961;padding-left:9px;color:var(--tinta);line-height:1.3}
+.ina-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;background:var(--crm-azul-bg,#eef2f8);color:var(--crm-azul,#1b3a6b)}
+.ina-tag.ok{background:var(--crm-verde-bg,#e6f3ec);color:var(--crm-verde,#1e7a48)}
+.ina-tag.warn{background:#f8f1de;color:#8a6d1f}
+.ina-tag.mal{background:var(--crm-rojo-bg,#f9e3df);color:var(--crm-rojo,#b3372a)}
+.ina-datos{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:12px;color:var(--tinta-suave)}
+.ina-datos b{color:var(--tinta);font-weight:600}
+.ina-obs{font-size:12px;color:var(--tinta-suave);margin-top:8px;font-style:italic;line-height:1.45;max-width:640px;background:#faf9f4;border-left:3px solid var(--laurel,#c9a961);padding:7px 11px;border-radius:0 6px 6px 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ina-acc{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.ina-btn{font-size:11.5px;font-weight:600;color:#5a5648;background:#f4f2ec;border:1px solid #ddd8cc;border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:.13s}
+.ina-btn:hover{border-color:#b9b2a2}
+.ina-btn.mal{color:#b3372a;border-color:#e4c4c0}
+.ina-btn.mal:hover{background:#faf0ee}
+.ina-vacio{padding:26px;text-align:center;color:var(--tinta-suave);font-size:13px;background:var(--carta);border:1px dashed var(--filo);border-radius:11px}
+.ina-nota{font-size:12px;color:var(--tinta-suave);font-style:italic;line-height:1.45;background:#faf9f4;border-left:3px solid var(--laurel,#c9a961);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:16px}
+.ina-subtabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:2px solid var(--filo);overflow-x:auto}
+.ina-subtabs button{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--tinta-suave);background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;padding:10px 14px;cursor:pointer;white-space:nowrap}
+.ina-subtabs button.on{color:#14294a;border-bottom-color:#c9a961}
+.ina-subtabs button:hover{color:var(--tinta)}
+.ina-pass{display:flex;gap:6px;align-items:stretch}
+.ina-pass input{flex:1;min-width:0}
+.ina-ojo{flex:0 0 auto;border:1px solid var(--filo);background:var(--papel);border-radius:8px;padding:0 11px;cursor:pointer;font-size:14px;line-height:1;opacity:.55;transition:.13s}
+.ina-ojo:hover{opacity:.85}
+.ina-ojo.on{opacity:1;background:var(--crm-azul-bg,#eef2f8);border-color:#9db9dd}
 
 .abo-m-avisado{flex:0 0 auto;width:90px;display:flex;align-items:center;justify-content:center}
 .abo-row-head .abo-m-avisado{font-size:10.5px}
@@ -3844,6 +3876,25 @@ body.locked .app{margin-left:0}
 
 <div id="usuarioModal" class="crm-modal-ov" onclick="if(event.target===this)usuarioCerrarModal()">
   <div id="usuarioModalBody"></div>
+</div>
+
+<div id="paginaInase" class="page-shell" style="display:none">
+  <div class="page-body">
+    <div class="page-inner">
+      <div class="page-head">
+        <div class="hero-eyebrow">Registro Nacional de Cultivares</div>
+        <h1 class="hero-title">INASE · <em>trámites y renovaciones</em></h1>
+        <div class="doble-filete"></div>
+        <div class="crm-mini-wrap"><span id="inaseMini" class="crm-mini"></span></div>
+      </div>
+      <div id="inaseSubtabs"></div>
+      <div id="inasePanel"></div>
+    </div>
+  </div>
+</div>
+
+<div id="inaseModal" class="crm-modal-ov" onclick="if(event.target===this)inaseCerrarModal()">
+  <div id="inaseModalBody"></div>
 </div>
 
 <script>
@@ -6990,8 +7041,9 @@ async function __sbCargarTodoInterno() {
       saveUsuariosDB();
       const yo = usuarioActual();
       const mio = usuarioFila(yo);
-      // Si le bloquearon el acceso mientras estaba adentro, se lo saca acá
-      if (mio && mio.activo === false){
+      // Si le bloquearon el acceso mientras estaba adentro, se lo saca acá.
+      // La cuenta técnica queda afuera de este corte: es la que mantiene el sistema.
+      if (mio && mio.activo === false && !esCuentaSistema(yo)){
         alert('Tu acceso al sistema fue dado de baja. Consultá con el estudio.');
         try { cerrarSesion(); } catch(e){}
         return false;
@@ -7060,6 +7112,10 @@ async function __sbCargarTodoInterno() {
     }
 
     // Caja societaria
+    try {
+      const rIna = await sbSelect('inase').catch(() => null);
+      if (Array.isArray(rIna)) { INASE = rIna.map(filaAInase); saveInase(); }
+    } catch(e){}
     if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'cargado_por'))
       SB_TIENE_CARGADO_POR = true;
     if (rCajaSoc) {
@@ -7423,7 +7479,7 @@ function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 const PAGE_IDS = {
   inicio:'paginaInicio', jurisprudencia:'paginaJurisprudencia',
   expedientes:'paginaExpedientes', agenda:'paginaAgenda', cajasoc:'paginaCajaSoc',
-  caja:'paginaCaja', crm:'paginaCRM', reuniones:'paginaReuniones', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas', usuarios:'paginaUsuarios'
+  caja:'paginaCaja', crm:'paginaCRM', reuniones:'paginaReuniones', ariccame:'paginaAriccame', abonos:'paginaAbonos', ingresos:'paginaIngresos', welegal:'paginaWeLegal', herramientas:'paginaHerramientas', usuarios:'paginaUsuarios', inase:'paginaInase'
 };
 // Abre la hoja de prueba de una causa puntual desde cualquier lugar del sitio
 function verCausa(id) {
@@ -12224,6 +12280,7 @@ function __navToInterno(p) {
     rielMarcarActivo(p);
     if (p === 'herramientas') { limpiarHerramientas(); renderFeriados(); renderFerias(); }
     if (p === 'usuarios') { renderUsuarios(); }
+    if (p === 'inase') { renderInase(); }
   } catch(e) { console.error(e); }
 }
 
@@ -17051,7 +17108,7 @@ function usuarioActual() {
 // de administración. Mientras esa tabla no exista (o esté vacía), el sistema cae
 // en las listas escritas más arriba, así nada se rompe antes de correr el SQL.
 const PERM_VACIO = { expedientes:false, cajaJud:false, cajaSoc:false, inicioJud:false,
-  aric:false, abonos:false, ingresos:false, welegal:false, reuniones:false, admin:false };
+  aric:false, abonos:false, ingresos:false, welegal:false, reuniones:false, inase:false, admin:false };
 // Qué se puede tildar en el panel. 'sel' es un acceso parcial.
 const PERM_MODULOS = [
   { k:'expedientes', txt:'Expedientes',            tipo:'bool' },
@@ -17066,19 +17123,20 @@ const PERM_MODULOS = [
   { k:'ingresos',    txt:'Control financiero',     tipo:'bool' },
   { k:'reuniones',   txt:'Reuniones',              tipo:'bool' },
   { k:'aric',        txt:'ARICCAME',               tipo:'bool' },
+  { k:'inase',       txt:'INASE',                  tipo:'bool' },
   { k:'admin',       txt:'Administrar usuarios',   tipo:'bool',
     ayuda:'Puede dar de alta, bloquear y cambiar los accesos de los demás' }
 ];
 // Jurisprudencia, Agenda, CRM y Herramientas los ve todo el mundo.
 const PERM_PLANTILLAS = [
   { id:'total',   txt:'Acceso total',
-    p:{ expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true, welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, admin:false } },
+    p:{ expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true, welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, inase:true, admin:false } },
   { id:'societario', txt:'Societario (como Brenda)',
     p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:true, welegal:true, abonos:true, ingresos:false, reuniones:true, aric:false, admin:false } },
   { id:'judicial', txt:'Judicial parcial (como Ori)',
     p:{ expedientes:true, inicioJud:true, cajaJud:'ori', cajaSoc:false, welegal:false, abonos:false, ingresos:false, reuniones:false, aric:false, admin:false } },
   { id:'gastos',  txt:'Carga de gastos (como Naza)',
-    p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:'gastos', welegal:false, abonos:false, ingresos:false, reuniones:false, aric:true, admin:false } },
+    p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:'gastos', welegal:false, abonos:false, ingresos:false, reuniones:false, aric:true, inase:true, admin:false } },
   { id:'minimo',  txt:'Mínimo (CRM y agenda)',
     p:{ expedientes:false, inicioJud:false, cajaJud:false, cajaSoc:false, welegal:false, abonos:false, ingresos:false, reuniones:false, aric:false, admin:false } }
 ];
@@ -17093,7 +17151,7 @@ const SYS_CUENTA_MAIL = 'kevin@welegal.ar';
 const SYS_VISTA_KEY = 'jc-sys-vista-v1';
 const SYS_VISTA_MS = 60 * 60 * 1000;   // una hora
 const PERM_SISTEMA = { expedientes:true, inicioJud:true, cajaJud:'full', cajaSoc:true,
-  welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, admin:true };
+  welegal:true, abonos:true, ingresos:true, reuniones:true, aric:true, inase:true, admin:true };
 function esCuentaSistema(x){
   const v = String(x || '').trim().toLowerCase();
   return v === SYS_CUENTA || v === SYS_CUENTA_MAIL;
@@ -17135,6 +17193,7 @@ function permisosLegado(u){
   const base = PERFILES[(u && USUARIOS[u] && USUARIOS[u].perfil) || 'total'] || PERFILES.total;
   return Object.assign({}, PERM_VACIO, base, {
     aric:      ARIC_USERS.indexOf(u) !== -1,
+    inase:     INASE_USERS.indexOf(u) !== -1,
     abonos:    ABONOS_USERS.indexOf(u) !== -1,
     ingresos:  INGRESOS_USERS.indexOf(u) !== -1,
     welegal:   WELEGAL_USERS.indexOf(u) !== -1,
@@ -17205,6 +17264,12 @@ function usuarioAdminsActivos(){
 // Módulos que ve todo el mundo y no se pueden restringir
 const PERM_GENERALES = ['Inicio', 'Jurisprudencia', 'Agenda', 'CRM', 'Herramientas'];
 // Cómo se muestra cada acceso restringible en la ficha de la persona
+// La cuenta técnica administra sin anunciarlo: en pantalla figura como uno más.
+function permisosVista(u){
+  const p = permisosNormalizar(u && u.permisos);
+  if (u && esCuentaSistema(u.usuario)) p.admin = false;
+  return p;
+}
 function usuariosChipsAcceso(p){
   const perm = permisosNormalizar(p);
   const chip = (txt, estado) => `<span class="usr-chip ${estado}">${esc(txt)}</span>`;
@@ -17257,8 +17322,8 @@ function renderUsuarios(){
   const tarjeta = u => {
     const activo = u.activo !== false;
     const esYo = u.usuario === yo;
-    const esAdmin = permisosNormalizar(u.permisos).admin;
-    return `<div class="usr-row ${activo ? '' : 'baja'}">
+    const esAdmin = permisosVista(u).admin;
+    return `<div class="usr-row ${activo ? '' : 'baja'}" onclick="usuarioAbrirEditar('${u.usuario}')">
       <div class="usr-main">
         <div class="usr-nombre">
           <span class="n">${esc(u.nombre || u.usuario)}</span>
@@ -17270,18 +17335,17 @@ function renderUsuarios(){
         <div class="usr-grupo">Acceso general</div>
         <div class="usr-chips">${usuariosChipsGenerales()}</div>
         <div class="usr-grupo">Módulos</div>
-        <div class="usr-chips">${usuariosChipsAcceso(u.permisos)}</div>
+        <div class="usr-chips">${usuariosChipsAcceso(permisosVista(u))}</div>
       </div>
       <div class="usr-acc">
         <div class="usr-btns">
-          <button class="usr-btn" onclick="usuarioAbrirEditar('${u.usuario}')">Accesos</button>
-          <button class="usr-btn" onclick="usuarioResetPass('${u.usuario}')" title="Le llega un mail para que elija una contraseña nueva">Restablecer contraseña</button>
+          <button class="usr-btn" onclick="event.stopPropagation();usuarioAbrirEditar('${u.usuario}')">Accesos</button>
+          <button class="usr-btn" onclick="event.stopPropagation();usuarioResetPass('${u.usuario}')" title="Le llega un mail para que elija una contraseña nueva">Restablecer contraseña</button>
         </div>
         <div class="usr-btns">
           ${activo
-            ? `<button class="usr-btn mal" onclick="usuarioBloquear('${u.usuario}')" ${esYo ? 'disabled title="No podés bloquearte a vos misma"' : ''}>Bloquear</button>`
-            : `<button class="usr-btn" onclick="usuarioReactivar('${u.usuario}')">Reactivar</button>
-               <button class="usr-btn mal" onclick="usuarioQuitar('${u.usuario}')" title="Sacarlo de la lista">Quitar</button>`}
+            ? `<button class="usr-btn mal" onclick="event.stopPropagation();usuarioBloquear('${u.usuario}')" ${esYo ? 'disabled title="No podés bloquearte a vos misma"' : ''}>Bloquear</button>`
+            : `<button class="usr-btn" onclick="event.stopPropagation();usuarioReactivar('${u.usuario}')">Reactivar</button>`}
         </div>
       </div>
     </div>`;
@@ -17372,7 +17436,7 @@ function usuarioPintarModal(u){
       <div class="crm-fsec">
         <div class="crm-fsec-h">Accesos</div>
         <div class="crm-editor-note">Inicio, Jurisprudencia, Agenda, CRM y Herramientas los ve todo el mundo: no aparecen acá.</div>
-        <div class="usr-perm-grid">${usuarioFormPermisos(esAlta ? {} : u.permisos)}</div>
+        <div class="usr-perm-grid">${usuarioFormPermisos(esAlta ? {} : permisosVista(u))}</div>
       </div>
       ${esAlta ? '<div class="crm-editor-note">Al crearlo le llega un mail con un link para que ponga su propia contraseña.</div>' : ''}
       <div class="crm-modal-foot">
@@ -17478,15 +17542,327 @@ async function usuarioReactivar(slug){
   try { await sbPushUsuario(u); } catch(e){ sbAvisarError(e); }
   renderUsuarios(); aricToast('Acceso reactivado');
 }
-async function usuarioQuitar(slug){
-  if (!perfilActual().admin) return;
-  const u = usuarioFila(slug); if (!u) return;
-  if (u.activo !== false){ alert('Bloquealo primero.'); return; }
-  if (!confirm('¿Sacar a ' + (u.nombre || slug) + ' de la lista?\n\nOjo: la cuenta de mail y contraseña sigue existiendo en Supabase, solo que sin ningún acceso. Para borrarla del todo hay que hacerlo desde el panel de Supabase, en Authentication.')) return;
-  USUARIOS_DB = usuariosFilas().filter(x => x.usuario !== slug);
-  saveUsuariosDB();
-  if (u.id && typeof SB_ON !== 'undefined' && SB_ON) sbDelete('usuarios', u.id).catch(sbAvisarError);
-  renderUsuarios(); aricToast('Usuario quitado de la lista');
+// ═══════════════ MÓDULO INASE ═══════════════
+// Cada solapa replica una hoja de la planilla que se venía usando. Un registro
+// guarda { solapa, grupo, datos:{...} }: el grupo es el subtítulo que en la
+// planilla separaba bloques de filas ("No renovaron al final", "MAYO", etc.).
+const INASE_KEY = 'jc-inase-v1';
+let INASE = [];
+let INASE_SOLAPA = 'contactos';
+let INASE_Q = '';
+let INASE_FILTRO = '';   // valor del filtro propio de la solapa (ej: período)
+let INASE_EDIT = null;   // id en edición; null = alta
+
+const INASE_ESTADOS = ['', 'RENOVADO', 'EN TRÁMITE', 'PENDIENTE DE PAGO', 'PRESENTADO', 'INSCRIPTO', 'NO CONTINÚA'];
+const INASE_CATS = ['', 'A', 'B', 'E', 'F', 'H', 'K', 'A y F', 'A y K', 'F y K'];
+const INASE_TIENE = ['', 'Solicita por primera vez', 'Vigente', 'VENCIDO'];
+// Períodos de renovación ya usados. La ficha los sugiere, pero se puede escribir uno nuevo.
+const INASE_PERIODOS = ['Abril 2026 · Res. 121/2026', 'Marzo 2026', 'Noviembre 2025 · Res. 484/2025'];
+const INASE_LISTAS = { INASE_PERIODOS: INASE_PERIODOS };
+
+const INASE_SOLAPAS = [
+  { id:'contactos', txt:'Contactos ARICCAME', sub:'Clientes que contactaron por las licencias de ARICCAME para obtener INASE',
+    titulo:'nombre', obs:'comentarios',
+    cols:[
+      { k:'nombre',      txt:'Nombre' },
+      { k:'telefono',    txt:'Teléfono' },
+      { k:'tieneInase',  txt:'Tiene INASE', tipo:'select', ops:INASE_TIENE, tag:true },
+      { k:'comentarios', txt:'Comentarios', tipo:'larga' }
+    ] },
+  { id:'renovaciones', txt:'Renovaciones', sub:'Renovaciones anuales · una ficha por período',
+    titulo:'nombre', obs:'ultimoContacto', filtro:{ k:'periodo', txt:'Período' },
+    cols:[
+      { k:'nombre',      txt:'Nombre' },
+      { k:'periodo',     txt:'Período', lista:'INASE_PERIODOS', tag:true },
+      { k:'usuario',     txt:'Usuario INASE' },
+      { k:'clave',       txt:'Contraseña', tipo:'pass' },
+      { k:'categoria',   txt:'Categoría', tipo:'select', ops:INASE_CATS, tag:true },
+      { k:'honorarios',  txt:'Pago honorarios', resumen:true },
+      { k:'ingeniero',   txt:'Pago ingeniero', resumen:true },
+      { k:'vep',         txt:'Pago VEP', resumen:true },
+      { k:'mail',        txt:'Mail enviado' },
+      { k:'certificado', txt:'Certificado de establecimiento' },
+      { k:'comprobante', txt:'Comprobante' },
+      { k:'ultimoContacto', txt:'Último contacto', tipo:'larga' },
+      { k:'estado',      txt:'Estado', tipo:'select', ops:INASE_ESTADOS, tag:true }
+    ] },
+  { id:'tramites', txt:'Trámites', sub:'Trámites de INASE en curso',
+    titulo:'nombre', obs:'gestion',
+    cols:[
+      { k:'nombre',      txt:'Nombre' },
+      { k:'carpeta',     txt:'Carpeta' },
+      { k:'contacto',    txt:'Contacto', resumen:true },
+      { k:'tramite',     txt:'Trámite' },
+      { k:'honorarios',  txt:'Honorarios abogados', resumen:true },
+      { k:'ingeniero',   txt:'Honorarios ingeniero' },
+      { k:'pago',        txt:'Fecha de pago / CBU', tipo:'larga' },
+      { k:'categoria',   txt:'Categoría / predios', tag:true },
+      { k:'inicio',      txt:'Fecha de inicio', tipo:'larga' },
+      { k:'inscripcion', txt:'Fecha de inscripción', tipo:'larga' },
+      { k:'presentacion',txt:'N° de presentación' },
+      { k:'expediente',  txt:'Expediente' },
+      { k:'gestion',     txt:'Gestión INASE', tipo:'larga' },
+      { k:'cuit',        txt:'CUIT y clave fiscal', tipo:'larga' }
+    ] },
+  { id:'predios', txt:'Predios y traslados', sub:'Agrega predio · traslados · cambios',
+    titulo:'nombre', obs:'estado',
+    cols:[
+      { k:'nombre',     txt:'Nombre' },
+      { k:'carpeta',    txt:'Carpeta' },
+      { k:'honorarios', txt:'Honorarios', tipo:'larga', resumen:true },
+      { k:'ddjj',       txt:'DDJJ y modelo de mail', tipo:'larga' },
+      { k:'estado',     txt:'Estado del trámite', tipo:'larga' }
+    ] },
+  { id:'inscriptos', txt:'Inscriptos', sub:'Trámites ya inscriptos en el RNCyFS',
+    titulo:'nombre', obs:'gestion',
+    cols:[
+      { k:'nombre',      txt:'Nombre' },
+      { k:'carpeta',     txt:'Carpeta' },
+      { k:'contacto',    txt:'Contacto', resumen:true },
+      { k:'tramite',     txt:'Trámite' },
+      { k:'honorarios',  txt:'Honorarios abogados' },
+      { k:'ingeniero',   txt:'Honorarios ingeniero' },
+      { k:'pago',        txt:'Fecha de pago / CBU', tipo:'larga' },
+      { k:'categoria',   txt:'Categoría / predios', tag:true },
+      { k:'inicio',      txt:'Fecha de inicio', tipo:'larga' },
+      { k:'inscripcion', txt:'Fecha de inscripción', tipo:'larga', resumen:true },
+      { k:'presentacion',txt:'N° de presentación' },
+      { k:'expediente',  txt:'Expediente' },
+      { k:'usuario',     txt:'Usuario INASE' },
+      { k:'clave',       txt:'Contraseña', tipo:'pass' },
+      { k:'cuit',        txt:'CUIT y clave fiscal', tipo:'larga' },
+      { k:'gestion',     txt:'Observaciones', tipo:'larga' }
+    ] },
+  { id:'anual', txt:'Renovación anual', sub:'Histórico de renovaciones anuales',
+    titulo:'nombre', obs:'renovacion',
+    cols:[
+      { k:'nombre',      txt:'Nombre' },
+      { k:'contacto',    txt:'Contacto', resumen:true },
+      { k:'tramite',     txt:'Trámite' },
+      { k:'categoria',   txt:'Categoría', tag:true },
+      { k:'inicio',      txt:'Fecha de inicio', tipo:'larga' },
+      { k:'inscripcion', txt:'Fecha de inscripción', tipo:'larga', resumen:true },
+      { k:'gestion',     txt:'Gestión INASE', tipo:'larga' },
+      { k:'renovacion',  txt:'Renovación anual', tipo:'larga' },
+      { k:'presentacion',txt:'N° de presentación' },
+      { k:'expediente',  txt:'Expediente' },
+      { k:'cuit',        txt:'CUIT y clave fiscal', tipo:'larga' },
+      { k:'carpeta',     txt:'Carpeta' }
+    ] }
+];
+function inaseSolapa(id){ return INASE_SOLAPAS.find(s => s.id === (id || INASE_SOLAPA)) || INASE_SOLAPAS[0]; }
+
+// ── Persistencia ──
+function loadInase(){
+  try { const v = JSON.parse(appStore.getItem(INASE_KEY) || '[]'); INASE = Array.isArray(v) ? v : []; }
+  catch(e){ INASE = []; }
+}
+function saveInase(){ try { appStore.setItem(INASE_KEY, JSON.stringify(INASE)); } catch(e){} }
+function inaseAFila(r){ return { id: Number(r.id), solapa: r.solapa || '', grupo: r.grupo || '', orden: Number(r.orden) || 0, datos: r.datos || {} }; }
+function filaAInase(f){ return { id: f.id, solapa: f.solapa || '', grupo: f.grupo || '', orden: Number(f.orden) || 0, datos: f.datos || {} }; }
+function sbPushInase(r){ if (typeof SB_ON !== 'undefined' && SB_ON) return sbUpsert('inase', inaseAFila(r)).catch(sbAvisarError); return Promise.resolve(); }
+function sbDelInase(id){ if (typeof SB_ON !== 'undefined' && SB_ON) sbDelete('inase', id).catch(sbAvisarError); }
+function inasePorId(id){ return INASE.find(r => String(r.id) === String(id)) || null; }
+function inaseNuevoId(){ let m = Date.now(); INASE.forEach(r => { const n = Number(r.id) || 0; if (n >= m) m = n + 1; }); return m; }
+function inaseDe(solapa){ return INASE.filter(r => r.solapa === solapa); }
+function inaseGrupos(solapa){
+  const set = new Set();
+  inaseDe(solapa).forEach(r => { if (r.grupo) set.add(r.grupo); });
+  return [...set].sort();
+}
+
+// ── Render ──
+function inaseIrSolapa(id){ INASE_SOLAPA = id; INASE_Q = ''; INASE_FILTRO = ''; renderInase(); }
+function inaseFiltrar(v){ INASE_FILTRO = v || ''; renderInase(); }
+// Valores presentes en la solapa para el campo que se usa como filtro
+function inaseValores(solapa, k){
+  const set = new Set();
+  inaseDe(solapa).forEach(r => { const v = (r.datos || {})[k]; if (v) set.add(v); });
+  return [...set].sort().reverse();
+}
+function inaseBuscar(v){ INASE_Q = (v || '').trim().toLowerCase(); inaseAplicarBusqueda(); }
+function inaseAplicarBusqueda(){
+  document.querySelectorAll('#inasePanel .ina-row').forEach(el => {
+    const txt = (el.dataset.busca || '');
+    el.style.display = (!INASE_Q || txt.indexOf(INASE_Q) !== -1) ? '' : 'none';
+  });
+  document.querySelectorAll('#inasePanel .ina-grupo').forEach(g => {
+    const hay = [...g.querySelectorAll('.ina-row')].some(el => el.style.display !== 'none');
+    g.style.display = hay ? '' : 'none';
+  });
+}
+function inaseTagClase(v){
+  const t = String(v || '').toUpperCase();
+  if (/RENOVADO|INSCRIPTO|VIGENTE|APROBAD/.test(t)) return 'ok';
+  if (/VENCID|NO CONTIN|BAJA|RECHAZ/.test(t)) return 'mal';
+  if (/PENDIENTE|TRÁMITE|TRAMITE|PRIMERA VEZ|PRESENTAD/.test(t)) return 'warn';
+  return '';
+}
+function renderInase(){
+  const cont = document.getElementById('inasePanel');
+  if (!cont) return;
+  const pag = document.getElementById('paginaInase');
+  if (pag && !pag.querySelector('.ribbon')){
+    const orig = document.querySelector('#paginaCRM .ribbon');
+    if (orig) pag.insertBefore(orig.cloneNode(true), pag.firstChild);
+  }
+  if (!INASE.length) loadInase();
+  const S = inaseSolapa();
+  const tabs = document.getElementById('inaseSubtabs');
+  if (tabs) tabs.innerHTML = '<div class="ina-subtabs">' + INASE_SOLAPAS.map(s =>
+    `<button class="${s.id === S.id ? 'on' : ''}" onclick="inaseIrSolapa('${s.id}')">${esc(s.txt)} <span style="opacity:.6">${inaseDe(s.id).length}</span></button>`).join('') + '</div>';
+
+  let filas = inaseDe(S.id).slice().sort((a,b) => (a.orden || 0) - (b.orden || 0));
+  if (S.filtro && INASE_FILTRO) filas = filas.filter(r => (r.datos || {})[S.filtro.k] === INASE_FILTRO);
+  const mini = document.getElementById('inaseMini');
+  if (mini) mini.textContent = filas.length + ' registro' + (filas.length !== 1 ? 's' : '') + ' en ' + S.txt.toLowerCase();
+
+  const tarjeta = r => {
+    const d = r.datos || {};
+    const titulo = d[S.titulo] || '(sin nombre)';
+    const tags = S.cols.filter(c => c.tag && d[c.k]).map(c =>
+      `<span class="ina-tag ${inaseTagClase(d[c.k])}">${esc(String(d[c.k]).slice(0,42))}</span>`).join('');
+    const resumen = S.cols.filter(c => c.resumen && d[c.k]).map(c =>
+      `<span>${esc(c.txt)}: <b>${esc(String(d[c.k]).slice(0,60))}</b></span>`).join('');
+    const obs = (S.obs && d[S.obs]) ? `<div class="ina-obs">${esc(String(d[S.obs]))}</div>` : '';
+    const busca = Object.values(d).join(' ').toLowerCase() + ' ' + (r.grupo || '').toLowerCase();
+    return `<div class="ina-row" data-busca="${esc(busca)}" onclick="inaseAbrirEditar(${r.id})">
+      <div class="ina-main">
+        <div class="ina-nombre"><span class="n">${esc(titulo)}</span>${tags}</div>
+        ${resumen ? `<div class="ina-datos">${resumen}</div>` : ''}
+        ${obs}
+      </div>
+      <div class="ina-acc">
+        <button class="ina-btn" onclick="event.stopPropagation();inaseAbrirEditar(${r.id})">Abrir ficha</button>
+        <button class="ina-btn mal" onclick="event.stopPropagation();inaseEliminar(${r.id})">Eliminar</button>
+      </div>
+    </div>`;
+  };
+
+  // Agrupado por el subtítulo que traía la planilla; los sueltos van primero
+  const grupos = [];
+  const sinGrupo = filas.filter(r => !r.grupo);
+  if (sinGrupo.length) grupos.push(['', sinGrupo]);
+  inaseGrupos(S.id).forEach(g => grupos.push([g, filas.filter(r => r.grupo === g)]));
+
+  cont.innerHTML = `
+    <div class="ina-nota">${esc(S.sub)}</div>
+    <div class="crm-toolbar">
+      <div class="crm-search"><input id="inaseBuscarInput" placeholder="Buscar en esta solapa…" oninput="inaseBuscar(this.value)"></div>
+      ${S.filtro ? `<select id="inaseFiltroSel" onchange="inaseFiltrar(this.value)">
+        <option value="">Todos los períodos</option>
+        ${inaseValores(S.id, S.filtro.k).map(v => `<option value="${esc(v)}"${INASE_FILTRO === v ? ' selected' : ''}>${esc(v)}</option>`).join('')}
+      </select>` : ''}
+      <button class="crm-btn-nuevo" onclick="inaseAbrirNuevo()">+ Nuevo registro</button>
+    </div>
+    ${filas.length
+      ? grupos.map(([g, lista]) => `<div class="ina-grupo">
+          ${g ? `<div class="ina-grupo-h">${esc(g)}</div>` : ''}
+          <div class="ina-lista">${lista.map(tarjeta).join('')}</div>
+        </div>`).join('')
+      : '<div class="ina-vacio">Todavía no hay registros en esta solapa. Cargá el primero con «Nuevo registro».</div>'}`;
+}
+
+// ── Ficha ──
+function inasePintarModal(r){
+  const body = document.getElementById('inaseModalBody'); if (!body) return;
+  const S = inaseSolapa();
+  const esAlta = !r;
+  const d = (r && r.datos) || {};
+  const campo = c => {
+    const val = d[c.k] || '';
+    if (c.tipo === 'pass'){
+      return `<div class="crm-fld"><label>${esc(c.txt)}</label>
+        <div class="ina-pass">
+          <input type="password" id="ina_${c.k}" value="${esc(val)}" autocomplete="new-password">
+          <button type="button" class="ina-ojo" onclick="inaseVerPass('${c.k}',this)" title="Mostrar u ocultar">👁</button>
+        </div></div>`;
+    }
+    if (c.lista){
+      const ops = INASE_LISTAS[c.lista] || [];
+      const usados = [...new Set(INASE.filter(x => x.solapa === S.id).map(x => (x.datos||{})[c.k]).filter(Boolean))];
+      const todas = [...new Set([...ops, ...usados])];
+      return `<div class="crm-fld"><label>${esc(c.txt)}</label>
+        <input type="text" id="ina_${c.k}" value="${esc(val)}" list="inaseLista_${c.k}" placeholder="Ej: ${esc(todas[0] || '')}">
+        <datalist id="inaseLista_${c.k}">${todas.map(o => `<option value="${esc(o)}">`).join('')}</datalist></div>`;
+    }
+    if (c.tipo === 'select'){
+      return `<div class="crm-fld"><label>${esc(c.txt)}</label>
+        <select id="ina_${c.k}">${(c.ops || []).map(o => `<option value="${esc(o)}"${String(val) === String(o) ? ' selected' : ''}>${esc(o || '— sin definir —')}</option>`).join('')}</select></div>`;
+    }
+    if (c.tipo === 'larga'){
+      return `<div class="crm-fld full"><label>${esc(c.txt)}</label>
+        <textarea id="ina_${c.k}" rows="2">${esc(val)}</textarea></div>`;
+    }
+    return `<div class="crm-fld"><label>${esc(c.txt)}</label>
+      <input type="text" id="ina_${c.k}" value="${esc(val)}"></div>`;
+  };
+  const grupos = inaseGrupos(S.id);
+  body.innerHTML = `<div class="crm-modal">
+    <div class="crm-modal-cab">
+      <button class="crm-modal-x" onclick="inaseCerrarModal()">✕</button>
+      <h2>${esAlta ? 'Nuevo registro' : esc(d[S.titulo] || '(sin nombre)')}</h2>
+      <div class="sub">${esc(S.txt)} · ${esc(S.sub)}</div>
+    </div>
+    <div class="crm-modal-body">
+      <div class="crm-fsec">
+        <div class="crm-fsec-h">Datos</div>
+        <div class="crm-fgrid">${S.cols.map(campo).join('')}</div>
+      </div>
+      <div class="crm-fsec">
+        <div class="crm-fsec-h">Ubicación en la solapa</div>
+        <div class="crm-editor-note">El bloque es el subtítulo que agrupa registros dentro de la solapa. Dejalo vacío si no corresponde.</div>
+        <div class="crm-fgrid">
+          <div class="crm-fld full"><label>Bloque</label>
+            <input type="text" id="ina_grupo" value="${esc((r && r.grupo) || '')}" list="inaseGruposList" placeholder="Ej: No renovaron al final">
+            <datalist id="inaseGruposList">${grupos.map(g => `<option value="${esc(g)}">`).join('')}</datalist></div>
+        </div>
+      </div>
+      <div class="crm-modal-foot">
+        ${esAlta ? '' : `<button class="crm-btn-cancelar" style="margin-right:auto;color:#b3372a;border-color:#e4c4c0" onclick="inaseEliminar(${r.id})">Eliminar</button>`}
+        <button class="crm-btn-cancelar" onclick="inaseCerrarModal()">Cancelar</button>
+        <button class="crm-btn-guardar" onclick="inaseGuardarModal()">${esAlta ? 'Crear registro' : 'Guardar cambios'}</button>
+      </div>
+    </div>
+  </div>`;
+  const m = document.getElementById('inaseModal'); if (m) m.classList.add('on');
+}
+// Ojo del campo de contraseña
+function inaseVerPass(k, btn){
+  const el = document.getElementById('ina_' + k); if (!el) return;
+  const ver = el.type === 'password';
+  el.type = ver ? 'text' : 'password';
+  if (btn) btn.classList.toggle('on', ver);
+}
+function inaseAbrirNuevo(){ INASE_EDIT = null; inasePintarModal(null); }
+function inaseAbrirEditar(id){ const r = inasePorId(id); if (!r) return; INASE_EDIT = r.id; inasePintarModal(r); }
+function inaseCerrarModal(){ const m = document.getElementById('inaseModal'); if (m) m.classList.remove('on'); INASE_EDIT = null; }
+function inaseGuardarModal(){
+  const S = inaseSolapa();
+  const datos = {};
+  S.cols.forEach(c => { const el = document.getElementById('ina_' + c.k); if (el) datos[c.k] = (el.value || '').trim(); });
+  const grupo = ((document.getElementById('ina_grupo') || {}).value || '').trim();
+  if (!datos[S.titulo]){ aricToast('Poné al menos el nombre'); return; }
+  let r = INASE_EDIT != null ? inasePorId(INASE_EDIT) : null;
+  if (r){ r.datos = datos; r.grupo = grupo; }
+  else {
+    const orden = inaseDe(S.id).reduce((a, x) => Math.max(a, x.orden || 0), 0) + 1;
+    r = { id: inaseNuevoId(), solapa: S.id, grupo, orden, datos };
+    INASE.push(r);
+  }
+  saveInase(); sbPushInase(r);
+  inaseCerrarModal(); renderInase();
+  aricToast(INASE_EDIT != null ? 'Registro guardado' : 'Registro creado');
+}
+function inaseEliminar(id){
+  const r = inasePorId(id); if (!r) return;
+  const S = inaseSolapa();
+  const nom = (r.datos || {})[S.titulo] || 'este registro';
+  if (!confirm('¿Eliminar «' + nom + '» de ' + S.txt + '?\n\nNo se puede deshacer.')) return;
+  INASE = INASE.filter(x => String(x.id) !== String(id));
+  saveInase(); sbDelInase(r.id);
+  inaseCerrarModal(); renderInase();
+  aricToast('Registro eliminado');
 }
 
 function sesionActiva() { return !!usuarioActual(); }
@@ -17504,6 +17880,7 @@ function cerrarSesion() {
   try { navTo('inicio'); } catch (e) {}
 }
 const ARIC_USERS = ['naza', 'kevindaich', 'sofig', 'ivana'];
+const INASE_USERS = ['naza', 'kevindaich', 'ivana'];
 const ABONOS_USERS = ['kevindaich', 'sofig', 'brenda', 'ivana'];
 const INGRESOS_USERS = ['kevindaich', 'ivana'];
 // Caja WE Legal (packs): lista cerrada, no depende del acceso a la caja societaria
@@ -17530,6 +17907,8 @@ const RIEL_ITEMS = [
   { grupo:'ARICCAME' },
   { nav:'ariccame',      emo:'🌱', txt:'Cáñamo',   sub:'Res. 1/2024',  tip:'ARICCAME', aric:'canamo',  go:"aricIr('canamo')" },
   { nav:'ariccame',      emo:'🌿', txt:'Cannabis', sub:'Res. 41/2026', tip:'ARICCAME', aric:'cannabis', go:"aricIr('cannabis')" },
+  { grupo:'INASE' },
+  { nav:'inase',         emo:'🌾', txt:'Trámites y renovaciones', sub:'RNCyFS', tip:'INASE', go:"navTo('inase')" },
   { grupo:'Sistema' },
   { nav:'herramientas',  emo:'🧮', txt:'Herramientas',    go:"navTo('herramientas')" },
   { nav:'usuarios',      emo:'🔑', txt:'Usuarios',  sub:'accesos del equipo', tip:'Administración', go:"navTo('usuarios')" }
@@ -17594,6 +17973,8 @@ function rielAjustarPermisos(){
   document.querySelectorAll('#rielItems [data-nav="ariccame"]').forEach(b => b.style.display = verAric ? '' : 'none');
   const us = document.querySelector('#rielItems [data-nav="usuarios"]');
   if(us) us.style.display = pf.admin ? '' : 'none';
+  const ina = document.querySelector('#rielItems [data-nav="inase"]');
+  if(ina) ina.style.display = pf.inase ? '' : 'none';
 }
 // Un encabezado de grupo no tiene sentido si ninguno de sus módulos está visible.
 function rielOcultarGruposVacios(){
@@ -17621,6 +18002,7 @@ function permisoPagina(p) {
   if (p === 'welegal') return !!pf.welegal;
   if (p === 'reuniones') return !!pf.reuniones;
   if (p === 'usuarios') return !!pf.admin;
+  if (p === 'inase') return !!pf.inase;
   return true;
 }
 function aplicarPermisos() {
@@ -17648,6 +18030,7 @@ function aplicarPermisos() {
   const verAbonos = !!pf.abonos;
   document.querySelectorAll('[data-nav="abonos"]').forEach(b => b.style.display = verAbonos ? '' : 'none');
   document.querySelectorAll('[data-nav="usuarios"]').forEach(b => b.style.display = pf.admin ? '' : 'none');
+  document.querySelectorAll('[data-nav="inase"]').forEach(b => b.style.display = pf.inase ? '' : 'none');
   const verIngresos = !!pf.ingresos;
   document.querySelectorAll('[data-nav="ingresos"]').forEach(b => b.style.display = verIngresos ? '' : 'none');
   const verWeLegal = !!pf.welegal;
@@ -17786,6 +18169,15 @@ async function intentarLogin() {
 
 // ── Arranque ──
 try { loadUsuariosDB(); } catch (e) {}
+try { loadInase(); } catch (e) {}
+// Escape cierra la ficha que esté abierta
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const usr = document.getElementById('usuarioModal');
+  if (usr && usr.classList.contains('on')){ e.preventDefault(); usuarioCerrarModal(); return; }
+  const ina = document.getElementById('inaseModal');
+  if (ina && ina.classList.contains('on')){ e.preventDefault(); inaseCerrarModal(); }
+});
 // Atajo de la cuenta técnica para mirar el sistema con accesos recortados
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.altKey && e.shiftKey && String(e.key || '').toLowerCase() === 'k'){
