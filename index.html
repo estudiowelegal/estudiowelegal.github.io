@@ -1698,6 +1698,18 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-del-x:hover{background:var(--mal-bg,#f9e3df);border-color:var(--mal,#b3372a)}
 .abo-nuevo-btn{border:1px solid var(--filo);background:#14294a;color:#fff;font-family:var(--f-ui,inherit);font-size:13px;font-weight:700;border-radius:8px;padding:9px 16px;cursor:pointer;white-space:nowrap}
 .abo-nuevo-btn:hover{background:#0f1f39}
+.abo-seg{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--filo);border-radius:9px;overflow:hidden;background:var(--papel)}
+.abo-seg.tri{grid-template-columns:1fr 1fr 1fr}
+.abo-seg button{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--tinta-suave);background:transparent;border:none;border-right:1px solid var(--filo);padding:9px 8px;cursor:pointer;white-space:nowrap;transition:.13s}
+.abo-seg button:last-child{border-right:none}
+.abo-seg button:hover{background:#fff;color:var(--tinta)}
+.abo-seg button.on{background:#14294a;color:#fff}
+/* La lista de sugerencias del alta de abono muestra tres y después hace scroll,
+   para no tapar el resto del formulario */
+#aboSugBox{max-height:104px}
+.abo-nv-aviso{font-size:11.5px;margin-top:6px;min-height:15px;line-height:1.35}
+.abo-nv-aviso.ok{color:var(--crm-verde,#1e7a48);font-weight:600}
+.abo-nv-aviso.nueva{color:#8a6d1f;font-weight:600}
 .abo-top-acc{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 /* ── Panel de administración de usuarios: misma estética que el CRM ── */
 .usr-lista{display:flex;flex-direction:column;gap:9px}
@@ -1776,6 +1788,28 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .ina-ojo{flex:0 0 auto;border:1px solid var(--filo);background:var(--papel);border-radius:8px;padding:0 11px;cursor:pointer;font-size:14px;line-height:1;opacity:.55;transition:.13s}
 .ina-ojo:hover{opacity:.85}
 .ina-ojo.on{opacity:1;background:var(--crm-azul-bg,#eef2f8);border-color:#9db9dd}
+.ina-money{display:flex;align-items:stretch;border:1px solid var(--filo);border-radius:8px;background:var(--carta);overflow:hidden}
+.ina-money span{display:flex;align-items:center;padding:0 10px;background:var(--papel);border-right:1px solid var(--filo);font-weight:700;font-size:13px;color:var(--tinta-suave)}
+.ina-money input{flex:1;min-width:0;border:none;background:transparent;padding:8px 10px;font-family:inherit;font-size:13px}
+.ina-money input:focus{outline:none}
+.ina-multi-add{display:flex;gap:6px;margin-bottom:8px}
+.ina-multi-add select{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--filo);border-radius:8px;font-family:inherit;font-size:13px;background:var(--carta)}
+.ina-multi-mas{flex:0 0 auto;width:38px;border:1px solid var(--filo);background:var(--papel);border-radius:8px;cursor:pointer;font-size:17px;font-weight:700;color:#14294a;line-height:1}
+.ina-multi-mas:hover{background:#fff;border-color:#14294a}
+.ina-multi-lista{display:flex;gap:6px;flex-wrap:wrap;min-height:26px;align-items:center}
+.ina-multi-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 6px 4px 10px;border-radius:6px;background:var(--crm-azul-bg,#eef2f8);color:var(--crm-azul,#1b3a6b);border:1px solid #d2dae8}
+.ina-multi-chip button{border:none;background:transparent;cursor:pointer;font-size:11px;color:inherit;opacity:.55;padding:0 2px;line-height:1}
+.ina-multi-chip button:hover{opacity:1}
+.ina-multi-vacio{font-size:11.5px;color:var(--tinta-suave);font-style:italic}
+.ina-file{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 11px;border:1px dashed var(--filo);border-radius:8px;background:var(--papel)}
+.ina-file-nom{font-size:12.5px;font-weight:600;color:var(--tinta);word-break:break-all}
+.ina-file-avisa{font-size:11px;color:var(--tinta-suave);font-style:italic}
+/* Aviso de versión nueva cuando no conviene recargar de golpe */
+#avisoVersion{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:12px;background:#0a1626;color:#f7f7f7;border:1px solid #1b3a6b;border-radius:11px;padding:11px 14px;box-shadow:0 8px 26px rgba(0,0,0,.3);font-size:13px;max-width:92vw}
+#avisoVersion button{font-family:inherit;font-size:12.5px;font-weight:700;border:none;border-radius:8px;padding:7px 13px;cursor:pointer;background:#02c45d;color:#062240;white-space:nowrap}
+#avisoVersion button:hover{filter:brightness(1.08)}
+#avisoVersion button.x{background:transparent;color:#f7f7f7;opacity:.55;padding:4px 6px;font-weight:400}
+#avisoVersion button.x:hover{opacity:1}
 
 .abo-m-avisado{flex:0 0 auto;width:90px;display:flex;align-items:center;justify-content:center}
 .abo-row-head .abo-m-avisado{font-size:10.5px}
@@ -3459,6 +3493,7 @@ body.locked .app{margin-left:0}
           <option value="esporadico_jud">◆ Esporádicos · caja judicial</option>
           <option value="esporadico_soc">◆ Esporádicos · caja societaria</option>
           <option value="esporadico_wl">◆ Esporádicos · caja WE Legal</option>
+          <option value="esporadico_abo">◆ Esporádicos · abonos</option>
           <option value="no_esporadico">Sin los esporádicos</option>
           <option value="ex_cliente">Ex clientes</option>
           <option value="no_contactar">No contactar</option>
@@ -10775,13 +10810,13 @@ function abonoNuevoId(){
 }
 // El campo de porcentaje solo aparece cuando el abono es mixto
 function abonoNuevoPct(){
-  const sel = document.getElementById('abonoNuevoCaja');
   const wrap = document.getElementById('abonoNuevoPctWrap');
-  if (sel && wrap) wrap.style.display = sel.value === 'mixto' ? '' : 'none';
+  if (wrap) wrap.style.display = ABONO_NUEVO.caja === 'mixto' ? '' : 'none';
 }
 function abonoAbrirNuevo(){
   const body = document.getElementById('abonoNuevoBody'); if(!body) return;
   const ym = abonoMesActual();
+  ABONO_NUEVO = { moneda:'ARS', caja:'abono' };
   body.innerHTML = `
     <div class="abo-reg-head">
       <div>
@@ -10791,42 +10826,47 @@ function abonoAbrirNuevo(){
       <button class="abo-reg-x" onclick="abonoCerrarNuevo()">✕</button>
     </div>
     <div class="abo-reg-body">
-      <div class="abo-reg-fld">
+      <div class="abo-reg-fld" style="position:relative">
         <label>Cliente</label>
-        <input type="text" id="abonoNuevoNombre" placeholder="Nombre del cliente o entidad">
+        <input type="text" id="abonoNuevoNombre" placeholder="Buscá por entidad o por referente" autocomplete="off"
+               oninput="aboSugRender()" onfocus="aboSugRender()" onkeydown="aboSugTecla(event)">
+        <div id="aboSugBox" class="cj-sug" style="display:none"></div>
+        <div class="abo-nv-aviso" id="abonoNuevoAviso"></div>
       </div>
       <div class="abo-reg-grid">
         <div class="abo-reg-fld">
           <label>Moneda</label>
-          <select id="abonoNuevoMoneda" onchange="abonoNuevoSimbolo()">
-            <option value="ARS">Pesos</option>
-            <option value="USD">Dólares</option>
-          </select>
+          <div class="abo-seg" id="abonoNuevoMoneda">
+            <button type="button" class="on" data-v="ARS" onclick="abonoNuevoSeg('moneda','ARS')">$ Pesos</button>
+            <button type="button" data-v="USD" onclick="abonoNuevoSeg('moneda','USD')">US$ Dólares</button>
+          </div>
         </div>
         <div class="abo-reg-fld">
-          <label>Monto mensual (<span id="abonoNuevoSimb">$</span>)</label>
-          <input type="text" inputmode="numeric" id="abonoNuevoMonto" placeholder="Cuánto paga por mes" oninput="abonoFmtInput(this)">
+          <label>Monto mensual</label>
+          <div class="ina-money"><span id="abonoNuevoSimb">$</span>
+            <input type="text" inputmode="numeric" id="abonoNuevoMonto" placeholder="0" oninput="abonoFmtInput(this)"></div>
+        </div>
+      </div>
+      <div class="abo-reg-fld">
+        <label>A qué caja se imputa</label>
+        <div class="abo-seg tri" id="abonoNuevoCaja">
+          <button type="button" class="on" data-v="abono" onclick="abonoNuevoSeg('caja','abono')">Caja de abonos</button>
+          <button type="button" data-v="societario" onclick="abonoNuevoSeg('caja','societario')">Societario</button>
+          <button type="button" data-v="mixto" onclick="abonoNuevoSeg('caja','mixto')">Mixto</button>
         </div>
       </div>
       <div class="abo-reg-grid">
         <div class="abo-reg-fld">
-          <label>Distribución</label>
-          <select id="abonoNuevoCaja" onchange="abonoNuevoPct()">
-            <option value="abono">Caja de abonos</option>
-            <option value="societario">Societario</option>
-            <option value="mixto">Mixto</option>
-          </select>
-        </div>
-        <div class="abo-reg-fld">
           <label>Rige desde</label>
           <input type="month" id="abonoNuevoDesde" value="${ym}">
         </div>
+        <div class="abo-reg-fld" id="abonoNuevoPctWrap" style="display:none">
+          <label>Qué porcentaje va a societario</label>
+          <div class="ina-money"><span>%</span>
+            <input type="number" min="0" max="100" step="5" id="abonoNuevoPctInput" value="50"></div>
+        </div>
       </div>
-      <div class="abo-reg-fld" id="abonoNuevoPctWrap" style="display:none">
-        <label>Qué porcentaje va a societario</label>
-        <input type="number" min="0" max="100" step="5" id="abonoNuevoPctInput" value="50">
-      </div>
-      <div class="abo-montos-hint" style="margin:0">El monto rige desde el mes que elijas en adelante: los meses anteriores quedan en cero, así no se altera ningún balance ya cerrado. La distribución define a qué caja se imputa lo que se cobre; después la podés cambiar desde la subsolapa <b>Distribución</b>.</div>
+      <div class="abo-montos-hint" style="margin:0">El monto rige desde el mes que elijas en adelante: los meses anteriores quedan en cero, así no se altera ningún balance ya cerrado. Si el cliente no está en el CRM, se le crea la ficha sola al guardar.</div>
     </div>
     <div class="abo-reg-foot">
       <div class="abo-reg-foot-r" style="margin-left:auto">
@@ -10837,10 +10877,83 @@ function abonoAbrirNuevo(){
   const m = document.getElementById('abonoNuevoModal'); if(m) m.style.display = 'flex';
   setTimeout(()=>{ const i = document.getElementById('abonoNuevoNombre'); if(i) i.focus(); }, 60);
 }
+// Los tres selectores del formulario son botones, no desplegables
+let ABONO_NUEVO = { moneda:'ARS', caja:'abono' };
+function abonoNuevoSeg(campo, valor){
+  ABONO_NUEVO[campo] = valor;
+  const cont = document.getElementById(campo === 'moneda' ? 'abonoNuevoMoneda' : 'abonoNuevoCaja');
+  if (cont) cont.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === valor));
+  if (campo === 'moneda') abonoNuevoSimbolo();
+  if (campo === 'caja') abonoNuevoPct();
+}
+
+// ── Búsqueda de cliente en el CRM, igual que en las cajas ──
+let __aboSugSel = -1;
+function aboSugItems(q){
+  const crm = cjClientesSugeridos(q || '').map(r => ({ n: r.cli.entidad, via: r.via }));
+  const nq = __normBusqueda(q || '').trim();
+  const yaHay = new Set(crm.map(c => c.n.trim().toUpperCase()));
+  let abo = [...new Set(ABONOS.map(c => (c.nombre || '').trim()).filter(Boolean))]
+    .filter(n => !yaHay.has(n.toUpperCase()));
+  if (nq) abo = abo.filter(n => __normBusqueda(n).includes(nq));
+  return [...crm, ...abo.map(n => ({ n, via: '' }))].slice(0, 8);
+}
+function aboSugRender(){
+  const inp = document.getElementById('abonoNuevoNombre');
+  const box = document.getElementById('aboSugBox');
+  if (!inp || !box) return;
+  abonoNuevoChequearCRM();
+  const items = aboSugItems(inp.value);
+  __aboSugSel = -1;
+  if (!items.length){ box.style.display = 'none'; return; }
+  box.innerHTML = items.map((c, i) => `<div class="cj-sug-it" data-i="${i}" onmousedown="event.preventDefault();aboSugElegir(${i})">
+    <span class="n">${esc(c.n)}${c.via ? `<small class="via">referente: ${esc(c.via)}</small>` : ''}</span>
+  </div>`).join('');
+  box.__items = items;
+  box.style.display = 'block';
+}
+function aboSugElegir(i){
+  const box = document.getElementById('aboSugBox');
+  const inp = document.getElementById('abonoNuevoNombre');
+  if (!box || !box.__items || !box.__items[i]) return;
+  inp.value = box.__items[i].n;
+  box.style.display = 'none';
+  abonoNuevoChequearCRM();
+}
+function aboSugTecla(e){
+  const box = document.getElementById('aboSugBox');
+  if (!box || box.style.display === 'none') return;
+  const its = box.querySelectorAll('.cj-sug-it');
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    e.preventDefault();
+    __aboSugSel = e.key === 'ArrowDown' ? Math.min(__aboSugSel + 1, its.length - 1) : Math.max(__aboSugSel - 1, 0);
+    its.forEach((el, i) => el.classList.toggle('sel', i === __aboSugSel));
+  } else if (e.key === 'Enter' && __aboSugSel >= 0){
+    e.preventDefault(); aboSugElegir(__aboSugSel);
+  } else if (e.key === 'Escape'){
+    e.stopPropagation(); box.style.display = 'none';
+  }
+}
+// Avisa si el nombre ya está en el CRM o si se va a crear una ficha nueva
+function abonoNuevoChequearCRM(){
+  const av = document.getElementById('abonoNuevoAviso'); if (!av) return;
+  const inp = document.getElementById('abonoNuevoNombre');
+  const n = (inp && inp.value || '').trim();
+  if (!n){ av.textContent = ''; av.className = 'abo-nv-aviso'; return; }
+  const ex = (typeof crmBuscarCliente === 'function') ? crmBuscarCliente(n) : null;
+  if (ex){
+    av.className = 'abo-nv-aviso ok';
+    av.textContent = ex.motivo === 'referente'
+      ? 'Está en el CRM: ' + ex.cli.entidad + ' (coincide el referente)'
+      : 'Está en el CRM';
+  } else {
+    av.className = 'abo-nv-aviso nueva';
+    av.textContent = 'No está en el CRM: se le va a crear la ficha';
+  }
+}
 function abonoNuevoSimbolo(){
-  const sel = document.getElementById('abonoNuevoMoneda');
   const sp = document.getElementById('abonoNuevoSimb');
-  if(sel && sp) sp.textContent = sel.value === 'USD' ? 'US$' : '$';
+  if (sp) sp.textContent = ABONO_NUEVO.moneda === 'USD' ? 'US$' : '$';
 }
 function abonoCerrarNuevo(){
   const m = document.getElementById('abonoNuevoModal'); if(m) m.style.display = 'none';
@@ -10849,12 +10962,10 @@ function abonoCrearNuevo(){
   const iNom = document.getElementById('abonoNuevoNombre');
   const nombre = iNom ? (iNom.value||'').trim() : '';
   if(!nombre){ aricToast('Poné el nombre del cliente'); if(iNom) iNom.focus(); return; }
-  const selMon = document.getElementById('abonoNuevoMoneda');
-  const moneda = (selMon && selMon.value === 'USD') ? 'USD' : 'ARS';
+  const moneda = ABONO_NUEVO.moneda === 'USD' ? 'USD' : 'ARS';
   const montoRaw = abonoParseInput(document.getElementById('abonoNuevoMonto'));
   const monto = montoRaw === '' ? 0 : Number(montoRaw) || 0;
-  const selCaja = document.getElementById('abonoNuevoCaja');
-  const caja = (selCaja && ABO_CAJAS[selCaja.value]) ? selCaja.value : 'abono';
+  const caja = ABO_CAJAS[ABONO_NUEVO.caja] ? ABONO_NUEVO.caja : 'abono';
   const iPct = document.getElementById('abonoNuevoPctInput');
   const pct = iPct ? Math.max(0, Math.min(100, Number(iPct.value) || 0)) : 50;
   const iDesde = document.getElementById('abonoNuevoDesde');
@@ -10867,10 +10978,13 @@ function abonoCrearNuevo(){
   saveAbonos();
   sbPushAbonoCli(c.id);
   try { abonoCajaSet(c.id, caja, pct); } catch(e){}
+  // Si el cliente no estaba en el CRM se le crea la ficha, igual que al cobrar en una caja
+  let ficha = null;
+  try { ficha = crmAsegurarFicha(nombre, 'Abono mensual', hoyISO(), 'abo'); } catch(e){}
   abonoCerrarNuevo();
   ABONOS_MES = null;
   renderAbonos();
-  aricToast('Abono creado');
+  aricToast(ficha && ficha.creada ? 'Abono creado · ficha nueva en el CRM' : 'Abono creado');
 }
 // Baja definitiva: se lleva el abono, sus pagos y su regla de distribución.
 function abonoEliminar(cliId){
@@ -17554,7 +17668,7 @@ let INASE_FILTRO = '';   // valor del filtro propio de la solapa (ej: período)
 let INASE_EDIT = null;   // id en edición; null = alta
 
 const INASE_ESTADOS = ['', 'RENOVADO', 'EN TRÁMITE', 'PENDIENTE DE PAGO', 'PRESENTADO', 'INSCRIPTO', 'NO CONTINÚA'];
-const INASE_CATS = ['', 'A', 'B', 'E', 'F', 'H', 'K', 'A y F', 'A y K', 'F y K'];
+const INASE_CATS = ['A', 'B', 'E', 'F', 'H', 'K'];
 const INASE_TIENE = ['', 'Solicita por primera vez', 'Vigente', 'VENCIDO'];
 // Períodos de renovación ya usados. La ficha los sugiere, pero se puede escribir uno nuevo.
 const INASE_PERIODOS = ['Abril 2026 · Res. 121/2026', 'Marzo 2026', 'Noviembre 2025 · Res. 484/2025'];
@@ -17576,13 +17690,13 @@ const INASE_SOLAPAS = [
       { k:'periodo',     txt:'Período', lista:'INASE_PERIODOS', tag:true },
       { k:'usuario',     txt:'Usuario INASE' },
       { k:'clave',       txt:'Contraseña', tipo:'pass' },
-      { k:'categoria',   txt:'Categoría', tipo:'select', ops:INASE_CATS, tag:true },
-      { k:'honorarios',  txt:'Pago honorarios', resumen:true },
-      { k:'ingeniero',   txt:'Pago ingeniero', resumen:true },
+      { k:'categorias',  txt:'Categorías', tipo:'multi', ops:INASE_CATS, tag:true },
+      { k:'honorarios',  txt:'Pago honorarios', tipo:'money', resumen:true },
+      { k:'ingeniero',   txt:'Pago ingeniero', tipo:'money', resumen:true },
       { k:'vep',         txt:'Pago VEP', resumen:true },
       { k:'mail',        txt:'Mail enviado' },
       { k:'certificado', txt:'Certificado de establecimiento' },
-      { k:'comprobante', txt:'Comprobante' },
+      { k:'comprobante', txt:'Comprobante de pago', tipo:'file' },
       { k:'ultimoContacto', txt:'Último contacto', tipo:'larga' },
       { k:'estado',      txt:'Estado', tipo:'select', ops:INASE_ESTADOS, tag:true }
     ] },
@@ -17608,7 +17722,7 @@ const INASE_SOLAPAS = [
     titulo:'nombre', obs:'estado',
     cols:[
       { k:'nombre',     txt:'Nombre' },
-      { k:'carpeta',    txt:'Carpeta' },
+      { k:'contacto',   txt:'Contacto', resumen:true },
       { k:'honorarios', txt:'Honorarios', tipo:'larga', resumen:true },
       { k:'ddjj',       txt:'DDJJ y modelo de mail', tipo:'larga' },
       { k:'estado',     txt:'Estado del trámite', tipo:'larga' }
@@ -17642,12 +17756,13 @@ const INASE_SOLAPAS = [
       { k:'categoria',   txt:'Categoría', tag:true },
       { k:'inicio',      txt:'Fecha de inicio', tipo:'larga' },
       { k:'inscripcion', txt:'Fecha de inscripción', tipo:'larga', resumen:true },
-      { k:'gestion',     txt:'Gestión INASE', tipo:'larga' },
-      { k:'renovacion',  txt:'Renovación anual', tipo:'larga' },
+      { k:'usuario',     txt:'Usuario INASE' },
+      { k:'clave',       txt:'Contraseña', tipo:'pass' },
+      { k:'renovacion',  txt:'Gestión y renovación anual', tipo:'larga' },
       { k:'presentacion',txt:'N° de presentación' },
       { k:'expediente',  txt:'Expediente' },
       { k:'cuit',        txt:'CUIT y clave fiscal', tipo:'larga' },
-      { k:'carpeta',     txt:'Carpeta' }
+      { k:'carpeta',     txt:'Carpeta en Drive', tipo:'link' }
     ] }
 ];
 function inaseSolapa(id){ return INASE_SOLAPAS.find(s => s.id === (id || INASE_SOLAPA)) || INASE_SOLAPAS[0]; }
@@ -17720,10 +17835,12 @@ function renderInase(){
   const tarjeta = r => {
     const d = r.datos || {};
     const titulo = d[S.titulo] || '(sin nombre)';
-    const tags = S.cols.filter(c => c.tag && d[c.k]).map(c =>
-      `<span class="ina-tag ${inaseTagClase(d[c.k])}">${esc(String(d[c.k]).slice(0,42))}</span>`).join('');
+    const tags = S.cols.filter(c => c.tag && d[c.k] && (!Array.isArray(d[c.k]) || d[c.k].length)).map(c => {
+      const vs = Array.isArray(d[c.k]) ? d[c.k] : [d[c.k]];
+      return vs.map(x => `<span class="ina-tag ${inaseTagClase(x)}">${esc(String(x).slice(0,42))}</span>`).join('');
+    }).join('');
     const resumen = S.cols.filter(c => c.resumen && d[c.k]).map(c =>
-      `<span>${esc(c.txt)}: <b>${esc(String(d[c.k]).slice(0,60))}</b></span>`).join('');
+      `<span>${esc(c.txt)}: <b>${c.tipo === 'money' ? '$' + esc(String(d[c.k])) : esc(String(d[c.k]).slice(0,60))}</b></span>`).join('');
     const obs = (S.obs && d[S.obs]) ? `<div class="ina-obs">${esc(String(d[S.obs]))}</div>` : '';
     const busca = Object.values(d).join(' ').toLowerCase() + ' ' + (r.grupo || '').toLowerCase();
     return `<div class="ina-row" data-busca="${esc(busca)}" onclick="inaseAbrirEditar(${r.id})">
@@ -17771,6 +17888,31 @@ function inasePintarModal(r){
   const d = (r && r.datos) || {};
   const campo = c => {
     const val = d[c.k] || '';
+    if (c.tipo === 'money'){
+      return `<div class="crm-fld"><label>${esc(c.txt)}</label>
+        <div class="ina-money"><span>$</span>
+          <input type="text" inputmode="numeric" id="ina_${c.k}" value="${esc(val)}" oninput="inaseFmtMoney(this)" placeholder="0"></div></div>`;
+    }
+    if (c.tipo === 'multi'){
+      return `<div class="crm-fld full"><label>${esc(c.txt)}</label>
+        <div class="ina-multi-add">
+          <select id="ina_multi_sel_${c.k}">${(c.ops || []).map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>
+          <button type="button" class="ina-multi-mas" onclick="inaseMultiAgregar('${c.k}')" title="Agregar">+</button>
+        </div>
+        <div class="ina-multi-lista" id="ina_multi_${c.k}"></div></div>`;
+    }
+    if (c.tipo === 'file'){
+      return `<div class="crm-fld full"><label>${esc(c.txt)}</label>
+        <div class="ina-file" id="ina_file_${c.k}"></div>
+        <input type="file" id="ina_fileinput_${c.k}" style="display:none" onchange="inaseArchivoElegido('${c.k}',this)"></div>`;
+    }
+    if (c.tipo === 'link'){
+      return `<div class="crm-fld full"><label>${esc(c.txt)}</label>
+        <div class="ina-pass">
+          <input type="text" id="ina_${c.k}" value="${esc(val)}" placeholder="https://…">
+          <button type="button" class="ina-ojo" onclick="inaseAbrirLink('${c.k}')" title="Abrir en una pestaña nueva">↗</button>
+        </div></div>`;
+    }
     if (c.tipo === 'pass'){
       return `<div class="crm-fld"><label>${esc(c.txt)}</label>
         <div class="ina-pass">
@@ -17826,6 +17968,86 @@ function inasePintarModal(r){
     </div>
   </div>`;
   const m = document.getElementById('inaseModal'); if (m) m.classList.add('on');
+  // Estado de los campos que no son un simple input
+  INASE_FORM = { multi: {}, archivos: {} };
+  S.cols.forEach(c => {
+    if (c.tipo === 'multi'){
+      const v = d[c.k];
+      INASE_FORM.multi[c.k] = Array.isArray(v) ? v.slice() : (v ? [v] : []);
+      inaseMultiPintar(c.k);
+    }
+    if (c.tipo === 'file'){
+      INASE_FORM.archivos[c.k] = { file: null, pendiente: '', nombre: d[c.k] || '', path: d[c.k + 'Path'] || '' };
+      inaseArchivoPintar(c.k);
+    }
+  });
+}
+// Lo que se está editando y todavía no se guardó: listas y archivo pendiente
+let INASE_FORM = { multi: {}, archivos: {} };
+function inaseFmtMoney(el){
+  const cur = el.value.replace(/\D/g, '');
+  el.value = cur ? Number(cur).toLocaleString('es-AR') : '';
+}
+function inaseMultiPintar(k){
+  const cont = document.getElementById('ina_multi_' + k); if (!cont) return;
+  const lista = INASE_FORM.multi[k] || [];
+  cont.innerHTML = lista.length
+    ? lista.map((v, i) => `<span class="ina-multi-chip">${esc(v)}<button type="button" onclick="inaseMultiQuitar('${k}',${i})" title="Quitar">✕</button></span>`).join('')
+    : '<span class="ina-multi-vacio">Todavía no agregaste ninguna</span>';
+}
+function inaseMultiAgregar(k){
+  const sel = document.getElementById('ina_multi_sel_' + k); if (!sel) return;
+  const v = sel.value; if (!v) return;
+  const lista = INASE_FORM.multi[k] || (INASE_FORM.multi[k] = []);
+  if (lista.indexOf(v) !== -1){ aricToast('Esa categoría ya está'); return; }
+  lista.push(v); inaseMultiPintar(k);
+}
+function inaseMultiQuitar(k, i){
+  const lista = INASE_FORM.multi[k] || [];
+  lista.splice(i, 1); inaseMultiPintar(k);
+}
+function inaseArchivoPintar(k){
+  const cont = document.getElementById('ina_file_' + k); if (!cont) return;
+  const a = INASE_FORM.archivos[k] || {};
+  if (a.pendiente){
+    cont.innerHTML = `<span class="ina-file-nom">${esc(a.pendiente)}</span>
+      <span class="ina-file-avisa">se sube al guardar</span>
+      <button type="button" class="ina-btn mal" onclick="inaseArchivoQuitar('${k}')">Quitar</button>`;
+  } else if (a.nombre){
+    cont.innerHTML = `<span class="ina-file-nom">${esc(a.nombre)}</span>
+      ${a.path ? `<button type="button" class="ina-btn" onclick="inaseArchivoVer('${k}')">Ver</button>` : ''}
+      <button type="button" class="ina-btn" onclick="document.getElementById('ina_fileinput_${k}').click()">Reemplazar</button>
+      <button type="button" class="ina-btn mal" onclick="inaseArchivoQuitar('${k}')">Quitar</button>`;
+  } else {
+    cont.innerHTML = `<button type="button" class="ina-btn" onclick="document.getElementById('ina_fileinput_${k}').click()">Adjuntar comprobante</button>
+      <span class="ina-file-avisa">PDF o imagen</span>`;
+  }
+}
+function inaseArchivoElegido(k, input){
+  const f = input.files && input.files[0]; if (!f) return;
+  const a = INASE_FORM.archivos[k] || (INASE_FORM.archivos[k] = {});
+  a.file = f; a.pendiente = f.name;
+  inaseArchivoPintar(k);
+}
+function inaseArchivoQuitar(k){
+  INASE_FORM.archivos[k] = { file: null, pendiente: '', nombre: '', path: '' };
+  const inp = document.getElementById('ina_fileinput_' + k); if (inp) inp.value = '';
+  inaseArchivoPintar(k);
+}
+async function inaseArchivoVer(k){
+  const a = INASE_FORM.archivos[k] || {};
+  if (!a.path){ aricToast('El comprobante todavía no se subió'); return; }
+  try {
+    const u = await sbUrlFirmada(a.path, 300);
+    if (u) window.open(u, '_blank', 'noopener');
+    else aricToast('No se pudo abrir el comprobante');
+  } catch(e){ aricToast('No se pudo abrir el comprobante'); }
+}
+function inaseAbrirLink(k){
+  const el = document.getElementById('ina_' + k); if (!el) return;
+  const u = (el.value || '').trim();
+  if (/^https?:\/\//i.test(u)) window.open(u, '_blank', 'noopener');
+  else aricToast('No hay un link válido cargado');
 }
 // Ojo del campo de contraseña
 function inaseVerPass(k, btn){
@@ -17837,12 +18059,31 @@ function inaseVerPass(k, btn){
 function inaseAbrirNuevo(){ INASE_EDIT = null; inasePintarModal(null); }
 function inaseAbrirEditar(id){ const r = inasePorId(id); if (!r) return; INASE_EDIT = r.id; inasePintarModal(r); }
 function inaseCerrarModal(){ const m = document.getElementById('inaseModal'); if (m) m.classList.remove('on'); INASE_EDIT = null; }
-function inaseGuardarModal(){
+async function inaseGuardarModal(){
   const S = inaseSolapa();
   const datos = {};
-  S.cols.forEach(c => { const el = document.getElementById('ina_' + c.k); if (el) datos[c.k] = (el.value || '').trim(); });
+  S.cols.forEach(c => {
+    if (c.tipo === 'multi'){ datos[c.k] = (INASE_FORM.multi[c.k] || []).slice(); return; }
+    if (c.tipo === 'file'){
+      const a = INASE_FORM.archivos[c.k] || {};
+      datos[c.k] = a.pendiente || a.nombre || '';
+      datos[c.k + 'Path'] = a.pendiente ? '' : (a.path || '');
+      return;
+    }
+    const el = document.getElementById('ina_' + c.k); if (el) datos[c.k] = (el.value || '').trim();
+  });
   const grupo = ((document.getElementById('ina_grupo') || {}).value || '').trim();
   if (!datos[S.titulo]){ aricToast('Poné al menos el nombre'); return; }
+  // Comprobantes nuevos → Storage (bucket `inase`)
+  for (const c of S.cols.filter(x => x.tipo === 'file')){
+    const a = INASE_FORM.archivos[c.k] || {};
+    if (!a.file) continue;
+    try {
+      const nombre = 'inase-' + (INASE_EDIT || Date.now()) + '-' + c.k + '-' + a.file.name.replace(/[^\w.\-]/g, '_');
+      datos[c.k + 'Path'] = await sbUploadFile('inase', nombre, a.file);
+      datos[c.k] = a.file.name;
+    } catch(e){ sbAvisarError(e); aricToast('El comprobante no se pudo subir; el resto se guardó'); }
+  }
   let r = INASE_EDIT != null ? inasePorId(INASE_EDIT) : null;
   if (r){ r.datos = datos; r.grupo = grupo; }
   else {
@@ -18176,7 +18417,11 @@ document.addEventListener('keydown', e => {
   const usr = document.getElementById('usuarioModal');
   if (usr && usr.classList.contains('on')){ e.preventDefault(); usuarioCerrarModal(); return; }
   const ina = document.getElementById('inaseModal');
-  if (ina && ina.classList.contains('on')){ e.preventDefault(); inaseCerrarModal(); }
+  if (ina && ina.classList.contains('on')){ e.preventDefault(); inaseCerrarModal(); return; }
+  const abo = document.getElementById('abonoNuevoModal');
+  if (abo && abo.style.display === 'flex'){ e.preventDefault(); abonoCerrarNuevo(); return; }
+  const reg = document.getElementById('abonoRegModal');
+  if (reg && reg.style.display === 'flex'){ e.preventDefault(); abonoCerrarRegistro(); }
 });
 // Atajo de la cuenta técnica para mirar el sistema con accesos recortados
 document.addEventListener('keydown', e => {
@@ -18683,7 +18928,7 @@ function plazoCorto(vence) {
 // ('esporadico' a secas es el que se marca a mano desde la ficha).
 const CRM_ESPORADICO = 'esporadico';
 const CRM_ORIGEN_LBL = { jud: 'caja judicial', soc: 'caja societaria', wl: 'caja WE Legal (packs)',
-                         reu: 'reuniones' };
+                         reu: 'reuniones', abo: 'abonos mensuales' };
 function crmEsEsporadico(c){ return !!c && /^esporadico/.test(c.estado || ''); }
 function crmOrigenDe(c){
   const m = /^esporadico_(\w+)$/.exec((c && c.estado) || '');
@@ -18742,8 +18987,10 @@ function crmAsegurarFicha(nombre, concepto, fecha, origen){
   cli.estado = CRM_ESPORADICO + (CRM_ORIGEN_LBL[origen] ? '_' + origen : '');
   cli.packSituacion = '';
   cli.servicios = concepto ? [{ concepto, fecha: fecha || hoyISO() }] : [];
-  cli.observaciones = 'Ficha creada automáticamente al registrar un cobro en la '
-    + (CRM_ORIGEN_LBL[origen] || 'caja') + (fecha ? ' (' + fmtFechaCortaCRM(fecha) + ')' : '') + '.';
+  cli.observaciones = (origen === 'abo'
+      ? 'Ficha creada automáticamente al dar de alta un abono mensual'
+      : 'Ficha creada automáticamente al registrar un cobro en la ' + (CRM_ORIGEN_LBL[origen] || 'caja'))
+    + (fecha ? ' (' + fmtFechaCortaCRM(fecha) + ')' : '') + '.';
   if (typeof encAsignar === 'function') encAsignar(cli);   // sigue el orden rotativo
   CLIENTES.push(cli);
   saveClientesLocal();
@@ -20254,10 +20501,42 @@ function accObs(c, editar) {
     })
     .catch(() => {});   // si falla, el sistema funciona igual desde el navegador
 
-  // Al volver a la pestaña o a la ventana, se chequea si hay versión nueva
+  // Al volver a la pestaña o a la ventana, se chequea si hay versión nueva.
+  // También cada media hora, para las sesiones que quedan abiertas todo el día.
   const chequear = () => { if (registro) { try { registro.update(); } catch (e) {} } };
   document.addEventListener('visibilitychange', () => { if (!document.hidden) chequear(); });
   window.addEventListener('focus', chequear);
+  setInterval(chequear, 30 * 60 * 1000);
+
+  // Cuando la versión nueva toma el control, hay que recargar para verla.
+  // Si la persona está en medio de algo, no se le pisa la pantalla: se le avisa.
+  let yaRecargo = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (yaRecargo) return;
+    yaRecargo = true;
+    if (__ocupado()) __avisarVersion();
+    else location.reload();
+  });
+
+  // ¿Está escribiendo, con una ficha abierta o con cambios sin guardar?
+  function __ocupado(){
+    try {
+      const a = document.activeElement;
+      if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return true;
+      if (document.querySelector('.crm-modal-ov.on, .modal-bg[style*="flex"], .abo-reg-modal[style*="flex"]')) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  function __avisarVersion(){
+    if (document.getElementById('avisoVersion')) return;
+    const d = document.createElement('div');
+    d.id = 'avisoVersion';
+    d.innerHTML = '<span>Hay una versión nueva del sistema.</span>' +
+                  '<button onclick="location.reload()">Actualizar</button>' +
+                  '<button class="x" onclick="this.parentNode.remove()" title="Más tarde">✕</button>';
+    document.body.appendChild(d);
+  }
 })();
 </script>
 </body>
