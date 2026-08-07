@@ -2160,6 +2160,7 @@ body.locked .app{margin-left:0}
 .exp-chip-estado.apelados{background:#14294a}
 .exp-chip-estado.apelados-ok{background:var(--ok,#1e7a48)}
 .exp-chip-estado.apelados-mal{background:var(--mal,#b3372a)}
+.exp-chip-estado.ejecucion{background:#1e7a48}
 .exp-card .fila-chips{align-items:center}
 /* Editor en la ficha */
 .exp-estado-box{border:1px solid var(--filo);border-radius:10px;padding:14px 16px;margin-bottom:20px;background:var(--carta)}
@@ -6028,17 +6029,17 @@ function renderExpedientes() {
         ${alertas ? `<span class="exp-chip alerta">${alertas} a revisar</span>` : ''}
         ${exp.estadoProc ? `<span class="exp-chip-estado ${expEstadoClase(exp)}">${expEstadoTexto(exp)}</span>` : ''}
       </div>
-      <button class="exp-resumen" data-resumen-id="${exp.id}" onclick="event.stopPropagation();generarResumenPDF(${exp.id})">📄 Ver resumen</button>
     </div>`;
   }).join('');
 }
 
 // ═══════════ ESTADO PROCESAL DEL EXPEDIENTE ═══════════
 const EXP_ESTADOS = [
-  { v: 'traba',    lbl: 'Traba de litis' },
-  { v: 'prueba',   lbl: 'Prueba' },
-  { v: 'alegatos', lbl: 'Alegatos' },
-  { v: 'apelados', lbl: 'Apelados' }
+  { v: 'traba',     lbl: 'Traba de litis' },
+  { v: 'prueba',    lbl: 'Prueba' },
+  { v: 'alegatos',  lbl: 'Alegatos' },
+  { v: 'apelados',  lbl: 'Apelados' },
+  { v: 'ejecucion', lbl: 'En ejecución de sentencias' }
 ];
 function expEstadoLabel(v){
   const e = EXP_ESTADOS.find(x => x.v === v);
@@ -6482,10 +6483,10 @@ function renderCausaDetalle(exp) {
   });
 
   html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-    <button data-resumen-id="${exp.id}" onclick="generarResumenPDF(${exp.id})" style="font-size:12px;background:#0a1626;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px">
+    <span style="font-size:12px;color:#7a7566;background:#f4f2ec;border:1px dashed #ddd8cc;padding:8px 16px;border-radius:6px;display:flex;align-items:center;gap:6px">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Ver resumen del expediente
-    </button>
+      Ver resumen: próximamente, requiere uso de tokens
+    </span>
     <button onclick="eliminarCausa(${exp.id});closeCausaDetalle()" style="font-size:11px;background:none;border:1px solid #e4e0d8;color:#b3372a;padding:5px 12px;border-radius:4px;cursor:pointer">Eliminar causa</button>
   </div>`;
 
