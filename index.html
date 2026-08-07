@@ -2151,16 +2151,18 @@ body.locked .app{margin-left:0}
 #panelRespaldo .resp-acc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 #panelRespaldo .resp-nota{font-size:11.5px;color:var(--tinta-suave);line-height:1.5}
 /* Estado del juicio: cápsula destacada, a la derecha de la tarjeta */
-.exp-chip-estado{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.03em;
-  padding:6px 14px;border-radius:20px;white-space:nowrap;text-transform:uppercase;
-  background:#14294a;color:#fff;border:2px solid #c9a961;line-height:1.2}
-.exp-chip-estado.traba{background:#1b3a6b}
-.exp-chip-estado.prueba{background:#6d5a3a}
-.exp-chip-estado.alegatos{background:#5a4a7a}
-.exp-chip-estado.apelados{background:#14294a}
-.exp-chip-estado.apelados-ok{background:var(--ok,#1e7a48)}
-.exp-chip-estado.apelados-mal{background:var(--mal,#b3372a)}
-.exp-chip-estado.ejecucion{background:#1e7a48}
+.exp-chip-estado{margin-left:auto;font-size:10.5px;font-weight:600;letter-spacing:.02em;
+  padding:3px 9px 3px 7px;border-radius:5px;white-space:nowrap;line-height:1.35;
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;color:#5a5648;border:1px solid #ddd8cc}
+.exp-chip-estado::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex:0 0 auto}
+.exp-chip-estado.traba{color:#1b3a6b;border-color:#d2dae8;background:#f4f7fb}
+.exp-chip-estado.prueba{color:#8a6d1f;border-color:#e6d3a0;background:#fdfaf1}
+.exp-chip-estado.alegatos{color:#5a4a7a;border-color:#ddd6ea;background:#f8f6fc}
+.exp-chip-estado.apelados{color:#14294a;border-color:#d2dae8;background:#f4f7fb}
+.exp-chip-estado.apelados-ok{color:var(--ok,#1e7a48);border-color:#cfe6d8;background:#f3faf6}
+.exp-chip-estado.apelados-mal{color:var(--mal,#b3372a);border-color:#e4c4c0;background:#fdf5f4}
+.exp-chip-estado.ejecucion{color:#1e7a48;border-color:#cfe6d8;background:#f3faf6}
 .exp-card .fila-chips{align-items:center}
 /* Editor en la ficha */
 .exp-estado-box{border:1px solid var(--filo);border-radius:10px;padding:14px 16px;margin-bottom:20px;background:var(--carta)}
@@ -2332,6 +2334,15 @@ body.locked .app{margin-left:0}
         <option value="Laboral">Laboral</option>
         <option value="Civil y Comercial">Civil y Comercial</option>
         <option value="Contencioso Administrativo">Cont. Administrativo</option>
+      </select>
+      <select id="filtEstado" onchange="renderExpedientes()">
+        <option value="">Todos los estados</option>
+        <option value="traba">Traba de litis</option>
+        <option value="prueba">Prueba</option>
+        <option value="alegatos">Alegatos</option>
+        <option value="apelados">Apelados</option>
+        <option value="ejecucion">En ejecución de sentencias</option>
+        <option value="__sin">Sin estado cargado</option>
       </select>
     </div>
     <div style="flex:1"></div>
@@ -5996,10 +6007,12 @@ function renderExpedientes() {
   if (!grid) return;
   const q = (document.getElementById('searchExpedientes')?.value || '').toLowerCase().trim();
   const ff = document.getElementById('filtFuero')?.value || '';
+  const fe = document.getElementById('filtEstado')?.value || '';
   const filtrados = expedientes.filter(e =>
     (e.jurisdiccion || 'CABA') === jurisdiccionActual &&
     (!q || (e.caratula||'').toLowerCase().includes(q) || (e.expediente||'').toLowerCase().includes(q)) &&
-    (!ff || (e.fuero||'') === ff)
+    (!ff || (e.fuero||'') === ff) &&
+    (!fe || (fe === '__sin' ? !e.estadoProc : (e.estadoProc||'') === fe))
   );
   grid.className = 'exp-grid';
   grid.removeAttribute('style');
@@ -6008,8 +6021,9 @@ function renderExpedientes() {
 
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   grid.innerHTML = filtrados.map(exp => {
+    // Fuera de la etapa de prueba los oficios ya no se reiteran: no se avisa nada
     let alertas = 0;
-    (exp.partes||[]).forEach(p => {
+    if (exp.estadoProc === 'prueba') (exp.partes||[]).forEach(p => {
       (p.informativa||[]).forEach(of => {
         if (of.enviado && !of.contestado) {
           const base = (of.reiteraciones && of.reiteraciones.length) ? of.reiteraciones[of.reiteraciones.length-1] : of.enviado;
@@ -8041,7 +8055,10 @@ function ingToggleSec(sec){ INGRESOS_COL[sec] = !INGRESOS_COL[sec]; renderIngres
 function ingToggleMes(ym){ INGRESOS_MES_OPEN[ym] = !INGRESOS_MES_OPEN[ym]; renderIngresos(); }
 
 function renderIngresosPendiente(cont, subtabs){
-  const p = ingresosPendientes();
+  const ymVer = ingMesActual();
+  const p = ingresosPendientes(ymVer);
+  const [__y, __m] = ymVer.split('-').map(Number);
+  const mesLbl = (ABONO_MESES[__m-1] + ' ' + __y).replace(/^./, s => s.toUpperCase());
   const fmt = n => Math.round(Number(n)||0).toLocaleString('es-AR');
   const cerrCuotas = INGRESOS_COL.cuotas, cerrAbonos = INGRESOS_COL.abonos;
 
@@ -8087,7 +8104,7 @@ function renderIngresosPendiente(cont, subtabs){
       <div class="ing-pend-n">${a.estado==='parcial'?'Pagó una parte':'Sin pagar'}</div>
       <div class="ing-pend-ars">${a.moneda!=='USD'?('$ '+fmt(a.falta)):'—'}</div>
       <div class="ing-pend-usd">${a.moneda==='USD'?('US$ '+fmt(a.falta)):'—'}</div>
-    </div>`).join('') : '<div class="abo-sec-vacio">Todos los abonos del mes están cobrados.</div>';
+    </div>`).join('') : `<div class="abo-sec-vacio">Todos los abonos de ${mesLbl.toLowerCase()} están cobrados.</div>`;
 
   cont.innerHTML = `
     <div class="abo-top"><div>
@@ -8102,7 +8119,7 @@ function renderIngresosPendiente(cont, subtabs){
         <div class="ing-total-sep"></div>
         <div class="ing-total-m usd"><span class="ing-total-cur">US$</span> ${fmt(p.totalUsd)}</div>
       </div>
-      <div class="ing-total-cmp">Cuotas de planes por cobrar + abonos del mes sin cobrar</div>
+      <div class="ing-total-cmp">Cuotas de planes por cobrar + abonos de ${esc(mesLbl.toLowerCase())} sin cobrar</div>
     </div>
     <div class="abo-sec">
       <div class="abo-sec-h" onclick="ingToggleSec('cuotas')">
@@ -8116,7 +8133,7 @@ function renderIngresosPendiente(cont, subtabs){
     </div>
     <div class="abo-sec">
       <div class="abo-sec-h" onclick="ingToggleSec('abonos')">
-        <span class="abo-sec-tw"><span class="abo-caret ${cerrAbonos?'closed':''}">▾</span> Abonos sin cobrar (mes en curso)</span>
+        <span class="abo-sec-tw"><span class="abo-caret ${cerrAbonos?'closed':''}">▾</span> Abonos sin cobrar · ${mesLbl}</span>
         <span class="abo-sec-count">$ ${fmt(p.aboPendArs)}${p.aboPendUsd?(' · US$ '+fmt(p.aboPendUsd)):''}</span>
       </div>
       ${cerrAbonos ? '' : `<div class="abo-row abo-row-head">
@@ -10188,8 +10205,10 @@ function ingresosPorConcepto(ymDesde, ymHasta){
 }
 
 // ── Pendiente de cobro: cuotas futuras + abonos impagos ──
-function ingresosPendientes(){
-  const hoyYm = hoyISO().slice(0,7);
+function ingresosPendientes(ym){
+  // El mes lo manda la navegación de Control financiero. Si se mira julio, el
+  // pendiente de abonos es el de julio: lo que ya se cobró en julio no figura.
+  const mesVer = ym || (typeof ingMesActual === 'function' ? ingMesActual() : hoyISO().slice(0,7));
   // Cuotas pendientes de planes (ya existe el motor)
   const cuotas = (typeof cuotasPendientesTodas === 'function') ? cuotasPendientesTodas() : [];
   // Agrupar cuotas por mes
@@ -10204,7 +10223,9 @@ function ingresosPendientes(){
   const aboPend = [];
   let aboPendArs = 0, aboPendUsd = 0;
   (typeof ABONOS !== 'undefined' ? ABONOS : []).filter(c=>c.estado==='activo').forEach(c => {
-    const st = abonoEstadoMes(c, hoyYm);
+    // Un abono que arranca después del mes que se mira todavía no se debe
+    if (abonoMontoVigente(c, mesVer) <= 0) return;
+    const st = abonoEstadoMes(c, mesVer);
     if(st.estado === 'pagado') return;
     aboPend.push({ nombre:c.nombre, moneda:c.moneda, falta:st.falta, estado:st.estado });
     if(c.moneda==='USD') aboPendUsd += st.falta; else aboPendArs += st.falta;
@@ -10212,7 +10233,7 @@ function ingresosPendientes(){
   const meses = Object.values(porMes).sort((a,b)=> a.ym.localeCompare(b.ym));
   const cuotasArs = cuotas.filter(c=>c.moneda!=='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
   const cuotasUsd = cuotas.filter(c=>c.moneda==='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
-  return { meses, cuotas, cuotasArs, cuotasUsd, aboPend, aboPendArs, aboPendUsd,
+  return { ym: mesVer, meses, cuotas, cuotasArs, cuotasUsd, aboPend, aboPendArs, aboPendUsd,
            totalArs: cuotasArs + aboPendArs, totalUsd: cuotasUsd + aboPendUsd };
 }
 
@@ -12433,6 +12454,9 @@ try {
 function getOficiosPendientes() {
   const out = [];
   (expedientes || []).forEach(exp => {
+    // Los oficios solo se reiteran mientras la causa está abierta a prueba.
+    // Con la causa en cámara, alegatos o ejecución, ya no hay nada que avisar.
+    if (exp.estadoProc !== 'prueba') return;
     (exp.partes || []).forEach(p => {
       (p.informativa || []).forEach(of => {
         if (of.enviado && !of.contestado) {
