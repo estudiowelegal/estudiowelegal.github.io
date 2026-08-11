@@ -1652,15 +1652,42 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-pp-vacio{font-size:12.5px;color:var(--tinta-suave);text-align:center;padding:14px;background:var(--papel);border-radius:8px}
 .abo-pp-item{display:flex;align-items:center;gap:12px;padding:10px 13px;border:1px solid var(--filo);border-radius:8px;background:var(--carta)}
 .abo-pp-info{flex:1;min-width:0}
-.abo-pp-l1{font-size:13.5px;color:var(--tinta)}
+.abo-pp-l1{font-size:13.5px;color:var(--tinta);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .abo-pp-l2{font-size:11.5px;color:var(--tinta-suave);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .abo-pp-dl{border:none;background:transparent;color:#14294a;font-size:11.5px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline}
 .abo-pp-efec{font-style:italic}
 .abo-pp-sc{color:var(--filo)}
+.abo-pp-undo{flex:0 0 auto;font-family:var(--f-ui,inherit);font-size:12px;font-weight:600;border:1px solid var(--filo);background:var(--carta);color:#14294a;border-radius:8px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.abo-pp-undo:hover{background:#eef2f8;border-color:#14294a}
 .abo-pp-del{flex:0 0 auto;border:none;background:transparent;color:var(--mal,#b3372a);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px}
 .abo-pp-del:hover{background:var(--mal-bg,#f9e3df)}
 .abo-pp-nuevo{border-top:1px solid var(--filo);padding-top:16px}
 .abo-pp-nuevo-h{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta-suave);font-weight:700;margin-bottom:12px}
+/* Selector de meses que cubre un pago (atrasos) */
+.abo-mm-chips{display:flex;gap:6px;flex-wrap:wrap}
+.abo-mm-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:52px;padding:6px 8px;border-radius:8px;border:1px solid #d9d5c8;background:#fff;cursor:pointer;font-family:inherit;line-height:1.1;transition:all .12s}
+.abo-mm-chip .mm-m{font-size:12px;font-weight:700;color:var(--tinta)}
+.abo-mm-chip .mm-y{font-size:10px;color:var(--tinta-suave)}
+.abo-mm-chip:hover{border-color:var(--sello)}
+.abo-mm-chip.pago{background:#f2f7f2;border-color:#cfe3cf}
+.abo-mm-chip.pago .mm-m{color:#4c6b4c}
+.abo-mm-chip.parc{background:#fdf6e8;border-color:#e8d9b0}
+.abo-mm-chip.on{background:var(--sello);border-color:var(--sello);box-shadow:0 1px 4px rgba(27,58,107,.28)}
+.abo-mm-chip.on .mm-m,.abo-mm-chip.on .mm-y{color:#fff}
+.abo-mm-hint{margin-top:8px;font-size:12px;color:var(--tinta-suave)}
+.actas-atras{font-size:10.5px;color:var(--tinta-suave);font-style:italic;font-variant-numeric:normal;margin-top:2px}
+.actas-atras-box{background:#f6f5ef;border:1px solid #e4e0d2;border-left:3px solid var(--oro);border-radius:6px;padding:10px 12px;margin-bottom:12px}
+.actas-atras-t{font-size:13px;color:var(--tinta)}
+.actas-atras-s{font-size:11.5px;color:var(--tinta-suave);margin-top:3px}
+.actas-atras-l{margin:7px 0 0;padding-left:18px;font-size:12px;color:var(--tinta)}
+.actas-atras-l li{margin-bottom:2px}
+.abo-pp-grupo{display:inline-block;white-space:nowrap;font-size:10.5px;font-weight:600;background:#eef1f7;color:var(--sello);border:1px solid #d8e0ee;border-radius:20px;padding:2px 9px;line-height:1.5}
+.mm-hint-multi{background:#f6f5ef;border:1px solid #e4e0d2;border-left:3px solid var(--oro);border-radius:6px;padding:8px 10px}
+.mm-hint-t{font-weight:700;color:var(--tinta);margin-bottom:5px}
+.mm-parts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.mm-part{font-size:12px;color:var(--tinta)}
+.mm-part b{color:var(--sello);text-transform:capitalize}
+.mm-hint-nota{font-size:11px;color:var(--tinta-suave);font-style:italic}
 .abo-pp-add{width:100%;padding:11px;border:none;border-radius:8px;background:var(--ok,#1e7a48);color:#fff;font-family:var(--f-ui,inherit);font-size:13px;font-weight:700;cursor:pointer;margin-top:4px}
 .abo-pp-add:hover{background:#186139}
 .abo-subtabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:2px solid var(--filo)}
@@ -1923,7 +1950,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .ing-total-cur{font-size:16px;color:#9fb3d1;font-weight:600}
 .ing-total-sep{width:1px;height:34px;background:rgba(255,255,255,.2)}
 .ing-fuentes-h,.ing-part-h{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta-suave);font-weight:700;margin:0 0 12px}
-.ing-part-h{margin-top:26px}
+
 .ing-fuentes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
 .ing-fuente{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px}
 .ing-fuente-h{font-size:13px;font-weight:700;color:var(--tinta);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
@@ -1935,11 +1962,16 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .ing-monto.usd{padding-top:6px;border-top:1px dashed var(--filo)}
 
 .ing-barras{display:flex;flex-direction:column;gap:11px}
-.ing-barra-row{display:flex;align-items:center;gap:12px}
-.ing-barra-lbl{flex:0 0 120px;font-size:12.5px;color:var(--tinta)}
-.ing-barra-track{flex:1;height:16px;background:var(--filo-suave);border-radius:8px;overflow:hidden}
-.ing-barra-track span{display:block;height:100%;border-radius:8px;transition:width .4s}
-.ing-barra-pct{flex:0 0 40px;text-align:right;font-size:12.5px;font-weight:700;color:var(--tinta)}
+.ing-barra-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.ing-barra-row:last-child{margin-bottom:0}
+.ing-barra-lbl{flex:0 0 132px;font-size:13px;color:var(--tinta);line-height:1.25}
+.ing-barra-x{display:block;font-size:10.5px;color:var(--tinta-suave);margin-top:1px}
+.ing-barra-track{flex:1;position:relative;height:32px;background:var(--filo-suave);border-radius:8px;display:flex;align-items:center;min-width:0;overflow:hidden}
+.ing-barra-fill{display:flex;align-items:center;justify-content:flex-end;height:100%;border-radius:8px;transition:width .4s;box-sizing:border-box;min-width:0;flex:0 0 auto}
+.ing-barra-mto{font-size:12.5px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;padding:0 10px}
+/* Barra corta: el monto sale al lado, sobre el fondo claro de la pista */
+.ing-barra-mto.fuera{position:absolute;top:50%;transform:translateY(-50%);color:var(--tinta);padding:0}
+.ing-barra-pct{flex:0 0 42px;text-align:right;font-size:13px;font-weight:700;color:var(--tinta);font-variant-numeric:tabular-nums}
 /* Evolución */
 .ing-rango{display:flex;gap:4px}
 .ing-rango button{font-family:var(--f-ui,inherit);font-size:12.5px;font-weight:600;color:var(--tinta-suave);background:var(--carta);border:1px solid var(--filo);border-radius:8px;padding:7px 13px;cursor:pointer}
@@ -1988,8 +2020,8 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .ing-mon-sw button.on{background:#14294a;color:#fff;border-color:#14294a}
 .ing-h1{font-family:var(--f-ui);font-size:24px;color:#14294a;font-weight:800;letter-spacing:-.4px;margin:0}
 .ing-part-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ing-part-col{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:16px 18px}
-.ing-part-col-h{font-size:12.5px;font-weight:700;color:var(--tinta);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.ing-part-col{background:var(--carta);border:1px solid var(--filo);border-radius:var(--radio,12px);padding:18px 20px}
+.ing-part-col-h{font-size:12.5px;font-weight:700;color:var(--tinta);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
 .ing-part-tot{font-size:12px;font-weight:600;color:var(--tinta-suave)}
 .ing-part-vacio{font-size:12px;color:var(--tinta-suave);padding:8px 0;font-style:italic}
 @media (max-width:900px){ .ing-part-wrap{grid-template-columns:1fr} }
@@ -3206,6 +3238,7 @@ body.locked .app{margin-left:0}
         <div class="panel-h"><h3>📑 Abonos actas</h3><span class="mini" id="csMiniActas"></span></div>
         <div style="padding:14px 16px">
           <div class="cuota-hint" style="margin:0 0 12px">Réplica de los abonos que le corresponden a societario. El pago se registra siempre desde <b>Abonos mensuales</b> y el estado se actualiza acá solo. Al balance de la caja <b>suma únicamente lo ya cobrado</b>: lo pendiente se muestra pero no se cuenta.</div>
+          <div id="csActasAtrasos"></div>
           <div style="overflow-x:auto"><table class="tabla-caja" id="csTablaActas"></table></div>
           <div class="panel-empty" id="csVaciaActas" style="display:none">Ningún abono de actas cobrado este mes.</div>
         </div>
@@ -7815,6 +7848,77 @@ function abonoQuitarPago(cliId, ym){
   c.pagos = c.pagos.filter(x=>x.mes!==ym); saveAbonos();
 }
 
+// ── Pagos atrasados que cubren varios meses ──
+// Un mismo pago puede saldar varios meses de abono. Se guarda un parcial por mes
+// (así la grilla pinta cada mes como pagado) pero todos llevan la MISMA fecha de
+// cobro real, que es la que manda para Control financiero, comisiones y reparto.
+// No hace falta columna nueva: los parciales de un mismo pago se reconocen por
+// cliente + fecha de cobro idéntica.
+
+// Devuelve los últimos n meses hasta ym inclusive, del más viejo al más nuevo.
+function abonoMesesHasta(ym, n){
+  const out = [];
+  let [y,m] = ym.split('-').map(Number);
+  for(let i=0;i<n;i++){
+    out.unshift(y + '-' + String(m).padStart(2,'0'));
+    m--; if(m<1){ m=12; y--; }
+  }
+  return out;
+}
+// Reparte un total entre varios meses: va saldando lo que falta de cada mes en
+// orden cronológico y el remanente queda en el último mes elegido.
+function abonoRepartirEntreMeses(cli, meses, total){
+  const ms = (meses||[]).slice().sort();
+  if(!ms.length) return [];
+  if(total==null || total==='') return ms.map(mes=>({ mes, monto:null }));
+  let resto = Number(total)||0;
+  const out = [];
+  ms.forEach((mes,i)=>{
+    if(i === ms.length-1){ out.push({ mes, monto: Math.round(resto*100)/100 }); resto = 0; return; }
+    const st = abonoEstadoMes(cli, mes);
+    const falta = st.falta > 0 ? st.falta : abonoMontoVigente(cli, mes);
+    const asignado = Math.min(resto, falta);
+    out.push({ mes, monto: Math.round(asignado*100)/100 });
+    resto -= asignado;
+  });
+  return out;
+}
+// Registra un pago que cubre varios meses: un parcial por mes, misma fecha de cobro.
+function abonoAgregarPagoMulti(cliId, meses, total, datos){
+  const c = abonoBuscarCli(cliId); if(!c) return [];
+  const partes = abonoRepartirEntreMeses(c, meses, total);
+  partes.forEach(x => {
+    abonoAgregarParcial(cliId, x.mes, { ...datos, monto: x.monto });
+  });
+  return partes;
+}
+// Deshace un pago entero: borra los parciales que comparten fecha de cobro (y
+// destinatario) en todos los meses que cubrió. Los pagos previos de esos meses
+// no se tocan, así que el historial anterior queda intacto.
+function abonoDeshacerPago(cliId, fecha, aQuien){
+  const c = abonoBuscarCli(cliId); if(!c || !fecha) return 0;
+  const aq = (aQuien||'').trim();
+  let n = 0;
+  (c.pagos||[]).slice().forEach(p => {
+    (p.parciales||[]).slice().forEach(x => {
+      if(x.fecha !== fecha) return;
+      if((x.aQuien||'').trim() !== aq) return;
+      abonoQuitarParcial(cliId, p.mes, x.id);
+      n++;
+    });
+  });
+  return n;
+}
+// ¿Este parcial es parte de un pago que cubrió varios meses? Devuelve los meses.
+function abonoMesesDelGrupo(cli, fecha){
+  if(!fecha) return [];
+  const out = [];
+  (cli.pagos||[]).forEach(p => {
+    if((p.parciales||[]).some(x => x.fecha === fecha)) out.push(p.mes);
+  });
+  return out.sort();
+}
+
 // ── Montos con vigencia por mes ──
 // c.montoHist = [{ desde:'YYYY-MM', monto:Number }], ordenado. c.monto = monto base (vigencia inicial).
 // Devuelve el monto que rige para el mes ym.
@@ -7860,6 +7964,13 @@ function abonoTieneCambioReal(c){
 }
 const ABONO_MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function capPrim(s){ const t=String(s||''); return t.charAt(0).toUpperCase()+t.slice(1); }
+// Etiqueta corta para listados: el año solo si difiere del mes que se está viendo
+function abonoMesCorto(ym, ref){
+  const base = ref || (typeof abonoMesActual === 'function' ? abonoMesActual() : hoyISO().slice(0,7));
+  const [y,m] = String(ym).split('-');
+  const nom = ABONO_MESES[parseInt(m,10)-1] || ym;
+  return (y === String(base).slice(0,4)) ? nom : (nom + ' ' + y);
+}
 function abonoMesLabel(ym){ const [y,m]=ym.split('-'); return ABONO_MESES[parseInt(m,10)-1]+' '+y; }
 
 // Se llama al entrar a la página de abonos
@@ -8127,15 +8238,6 @@ function renderIngresos(){
   const vArs = varPct(d.totalArs, prev.totalArs), vUsd = varPct(d.totalUsd, prev.totalUsd);
   const chip = v => v===null ? '' : `<span class="ing-var ${v>=0?'up':'down'}">${v>=0?'▲':'▼'} ${Math.abs(v).toFixed(0)}%</span>`;
 
-  const fuente = (nombre, dato, extra) => `
-    <div class="ing-fuente">
-      <div class="ing-fuente-h">${nombre}${extra?`<span class="ing-fuente-x">${extra}</span>`:''}</div>
-      <div class="ing-fuente-montos">
-        <div class="ing-monto"><span class="ing-cur">$</span><span class="ing-val">${Math.round(dato.ars).toLocaleString('es-AR')}</span></div>
-        <div class="ing-monto usd"><span class="ing-cur">US$</span><span class="ing-val">${Math.round(dato.usd).toLocaleString('es-AR')}</span></div>
-      </div>
-    </div>`;
-
   const g = d.gastos;
   const hayGastos = (g.totArs || g.totUsd);
 
@@ -8187,18 +8289,32 @@ function renderIngresos(){
         </div>
       </div>
     </div>`:''}
-    <div class="ing-fuentes-h">Desglose por fuente (bruto)</div>
-    <div class="ing-fuentes">
-      ${fuente('Caja judicial', d.jud, d.jud.n+' mov.')}
-      ${fuente('Caja societaria', d.soc, d.soc.n + ' mov.' + (d.actas.n ? ' + ' + d.actas.n + ' abono' + (d.actas.n!==1?'s':'') + ' de actas' : ''))}
-      ${fuente('Caja WE Legal', d.wl, d.wl.n ? (d.wl.n+' pack'+(d.wl.n!==1?'s':'')) : 'sin packs')}
-      ${fuente('Abonos', d.abo, d.actas.n ? 'sin los de actas' : '')}
-    </div>
-    <div class="ing-part-h">Participación de cada fuente</div>
+    <div class="ing-fuentes-h">Ingresos por fuente (bruto)</div>
     ${ingBarrasParticipacion(d)}`;
+  // El ancho real de cada barra recién se conoce una vez pintada
+  requestAnimationFrame(ingAjustarBarras);
 }
 
-// Barras de participación, una columna por moneda
+// Deja el monto adentro de la barra solo si entra entero. Si no, lo saca justo a
+// la derecha del extremo de la barra, en tinta oscura, sin pisar el porcentaje.
+function ingAjustarBarras(){
+  document.querySelectorAll('.ing-barra-track').forEach(track => {
+    const fill = track.querySelector('.ing-barra-fill');
+    const mto  = track.querySelector('.ing-barra-mto');
+    if(!fill || !mto) return;
+    mto.classList.remove('fuera'); mto.style.left = '';
+    const anchoTxt = mto.scrollWidth;
+    const anchoBarra = fill.clientWidth;
+    if(anchoTxt + 20 > anchoBarra){
+      mto.classList.add('fuera');
+      // tope: que nunca invada la zona del porcentaje
+      const max = track.clientWidth - anchoTxt - 4;
+      mto.style.left = Math.min(anchoBarra + 8, Math.max(0, max)) + 'px';
+    }
+  });
+}
+// Ingresos por fuente: una columna por moneda. Cada barra lleva el monto adentro,
+// así no hace falta repetir el desglose en tarjetas aparte.
 function ingBarrasParticipacion(d){
   const fmt = v => Math.round(Number(v)||0).toLocaleString('es-AR');
   const bloque = (titulo, simb, tot, filas) => {
@@ -8207,21 +8323,26 @@ function ingBarrasParticipacion(d){
       <div class="ing-part-col-h"><span class="ing-part-mon">${titulo}</span><span class="ing-part-tot">${simb} ${fmt(t)}</span></div>
       ${t ? filas.map(f=>{
         const pct = f.v/t*100;
+        const txt = f.v ? (simb + ' ' + fmt(f.v)) : '—';
+        // El monto va adentro de la barra; si no entra, ingAjustarBarras() lo saca
+        // afuera (se mide recién en pantalla, que es cuando se conoce el ancho real).
         return `<div class="ing-barra-row">
-          <div class="ing-barra-lbl">${f.n}</div>
-          <div class="ing-barra-track"><span style="width:${pct.toFixed(1)}%;background:${f.c}"></span></div>
+          <div class="ing-barra-lbl">${f.n}${f.x?`<span class="ing-barra-x">${f.x}</span>`:''}</div>
+          <div class="ing-barra-track">
+            <span class="ing-barra-fill" style="width:${Math.max(pct,0.8).toFixed(1)}%;background:${f.c}"><b class="ing-barra-mto">${txt}</b></span>
+          </div>
           <div class="ing-barra-pct">${pct.toFixed(0)}%</div>
         </div>`;
       }).join('') : '<div class="ing-part-vacio">Sin ingresos en esta moneda este mes.</div>'}
     </div>`;
   };
+  const wl = d.wl || { ars:0, usd:0, n:0 };
   const cols = [
-    { n:'Caja judicial', c:'#1b3a6b' },
-    { n:'Caja societaria', c:'#2d5016' },
-    { n:'Caja WE Legal', c:'#8a5a2b' },
-    { n:'Abonos', c:'#c9a961' }
+    { n:'Caja judicial',   c:'#1b3a6b', x: d.jud.n + ' mov.' },
+    { n:'Caja societaria', c:'#2d5016', x: d.soc.n + ' mov.' + (d.actas.n ? ' + ' + d.actas.n + ' de actas' : '') },
+    { n:'Caja WE Legal',   c:'#8a5a2b', x: wl.n ? (wl.n + ' pack' + (wl.n!==1?'s':'')) : 'sin packs' },
+    { n:'Abonos',          c:'#c9a961', x: d.actas.n ? 'sin los de actas' : '' }
   ];
-  const wl = d.wl || { ars:0, usd:0 };
   const ars = cols.map((c,i)=>({ ...c, v:[d.jud.ars,d.soc.ars,wl.ars,d.abo.ars][i] }));
   const usd = cols.map((c,i)=>({ ...c, v:[d.jud.usd,d.soc.usd,wl.usd,d.abo.usd][i] }));
   return `<div class="ing-part-wrap">
@@ -10177,12 +10298,34 @@ function abonoEtiquetaCaja(cli, compacta){
     + (compacta ? '' : ' ' + Math.round(r.pct) + '/' + (100 - Math.round(r.pct))) + '</span>';
   return '';   // abono común: sin etiqueta, es la regla general
 }
+// Percibido: lo que entró EN el mes ym, sin importar qué meses salda ese pago.
+// Devuelve el total y el desglose por mes cubierto, para poder detallar atrasos.
+function abonoCobradoEnMes(cli, ym){
+  let total = 0; const porMes = {};
+  ((cli && cli.pagos) || []).forEach(p => {
+    (p.parciales||[]).forEach(x => {
+      const f = (x.fecha || (p.mes ? p.mes+'-01' : '')).slice(0,7);
+      if(f !== ym) return;
+      const m = Number(x.monto)||0; if(!m) return;
+      total += m; porMes[p.mes] = (porMes[p.mes]||0) + m;
+    });
+  });
+  return { total, porMes, meses: Object.keys(porMes).sort() };
+}
+// Meses atrasados que cubrió un cobro del mes ym (todos menos el propio mes)
+function abonoAtrasosDe(cli, ym){
+  return abonoCobradoEnMes(cli, ym).meses.filter(m => m !== ym);
+}
 // Cuánto de lo COBRADO en el mes va a cada lado. Reparto proporcional.
+// El reparto usa el PERCIBIDO: la plata se imputa al mes en que entró.
 function abonoRepartoMes(cli, ym){
-  const cobrado = abonoTotalMes(cli, ym);
+  const cob = abonoCobradoEnMes(cli, ym);
+  const cobrado = cob.total;
   const r = abonoCajaDe(cli);
   const soc = cobrado * r.pct / 100;
-  return { cobrado, soc, abo: cobrado - soc, pct: r.pct, caja: r.caja };
+  return { cobrado, soc, abo: cobrado - soc, pct: r.pct, caja: r.caja,
+           porMes: cob.porMes, mesesCubiertos: cob.meses,
+           atrasos: cob.meses.filter(m => m !== ym) };
 }
 // Cuánto se ESPERA de actas en el mes (para el pendiente), sin depender del cobro
 function abonoEsperadoSoc(cli, ym){
@@ -10202,15 +10345,18 @@ function abonoEsperadoSoc(cli, ym){
 function abonoActasDelMes(ym){
   const out = { ars: 0, usd: 0, aboArs: 0, aboUsd: 0,
                 espArs: 0, espUsd: 0, pendArs: 0, pendUsd: 0,
+                atrasArs: 0, atrasUsd: 0, nAtras: 0, atrasos: [], mesesAtras: {},
                 n: 0, nPend: 0, filas: [] };
   (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
     if (!abonoEsActas(c)) return;
     if (c.estado && c.estado !== 'activo') return;      // los pausados no se listan
-    const r = abonoRepartoMes(c, ym);
+    const r = abonoRepartoMes(c, ym);                 // percibido: entró este mes
     const esp = abonoEsperadoSoc(c, ym);
     const st = abonoEstadoMes(c, ym);
-    // Lo que falta cobrar, en la proporción que le toca a societario
-    const falta = Math.max(0, esp - r.soc);
+    // Lo que falta cobrar DEL MES ym, en la proporción societaria. Se mide contra
+    // lo saldado de ese mes (devengado), no contra lo que entró en caja.
+    const saldadoDelMes = abonoTotalMes(c, ym) * (abonoCajaDe(c).pct||0) / 100;
+    const falta = Math.max(0, esp - saldadoDelMes);
     if (c.moneda === 'USD'){ out.espUsd += esp; out.pendUsd += falta; }
     else { out.espArs += esp; out.pendArs += falta; }
     if (r.cobrado){
@@ -10219,9 +10365,18 @@ function abonoActasDelMes(ym){
       else { out.ars += r.soc; out.aboArs += r.abo; }
     }
     if (st.estado !== 'pagado') out.nPend++;
+    if (r.atrasos.length){
+      out.nAtras++;
+      const socAtras = r.atrasos.reduce((a,m)=> a + (r.porMes[m]||0), 0) * (r.pct/100);
+      if (c.moneda === 'USD') out.atrasUsd += socAtras; else out.atrasArs += socAtras;
+      out.atrasos.push({ nombre: c.nombre, moneda: c.moneda, monto: socAtras,
+                         meses: r.atrasos.slice() });
+      r.atrasos.forEach(m => out.mesesAtras[m] = true);
+    }
     out.filas.push({ cli: c, nombre: c.nombre, moneda: c.moneda,
                      cobrado: r.cobrado, soc: r.soc, abo: r.abo, pct: r.pct, caja: r.caja,
-                     estado: st.estado, esperadoSoc: esp, faltaSoc: falta });
+                     estado: st.estado, esperadoSoc: esp, faltaSoc: falta,
+                     mesesCubiertos: r.mesesCubiertos, atrasos: r.atrasos });
   });
   // Primero lo que falta cobrar, que es lo accionable
   const orden = { pendiente: 0, parcial: 1, pagado: 2 };
@@ -10271,8 +10426,10 @@ function ingresosDelMes(ym){
 
   // Abonos: lo efectivamente cobrado en ese mes (suma de parciales), por moneda
   let aboArs = 0, aboUsd = 0;
+  // Manda la FECHA DE COBRO: un pago de agosto que salda tres meses atrasados
+  // entra entero en agosto. La grilla de abonos sigue mostrando el mes saldado.
   (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
-    const cobrado = abonoTotalMes(c, ym);
+    const cobrado = abonoCobradoEnMes(c, ym).total;
     if(!cobrado) return;
     if(c.moneda === 'USD') aboUsd += cobrado; else aboArs += cobrado;
   });
@@ -10334,11 +10491,16 @@ function ingresosPorCliente(ymDesde, ymHasta){
     const neto = (Number(m.monto)||0) - socGastosEnMonto(m);
     sumar(m.contraparte, neto, m.moneda, 'soc');
   });
+  // Los abonos cuentan por FECHA DE COBRO, no por el mes que saldan: un pago
+  // atrasado que cubre tres meses entra entero en el mes en que ingresó la plata.
   (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
     (c.pagos||[]).forEach(p => {
-      if(!p.mes || p.mes < ymDesde || p.mes > ymHasta) return;
-      const tot = (p.parciales||[]).reduce((a,x)=>a+(Number(x.monto)||0),0);
-      if(tot) sumar(c.nombre, tot, c.moneda, 'abo');
+      (p.parciales||[]).forEach(x => {
+        const f = x.fecha || (p.mes ? p.mes+'-01' : '');
+        if(!enRango(f)) return;
+        const m = Number(x.monto)||0;
+        if(m) sumar(c.nombre, m, c.moneda, 'abo');
+      });
     });
   });
   return Object.values(acum);
@@ -10422,12 +10584,16 @@ function ingresosPorConcepto(ymDesde, ymHasta){
   });
   // Los abonos se agrupan como un servicio propio
   let aboArs=0, aboUsd=0;
+  // Igual que arriba: manda la fecha de cobro real de cada parcial.
   (typeof ABONOS !== 'undefined' ? ABONOS : []).forEach(c => {
     (c.pagos||[]).forEach(p => {
-      if(!p.mes || p.mes < ymDesde || p.mes > ymHasta) return;
-      const tot = (p.parciales||[]).reduce((a,x)=>a+(Number(x.monto)||0),0);
-      if(!tot) return;
-      if(c.moneda==='USD') aboUsd += tot; else aboArs += tot;
+      (p.parciales||[]).forEach(x => {
+        const f = (x.fecha || (p.mes ? p.mes+'-01' : '')).slice(0,7);
+        if(!f || f < ymDesde || f > ymHasta) return;
+        const m = Number(x.monto)||0;
+        if(!m) return;
+        if(c.moneda==='USD') aboUsd += m; else aboArs += m;
+      });
     });
   });
   if(aboArs || aboUsd) acum['__abonos'] = { concepto:'Abonos mensuales', ars:aboArs, usd:aboUsd, n:0, variantes:new Set() };
@@ -11268,10 +11434,12 @@ function abonoEliminar(cliId){
 let ABONO_REG_CLI = null;   // id del cliente en edición
 let ABONO_REG_ADJ = null;   // {nombre, path, url} del comprobante cargado en esta sesión de edición
 
+let ABONO_REG_MESES = null;   // meses que cubre el pago que se está cargando
 function abonoAbrirRegistro(cliId){
   const c = abonoBuscarCli(cliId); if(!c) return;
   ABONO_REG_CLI = cliId;
   ABONO_REG_ADJ = null; // comprobante del pago que se está por agregar
+  ABONO_REG_MESES = [abonoMesActual()];
   abonoPintarRegistro();
   document.getElementById('abonoRegModal').style.display = 'flex';
 }
@@ -11292,11 +11460,17 @@ function abonoPintarRegistro(){
     const comprob = x.comprobante && (x.comprobante.url || x.comprobante.path)
       ? `<button class="abo-pp-dl" onclick="abonoDescargarComprobParcial(${c.id},'${x.id}')">📎 ${esc(x.comprobante.nombre||'comprobante')}</button>`
       : (x.aQuien && /efectivo/i.test(x.aQuien) ? '<span class="abo-pp-efec">efectivo</span>' : '<span class="abo-pp-sc">sin comprobante</span>');
+    const grupo = abonoMesesDelGrupo(c, x.fecha);
+    const marcaGrupo = grupo.length > 1
+      ? `<span class="abo-pp-grupo" title="Parte de un pago que cubrió ${grupo.map(m=>abonoMesLabel(m)).join(', ')}">pago de ${grupo.length} meses</span>` : '';
     return `<div class="abo-pp-item">
       <div class="abo-pp-info">
-        <div class="abo-pp-l1"><b>${x.monto!=null&&x.monto!==''?fmtM(x.monto):'(sin importe)'}</b>${x.fecha?' · '+formatFechaCorta(x.fecha):''}</div>
+        <div class="abo-pp-l1"><b>${x.monto!=null&&x.monto!==''?fmtM(x.monto):'(sin importe)'}</b>${x.fecha?' · '+formatFechaCorta(x.fecha):''}${marcaGrupo}</div>
         <div class="abo-pp-l2">${x.aQuien?esc(x.aQuien)+' · ':''}${comprob}</div>
       </div>
+      ${grupo.length > 1
+        ? `<button class="abo-pp-undo" onclick="abonoDeshacerPagoDesdeModal('${x.fecha}', ${JSON.stringify(x.aQuien||'').replace(/"/g,'&quot;')})" title="Deshacer el pago completo en los ${grupo.length} meses">↩ Deshacer pago</button>`
+        : ''}
       <button class="abo-pp-del" onclick="abonoEliminarParcial('${x.id}')" title="Eliminar este pago">✕</button>
     </div>`;
   }).join('') : '<div class="abo-pp-vacio">Todavía no hay pagos registrados este mes.</div>';
@@ -11322,14 +11496,19 @@ function abonoPintarRegistro(){
 
       <div class="abo-pp-nuevo">
         <div class="abo-pp-nuevo-h">Agregar un pago</div>
+        <div class="abo-reg-fld">
+          <label>¿Qué meses cubre este pago?</label>
+          <div class="abo-mm-chips">${abonoChipsMesesHTML(c)}</div>
+          <div class="abo-mm-hint" id="abonoMMHint"></div>
+        </div>
         <div class="abo-reg-grid">
           <div class="abo-reg-fld">
-            <label>Fecha</label>
+            <label>Fecha de cobro <span class="opt">(cuándo entró la plata)</span></label>
             <input type="date" id="abonoRegFecha" value="${hoyISO()}">
           </div>
           <div class="abo-reg-fld">
-            <label>Monto (${simbolo})</label>
-            <input type="text" inputmode="numeric" id="abonoRegMonto" value="${st.estado!=='pagado'&&st.falta?st.falta.toLocaleString('es-AR'):''}" placeholder="Cuánto pagó" oninput="abonoFmtInput(this)">
+            <label>Monto total (${simbolo})</label>
+            <input type="text" inputmode="numeric" id="abonoRegMonto" value="${st.estado!=='pagado'&&st.falta?st.falta.toLocaleString('es-AR'):''}" placeholder="Cuánto pagó" oninput="abonoFmtInput(this);abonoMMActualizarHint()">
           </div>
         </div>
         <div class="abo-reg-fld">
@@ -11356,6 +11535,56 @@ function abonoPintarRegistro(){
     </div>`;
   abonoPintarComprob();
   abonoLlenarAQuien();
+  abonoMMActualizarHint();
+}
+
+// ── Selector de meses que cubre el pago ──
+function abonoRegMeses(){
+  if(!Array.isArray(ABONO_REG_MESES) || !ABONO_REG_MESES.length) ABONO_REG_MESES = [abonoMesActual()];
+  return ABONO_REG_MESES;
+}
+function abonoChipsMesesHTML(c){
+  const ymVista = abonoMesActual();
+  const sel = abonoRegMeses();
+  // 12 meses hasta el mes visible: hay clientes que se atrasan un año entero
+  return abonoMesesHasta(ymVista, 12).map(ym => {
+    const st = abonoEstadoMes(c, ym);
+    const activo = sel.indexOf(ym) !== -1;
+    const [y,m] = ym.split('-');
+    const lbl = ABONO_MESES[parseInt(m,10)-1].slice(0,3);
+    const cls = activo ? 'on' : (st.estado==='pagado' ? 'pago' : st.estado==='parcial' ? 'parc' : 'debe');
+    const tit = st.estado==='pagado' ? 'Ya está pagado' : st.estado==='parcial' ? 'Pago parcial' : 'Pendiente';
+    return `<button type="button" class="abo-mm-chip ${cls}" title="${capPrim(abonoMesLabel(ym))} · ${tit}" onclick="abonoMMToggle('${ym}')">
+      <span class="mm-m">${capPrim(lbl)}</span><span class="mm-y">${y.slice(2)}</span></button>`;
+  }).join('');
+}
+function abonoMMToggle(ym){
+  const sel = abonoRegMeses();
+  const i = sel.indexOf(ym);
+  if(i === -1) sel.push(ym); else if(sel.length > 1) sel.splice(i,1);
+  ABONO_REG_MESES = sel.slice().sort();
+  const cont = document.querySelector('.abo-mm-chips');
+  const c = abonoBuscarCli(ABONO_REG_CLI);
+  if(cont && c) cont.innerHTML = abonoChipsMesesHTML(c);
+  abonoMMActualizarHint();
+}
+// Muestra cómo queda repartido el monto entre los meses elegidos
+function abonoMMActualizarHint(){
+  const cont = document.getElementById('abonoMMHint'); if(!cont) return;
+  const c = abonoBuscarCli(ABONO_REG_CLI); if(!c) return;
+  const sel = abonoRegMeses();
+  const inp = document.getElementById('abonoRegMonto');
+  const raw = inp ? abonoParseInput(inp) : '';
+  const simbolo = c.moneda === 'USD' ? 'US$' : '$';
+  const fmt = n => simbolo+' '+Math.round(Number(n)||0).toLocaleString('es-AR');
+  if(sel.length <= 1){
+    cont.innerHTML = '<span class="mm-hint-uno">Cubre solo '+esc(abonoMesLabel(sel[0]))+'. Tocá otros meses si el pago salda atrasos.</span>';
+    return;
+  }
+  const partes = abonoRepartirEntreMeses(c, sel, raw===''?null:Number(raw));
+  const detalle = partes.map(x=>`<span class="mm-part"><b>${esc(abonoMesLabel(x.mes).split(' ')[0])}</b> ${x.monto==null?'—':fmt(x.monto)}</span>`).join('');
+  cont.innerHTML = `<div class="mm-hint-multi"><div class="mm-hint-t">Se reparte en ${partes.length} meses:</div><div class="mm-parts">${detalle}</div>
+    <div class="mm-hint-nota">Los tres meses quedan pagados en la grilla, pero la plata cuenta entera en el mes de la fecha de cobro.</div></div>`;
 }
 
 // Sugerencias de "a quién se abonó" a partir de pagos anteriores
@@ -11407,20 +11636,31 @@ function abonoQuitarComprob(){ ABONO_REG_ADJ = null; abonoPintarComprob(); }
 
 // Agrega el pago cargado en el formulario como un parcial nuevo
 function abonoAgregarPagoDesdeModal(){
-  const ym = abonoMesActual();
+  const meses = abonoRegMeses().slice().sort();
   const montoRaw = abonoParseInput(document.getElementById('abonoRegMonto'));
   const fecha = document.getElementById('abonoRegFecha').value || hoyISO();
   const aQuien = document.getElementById('abonoRegAQuien').value.trim();
   const obs = document.getElementById('abonoRegObs').value.trim();
   if(montoRaw==='' && !aQuien && !ABONO_REG_ADJ){ aricToast('Cargá al menos el monto o el comprobante'); return; }
-  abonoAgregarParcial(ABONO_REG_CLI, ym, {
-    monto: montoRaw!=='' ? Number(montoRaw) : null,
-    fecha, aQuien, obs,
-    comprobante: ABONO_REG_ADJ ? { ...ABONO_REG_ADJ } : null
-  });
+  if(meses.length > 1 && montoRaw===''){ aricToast('Para repartir en varios meses hace falta el monto total'); return; }
+  const datos = { fecha, aQuien, obs, comprobante: ABONO_REG_ADJ ? { ...ABONO_REG_ADJ } : null };
+  const partes = abonoAgregarPagoMulti(ABONO_REG_CLI, meses, montoRaw!==''?Number(montoRaw):null, datos);
+  if(partes.length > 1) aricToast('Pago repartido en '+partes.length+' meses · cobrado el '+formatFechaCorta(fecha));
   ABONO_REG_ADJ = null;
+  ABONO_REG_MESES = [abonoMesActual()];
   abonoPintarRegistro();  // refresca la lista dentro del modal
   renderAbonos();         // refresca la tabla de fondo
+}
+// Deshace el pago completo desde el modal (borra los parciales de todos los meses)
+function abonoDeshacerPagoDesdeModal(fecha, aQuien){
+  const c = abonoBuscarCli(ABONO_REG_CLI); if(!c) return;
+  const meses = abonoMesesDelGrupo(c, fecha);
+  const lbl = meses.map(m=>abonoMesLabel(m)).join(', ');
+  if(!confirm('Se va a deshacer el pago del '+formatFechaCorta(fecha)+' completo.\n\nQuedan sin saldar: '+lbl+'.\n\nLos pagos anteriores de esos meses no se tocan. ¿Seguir?')) return;
+  const n = abonoDeshacerPago(ABONO_REG_CLI, fecha, aQuien);
+  aricToast('Pago deshecho · '+n+' meses vueltos atrás');
+  abonoPintarRegistro();
+  renderAbonos();
 }
 // Elimina un pago parcial (incluye su comprobante)
 function abonoEliminarParcial(pid){
@@ -14975,8 +15215,27 @@ function renderActasSoc(mes){
 
   if (mini) mini.textContent = a.filas.length
     ? a.filas.length + ' abono' + (a.filas.length !== 1 ? 's' : '')
-      + ' · ' + a.n + ' con cobro' + (a.nPend ? ' · ' + a.nPend + ' pendiente' + (a.nPend !== 1 ? 's' : '') : '')
+      + ' · ' + a.n + ' con cobro'
+      + (a.nAtras ? ' · ' + a.nAtras + ' con atrasos' : '')
+      + (a.nPend ? ' · ' + a.nPend + ' pendiente' + (a.nPend !== 1 ? 's' : '') : '')
     : 'ningún abono asignado a societario';
+
+  // Aviso de atrasos: qué parte del ingreso del mes viene de abonos de meses anteriores
+  const cajaAtras = document.getElementById('csActasAtrasos');
+  if (cajaAtras){
+    if (a.nAtras){
+      const totAt = (a.atrasArs ? '$ ' + fmtNumStr(Math.round(a.atrasArs)) : '')
+        + (a.atrasArs && a.atrasUsd ? ' · ' : '')
+        + (a.atrasUsd ? 'u$s ' + fmtNumStr(Math.round(a.atrasUsd)) : '');
+      const meses = Object.keys(a.mesesAtras).sort().map(m => abonoMesCorto(m, mes)).join(', ');
+      const det = a.atrasos.map(x =>
+        `<li><b>${esc(x.nombre.toUpperCase())}</b> — ${x.moneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(Math.round(x.monto))} · abonos de ${x.meses.map(m=>abonoMesCorto(m, mes)).join(', ')}</li>`).join('');
+      cajaAtras.innerHTML = `<div class="actas-atras-box">
+        <div class="actas-atras-t">De este mes, <b>${totAt}</b> son abonos atrasados</div>
+        <div class="actas-atras-s">Corresponden a ${meses}, pero entraron ahora y por eso cuentan en este mes.</div>
+        <ul class="actas-atras-l">${det}</ul></div>`;
+    } else cajaAtras.innerHTML = '';
+  }
 
   if (!a.filas.length){
     tabla.innerHTML = '';
@@ -15009,7 +15268,10 @@ function renderActasSoc(mes){
           <td>${chip}</td>
           <td>${badge(f)}</td>
           <td style="text-align:right;font-variant-numeric:tabular-nums;color:var(--tinta-suave)">${monto(f.esperadoSoc, f.moneda)}</td>
-          <td style="text-align:right;font-variant-numeric:tabular-nums">${f.cobrado ? monto(f.cobrado, f.moneda) : '—'}</td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums">${f.cobrado ? monto(f.cobrado, f.moneda) : '—'}${
+            f.mesesCubiertos && f.mesesCubiertos.length
+              ? `<div class="actas-atras">abono de ${f.mesesCubiertos.map(m=>abonoMesCorto(m)).join(', ')}</div>`
+              : ''}</td>
           <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:${f.soc ? 'var(--sello)' : 'var(--tinta-suave)'}">${f.soc ? monto(f.soc, f.moneda) : '—'}</td>
         </tr>`;
       }).join('')
