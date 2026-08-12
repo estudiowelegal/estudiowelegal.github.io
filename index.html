@@ -19361,9 +19361,56 @@ function inaseEliminar(id){
 }
 
 function sesionActiva() { return !!usuarioActual(); }
+// ── Purga de la caché local de datos ──
+// Sin sesión no puede quedar nada del estudio guardado en el navegador: alcanza
+// con sacar la clase 'locked' desde la consola para ver la pantalla, así que si
+// los datos siguen en localStorage se ven enteros. Se borran los datos y se
+// dejan solo las preferencias de vista, que no dicen nada de ningún cliente.
+const CACHE_PREFS_OK = [
+  'jc-panel-col-v1', 'jc-abonos-colapso-v1', 'jc-sys-vista-v1',
+  'jc-gcal-pref', 'jc-abonos-infl-visto-v1'
+];
+function purgarCacheLocal() {
+  let n = 0;
+  try {
+    const ls = window['local' + 'Storage'];
+    const matar = [];
+    for (let i = 0; i < ls.length; i++) {
+      const k = ls.key(i);
+      if (!k) continue;
+      const esDato = k.indexOf('jc-') === 0 || k.indexOf('juris-cannabis-') === 0;
+      if (esDato && CACHE_PREFS_OK.indexOf(k) === -1) matar.push(k);
+    }
+    matar.forEach(k => { try { ls.removeItem(k); n++; } catch (e) {} });
+  } catch (e) {}
+  // Las variables en memoria también: si la pantalla ya se pintó, los datos siguen
+  // vivos aunque el localStorage esté limpio. Se vacían in situ (length = 0) para
+  // no romper las referencias que tiene el resto del código.
+  const vaciarArr = a => { try { if (Array.isArray(a)) a.length = 0; } catch (e) {} };
+  try { vaciarArr(casos); } catch (e) {}
+  try { vaciarArr(CAJA); } catch (e) {}
+  try { vaciarArr(CAJASOC); } catch (e) {}
+  try { vaciarArr(CLIENTES); } catch (e) {}
+  try { vaciarArr(TAREAS); } catch (e) {}
+  try { vaciarArr(PLANES); } catch (e) {}
+  try { vaciarArr(ABONOS); } catch (e) {}
+  try { vaciarArr(ARIC); } catch (e) {}
+  try { vaciarArr(INASE); } catch (e) {}
+  try { vaciarArr(REUNIONES); } catch (e) {}
+  try { vaciarArr(CS_COM); } catch (e) {}
+  try { vaciarArr(CS_FONDO); } catch (e) {}
+  try { vaciarArr(USUARIOS_DB); } catch (e) {}
+  try { CAJASOC_ADJ = {}; } catch (e) {}
+  try { GASTOS = null; } catch (e) {}
+  try { EQUIPO = null; } catch (e) {}
+  try { SUELDO = null; } catch (e) {}
+  try { pdfs = {}; pdfTextos = {}; } catch (e) {}
+  return n;
+}
 function cerrarSesion() {
   try { sbSalir(); } catch (e) {}
   try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {}
+  purgarCacheLocal();
   document.body.classList.add('locked');
   document.body.classList.remove('caja-ori');
   document.body.classList.remove('cajasoc-gastos');
@@ -19778,6 +19825,10 @@ if (sesionActiva()) aplicarPermisos();
 })();
 if (!sesionActiva()) {
   document.body.classList.add('locked');
+  // Sin sesión al abrir: se purga lo que haya quedado guardado de una sesión
+  // anterior, así sacar la clase 'locked' a mano muestra un cascarón vacío.
+  // Si más abajo se restaura la sesión de Supabase, los datos se vuelven a bajar.
+  try { purgarCacheLocal(); } catch (e) {}
   setTimeout(() => { const u = document.getElementById('loginUser'); if (u) u.focus(); }, 60);
 }
 // Al abrir: si quedó una sesión de Supabase, se restaura (renovándola si hizo falta)
@@ -19797,6 +19848,7 @@ if (!sesionActiva()) {
       // Había sesión pero ya no se puede renovar: se limpia y se pide ingresar.
       sbSesionGuardar(null);
       document.body.classList.add('locked');
+      try { purgarCacheLocal(); } catch (e) {}
     }
   } catch(e){}
   finally { try { sbMarcarLista(); } catch(e){} }   // que nunca quede nadie esperando
