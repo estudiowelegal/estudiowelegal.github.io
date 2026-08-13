@@ -4362,6 +4362,8 @@ const CASOS_INICIALES = [
 let casos = [], pdfs = {}, pdfTextos = {}, vistaActual = 'todos', editId = null, activeId = null, citasActuales = [];
 
 function loadCasos() {
+  // Candado: sin sesión no se cargan ni los datos guardados ni los de ejemplo
+  if (typeof appBloqueada === 'function' && appBloqueada()) { casos = []; pdfs = {}; pdfTextos = {}; return; }
   try {
     const raw = appStore.getItem(LS_KEY);
     if (!raw) {
@@ -6072,6 +6074,8 @@ function detectarFuero(exp) {
 }
 
 function loadExpedientes() {
+  // Candado: sin sesión, ni guardados ni de ejemplo
+  if (typeof appBloqueada === 'function' && appBloqueada()) { expedientes = []; return; }
   try {
     const stored = JSON.parse(appStore.getItem(EXP_KEY)||'[]');
     expedientes = stored.length ? stored : [...EXP_INICIALES];
@@ -7069,12 +7073,25 @@ async function sbFetch(url, opciones, extraHeaders) {
   }
   return r;
 }
+// ══ CANDADO ══
+// La clase 'locked' del body es cosmética: se saca desde la consola en dos
+// segundos. Esta función es la que manda de verdad. Mientras no haya sesión
+// propia, ni se muestran datos ni se escribe una sola fila en la nube.
+function appBloqueada(){
+  try {
+    if (typeof sesionActiva === 'function' && !sesionActiva()) return true;
+    if (typeof sbSesionActiva === 'function' && !sbSesionActiva()) return true;
+  } catch(e) { return true; }
+  return false;
+}
 async function sbSelect(tabla) {
+  if (appBloqueada()) return [];    // sin sesión no se lee nada
   const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}?select=*`, {});
   if (!r.ok) throw new Error(tabla + ' ' + r.status);
   return r.json();
 }
 async function sbUpsert(tabla, fila) {
+  if (appBloqueada()) return;         // candado: sin sesión no se escribe en la nube
   if (!sbSesionActiva()) return;      // sin ingresar: queda local y sube al iniciar sesión
   const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}`, {
     method: 'POST',
@@ -7083,11 +7100,13 @@ async function sbUpsert(tabla, fila) {
   if (!r.ok) throw new Error(tabla + ' upsert ' + r.status + ': ' + (await r.text()).slice(0, 120));
 }
 async function sbDelete(tabla, id) {
+  if (appBloqueada()) return;         // candado: tampoco se borra nada sin sesión
   if (!sbSesionActiva()) return;      // ídem: no se toca la nube sin credencial propia
   const r = await sbFetch(`${SB_URL}/rest/v1/${tabla}?id=eq.${id}`, { method: 'DELETE' }, { 'Prefer': 'return=minimal' });
   if (!r.ok && r.status !== 404) throw new Error(tabla + ' delete ' + r.status);
 }
 async function sbUploadFile(bucket, nombre, blob) {
+  if (appBloqueada()) throw new Error('sesión requerida');   // candado
   const path = `${bucket}/${nombre}`;
   const _url = `${SB_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(nombre)}`;
   const _opts = () => ({ method: 'POST', headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + sbToken(), 'Content-Type': blob.type, 'x-upsert': 'true' }, body: blob });
@@ -7775,6 +7794,7 @@ function abonoAplicarFiltroVivo(){
 function abonoFiltrar(v){ ABONOS_FILTRO = v||'todos'; abonoAplicarFiltroVivo(); }
 
 function loadAbonos(){
+  if (typeof appBloqueada === 'function' && appBloqueada()) { ABONOS = []; return; }   // candado
   try { ABONOS = JSON.parse(appStore.getItem(ABONOS_KEY) || 'null'); } catch(e){ ABONOS = null; }
   if (!Array.isArray(ABONOS) || !ABONOS.length) { ABONOS = ABONOS_SEED.map(c=>({...c, pagos: (c.pagos||[]).slice()})); saveAbonos(); }
 }
@@ -11698,7 +11718,9 @@ function aricEsc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g
 
 // ── localStorage ──
 const ARIC_SEED=[{"id":"ac0","submodulo":"canamo","nombre":"Sintropia","cuit":"27947904006","clave":"BeltranPau25","drive":"","clienteId":null,"licencias":[{"id":"acl0_0","tipo":"Agricola","inicio":"2024-11-22","exp":"EX-2024-128393860- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"cancelada","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"","comprobante":"","comprobantePath":"","coment":"(iniciado como persona fisica, MAL)","hist":["Solicitada la cancelación IF-2024-128417434-APN-DTD#JGM"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55242821- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl0_1","tipo":"Agricola","inicio":"2024-11-22","exp":"Número de trámite: EX-2024-128416924- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-02-13","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 13/02/2025","hist":["03/02/2025 presentada la subsanación","14/04/2025 presentada nueva subsanacion, pidieron otra DJ"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55242821- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl0_2","tipo":"Industrial","inicio":"2024-11-27","exp":"Número de trámite: EX-2024-130028913- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 07/04/2025","hist":["18/02/2025 presentada la subsanación","11/03/2025 nos piden otra subsanación, completar una ddjj","18/03/2025 presentamos la subsanación","14/04/2025 presentada nueva subsanacion, pidieron otra DJ"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55240802- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"","exp":"","presentada":false},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac1","submodulo":"canamo","nombre":"Ivo W","cuit":"20389966100","clave":"Omsh4nt111@","drive":"","clienteId":null,"licencias":[{"id":"acl1_0","tipo":"Industrial","inicio":"2025-02-04","exp":"EX-2025-12194389- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"21/05/2025 pagó el arancel","comprobante":"","comprobantePath":"","coment":"Aprobada el 7/04/2025","hist":["17/06/205 informamos el pago en el expte administrativo"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-22","exp":"EX-2025-54679122- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120725199- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-20","exp":"EX-2026-50417933- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl1_1","tipo":"Agricola","inicio":"2025-02-17","exp":"EX-2025-17022326- -APN-ARICCAME#MEC","plazo":"","estado":"a_subsanar","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["18/06/2025 mandamos la subsanación, le pidieron ddjj"],"dj":[]}]},{"id":"ac2","submodulo":"canamo","nombre":"Facundo Noriega","cuit":"20292481897","clave":"kre74139SK","drive":"","clienteId":null,"licencias":[{"id":"acl2_0","tipo":"Agricola","inicio":"2025-02-10","exp":"EX-2025-14291044- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-12-19","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 19/12/2025","hist":["Pidieron subsanacion por error en el codigo de geo","06/05/2025 Presentamos la geo de nuevo subanando","21/05/2025 otra subsanación mas pidieron, presentada este dia","28/05/2025, presentada subsanación","29/05/2026 Presentada la DDJJ EX-2026-53520194- -APN-ARICCAME#MEC"],"dj":[{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53520194- -APN-ARICCAME#MEC","presentada":true}]},{"id":"acl2_1","tipo":"Industrial","inicio":"2025-02-17","exp":"EX-2025-17045064- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-04-07","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Pagó 07/07/2025","comprobante":"","comprobantePath":"","coment":"Aprobada el 07/04/2025","hist":["29/05/2026 Presentada la DDJJ EX-2026-53522635- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"mayo","fecha":"2025-05-23","exp":"EX-2025-55027904- -APN-ARICCAME#MEC","presentada":true},{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120947498- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53522635- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac3","submodulo":"canamo","nombre":"Ignacio","cuit":"20271950870","clave":"Luciana135","drive":"","clienteId":null,"licencias":[{"id":"acl3_0","tipo":"Agricola","inicio":"2025-03-11","exp":"EX-2025-25093563- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-09-10","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"Aprobada el 10/09/2025","hist":["12/06/2025 presentada subsanación","presentada la subsanación 23/06/2025","Presentada DDJJ EX-2026-53505448- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120784628- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53505448- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]},{"id":"acl3_1","tipo":"Industrial","inicio":"2025-03-11","exp":"EX-2025-25102062- -APN-ARICCAME#MEC","plazo":"","estado":"aprobada","fechaAprob":"2025-06-23","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"30/06/2025 pagó","comprobante":"","comprobantePath":"","coment":"Aprobada el 23/06/2025","hist":["Presentada DDJJ EX-2026-53507175- -APN-ARICCAME#MEC"],"dj":[{"anio":2025,"sem":"octubre","fecha":"2025-10-30","exp":"EX-2025-120792907- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"mayo","fecha":"2026-05-29","exp":"EX-2026-53507175- -APN-ARICCAME#MEC","presentada":true},{"anio":2026,"sem":"octubre","fecha":"","exp":"","presentada":false}]}]},{"id":"ac4","submodulo":"canamo","nombre":"Uboas","cuit":"27947904006","clave":"BeltranPau25","drive":"","clienteId":null,"licencias":[{"id":"acl4_0","tipo":"Industrial","inicio":"2025-03-12","exp":"EX-2025-25553881- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"ac5","submodulo":"canamo","nombre":"Gonzalo Garcia (Mangona)","cuit":"20257911536","clave":"EstudioINB206","drive":"","clienteId":null,"licencias":[{"id":"acl5_0","tipo":"Agricola","inicio":"2025-04-01","exp":"EX-2025-33607695- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 Presentamos pronto despacho: RE-2026-36302188-APN-DTD#JGM","15/07/2026 presentamos ratificacion de interes: : RE-2026-68775878-APN-DTD#JGM"],"dj":[]},{"id":"acl5_1","tipo":"Industrial","inicio":"2025-11-14","exp":"EX-2025-126913867- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 Presentamos pronto despacho : RE-2026-36303712-APN-DTD#JGM","15/07/2026 Presentamos ratificacion de interes: RE-2026-68812423-APN-DTD#JGM"],"dj":[]}]},{"id":"ac6","submodulo":"canamo","nombre":"MATILDE PAZ","cuit":"23384251579","clave":"Fortnit31205","drive":"","clienteId":null,"licencias":[{"id":"acl6_0","tipo":"Industrial","inicio":"2025-06-03","exp":"EX-2025-59363922- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["10/04/2026 PRESENTAMOS PROONTO DESPACHO: IF-2026-36344830-APN-DTD#JGM","Presentamos ratificacion de interes: IF-2026-68796430-APN-DTD#JGM"],"dj":[]},{"id":"acl6_1","tipo":"Agricola","inicio":"2025-06-03","exp":"EX-2025-59369968- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["EX-2025-58726616- -APN-ARICCAME#MEC","10/04/2026 presentamos pronto despacho: IF-2026-36345914-APN-DTD#JGM","15/07/2026 Presentamos ratificacion de interes: IF-2026-68794770-APN-DTD#JGM"],"dj":[]}]},{"id":"ac7","submodulo":"canamo","nombre":"Martin Oubiña","cuit":"20284629958","clave":"Harumi3125","drive":"","clienteId":null,"licencias":[{"id":"acl7_0","tipo":"Industrial","inicio":"2025-12-01","exp":"EX-2025-132900581- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["15/07/2026 Presentamos ratificacion de interes: IF-2026-68801000-APN-DTD#JGM"],"dj":[]},{"id":"acl7_1","tipo":"Agricola","inicio":"2025-12-04","exp":"EX-2025-134453494- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["15/07/2026 Presentamos ratificacion de interes: IF-2026-68799336-APN-DTD#JGM"],"dj":[]}]},{"id":"ac8","submodulo":"canamo","nombre":"Biocann","cuit":"20324213997","clave":"Leonardo800","drive":"","clienteId":null,"licencias":[{"id":"acl8_0","tipo":"Industrial","inicio":"2025-05-08","exp":"EX-2025-48136133- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":["01/04/26 presentados los recursos - RE-2026-33197918-APN-DTD#JGM - IF-2026-33195734-APN-DTD#JGM - IF-2026-33197790-APN-DTD#JGM - IF-2026-33197908-APN-DTD#JGM"],"dj":[]},{"id":"acl8_1","tipo":"Agricola","inicio":"2025-05-08","exp":"EX-2025-48150075- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":["02/03/26 presentado los recursos - RE-2026-21377242-APN-DTD#JGM - RE-2026-21377361-APN-DTD#JGM - IF-2026-21376910-APN-DTD#JGM - IF-2026-21377643-APN-DTD#JGM - RE-2026-21377660-APN-DTD#JGM","16/07/2026 pedido pronto despacho RE-2026-69184164-APN-DTD#JGM"],"dj":[]}]},{"id":"ac9","submodulo":"canamo","nombre":"Juan Ignacio","cuit":"20368852180","clave":"Etiketa2104","drive":"","clienteId":null,"licencias":[{"id":"acl9_0","tipo":"Agricola","inicio":"2026-03-31","exp":"EX-2026-32568629- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]},{"id":"acl9_1","tipo":"Industrial","inicio":"2026-03-31","exp":"EX-2026-32579127- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"ac10","submodulo":"canamo","nombre":"Chiurco Emiliano","cuit":"20357220077","clave":"Chiurco2026","drive":"","clienteId":null,"licencias":[{"id":"acl10_0","tipo":"Agricola","inicio":"2026-05-29","exp":"EX-2026-53431454- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"No corresponde abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]},{"id":"acl10_1","tipo":"Industrial","inicio":"2026-05-29","exp":"EX-2026-53425795- -APN-ARICCAME#MEC","plazo":"","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Debe abonar","comprobante":"","comprobantePath":"","coment":"","hist":[],"dj":[]}]},{"id":"acn0","submodulo":"cannabis","nombre":"Verdemar Cultivos SA","cuit":"30716544021","clave":"Verdemar2026","drive":"","clienteId":null,"licencias":[{"id":"acnl0_0","tipo":"Cannabis","inicio":"2026-06-10","exp":"EX-2026-61200345- -APN-ARICCAME#MEC","plazo":"60 días habiles administrativos","estado":"en_tramite","fechaAprob":"","fechaRechazo":"","fechaCancel":"","fechaSubsPedido":"","arancel":"Pagó","comprobante":"comprobante_solicitud.pdf","comprobantePath":"","coment":"Arancel abonado junto con la solicitud","hist":["10/06/2026 presentada la solicitud con arancel"],"dj":[],"pagosAnuales":[]}]}];
-function loadAric(){ const raw=appStore.getItem(ARIC_KEY);
+function loadAric(){
+  if (typeof appBloqueada === 'function' && appBloqueada()) { ARIC = []; return; }     // candado
+  const raw=appStore.getItem(ARIC_KEY);
   if(raw===null||raw===undefined){ ARIC = JSON.parse(JSON.stringify(ARIC_SEED)); saveAricLocal(); return; }
   try{ ARIC = JSON.parse(raw); }catch(e){ ARIC = []; }
   if(!Array.isArray(ARIC)) ARIC=[]; }
@@ -19822,6 +19844,21 @@ if (sesionActiva()) aplicarPermisos();
   } catch (e) {}
   try { history.replaceState({ jcPage: inicial }, '', '#' + inicial); } catch (e) {}
   __navToInterno(inicial);
+})();
+// ══ VIGILANTE DEL CANDADO ══
+// Si alguien saca la clase 'locked' desde la consola sin tener sesión, se repone
+// sola y se vacía todo lo que hubiera quedado en memoria. El esqueleto se ve; los
+// datos no. Escribir tampoco se puede: appBloqueada() corta antes de la nube.
+(function(){
+  try {
+    const obs = new MutationObserver(() => {
+      if (document.body.classList.contains('locked')) return;
+      if (typeof sesionActiva === 'function' && sesionActiva()) return;   // sesión real, todo bien
+      try { purgarCacheLocal(); } catch(e){}
+      document.body.classList.add('locked');
+    });
+    obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  } catch(e){}
 })();
 if (!sesionActiva()) {
   document.body.classList.add('locked');
