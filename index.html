@@ -113,7 +113,7 @@ button{font-family:var(--f-ui);}
 .grid-2-eq>.panel>div:last-child{flex:1;}
 .grid-2-eq .panel-h{min-height:56px;align-items:center;}
 /* Secciones de caja con marco y halo azul */
-#paginaCaja .panel,#paginaCajaSoc .panel{border:1px solid #c5d5ea;box-shadow:0 0 0 3px rgba(43,108,176,.05),0 8px 28px rgba(27,58,107,.12);position:relative;overflow:visible}
+#paginaCaja .panel,#paginaCajaSoc .panel,#paginaWeLegal .panel{border:1px solid #c5d5ea;box-shadow:0 0 0 3px rgba(43,108,176,.05),0 8px 28px rgba(27,58,107,.12);position:relative;overflow:visible}
 /* Perfiles sin sector judicial: inicio redistribuido y agenda solo-tareas */
 /* Ivana: inicio simplificado — dos tablas arriba (packs / contactar), accesos rápidos ampliados debajo */
 body.inicio-crm-first #inicioGrid2{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:16px}
@@ -155,13 +155,13 @@ body.sin-jud #panelInicioContactar{grid-column:2;grid-row:1 / span 2}
 /* Modo Ori en caja judicial: solo cargar pagos + sus comisiones */
 body.caja-ori #paginaCaja .page-head button{display:none}
 body.caja-ori #paginaCaja .f-col:has(#cajaDolar){display:none}
-body.caja-ori #paginaCaja .check-row:has(#cajaPesificar){display:none}
+body.caja-ori #paginaCaja .f-col:has(#cajaVistaMoneda){display:none}
 body.caja-ori #paginaCaja .grid-caja-4 .panel:not(:has(#cajaComisionesO)){display:none}
 body.caja-ori #paginaCaja th:nth-child(6),body.caja-ori #paginaCaja td:nth-child(6){display:none}
 /* Caja societaria en modo "solo gastos": queda a la vista el formulario y las dos
    listas de gastos; todo lo que revele el balance de la caja se oculta. */
 body.cajasoc-gastos #paginaCajaSoc .page-head .f-col:has(#csDolar){display:none}
-body.cajasoc-gastos #paginaCajaSoc .page-head .check-row:has(#csPesificar){display:none}
+body.cajasoc-gastos #paginaCajaSoc .page-head .f-col:has(#csVistaMoneda){display:none}
 body.cajasoc-gastos #paginaCajaSoc .page-head button{display:none}
 body.cajasoc-gastos #paginaCajaSoc #csTiles{display:none}
 body.cajasoc-gastos #paginaCajaSoc .panel:has(#csBuscarResult){display:none}
@@ -200,10 +200,10 @@ body.cajasoc-gastos #paginaCajaSoc th:nth-child(7),body.cajasoc-gastos #paginaCa
 .crm-row:hover{border-color:transparent !important;box-shadow:0 6px 20px rgba(27,58,107,.14);background:linear-gradient(var(--carta),var(--carta)) padding-box,linear-gradient(135deg,#3b6db3,#9db9dd 45%,#3b6db3) border-box !important}
 
 /* Títulos de sección (caja, inicio, agenda, herramientas): banda azul marino, oscura a la izquierda */
-#paginaCaja .panel-h,#paginaCajaSoc .panel-h,#paginaInicio .panel-h,#paginaAgenda .panel-h,#paginaHerramientas .panel-h{background:#14294a;border-bottom:2px solid #c9a961;border-radius:calc(var(--radio) - 1px) calc(var(--radio) - 1px) 0 0;padding:8px 16px 7px;min-height:0}
-#paginaCaja .panel-h h3,#paginaCajaSoc .panel-h h3,#paginaInicio .panel-h h3,#paginaAgenda .panel-h h3,#paginaHerramientas .panel-h h3{color:#fff;font-size:14px}
-#paginaCaja .panel-h .mini,#paginaCaja .panel-h span,#paginaCajaSoc .panel-h .mini,#paginaCajaSoc .panel-h span,#paginaInicio .panel-h .mini,#paginaInicio .panel-h span,#paginaAgenda .panel-h .mini,#paginaAgenda .panel-h span,#paginaHerramientas .panel-h .mini,#paginaHerramientas .panel-h span{color:#a9c3e8}
-#paginaCaja .stat-tiles .tile,#paginaCajaSoc .stat-tiles .tile{border:1px solid #cdd9ea;box-shadow:0 4px 16px rgba(27,58,107,.09)}
+#paginaCaja .panel-h,#paginaCajaSoc .panel-h,#paginaWeLegal .panel-h,#paginaInicio .panel-h,#paginaAgenda .panel-h,#paginaHerramientas .panel-h{background:#14294a;border-bottom:2px solid #c9a961;border-radius:calc(var(--radio) - 1px) calc(var(--radio) - 1px) 0 0;padding:8px 16px 7px;min-height:0}
+#paginaCaja .panel-h h3,#paginaCajaSoc .panel-h h3,#paginaWeLegal .panel-h h3,#paginaInicio .panel-h h3,#paginaAgenda .panel-h h3,#paginaHerramientas .panel-h h3{color:#fff;font-size:14px}
+#paginaCaja .panel-h .mini,#paginaCaja .panel-h span,#paginaCajaSoc .panel-h .mini,#paginaCajaSoc .panel-h span,#paginaWeLegal .panel-h .mini,#paginaWeLegal .panel-h span,#paginaInicio .panel-h .mini,#paginaInicio .panel-h span,#paginaAgenda .panel-h .mini,#paginaAgenda .panel-h span,#paginaHerramientas .panel-h .mini,#paginaHerramientas .panel-h span{color:#a9c3e8}
+#paginaCaja .stat-tiles .tile,#paginaCajaSoc .stat-tiles .tile,#paginaWeLegal .stat-tiles .tile{border:1px solid #cdd9ea;box-shadow:0 4px 16px rgba(27,58,107,.09)}
 
 /* Sugerencias de cliente en caja */
 .cj-sug{position:absolute;top:100%;left:0;right:0;z-index:60;background:#fff;border:1px solid #c9d8ec;border-radius:10px;margin-top:4px;box-shadow:0 10px 30px rgba(10,22,38,.18);max-height:280px;overflow-y:auto}
@@ -1885,6 +1885,28 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .fc-usd{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;color:#1e7a48}
 .fc-num.neg,.fc-usd.neg{color:#b3372a}
 .fc-pie{font-size:10.5px;color:var(--tinta-suave);margin-top:2px}
+.mto-orig{display:block;font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap;margin-top:1px}
+.vista-moneda{display:inline-flex;border:1px solid var(--filo);border-radius:10px;overflow:hidden;background:var(--carta);box-shadow:0 1px 3px rgba(20,41,74,.06)}
+.vista-moneda button{border:none;background:transparent;cursor:pointer;padding:7px 15px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--tinta-suave);border-right:1px solid var(--filo);line-height:1.2;text-align:left;transition:background .15s,color .15s}
+.vista-moneda button:last-child{border-right:none}
+.vista-moneda button small{display:block;font-size:9.5px;font-weight:500;opacity:.8;margin-top:2px;white-space:nowrap}
+.vista-moneda button:hover{background:#eef4fc;color:var(--tinta)}
+.vista-moneda button.on{background:#14294a;color:#fff}
+.vista-moneda button.on small{opacity:.75}
+.vista-moneda button.on[data-vm="usd"]{background:#1e7a48}
+.wl-flecha{font-size:10px;vertical-align:1px}
+.wl-flecha.in{color:#2d5016}
+.wl-flecha.ga{color:#b3372a}
+.cs-destino{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 4px}
+.cs-dest-op{display:flex;align-items:flex-start;gap:11px;padding:14px 16px;border:2px solid var(--filo);border-radius:11px;background:var(--carta);cursor:pointer;transition:border-color .15s,background .15s}
+.cs-dest-op:hover{border-color:#a9c3e8}
+.cs-dest-op.sel{border-color:#14294a;background:#eef4fc;box-shadow:0 2px 10px rgba(20,41,74,.10)}
+.cs-dest-op.sel.wl{border-color:#8a5a2b;background:#faf3ea;box-shadow:0 2px 10px rgba(138,90,43,.12)}
+.cs-dest-op input{margin-top:3px;flex:0 0 auto;accent-color:#14294a;width:17px;height:17px}
+.cs-dest-op.wl input{accent-color:#8a5a2b}
+.cs-dest-tx b{display:block;font-size:14.5px;color:var(--tinta);line-height:1.25}
+.cs-dest-tx small{display:block;font-size:11.5px;color:var(--tinta-suave);margin-top:3px;line-height:1.35}
+@media (max-width:700px){ .cs-destino{grid-template-columns:1fr} }
 .cs-grupo{display:flex;align-items:center;gap:10px;margin:16px 0 8px}
 .cs-grupo:first-child{margin-top:0}
 .cs-grupo-t{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-suave);white-space:nowrap}
@@ -2909,7 +2931,13 @@ body.locked .app{margin-left:0}
         <div class="f-row" id="cajaFiltrosA" style="margin-top:14px;align-items:end">
           <div class="f-col" style="flex:0 0 165px"><label>Mes</label><input type="month" id="cajaMes" onchange="renderCaja()"></div>
           <div class="f-col" style="flex:0 0 175px"><label>Valor actual del dólar ($)</label><input type="text" inputmode="decimal" id="cajaDolar" oninput="fmtMiles(this);guardarDolar();renderCaja()" placeholder="Ej: 1.480"></div>
-          <label class="check-row" style="margin:0 0 8px"><input type="checkbox" id="cajaPesificar" onchange="renderCaja()"> Ver todo pesificado <span class="nota">multiplica los USD por el valor del dólar</span></label>
+          <div class="f-col" style="flex:0 0 auto"><label>Cómo ver los montos</label>
+            <div class="vista-moneda" id="cajaVistaMoneda">
+              <button type="button" class="on" data-vm="orig" onclick="cajaVistaMonedaSet('orig')">Como se cargó<small>pesos y dólares por separado</small></button>
+              <button type="button" data-vm="pes" onclick="cajaVistaMonedaSet('pes')">$ Pesificado<small>los USD al dólar de arriba</small></button>
+            </div>
+          </div>
+          <input type="checkbox" id="cajaPesificar" style="display:none">
           <button class="btn-primary" style="margin-left:auto;margin-bottom:2px" onclick="descargarReporteCaja()">⬇ Descargar balance del mes</button>
         </div>
       </div>
@@ -3069,7 +3097,15 @@ body.locked .app{margin-left:0}
         <div class="f-row" style="margin-top:14px;align-items:end">
           <div class="f-col" style="flex:0 0 165px"><label>Mes</label><input type="month" id="csMes" onchange="renderCajaSoc()"></div>
           <div class="f-col" style="flex:0 0 175px"><label>Valor actual del dólar ($)</label><input type="text" inputmode="decimal" id="csDolar" oninput="fmtMiles(this);guardarDolarSoc();renderCajaSoc()" placeholder="Ej: 1.480"></div>
-          <label class="check-row" style="margin:0 0 8px"><input type="checkbox" id="csPesificar" onchange="renderCajaSoc()"> Ver todo pesificado <span class="nota">multiplica los USD por el valor del dólar</span></label>
+          <div class="f-col" style="flex:0 0 auto"><label>Cómo ver los montos</label>
+            <div class="vista-moneda" id="csVistaMoneda">
+              <button type="button" class="on" data-vm="orig" onclick="csVistaMonedaSet('orig')">Como se cargó<small>pesos y dólares por separado</small></button>
+              <button type="button" data-vm="pes" onclick="csVistaMonedaSet('pes')">$ Pesificado<small>los USD al dólar de arriba</small></button>
+              <button type="button" data-vm="usd" onclick="csVistaMonedaSet('usd')">u$s Dolarizado<small>cada pago al dólar de su día</small></button>
+            </div>
+          </div>
+          <input type="checkbox" id="csPesificar" style="display:none">
+          <input type="checkbox" id="csDolarizar" style="display:none">
           <button class="btn-primary" style="margin-left:auto;margin-bottom:2px" onclick="descargarReporteCajaSoc()">⬇ Descargar balance del mes</button>
         </div>
       </div>
@@ -3115,6 +3151,17 @@ body.locked .app{margin-left:0}
             </div>
           </div>
 
+          <div class="cs-grupo" id="csGrupoCaja"><span class="cs-grupo-t">¿A qué caja impacta?</span></div>
+          <div class="cs-destino" id="csDestinoWrap">
+            <label class="cs-dest-op sel" id="csDestOpSoc">
+              <input type="radio" name="csDestino" value="soc" checked onchange="csDestinoCambio()">
+              <span class="cs-dest-tx"><b>Caja societaria</b><small>Como siempre: suma al balance de societario.</small></span>
+            </label>
+            <label class="cs-dest-op" id="csDestOpWl">
+              <input type="radio" name="csDestino" value="wl" onchange="csDestinoCambio()">
+              <span class="cs-dest-tx"><b>Caja WeLegal</b><small>Se replica allá y no cuenta en societario.</small></span>
+            </label>
+          </div>
           <div class="cs-grupo" id="csGrupoQue"><span class="cs-grupo-t">Qué se registra</span></div>
           <div class="f-row" style="align-items:end">
             <div class="f-col" style="flex:0 0 155px" id="csFechaWrap"><label id="csFechaLbl">Fecha</label><input type="date" id="csFecha"></div>
@@ -3346,6 +3393,15 @@ body.locked .app{margin-left:0}
       </div>
 
       <div class="abo-kpis wl-kpis" id="wlTiles"></div>
+
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelWlPropios">
+        <div class="panel-h"><h3>▲▼ Movimientos de la caja</h3><span class="mini" id="wlPropMini"></span></div>
+        <div style="padding:14px 16px">
+          <div class="cuota-hint" style="margin:0 0 12px">Movimientos cargados desde la <b>caja societaria</b> eligiendo <b>Caja WE Legal</b> como destino. Impactan solo acá.</div>
+          <div style="overflow-x:auto"><table class="tabla-caja" id="wlTablaProp"></table></div>
+          <div class="panel-empty" id="wlPropVacia" style="display:none">Sin movimientos propios este mes.</div>
+        </div>
+      </div>
 
       <div class="panel lista-amplia" style="margin-top:16px">
         <div class="panel-h"><h3>Cobros repartidos del mes</h3><span class="mini" id="wlMini"></span></div>
@@ -6334,6 +6390,7 @@ var SB_TIENE_GASTOS_MON = false;
 var SB_TIENE_FONDO_DE = false;
 var SB_TIENE_GASTOS_PEND = false;
 var SB_TIENE_GASTOS_PAGOS = false;
+var SB_TIENE_CAJA_DEST = false;
 function clienteAFila(c) {
   const f = {
     id: c.id, entidad: c.entidad || '', tipo: c.tipo || null, estado: c.estado || null,
@@ -6491,6 +6548,8 @@ async function __sbCargarTodoInterno() {
       SB_TIENE_GASTOS_PEND = true;
     if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'gastos_pagos'))
       SB_TIENE_GASTOS_PAGOS = true;
+    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'caja_dest'))
+      SB_TIENE_CAJA_DEST = true;
     try {
       const rCom = await sbSelect('com_manual').catch(() => null);
       if (Array.isArray(rCom)) { CS_COM = rCom.map(filaAComManual); saveComManual(); }
@@ -8506,8 +8565,13 @@ function socParteWeLegal(m){ const r = socReparto(m); return r ? r.wl : 0; }
 
 // Balance de la caja WE Legal en un mes
 function welegalDelMes(ym){
-  const movs = (typeof CAJASOC !== 'undefined' ? CAJASOC : [])
-    .filter(m => (m.fecha||'').slice(0,7) === ym && (m.tipo === 'ingreso' || !m.tipo))
+  const todos = (typeof CAJASOC !== 'undefined' ? CAJASOC : [])
+    .filter(m => (m.fecha||'').slice(0,7) === ym);
+  // Movimientos mandados enteros a WE Legal desde la caja societaria (ingresos y gastos)
+  const propios = todos.filter(socVaAWeLegal).sort((a,b)=> (a.fecha||'').localeCompare(b.fecha||''));
+  const movs = todos
+    .filter(m => (m.tipo === 'ingreso' || !m.tipo))
+    .filter(m => !socVaAWeLegal(m))
     .filter(m => !!socPackDe(m))
     .sort((a,b)=> (a.fecha||'').localeCompare(b.fecha||''));
   let ars = 0, usd = 0, socArs = 0, socUsd = 0;
@@ -8523,8 +8587,19 @@ function welegalDelMes(ym){
   // Reuniones asignadas a Ivana: se cobran en el módulo Reuniones y suman acá
   const reuWl = (typeof reuDeCaja === 'function') ? reuDeCaja('welegal', ym) : { total:0, n:0 };
   ars += reuWl.total;
+  // Los movimientos propios entran enteros: los ingresos suman, los gastos restan
+  const pr = { inArs:0, inUsd:0, gaArs:0, gaUsd:0, n: propios.length };
+  propios.forEach(m => {
+    const esGasto = m.tipo === 'gasto' || m.tipo === 'gasto_esc';
+    const usdM = m.moneda === 'USD';
+    if (esGasto){ if (usdM) pr.gaUsd += m.monto; else pr.gaArs += m.monto; }
+    else { if (usdM) pr.inUsd += m.monto; else pr.inArs += m.monto; }
+  });
+  ars += pr.inArs - pr.gaArs;
+  usd += pr.inUsd - pr.gaUsd;
   return { filas, movs, ars, usd, socArs, socUsd, reuArs: reuWl.total, reuN: reuWl.n,
-           porPack: Object.values(porPack).filter(x => x.n > 0), n: movs.length };
+           propios, propiosTot: pr,
+           porPack: Object.values(porPack).filter(x => x.n > 0), n: movs.length + propios.length };
 }
 
 // ═══ CONTROL DE INGRESOS (consolida caja judicial + societaria + abonos) ═══
@@ -9544,7 +9619,10 @@ function ingresosDelMes(ym){
   const judUsd = jud.filter(p => p.moneda === 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
 
   // Caja societaria: SOLO tipo 'ingreso' (o sin tipo). Los tipos 'gasto' y 'gasto_esc' NO son ingreso.
-  const movsSoc = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).filter(m => (m.fecha||'').slice(0,7) === ym);
+  const movsSocTodos = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).filter(m => (m.fecha||'').slice(0,7) === ym);
+  // Los movimientos mandados a la Caja WE Legal no son de societario: se cuentan
+  // como fuente WE Legal más abajo, igual que en los módulos.
+  const movsSoc = movsSocTodos.filter(m => !socVaAWeLegal(m));
   const socIn = movsSoc.filter(m => m.tipo === 'ingreso' || !m.tipo);
   let socArs = socIn.filter(m => m.moneda !== 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
   let socUsd = socIn.filter(m => m.moneda === 'USD').reduce((a,m)=> a + (Number(m.monto)||0), 0);
@@ -9557,12 +9635,18 @@ function ingresosDelMes(ym){
     wlN++;
     if (m.moneda === 'USD'){ wlUsd += w; socUsd -= w; } else { wlArs += w; socArs -= w; }
   });
+  // Ingresos cargados con destino Caja WE Legal: van enteros a esa fuente
+  movsSocTodos.filter(socVaAWeLegal).filter(m => m.tipo === 'ingreso' || !m.tipo).forEach(m => {
+    wlN++;
+    if (m.moneda === 'USD') wlUsd += (Number(m.monto)||0); else wlArs += (Number(m.monto)||0);
+  });
   // Dentro de un ingreso puede haber "gastos incluidos" (plata que entra pero no queda en el estudio)
   let gincArs=0, gincUsd=0;
   // Los gastos se imputan al mes en que el cliente los pagó, que puede ser posterior
   // al del trámite. Los que todavía debe no se cuentan en ningún lado.
   (typeof CAJASOC !== 'undefined' ? CAJASOC : []).forEach(m => {
     if (m.tipo && m.tipo !== 'ingreso') return;
+    if (socVaAWeLegal(m)) return;                 // ese ingreso no es de societario
     const g = socGastosCobradoEnMes(m, ym); if(!g) return;
     const gm = socGastosMon(m);
     if (gm === 'USD') gincUsd += g; else gincArs += g;
@@ -12034,7 +12118,7 @@ function __navToInterno(p) {
     if (p === 'inicio') renderInicio();
     if (p === 'agenda') { limpiarFormEvento(); renderTareas(); renderAudiencias(); }
     if (p === 'caja') { initCaja(); renderCaja(); cajaAjustarSubtabs(); }
-    if (p === 'cajasoc') { initCajaSoc(); renderCajaSoc(); }
+    if (p === 'cajasoc') { initCajaSoc(); try { csDestinoCambio(); } catch(e){} renderCajaSoc(); }
     if (p === 'crm') { renderCRM(); }
     if (p === 'ariccame') { renderAric(); }
     if (p === 'abonos') { renderAbonosPagina(); }
@@ -13847,16 +13931,20 @@ function movAFila(m) {  /* incluye plan de cuotas */
     receptor: m.receptor || '', cargado_por: (typeof SB_TIENE_CARGADO_POR !== 'undefined' && SB_TIENE_CARGADO_POR) ? (m.cargadoPor || null) : undefined, cliente_id: m.clienteId ?? null, plan_id: m.planId ?? null, nro_cuota: m.nroCuota ?? null, dolar_dia: m.dolarDia ?? null, honorarios: m.honorarios ?? null, gastos_incl: m.gastosIncl ?? null, fondo_de: (typeof SB_TIENE_FONDO_DE !== 'undefined' && SB_TIENE_FONDO_DE) ? (m.fondoDe || null) : undefined, gastos_mon: (typeof SB_TIENE_GASTOS_MON !== 'undefined' && SB_TIENE_GASTOS_MON) ? (m.gastosMon || null) : undefined,
     gastos_pend: (typeof SB_TIENE_GASTOS_PEND !== 'undefined' && SB_TIENE_GASTOS_PEND) ? !!m.gastosPend : undefined,
     gastos_fecha: (typeof SB_TIENE_GASTOS_PEND !== 'undefined' && SB_TIENE_GASTOS_PEND) ? (m.gastosFecha || null) : undefined,
-    gastos_pagos: (typeof SB_TIENE_GASTOS_PAGOS !== 'undefined' && SB_TIENE_GASTOS_PAGOS) ? (m.gastosPagos || []) : undefined, comision_para: m.comisionPara || null, revisado: !!m.revisado, adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
+    gastos_pagos: (typeof SB_TIENE_GASTOS_PAGOS !== 'undefined' && SB_TIENE_GASTOS_PAGOS) ? (m.gastosPagos || []) : undefined, comision_para: m.comisionPara || null, revisado: !!m.revisado,
+    caja_dest: (typeof SB_TIENE_CAJA_DEST !== 'undefined' && SB_TIENE_CAJA_DEST) ? (m.cajaDest || 'soc') : undefined,
+    adjunto_path: (CAJASOC_ADJ[m.id] || {}).path || null };
 }
 function filaAMov(f) {
   return { id: f.id, fecha: f.fecha, tipo: f.tipo, contraparte: f.contraparte || '',
     concepto: f.concepto || '', monto: Number(f.monto) || 0, moneda: f.moneda || 'ARS',
     metodo: f.metodo || '', receptor: f.receptor || '', cargadoPor: f.cargado_por || '', clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null, dolarDia: f.dolar_dia != null ? Number(f.dolar_dia) : null, honorarios: f.honorarios != null ? Number(f.honorarios) : null, gastosIncl: f.gastos_incl != null ? Number(f.gastos_incl) : null, gastosMon: f.gastos_mon || '', fondoDe: f.fondo_de || '',
     gastosPend: !!f.gastos_pend, gastosFecha: f.gastos_fecha || '',
-    gastosPagos: Array.isArray(f.gastos_pagos) ? f.gastos_pagos : [], comisionPara: f.comision_para || '', revisado: !!f.revisado };
+    gastosPagos: Array.isArray(f.gastos_pagos) ? f.gastos_pagos : [], comisionPara: f.comision_para || '', revisado: !!f.revisado,
+    cajaDest: f.caja_dest === 'wl' ? 'wl' : 'soc' };
 }
 function toggleRevisadoSoc(id) {
+  if (!puedeRevisar()) return;
   const m = CAJASOC.find(x => x.id === id);
   if (!m) return;
   m.revisado = !m.revisado;
@@ -13960,6 +14048,56 @@ function __socCompElegir(i){
 function guardarDolarSoc() {
   const v = numDe(document.getElementById('csDolar').value);
   if (v > 0) { appStore.setItem(DOLAR_KEY, String(v)); sbPushConfig('dolar', v); }
+}
+// ── Vista dolarizada ──
+// Cada movimiento en pesos se convierte con SU propio "valor del dólar hoy", el que
+// se cargó el día del pago. No hay una cotización única para todo el mes. Si a un
+// movimiento viejo le falta ese dato, se usa el dólar del encabezado y se avisa.
+function csDolarDeMov(m){
+  const d = Number(m && m.dolarDia) || 0;
+  return d > 0 ? d : 0;
+}
+// Devuelve el monto del movimiento expresado en dólares
+function csMontoEnUsd(m, dolarFallback){
+  const monto = Number(m && m.monto) || 0;
+  if (!monto) return { usd: 0, propio: true };
+  if (m.moneda === 'USD') return { usd: monto, propio: true };
+  const d = csDolarDeMov(m);
+  if (d > 0) return { usd: monto / d, propio: true };
+  const f = Number(dolarFallback) || 0;
+  return f > 0 ? { usd: monto / f, propio: false } : { usd: 0, propio: false, sinDato: true };
+}
+// Totales del mes en dólares, sumando movimiento por movimiento
+function csTotalesEnUsd(ingresos, gastosOrd, gastosEsc, dolarFallback){
+  const r = { in: 0, go: 0, ge: 0, sinCotiz: 0, conFallback: 0 };
+  const sumar = (lista, campo) => lista.forEach(m => {
+    const c = csMontoEnUsd(m, dolarFallback);
+    r[campo] += c.usd;
+    if (c.sinDato) r.sinCotiz++;
+    else if (!c.propio) r.conFallback++;
+  });
+  sumar(ingresos, 'in'); sumar(gastosOrd, 'go'); sumar(gastosEsc, 'ge');
+  r.balance = r.in - r.go - r.ge;
+  return r;
+}
+// Selector segmentado de moneda. Los checkbox siguen existiendo (ocultos) porque
+// el resto del render los consulta; el botón elegido los sincroniza.
+function csVistaMonedaSet(modo){
+  const p = document.getElementById('csPesificar');
+  const d = document.getElementById('csDolarizar');
+  if (p) p.checked = (modo === 'pes');
+  if (d) d.checked = (modo === 'usd');
+  const cont = document.getElementById('csVistaMoneda');
+  if (cont) cont.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.vm === modo));
+  renderCajaSoc();
+}
+function csVistaMonedaCambio(cual){ csVistaMonedaSet(cual); }
+function cajaVistaMonedaSet(modo){
+  const p = document.getElementById('cajaPesificar');
+  if (p) p.checked = (modo === 'pes');
+  const cont = document.getElementById('cajaVistaMoneda');
+  if (cont) cont.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.vm === modo));
+  renderCaja();
 }
 function valorDolarSoc() {
   const el = document.getElementById('csDolar');
@@ -14126,6 +14264,40 @@ function __limpiarAvisoExceso() {
   if (z) z.innerHTML = '';
 }
 
+// ── Caja destino del movimiento (societaria | WE Legal packs) ──
+// Kevin: el pago impacta en UNA sola caja. Si va a WE Legal sale entero de
+// societario y no se aplica el reparto por pack (se bloquea el selector).
+function csDestinoActual(){
+  const el = document.querySelector('input[name="csDestino"]:checked');
+  return el ? el.value : 'soc';
+}
+function csDestinoCambio(){
+  const dest = csDestinoActual();
+  const opS = document.getElementById('csDestOpSoc');
+  const opW = document.getElementById('csDestOpWl');
+  if (opS) opS.classList.toggle('sel', dest === 'soc');
+  if (opW){ opW.classList.toggle('sel', dest === 'wl'); opW.classList.toggle('wl', dest === 'wl'); }
+  // Con destino WE Legal el pack no corresponde: iría dos veces a la misma caja
+  const pk = document.getElementById('csPack');
+  if (pk){
+    const wrap = pk.closest('.f-col');
+    if (dest === 'wl'){
+      pk.value = ''; pk.disabled = true;
+      if (wrap) wrap.style.opacity = '.45';
+      pk.title = 'El pago ya va entero a WE Legal: no se reparte por pack';
+    } else {
+      pk.disabled = false;
+      if (wrap) wrap.style.opacity = '';
+      pk.title = '';
+    }
+  }
+  try { csPackHint(); } catch(e){}
+}
+function csDestinoReset(){
+  const r = document.querySelector('input[name="csDestino"][value="soc"]');
+  if (r) r.checked = true;
+  csDestinoCambio();
+}
 function registrarMovSoc() {
   const fecha = document.getElementById('csFecha').value;
   const tipo = document.getElementById('csTipo').value;
@@ -14182,6 +14354,8 @@ function registrarMovSoc() {
     moneda: document.getElementById('csMoneda').value, metodo: document.getElementById('csMetodo').value,
     receptor: document.getElementById('csReceptor').value.trim(),
     cargadoPor: (typeof usuarioActual === 'function') ? (usuarioActual() || '') : '' };
+  // A qué caja impacta: 'soc' (societaria, por defecto) o 'wl' (WE Legal packs)
+  m.cajaDest = csDestinoActual();
   // Valor del dólar del día: se guarda siempre que esté cargado. Sirve para la
   // dolarización del balance (pagos en ARS) y para convertir un pago a la moneda del
   // plan cuando difieren (ej: plan en ARS y pago en USD, o viceversa).
@@ -14263,6 +14437,12 @@ function registrarMovSoc() {
   cjResetCuota('soc');
   const b = document.getElementById('csAdjBtn'); if (b) b.textContent = '📎 Adjuntar foto / PDF';
   document.getElementById('csMes').value = fecha.slice(0, 7);
+  // Si el movimiento fue a WE Legal, avisar y refrescar ese módulo también
+  if (m.cajaDest === 'wl'){
+    try { aricToast('Registrado en la Caja WE Legal (packs)'); } catch(e){}
+    try { if (typeof renderWeLegal === 'function') renderWeLegal(); } catch(e){}
+  }
+  csDestinoReset();
   renderCajaSocDatalists(); renderCajaSoc();
 }
 function eliminarMovSoc(id) {
@@ -14306,8 +14486,12 @@ function __clienteIdPorNombre(nombre) {
   if (typeof crmBuscarCliente === 'function') { const r = crmBuscarCliente(nombre); if (r) return r.cli.id; }
   return null;
 }
+// ¿Este movimiento fue mandado a la caja WE Legal? Entonces no es de societario.
+function socVaAWeLegal(m){ return !!m && m.cajaDest === 'wl'; }
 function __socDatosMes(mes) {
-  const movs = cajaSocVisiblePara(CAJASOC).filter(m => (m.fecha || '').startsWith(mes)).sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
+  const movs = cajaSocVisiblePara(CAJASOC).filter(m => (m.fecha || '').startsWith(mes))
+    .filter(m => !socVaAWeLegal(m))            // los de WE Legal se listan en su módulo
+    .sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
   const ingresos = movs.filter(m => m.tipo === 'ingreso' || !m.tipo);
   const gastosOrd = movs.filter(m => m.tipo === 'gasto');
   const gastosEsc = movs.filter(m => m.tipo === 'gasto_esc');
@@ -15070,6 +15254,8 @@ function renderCajaSoc() {
   const dolar = valorDolarSoc();
   const pesif = document.getElementById('csPesificar')?.checked && dolar > 0;
   const { movs, ingresos, gastosOrd, gastosEsc, t } = __socDatosMes(mes);
+  const dolarizar = !!document.getElementById('csDolarizar')?.checked;
+  const U = dolarizar ? csTotalesEnUsd(ingresos, gastosOrd, gastosEsc, dolar) : null;
   const inPes = t.inArs + t.inUsd * dolar, goPes = t.goArs + t.goUsd * dolar, gePes = t.geArs + t.geUsd * dolar;
   const honPes = t.honArs + t.honUsd * dolar, gincPes = t.gincArs + t.gincUsd * dolar;
   // Si hubo packs, se aclara que el total ya viene neto de la parte de WE Legal
@@ -15082,7 +15268,15 @@ function renderCajaSoc() {
   const notaPack = t.nPacks
     ? `<div class="cs-nota-pack">no incluye ${t.wlArs ? '$ ' + fmtNumStr(t.wlArs) : ''}${t.wlArs && t.wlUsd ? ' · ' : ''}${t.wlUsd ? 'u$s ' + fmtNumStr(t.wlUsd) : ''} de ${t.nPacks} pack${t.nPacks !== 1 ? 's' : ''}, que van a WE Legal</div>`
     : '';
-  document.getElementById('csTiles').innerHTML = pesif ? `
+  const u2 = v => fmtNumStr(Math.round(Number(v)||0));
+  const notaCotiz = U && (U.conFallback || U.sinCotiz)
+    ? `<div class="cs-nota-pack">${U.conFallback ? U.conFallback + ' mov. sin dólar del día: se usó el del encabezado. ' : ''}${U.sinCotiz ? U.sinCotiz + ' mov. quedaron afuera (sin cotización).' : ''}</div>`
+    : '';
+  document.getElementById('csTiles').innerHTML = dolarizar ? `
+    <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">u$s ${u2(U.in)}</div><div class="lbl">Ingresos dolarizados</div><div class="sub">cada pago con el dólar de su día${notaPack}${notaCotiz}</div></div>
+    <div class="tile"><div class="num" style="color:#b3372a">u$s ${u2(U.go)}</div><div class="lbl">G. ordinarios dolarizados</div><div class="sub">${gastosOrd.length} mov.</div></div>
+    <div class="tile"><div class="num" style="color:#b3372a">u$s ${u2(U.ge)}</div><div class="lbl">G. escribanía dolarizados</div><div class="sub">${gastosEsc.length} mov.</div></div>
+    <div class="tile" style="border-left:3px solid #1b3a6b"><div class="num" style="color:${U.balance >= 0 ? '#1e7a48' : '#b3372a'}">u$s ${u2(U.balance)}</div><div class="lbl">Balance en dólares</div><div class="sub">ingresos menos gastos</div></div>` : pesif ? `
     <div class="tile tile-destacada"><div class="num" style="color:#1e7a48">$ ${fmtNumStr(inPes)}</div><div class="lbl">Ingresos pesificados</div><div class="sub">$ ${fmtNumStr(t.inArs)} + u$s ${fmtNumStr(t.inUsd)} × ${fmtNumStr(dolar)}${notaPack}</div></div>
     ${gincPes > 0 ? `<div class="tile" style="border-left:3px solid #c9862b"><div class="num" style="color:#8a6d1f">$ ${fmtNumStr(gincPes)}</div><div class="lbl">De eso, gastos</div><div class="sub">honorarios: $ ${fmtNumStr(honPes)} · ${t.nDesglose} pago${t.nDesglose !== 1 ? 's' : ''} con gastos</div></div>` : ''}
     <div class="tile"><div class="num" style="color:#b3372a">$ ${fmtNumStr(goPes)}</div><div class="lbl">G. ordinarios pesificados</div><div class="sub">$ ${fmtNumStr(t.goArs)} + u$s ${fmtNumStr(t.goUsd)} × ${fmtNumStr(dolar)}</div></div>
@@ -15122,7 +15316,20 @@ function renderCajaSoc() {
       <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
       <td style="font-weight:600">${esc(m.contraparte || '—')}${comChip}</td>
       <td>${esc(m.concepto || '—')}${packChip}${m.planId ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : ''}${m.gastosIncl > 0 ? `<div class="desglose-linea">${csSimb(m.moneda) + fmtNumStr(m.gastosMon ? (m.monto||0) : (m.honorarios || 0))} honorarios · ${csSimb(socGastosMon(m)) + fmtNumStr(m.gastosIncl)} gastos${socGastosPendiente(m) ? ` <span class="chip-pend">debe ${csSimb(socGastosMon(m))}${fmtNumStr(socGastosSaldo(m))}</span>` : (m.gastosFecha && m.gastosFecha !== m.fecha ? ' <span class="chip-com">cobrados el ' + fmtFechaCortaCRM(m.gastosFecha) + '</span>' : '')}</div>` : ''}${packLinea}${comLinea}</td>
-      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${sim}${fmtNumStr(m.monto)}${pesif && m.moneda === 'USD' ? `<br><span style="font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : ''}</td>
+      <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;color:${gasto ? '#b3372a' : '#1e7a48'}">${(() => {
+        // Vista dolarizada: el monto principal SIEMPRE en dólares. Debajo, en chico,
+        // el importe original en pesos y la cotización con la que se convirtió.
+        if (dolarizar){
+          const c = csMontoEnUsd(m, dolar);
+          if (m.moneda === 'USD') return 'u$s ' + fmtNumStr(m.monto);
+          if (c.sinDato) return `$ ${fmtNumStr(m.monto)}<br><span style="font-weight:400;font-size:10.5px;color:#b3372a;white-space:nowrap">sin cotización</span>`;
+          const dd = csDolarDeMov(m) || dolar;
+          return `u$s ${fmtNumStr(Math.round(c.usd))}${c.propio ? '' : ' *'}`
+            + `<br><span class="mto-orig" title="${c.propio ? 'Cotización cargada ese día' : 'Sin dólar del día: se usó el del encabezado'}">$ ${fmtNumStr(m.monto)} <span style="opacity:.7">@ ${fmtNumStr(dd)}</span></span>`;
+        }
+        return sim + fmtNumStr(m.monto)
+          + (pesif && m.moneda === 'USD' ? `<br><span class="mto-orig">≈ $ ${fmtNumStr(m.monto * dolar)}</span>` : '');
+      })()}</td>
       <td style="font-size:11.5px">${met}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
       <td>${(() => {
         const hon = CAJASOC_ADJ[m.id];
@@ -15132,7 +15339,7 @@ function renderCajaSoc() {
         const txt = total > 1 ? '📄 Ver (' + total + ')' : '📄 Ver';
         return `<button class="mini-btn" onclick="verComprobanteSoc(${m.id})" title="${total > 1 ? 'Honorarios y gastos' : esc((hon||gas[0]).nombre)}">${txt}</button>`;
       })()}</td>
-      <td style="text-align:center"><input type="checkbox" ${m.revisado ? 'checked' : ''} onchange="toggleRevisadoSoc(${m.id})" title="Revisado" style="accent-color:var(--sello)"></td>
+      <td style="text-align:center"><input type="checkbox" ${m.revisado ? 'checked' : ''} ${puedeRevisar() ? `onchange="toggleRevisadoSoc(${m.id})"` : 'disabled title="Solo Ivana puede marcar como revisado"'} title="Revisado" style="accent-color:var(--sello)"></td>
       <td><button class="tarea-del" onclick="eliminarMovSoc(${m.id})" title="Eliminar">✕</button></td>
     </tr>`;
   };
@@ -15327,7 +15534,65 @@ function renderWeLegal(){
     if (f.moneda === 'USD') porCli[k].usd += f.wl; else porCli[k].ars += f.wl;
   });
   pintaRank('wlRankCli', Object.values(porCli));
+  wlPintarPropios(w, mes);
   try { renderReuCaja('welegal', mes, { tabla:'reuWlTabla', vacia:'reuWlVacia', mini:'reuWlMini' }); } catch(e) {}
+}
+
+// Elimina un movimiento propio. Es el mismo registro de la caja societaria, así que
+// se borra con eliminarMovSoc() y después se repinta este módulo.
+function wlEliminarPropio(id){
+  const m = (typeof CAJASOC !== 'undefined' ? CAJASOC : []).find(x => x.id === id);
+  if (!m) return;
+  const antes = (typeof CAJASOC !== 'undefined' ? CAJASOC.length : 0);
+  eliminarMovSoc(id);
+  if ((typeof CAJASOC !== 'undefined' ? CAJASOC.length : 0) < antes){
+    try { renderWeLegal(); } catch(e){}
+  }
+}
+// Movimientos que la caja societaria mandó enteros acá. Misma tabla y mismos datos
+// que en societario: fecha, cliente, concepto, monto, método, comprobante y Rev.
+function wlPintarPropios(w, mes){
+  const tabla = document.getElementById('wlTablaProp');
+  const vacia = document.getElementById('wlPropVacia');
+  const mini  = document.getElementById('wlPropMini');
+  if (!tabla) return;
+  const props = w.propios || [];
+  const t = w.propiosTot || { inArs:0, inUsd:0, gaArs:0, gaUsd:0, n:0 };
+  if (mini) mini.textContent = props.length
+    ? props.length + ' movimiento' + (props.length !== 1 ? 's' : '') + ' · ' + mesLargo(mes)
+    : 'sin movimientos · ' + mesLargo(mes);
+  if (!props.length){ tabla.innerHTML = ''; if (vacia) vacia.style.display = 'block'; return; }
+  if (vacia) vacia.style.display = 'none';
+  const sim = m => m === 'USD' ? 'u$s ' : '$ ';
+  const fila = m => {
+    const esGasto = m.tipo === 'gasto' || m.tipo === 'gasto_esc';
+    const s = sim(m.moneda);
+    const cuota = m.planId != null ? ' ' + etiquetaCuota(m.planId, m.nroCuota) : '';
+    return `<tr>
+      <td style="white-space:nowrap">${formatFechaCorta(m.fecha)}</td>
+      <td style="font-weight:600">${esGasto ? '<span class="wl-flecha ga">▼</span>' : '<span class="wl-flecha in">▲</span>'} ${esc(m.contraparte || '—')}${cuota}</td>
+      <td>${esc(m.concepto || '—')}${m.tipo === 'gasto_esc' ? ' <span class="chip-com-info">escribanía</span>' : ''}</td>
+      <td class="monto" style="color:${esGasto ? '#b3372a' : 'inherit'}">${esGasto ? '−' : ''}${s}${fmtNumStr(Math.round(m.monto))}</td>
+      <td style="font-size:11.5px">${esc(m.metodo || '—')}${m.receptor ? ' → ' + esc(m.receptor) : ''}</td>
+      <td>${(() => {
+        const a = (typeof CAJASOC_ADJ !== 'undefined' && CAJASOC_ADJ[m.id]) ? CAJASOC_ADJ[m.id] : null;
+        const hon = a && a.hon ? a.hon : (a && a.nombre ? a : null);
+        return hon ? `<button class="mini-btn" onclick="verComprobanteSoc(${m.id})">📄 Ver</button>` : '—';
+      })()}</td>
+      <td style="text-align:center"><input type="checkbox" ${m.revisado ? 'checked' : ''} ${puedeRevisar() ? `onchange="toggleRevisadoSoc(${m.id})"` : 'disabled title="Solo Ivana puede marcar como revisado"'} title="Revisado" style="accent-color:var(--sello)"></td>
+      <td><button class="tarea-del" onclick="wlEliminarPropio(${m.id})" title="Eliminar">✕</button></td>
+    </tr>`;
+  };
+  const netoArs = t.inArs - t.gaArs, netoUsd = t.inUsd - t.gaUsd;
+  tabla.innerHTML = '<thead><tr><th>Fecha</th><th>Cliente / proveedor</th><th>Concepto</th>'
+    + '<th style="text-align:right">Monto</th><th>Método</th><th>Comprob.</th>'
+    + '<th style="text-align:center">Rev.</th><th></th></tr></thead><tbody>'
+    + props.map(fila).join('')
+    + `</tbody><tfoot><tr>
+        <td colspan="3" style="text-align:right;font-weight:700;padding-top:8px">Neto del mes:</td>
+        <td class="monto" style="font-weight:800;padding-top:8px;color:#8a5a2b">${netoArs ? '$ ' + fmtNumStr(Math.round(netoArs)) : '—'}${netoUsd ? ' · u$s ' + fmtNumStr(Math.round(netoUsd)) : ''}</td>
+        <td colspan="4"></td>
+      </tr></tfoot>`;
 }
 
 function renderComisionesDetalle() {
@@ -16019,7 +16284,7 @@ function registrarPago() {
   document.getElementById('cajaMes').value = fecha.slice(0, 7);
   renderCajaDatalists(); renderCaja();
 }
-function toggleRevisado(id) { const p = CAJA.find(x => x.id === id); if (p) { p.revisado = !p.revisado; saveCaja(); sbPushPago(p); renderCaja(); } }
+function toggleRevisado(id) { if (!puedeRevisar()) return; const p = CAJA.find(x => x.id === id); if (p) { p.revisado = !p.revisado; saveCaja(); sbPushPago(p); renderCaja(); } }
 function eliminarPago(id) {
   if (!confirm('¿Eliminar este pago del registro de caja?')) return;
   const pago = CAJA.find(x => x.id === id);
@@ -16232,7 +16497,7 @@ function renderCaja() {
         <td>${CAJA_ADJ[p.id]
           ? `<button class="mini-btn" onclick="verComprobante(${p.id})" title="${esc(CAJA_ADJ[p.id].nombre)}">📄 Ver</button>`
           : `<button class="mini-btn" onclick="adjuntarA(${p.id})">＋ Adjuntar</button>`}</td>
-        <td style="text-align:center"><input type="checkbox" ${p.revisado ? 'checked' : ''} onchange="toggleRevisado(${p.id})" title="Revisado" style="accent-color:var(--sello)"></td>
+        <td style="text-align:center"><input type="checkbox" ${p.revisado ? 'checked' : ''} ${puedeRevisar() ? `onchange="toggleRevisado(${p.id})"` : 'disabled title="Solo Ivana puede marcar como revisado"'} title="Revisado" style="accent-color:var(--sello)"></td>
         <td><button class="tarea-del" onclick="eliminarPago(${p.id})" title="Eliminar pago">✕</button></td>
       </tr>`;
     }).join('') + '</tbody>';
@@ -17616,7 +17881,11 @@ function usuarioActual() {
       if (__sesionVencida()) { cerrarSesion(); return null; }
       return usuarioPorMail(s.email);
     }
-    // Compatibilidad: sesión local previa (se usa en las pruebas y mientras se migra).
+    // Vía de compatibilidad con la sesión local previa. Con Supabase encendido no
+    // vale: sin token real, escribir la clave a mano en localStorage alcanzaba para
+    // fingir sesión y desbloquear la pantalla. Hoy nadie la escribe (el ingreso pasa
+    // siempre por Supabase Auth), así que solo queda viva si SB_ON está apagado.
+    if (typeof SB_ON !== 'undefined' && SB_ON) return null;
     const v = appStore.getItem(AUTH_KEY) || '';
     if (!v) return null;
     if (__sesionVencida()) { try { appStore.removeItem(AUTH_KEY); appStore.removeItem(AUTH_T0_KEY); appStore.removeItem(AUTH_TA_KEY); } catch (e) {} return null; }
@@ -17731,6 +18000,11 @@ function permisosNormalizar(p){
   if (o.cajaSoc === 'si' || o.cajaSoc === true) o.cajaSoc = true;
   else if (o.cajaSoc !== 'gastos') o.cajaSoc = false;
   return o;
+}
+// La columna "Rev." de las cajas la maneja únicamente Ivana: es su control.
+// Para el resto el casillero se ve, pero está deshabilitado.
+function puedeRevisar(){
+  return String(usuarioActual() || '').trim().toLowerCase() === 'ivana';
 }
 function perfilActual() {
   const u = usuarioActual();
