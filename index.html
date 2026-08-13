@@ -18797,7 +18797,8 @@ function sesionActiva() { return !!usuarioActual(); }
 // dejan solo las preferencias de vista, que no dicen nada de ningún cliente.
 const CACHE_PREFS_OK = [
   'jc-panel-col-v1', 'jc-abonos-colapso-v1', 'jc-sys-vista-v1',
-  'jc-gcal-pref', 'jc-abonos-infl-visto-v1'
+  'jc-gcal-pref', 'jc-abonos-infl-visto-v1',
+  'jc-login-try'   // el contador de intentos fallidos NO se borra al purgar
 ];
 function purgarCacheLocal() {
   let n = 0;
@@ -19114,9 +19115,58 @@ async function guardarCambioPass(){
   }
 }
 
+// ── Freno de intentos de login ──
+// Después de varios errores seguidos el ingreso queda bloqueado un rato, con
+// espera creciente. Evita el machaque desde este formulario y el ida y vuelta
+// contra la base. El contador vive en el navegador y se borra al entrar bien.
+const LOGIN_INTENTOS_KEY = 'jc-login-try';
+const LOGIN_MAX_LIBRES = 5;              // a partir del 6º error empieza la espera
+const LOGIN_ESPERAS = [30, 60, 300, 900, 1800];   // 30s, 1m, 5m, 15m, 30m
+
+function loginEstado(){
+  try { return JSON.parse(appStore.getItem(LOGIN_INTENTOS_KEY) || 'null') || { n:0, hasta:0 }; }
+  catch(e){ return { n:0, hasta:0 }; }
+}
+function loginGuardarEstado(s){ try { appStore.setItem(LOGIN_INTENTOS_KEY, JSON.stringify(s)); } catch(e){} }
+function loginBloqueadoSegundos(){
+  const s = loginEstado();
+  const falta = Math.ceil((s.hasta - Date.now()) / 1000);
+  return falta > 0 ? falta : 0;
+}
+function loginEsperaTexto(seg){
+  if (seg >= 60){ const m = Math.ceil(seg / 60); return m + (m === 1 ? ' minuto' : ' minutos'); }
+  return seg + (seg === 1 ? ' segundo' : ' segundos');
+}
+function loginSumarFallo(){
+  const s = loginEstado();
+  s.n = (s.n || 0) + 1;
+  if (s.n > LOGIN_MAX_LIBRES){
+    const i = Math.min(s.n - LOGIN_MAX_LIBRES - 1, LOGIN_ESPERAS.length - 1);
+    s.hasta = Date.now() + LOGIN_ESPERAS[i] * 1000;
+  }
+  loginGuardarEstado(s);
+  return s;
+}
+function loginResetIntentos(){ try { appStore.removeItem(LOGIN_INTENTOS_KEY); } catch(e){} }
+let __loginTimer = null;
+function loginPintarBloqueo(){
+  const err = document.getElementById('loginError');
+  const btn = document.querySelector('#loginGate .btn-primary');
+  const falta = loginBloqueadoSegundos();
+  if (falta <= 0){
+    if (__loginTimer){ clearInterval(__loginTimer); __loginTimer = null; }
+    if (btn){ btn.disabled = false; btn.textContent = 'INGRESAR'; }
+    return;
+  }
+  if (btn){ btn.disabled = true; btn.textContent = 'ESPERÁ ' + falta + 's'; }
+  if (err) err.textContent = 'Demasiados intentos fallidos. Probá de nuevo en ' + loginEsperaTexto(falta) + '.';
+  if (!__loginTimer) __loginTimer = setInterval(loginPintarBloqueo, 1000);
+}
+
 async function intentarLogin() {
   const err = document.getElementById('loginError');
   const btn = document.querySelector('#loginGate .btn-primary');
+  if (loginBloqueadoSegundos() > 0){ loginPintarBloqueo(); return; }
   const mail = document.getElementById('loginUser').value;
   const pass = document.getElementById('loginPass').value;
   if (!mail || !pass){ err.textContent = 'Completá el correo y la contraseña.'; return; }
@@ -19130,6 +19180,7 @@ async function intentarLogin() {
       err.textContent = 'Ese correo no está habilitado en el sistema.';
       return;
     }
+    loginResetIntentos();
     __sesionMarcarLogin();
     document.body.classList.remove('locked');
     aplicarPermisos();
@@ -19137,13 +19188,21 @@ async function intentarLogin() {
     try { if (typeof __repintarTrasCarga === 'function') __repintarTrasCarga(); } catch(e){}
     try { navTo('inicio'); } catch (e) {}
   } catch(e){
-    err.textContent = (e && e.message === 'credenciales')
-      ? 'Correo o contraseña incorrectos.'
-      : 'No se pudo conectar. Revisá tu conexión e intentá de nuevo.';
+    if (e && e.message === 'credenciales'){
+      const s = loginSumarFallo();
+      const quedan = LOGIN_MAX_LIBRES - s.n;
+      err.textContent = loginBloqueadoSegundos() > 0 ? ''
+        : 'Correo o contraseña incorrectos.' + (quedan <= 2 && quedan > 0
+            ? ' Te ' + (quedan === 1 ? 'queda 1 intento' : 'quedan ' + quedan + ' intentos') + ' antes de la espera.'
+            : '');
+    } else {
+      err.textContent = 'No se pudo conectar. Revisá tu conexión e intentá de nuevo.';
+    }
     document.getElementById('loginPass').value = '';
     document.getElementById('loginPass').focus();
   } finally {
     if (btn){ btn.disabled = false; btn.textContent = 'INGRESAR'; }
+    loginPintarBloqueo();
   }
 }
 
@@ -19282,6 +19341,7 @@ if (!sesionActiva()) {
   // Si más abajo se restaura la sesión de Supabase, los datos se vuelven a bajar.
   try { purgarCacheLocal(); } catch (e) {}
   setTimeout(() => { const u = document.getElementById('loginUser'); if (u) u.focus(); }, 60);
+  setTimeout(() => { try { loginPintarBloqueo(); } catch (e) {} }, 80);
 }
 // Al abrir: si quedó una sesión de Supabase, se restaura (renovándola si hizo falta)
 // para no obligar a ingresar de nuevo en cada visita.
