@@ -18817,6 +18817,9 @@ function purgarCacheLocal() {
   // no romper las referencias que tiene el resto del código.
   const vaciarArr = a => { try { if (Array.isArray(a)) a.length = 0; } catch (e) {} };
   try { vaciarArr(casos); } catch (e) {}
+  try { vaciarArr(expedientes); } catch (e) {}
+  try { vaciarArr(FERIADOS); } catch (e) {}
+  try { vaciarArr(FERIAS); } catch (e) {}
   try { vaciarArr(CAJA); } catch (e) {}
   try { vaciarArr(CAJASOC); } catch (e) {}
   try { vaciarArr(CLIENTES); } catch (e) {}
@@ -18834,6 +18837,11 @@ function purgarCacheLocal() {
   try { EQUIPO = null; } catch (e) {}
   try { SUELDO = null; } catch (e) {}
   try { pdfs = {}; pdfTextos = {}; } catch (e) {}
+  try { EXP_ADJ = {}; } catch (e) {}
+  try { CAJA_ADJ = {}; } catch (e) {}
+  // Y se repinta lo que ya estuviera en pantalla, para que no quede nada dibujado
+  ['renderExpedientes','render','renderTareas','renderAgenda','renderCRM','renderInicio']
+    .forEach(f => { try { if (typeof window[f] === 'function') window[f](); } catch (e) {} });
   return n;
 }
 function cerrarSesion() {
