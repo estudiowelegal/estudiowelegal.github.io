@@ -2371,6 +2371,35 @@ body.locked .app{margin-left:0}
 .ing-venc-tx{ font-size:11.5px; color:var(--tinta-suave); }
 .ing-venc-aviso{ background:#f6f1e4; border:1px solid #e4d9bd; border-left:3px solid #c9a961;
   border-radius:8px; padding:10px 13px; margin:0 0 12px; font-size:12.5px; color:var(--tinta); line-height:1.45; }
+.cs-edit-b{ border:none; background:transparent; color:#14294a; font-size:14px; cursor:pointer;
+  padding:4px 6px; border-radius:6px; }
+.cs-edit-b:hover{ background:#eef4fc; }
+/* Neto por caja */
+.nc-intro{background:var(--papel);border:1px solid var(--filo);border-left:3px solid var(--oro,#c9a961);border-radius:8px;padding:11px 14px;margin:14px 0;font-size:12.5px;color:var(--tinta);line-height:1.5}
+.nc-sw{display:inline-flex;border:1px solid var(--filo);border-radius:10px;overflow:hidden;background:var(--carta);margin-bottom:16px}
+.nc-sw button{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--tinta-suave);padding:9px 20px;cursor:pointer;border-right:1px solid var(--filo)}
+.nc-sw button:last-child{border-right:none}
+.nc-sw button:hover{background:#eef4fc;color:var(--tinta)}
+.nc-sw button.on{background:#14294a;color:#fff}
+.nc-caja{background:var(--carta);border:1px solid var(--filo);border-radius:12px;overflow:hidden;max-width:760px}
+.nc-caja-h{background:#0f2440;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:11px 16px}
+.nc-bloque{padding:14px 16px;border-bottom:1px solid var(--filo-suave)}
+.nc-bloque-t{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-suave);margin-bottom:9px}
+.nc-linea{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13.5px;color:var(--tinta)}
+.nc-l{flex:1;min-width:0}
+.nc-l small{display:block;font-size:11px;color:var(--tinta-suave);margin-top:1px}
+.nc-v{flex:0 0 130px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.nc-v.neg{color:#b3372a}
+.nc-sub{border-top:1px dashed var(--filo);margin-top:6px;padding-top:9px;font-weight:700}
+.nc-mitad{font-size:10px;font-weight:700;background:#eef1f7;color:var(--sello);border:1px solid #d8e0ee;border-radius:20px;padding:1px 7px;margin-left:5px}
+.nc-vacio{font-size:12.5px;color:var(--tinta-suave);font-style:italic;padding:4px 0}
+.nc-total{display:flex;align-items:center;gap:10px;padding:15px 16px;background:#f2f6f2}
+.nc-total.rojo{background:#fdf3f1}
+.nc-total-l{flex:1;font-size:14px;font-weight:700;color:var(--tinta)}
+.nc-total-v{flex:0 0 130px;text-align:right;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;color:#1e7a48}
+.nc-total.rojo .nc-total-v{color:#b3372a}
+.nc-total-v.usd{color:var(--tinta)}
+.nc-pie{padding:9px 16px;font-size:11px;color:var(--tinta-suave);border-top:1px solid var(--filo-suave)}
 .abo-kpi-click{ cursor:pointer; transition:.15s; }
 .abo-kpi-click:hover{ box-shadow:0 3px 14px rgba(20,41,74,.14); transform:translateY(-1px); }
 .abo-kpi-lupa{ font-size:10px; font-weight:700; color:#14294a; background:#eef4fc; border:1px solid #c5d5ea;
@@ -6690,25 +6719,30 @@ async function __sbCargarTodoInterno() {
       const rIna = await sbSelect('inase').catch(() => null);
       if (Array.isArray(rIna)) { INASE = rIna.map(filaAInase); saveInase(); }
     } catch(e){}
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'cargado_por'))
+    // Detecta si una columna existe mirando TODAS las filas, no solo la primera:
+    // si la primera venía de un registro viejo el flag quedaba en falso, el upsert
+    // omitía la columna y el dato se perdía al recargar (pasó con gastos_mon).
+    const sbTiene = (filas, col) => Array.isArray(filas) &&
+      filas.some(f => f && Object.prototype.hasOwnProperty.call(f, col));
+    if (sbTiene(rCajaSoc, 'cargado_por'))
       SB_TIENE_CARGADO_POR = true;
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'gastos_mon'))
+    if (sbTiene(rCajaSoc, 'gastos_mon'))
       SB_TIENE_GASTOS_MON = true;
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'fondo_de'))
+    if (sbTiene(rCajaSoc, 'fondo_de'))
       SB_TIENE_FONDO_DE = true;
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'gastos_pend'))
+    if (sbTiene(rCajaSoc, 'gastos_pend'))
       SB_TIENE_GASTOS_PEND = true;
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'gastos_pagos'))
+    if (sbTiene(rCajaSoc, 'gastos_pagos'))
       SB_TIENE_GASTOS_PAGOS = true;
-    if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'caja_dest'))
+    if (sbTiene(rCajaSoc, 'caja_dest'))
       SB_TIENE_CAJA_DEST = true;
-    if (rCaja && rCaja.length && Object.prototype.hasOwnProperty.call(rCaja[0], 'comision_para'))
+    if (sbTiene(rCaja, 'comision_para'))
       SB_TIENE_JUD_COM_PARA = true;
-    if (rClientes && rClientes.length && Object.prototype.hasOwnProperty.call(rClientes[0], 'apodo'))
+    if (sbTiene(rClientes, 'apodo'))
       SB_TIENE_APODO = true;
-    if (rAboCli && rAboCli.length && Object.prototype.hasOwnProperty.call(rAboCli[0], 'cliente_id'))
+    if (sbTiene(rAboCli, 'cliente_id'))
       SB_TIENE_ABO_CLI = true;
-    if (rAboCli && rAboCli.length && Object.prototype.hasOwnProperty.call(rAboCli[0], 'incluye'))
+    if (sbTiene(rAboCli, 'incluye'))
       SB_TIENE_ABO_EXTRAS = true;
     try {
       const rCom = await sbSelect('com_manual').catch(() => null);
@@ -7742,6 +7776,7 @@ function renderIngresos(){
     <button class="${INGRESOS_VISTA==='mes'?'on':''}" onclick="ingVista('mes')">Ingresos del mes</button>
     <button class="${INGRESOS_VISTA==='gastos'?'on':''}" onclick="ingVista('gastos')">Gastos</button>
     <button class="${INGRESOS_VISTA==='sueldos'?'on':''}" onclick="ingVista('sueldos')">Sueldos</button>
+    <button class="${INGRESOS_VISTA==='netocaja'?'on':''}" onclick="ingVista('netocaja')">Neto por caja</button>
     <button class="${INGRESOS_VISTA==='pendiente'?'on':''}" onclick="ingVista('pendiente')">Pendiente de cobro</button>
     <button class="${INGRESOS_VISTA==='ranking'?'on':''}" onclick="ingVista('ranking')">Ranking</button>
     <button class="${INGRESOS_VISTA==='evolucion'?'on':''}" onclick="ingVista('evolucion')">Evolución</button>
@@ -7749,6 +7784,7 @@ function renderIngresos(){
   if(INGRESOS_VISTA==='evolucion'){ renderIngresosEvolucion(cont, subtabs); return; }
   if(INGRESOS_VISTA==='gastos'){ renderIngresosGastos(cont, subtabs); return; }
   if(INGRESOS_VISTA==='sueldos'){ renderIngresosSueldos(cont, subtabs); return; }
+  if(INGRESOS_VISTA==='netocaja'){ renderNetoPorCaja(cont, subtabs); return; }
   if(INGRESOS_VISTA==='pendiente'){ renderIngresosPendiente(cont, subtabs); return; }
   if(INGRESOS_VISTA==='ranking'){ renderIngresosRanking(cont, subtabs); return; }
 
@@ -8567,6 +8603,140 @@ function equipoConfirmarDeshacer(){
   if (equipoDeshacerInflacion()){ aricToast('Ajuste deshecho'); renderIngresos(); }
 }
 
+// ══════════ NETO POR CAJA ══════════
+// Cada caja se banca sus propios sueldos. Judicial: Kevin, Ori y la mitad de
+// Sofi G. Societaria: Brenda, Naza, Sofi T y la otra mitad de Sofi G. Muestra
+// el resultado del mes de esa caja y qué queda después de pagar esos sueldos.
+let NETO_CAJA_VER = 'jud';
+function netoCajaVer(v){ NETO_CAJA_VER = v; renderIngresos(); }
+// Quién cobra de cada caja y en qué proporción
+const NETO_CAJA_SUELDOS = {
+  jud: [ { id:'kevin', pct:1 }, { id:'ori', pct:1 }, { id:'sofig', pct:.5 } ],
+  soc: [ { id:'brenda', pct:1 }, { id:'naza', pct:1 }, { id:'sofit', pct:1 }, { id:'sofig', pct:.5 } ]
+};
+function netoCajaDatos(caja, ym){
+  const lineas = (typeof equipoLineasMes === 'function') ? equipoLineasMes(ym) : [];
+  const reparto = NETO_CAJA_SUELDOS[caja] || [];
+  const sueldos = reparto.map(r => {
+    const l = lineas.find(x => x.id === r.id);
+    if (!l) return null;
+    return { id:r.id, nombre:l.nombre, pct:r.pct,
+             base: (l.base||0) * r.pct, comision: (l.comision||0) * r.pct,
+             total: (l.total||0) * r.pct };
+  }).filter(Boolean);
+  const sueldosTot = sueldos.reduce((a,x)=> a + x.total, 0);
+
+  let inArs = 0, inUsd = 0, gaArs = 0, gaUsd = 0, adelArs = 0, adelUsd = 0, det = [];
+  if (caja === 'jud'){
+    const pagos = (typeof CAJA !== 'undefined' ? CAJA : []).filter(p => (p.fecha||'').slice(0,7) === ym);
+    inArs = pagos.filter(p => p.moneda !== 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
+    inUsd = pagos.filter(p => p.moneda === 'USD').reduce((a,p)=> a + (Number(p.monto)||0), 0);
+    // Reuniones que atendió Kevin, con su cantidad (igual que en societaria)
+    const reuJ = (typeof reuDeCaja === 'function') ? reuDeCaja('judicial', ym)
+               : { total: (typeof reuTotalesMes === 'function' ? reuTotalesMes(ym).judicial : 0), n: 0 };
+    const reu = reuJ.total || 0;
+    inArs += reu;
+    det = [{ lbl:'Cobros de la caja (' + pagos.length + ')', ars: inArs - reu, usd: inUsd }];
+    if (reu) det.push({ lbl:'Reuniones cobradas (' + (reuJ.n || 0) + ')', ars: reu, usd: 0 });
+  } else {
+    const d = (typeof __socDatosMes === 'function') ? __socDatosMes(ym) : null;
+    if (d){
+      inArs = d.t.inArs; inUsd = d.t.inUsd;
+      gaArs = (d.t.goArs||0) + (d.t.geArs||0);
+      gaUsd = (d.t.goUsd||0) + (d.t.geUsd||0);
+      // t.inArs/inUsd ya vienen con TODO adentro: movimientos propios, adelantos con
+      // moneda propia, abonos de actas y reuniones de Brenda. Se desarma para
+      // mostrar cada concepto en su línea, sin cambiar el total.
+      let yaArs = 0, yaUsd = 0;
+      (typeof CAJASOC !== 'undefined' ? CAJASOC : []).forEach(m => {
+        if (m.tipo && m.tipo !== 'ingreso') return;
+        if (!m.gastosMon) return;
+        if (typeof socVaAWeLegal === 'function' && socVaAWeLegal(m)) return;
+        const g = (typeof socGastosCobradoEnMes === 'function') ? socGastosCobradoEnMes(m, ym) : 0;
+        if (!g) return;
+        if (socGastosMon(m) === 'USD') yaUsd += g; else yaArs += g;
+      });
+      const actArs = d.t.actasArs || 0, actUsd = d.t.actasUsd || 0, reuArs = d.t.reuArs || 0;
+      det = [{ lbl:'Cobros de la caja (' + d.ingresos.length + ')',
+               ars: inArs - yaArs - actArs - reuArs, usd: inUsd - yaUsd - actUsd }];
+      if (actArs || actUsd) det.push({ lbl:'Abonos de actas (' + (d.t.actasN||0) + ')', ars: actArs, usd: actUsd });
+      if (reuArs) det.push({ lbl:'Reuniones cobradas (' + (d.t.reuN||0) + ')', ars: reuArs, usd: 0 });
+      adelArs = yaArs; adelUsd = yaUsd;
+      // Adelantos de gastos que pagaron los clientes. __socDatosMes ya sumó los que
+      // tienen moneda propia (m.gastosMon), así que acá se agregan SOLO los que
+      // quedaron afuera, para no contarlos dos veces.
+      (typeof CAJASOC !== 'undefined' ? CAJASOC : []).forEach(m => {
+        if (m.tipo && m.tipo !== 'ingreso') return;
+        if (m.gastosMon) return;                       // ya contado más arriba
+        if (typeof socVaAWeLegal === 'function' && socVaAWeLegal(m)) return;
+        const g = (typeof socGastosCobradoEnMes === 'function') ? socGastosCobradoEnMes(m, ym) : 0;
+        if (!g) return;
+        const _hon = Number(m.honorarios)||0, _mo = Number(m.monto)||0, _gi = Number(m.gastosIncl)||0;
+        const gm = socGastosMon(m);
+        // Si el monto ya trae los gastos adentro (formato viejo), tampoco se suman
+        if (_hon > 0 && gm === (m.moneda || 'ARS') && Math.abs(_mo - (_hon + _gi)) < 0.5) return;
+        // estos no estaban en t.inArs: se suman ahora
+        if (gm === 'USD'){ adelUsd += g; inUsd += g; } else { adelArs += g; inArs += g; }
+      });
+      if (adelArs || adelUsd)
+        det.push({ lbl:'Adelantos de gastos de clientes', ars: adelArs, usd: adelUsd });
+      if (gaArs || gaUsd) det.push({ lbl:'Gastos de la caja', ars: -gaArs, usd: -gaUsd });
+    }
+  }
+  const resArs = inArs - gaArs, resUsd = inUsd - gaUsd;
+  return { caja, det, inArs, inUsd, gaArs, gaUsd, resArs, resUsd,
+           sueldos, sueldosTot, netoArs: resArs - sueldosTot, netoUsd: resUsd };
+}
+function renderNetoPorCaja(cont, subtabs){
+  const ym = ingMesActual();
+  const f = n => fmtNumStr(Math.round(Number(n)||0));
+  const d = netoCajaDatos(NETO_CAJA_VER, ym);
+  const esJud = NETO_CAJA_VER === 'jud';
+  const nombreCaja = esJud ? 'Caja judicial' : 'Caja societaria';
+  const filaDet = x => `<div class="nc-linea"><span class="nc-l">${esc(x.lbl)}</span>
+      <span class="nc-v${x.ars < 0 ? ' neg' : ''}">${x.ars ? (x.ars < 0 ? '−$ ' + f(-x.ars) : '$ ' + f(x.ars)) : '—'}</span>
+      <span class="nc-v${x.usd < 0 ? ' neg' : ''}">${x.usd ? (x.usd < 0 ? '−u$s ' + f(-x.usd) : 'u$s ' + f(x.usd)) : '—'}</span></div>`;
+  const filaSue = s => `<div class="nc-linea"><span class="nc-l">${esc(s.nombre)}${s.pct < 1 ? ` <span class="nc-mitad">${Math.round(s.pct*100)}%</span>` : ''}
+        <small>base $ ${f(s.base)} · comisiones $ ${f(s.comision)}</small></span>
+      <span class="nc-v neg">−$ ${f(s.total)}</span><span class="nc-v">—</span></div>`;
+  cont.innerHTML = `
+    <div class="abo-top"><div>
+      <div class="abo-eyebrow">Control financiero</div>
+      <h1 class="ing-h1">Neto por caja</h1>
+    </div>
+    <div class="abo-mesnav">
+      <button onclick="ingCambiarMes(-1)" title="Mes anterior">‹</button>
+      <button onclick="ingMesHoy()" class="hoy">Mes actual</button>
+      <button onclick="ingCambiarMes(1)" title="Mes siguiente">›</button>
+    </div></div>
+    ${subtabs}
+    <div class="nc-intro">Muestra cómo le fue a cada caja por separado en ${mesLargo(ym)}: lo que entró, y qué queda después de pagar los sueldos y comisiones que se abonan con esa caja. La judicial paga a Kevin, Ori y la mitad de Sofi G; la societaria, a Brenda, Naza, Sofi T y la otra mitad de Sofi G.</div>
+    <div class="nc-sw">
+      <button class="${esJud ? 'on' : ''}" onclick="netoCajaVer('jud')">Caja judicial</button>
+      <button class="${!esJud ? 'on' : ''}" onclick="netoCajaVer('soc')">Caja societaria</button>
+    </div>
+    <div class="nc-caja">
+      <div class="nc-caja-h">${nombreCaja} · ${esc(mesLargo(ym))}</div>
+      <div class="nc-bloque">
+        <div class="nc-bloque-t">Resultado de la caja</div>
+        ${d.det.map(filaDet).join('') || '<div class="nc-vacio">Sin movimientos este mes.</div>'}
+        <div class="nc-linea nc-sub"><span class="nc-l">Subtotal</span>
+          <span class="nc-v">$ ${f(d.resArs)}</span><span class="nc-v">u$s ${f(d.resUsd)}</span></div>
+      </div>
+      <div class="nc-bloque">
+        <div class="nc-bloque-t">Sueldos y comisiones que paga esta caja</div>
+        ${d.sueldos.map(filaSue).join('') || '<div class="nc-vacio">Nadie asignado.</div>'}
+        <div class="nc-linea nc-sub"><span class="nc-l">Total sueldos</span>
+          <span class="nc-v neg">−$ ${f(d.sueldosTot)}</span><span class="nc-v">—</span></div>
+      </div>
+      <div class="nc-total ${d.netoArs < 0 ? 'rojo' : ''}">
+        <span class="nc-total-l">Neto después de sueldos</span>
+        <span class="nc-total-v">${d.netoArs < 0 ? '−$ ' + f(-d.netoArs) : '$ ' + f(d.netoArs)}</span>
+        <span class="nc-total-v usd">${d.netoUsd < 0 ? '−u$s ' + f(-d.netoUsd) : 'u$s ' + f(d.netoUsd)}</span>
+      </div>
+      <div class="nc-pie">Los sueldos se pagan en pesos, así que el resultado en dólares queda como está.</div>
+    </div>`;
+}
 function renderIngresosSueldos(cont, subtabs){
   const ym = ingMesActual();
   const fmt = n => '$ ' + fmtNumStr(Math.round(Number(n)||0));
@@ -9975,8 +10145,14 @@ function ingresosDelMes(ym){
     // SÍ suman al bruto: es plata que entró al estudio. Lo que se gastó de verdad se
     // resta después, como gasto ordinario o de escribanía. Si el cliente adelantó
     // 100.000 y el trámite costó 25.000, los 75.000 que sobran quedan a favor.
-    // (En el formato viejo, sin gastosMon, el monto ya venía con los gastos adentro.)
-    if (m.gastosMon){ if (gm === 'USD') socUsd += g; else socArs += g; }
+    // Único caso en que NO se suman: el formato viejo, donde el "Monto" del
+    // movimiento ya venía con los gastos adentro. NO alcanza con mirar si existe
+    // m.honorarios — el formulario nuevo también lo guarda. Se compara la cuenta:
+    // solo están adentro si monto == honorarios + gastos y en la misma moneda.
+    const _hon = Number(m.honorarios)||0, _mo = Number(m.monto)||0, _gi = Number(m.gastosIncl)||0;
+    const yaEstanEnElMonto = _hon > 0 && gm === (m.moneda || 'ARS')
+                             && Math.abs(_mo - (_hon + _gi)) < 0.5;
+    if (!yaEstanEnElMonto){ if (gm === 'USD') socUsd += g; else socArs += g; }
   });
   // Gastos que salen (ordinarios y de escribanía)
   const gOrd = movsSoc.filter(m => m.tipo === 'gasto');
@@ -14982,6 +15158,101 @@ function registrarMovSoc() {
   csDestinoReset();
   renderCajaSocDatalists(); renderCajaSoc();
 }
+// ── Editar un movimiento ya cargado de la caja societaria ──
+// Antes solo se podía borrar y volver a cargar, y eso hacía perder los pagos
+// parciales de gastos y el historial. Se editan los datos gruesos; el desglose
+// de honorarios y gastos se toca desde acá también, con su moneda.
+function csEditarMov(id){
+  const m = CAJASOC.find(x => x.id === id); if (!m) return;
+  let ov = document.getElementById('csEditOv');
+  if (!ov){
+    ov = document.createElement('div'); ov.id = 'csEditOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) csCerrarEdit(); });
+    document.body.appendChild(ov);
+  }
+  const sim = x => x === 'USD' ? 'u$s' : '$';
+  const tieneDes = Number(m.gastosIncl) > 0;
+  ov.innerHTML = `<div class="abo-reg-card" style="width:600px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">Editar movimiento</div>
+        <div class="abo-reg-sub">${esc(m.contraparte || '')} · ${formatFechaCorta(m.fecha)}</div></div>
+      <button class="abo-reg-x" onclick="csCerrarEdit()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 150px"><label>Fecha</label>
+          <input type="date" id="ceFecha" value="${esc(m.fecha || '')}"></div>
+        <div class="f-col"><label>Cliente / proveedor</label>
+          <input type="text" id="ceContra" value="${esc(m.contraparte || '')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col"><label>Concepto</label>
+          <input type="text" id="ceConcepto" value="${esc(m.concepto || '')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 170px"><label>${tieneDes ? 'Honorarios' : 'Monto'}</label>
+          <input type="text" inputmode="decimal" id="ceMonto" value="${fmtNumStr(m.monto || 0)}"></div>
+        <div class="f-col" style="flex:0 0 120px"><label>Moneda</label>
+          <select id="ceMoneda">
+            <option value="ARS" ${m.moneda !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${m.moneda === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>Método</label>
+          <input type="text" id="ceMetodo" value="${esc(m.metodo || '')}"></div>
+      </div>
+      ${tieneDes ? `
+      <div class="cs-grupo" style="margin-top:14px"><span class="cs-grupo-t">Adelanto de gastos del cliente</span></div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 170px"><label>Monto de gastos</label>
+          <input type="text" inputmode="decimal" id="ceGastos" value="${fmtNumStr(m.gastosIncl || 0)}"></div>
+        <div class="f-col" style="flex:0 0 120px"><label>Moneda</label>
+          <select id="ceGasMon">
+            <option value="ARS" ${socGastosMon(m) !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${socGastosMon(m) === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>¿El cliente ya los pagó?</label>
+          <select id="ceGasEstado">
+            <option value="pago" ${!socGastosPendiente(m) ? 'selected' : ''}>Sí, ya los pagó</option>
+            <option value="pend" ${socGastosPendiente(m) ? 'selected' : ''}>No, los debe</option>
+          </select></div>
+      </div>
+      <div class="cuota-hint" style="margin:8px 0 0">Este adelanto suma a los ingresos del mes. Lo que se gaste de verdad se descuenta aparte, cargándolo como gasto ordinario o de escribanía.</div>` : ''}
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      <button class="abo-reg-cancel" onclick="csCerrarEdit()">Cancelar</button>
+      <button class="abo-reg" onclick="csGuardarEdit(${m.id})">Guardar cambios</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+}
+function csCerrarEdit(){
+  const ov = document.getElementById('csEditOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+function csGuardarEdit(id){
+  const m = CAJASOC.find(x => x.id === id); if (!m) return;
+  const v = i => (document.getElementById(i) || {}).value;
+  const num = s => { const n = numDe(s); return isNaN(n) ? 0 : n; };
+  const fecha = v('ceFecha'); if (fecha) m.fecha = fecha;
+  m.contraparte = (v('ceContra') || '').trim();
+  m.concepto = (v('ceConcepto') || '').trim();
+  const mo = num(v('ceMonto')); if (mo > 0) m.monto = mo;
+  m.moneda = v('ceMoneda') === 'USD' ? 'USD' : 'ARS';
+  m.metodo = (v('ceMetodo') || '').trim();
+  if (document.getElementById('ceGastos')){
+    const g = num(v('ceGastos'));
+    m.gastosIncl = g;
+    m.gastosMon = v('ceGasMon') === 'USD' ? 'USD' : 'ARS';
+    const pend = v('ceGasEstado') === 'pend';
+    m.gastosPend = pend;
+    if (!pend && !m.gastosFecha) m.gastosFecha = m.fecha;
+    if (pend) m.gastosFecha = '';
+  }
+  saveCajaSoc(); sbPushMovSoc(m);
+  csCerrarEdit(); renderCajaSoc();
+  try { if (typeof renderIngresos === 'function') renderIngresos(); } catch(e){}
+  try { aricToast('Movimiento actualizado'); } catch(e){}
+}
 function eliminarMovSoc(id) {
   {
     const mv = CAJASOC.find(m => m.id === id);
@@ -16075,7 +16346,7 @@ function renderCajaSoc() {
         return `<button class="mini-btn" onclick="verComprobanteSoc(${m.id})" title="${total > 1 ? 'Honorarios y gastos' : esc((hon||gas[0]).nombre)}">${txt}</button>`;
       })()}</td>
       <td style="text-align:center"><input type="checkbox" ${m.revisado ? 'checked' : ''} ${puedeRevisar() ? `onchange="toggleRevisadoSoc(${m.id})"` : 'disabled title="Solo Ivana puede marcar como revisado"'} title="Revisado" style="accent-color:var(--sello)"></td>
-      <td><button class="tarea-del" onclick="eliminarMovSoc(${m.id})" title="Eliminar">✕</button></td>
+      <td style="white-space:nowrap"><button class="cs-edit-b" onclick="csEditarMov(${m.id})" title="Editar este movimiento">✎</button><button class="tarea-del" onclick="eliminarMovSoc(${m.id})" title="Eliminar">✕</button></td>
     </tr>`;
   };
   const cab = '<thead><tr><th>Fecha</th><th>Cliente / proveedor</th><th>Concepto</th><th style="text-align:right">Monto</th><th>Método</th><th>Comprob.</th><th style="text-align:center">Rev.</th><th></th></tr></thead>';
@@ -17022,6 +17293,86 @@ function registrarPago() {
   renderCajaDatalists(); renderCaja();
 }
 function toggleRevisado(id) { if (!puedeRevisar()) return; const p = CAJA.find(x => x.id === id); if (p) { p.revisado = !p.revisado; saveCaja(); sbPushPago(p); renderCaja(); } }
+// ── Editar un pago ya cargado de la caja judicial ──
+function cjEditarPago(id){
+  const p = CAJA.find(x => x.id === id); if (!p) return;
+  let ov = document.getElementById('cjEditOv');
+  if (!ov){
+    ov = document.createElement('div'); ov.id = 'cjEditOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) cjCerrarEdit(); });
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = `<div class="abo-reg-card" style="width:580px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">Editar pago</div>
+        <div class="abo-reg-sub">${esc(p.cliente || '')} · ${formatFechaCorta(p.fecha)}</div></div>
+      <button class="abo-reg-x" onclick="cjCerrarEdit()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 150px"><label>Fecha</label>
+          <input type="date" id="jeFecha" value="${esc(p.fecha || '')}"></div>
+        <div class="f-col"><label>Cliente</label>
+          <input type="text" id="jeCliente" value="${esc(p.cliente || '')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col"><label>Concepto</label>
+          <input type="text" id="jeConcepto" value="${esc(p.concepto || '')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 170px"><label>Monto</label>
+          <input type="text" inputmode="decimal" id="jeMonto" value="${fmtNumStr(p.monto || 0)}"></div>
+        <div class="f-col" style="flex:0 0 120px"><label>Moneda</label>
+          <select id="jeMoneda">
+            <option value="ARS" ${p.moneda !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${p.moneda === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>Método</label>
+          <input type="text" id="jeMetodo" value="${esc(p.metodo || '')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 190px"><label>Valor del dólar del día</label>
+          <input type="text" inputmode="decimal" id="jeDolar" value="${p.dolarDia ? fmtNumStr(p.dolarDia) : ''}" placeholder="opcional"></div>
+        <div class="f-col"><label>Comisión asignada a</label>
+          <select id="jeComPara">
+            <option value="">— Sin comisión —</option>
+            <option value="naza" ${p.comisionPara === 'naza' ? 'selected' : ''}>Naza</option>
+            <option value="sofig" ${p.comisionPara === 'sofig' ? 'selected' : ''}>Sofi G</option>
+            <option value="sofit" ${p.comisionPara === 'sofit' ? 'selected' : ''}>Sofi T</option>
+          </select></div>
+      </div>
+      <label class="check-row" style="margin:12px 0 0"><input type="checkbox" id="jeComOri" ${p.comisionOri ? 'checked' : ''}> Comisión de Ori</label>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      <button class="abo-reg-cancel" onclick="cjCerrarEdit()">Cancelar</button>
+      <button class="abo-reg" onclick="cjGuardarEdit(${p.id})">Guardar cambios</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+}
+function cjCerrarEdit(){
+  const ov = document.getElementById('cjEditOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+function cjGuardarEdit(id){
+  const p = CAJA.find(x => x.id === id); if (!p) return;
+  const v = i => (document.getElementById(i) || {}).value;
+  const num = s => { const n = numDe(s); return isNaN(n) ? 0 : n; };
+  const fecha = v('jeFecha'); if (fecha) p.fecha = fecha;
+  p.cliente = (v('jeCliente') || '').trim();
+  p.concepto = (v('jeConcepto') || '').trim();
+  const mo = num(v('jeMonto')); if (mo > 0) p.monto = mo;
+  p.moneda = v('jeMoneda') === 'USD' ? 'USD' : 'ARS';
+  p.metodo = (v('jeMetodo') || '').trim();
+  const dd = num(v('jeDolar'));
+  p.dolarDia = dd > 0 ? dd : null;
+  p.comisionPara = v('jeComPara') || '';
+  p.comisionOri = !!(document.getElementById('jeComOri') || {}).checked;
+  saveCaja(); sbPushPago(p);
+  cjCerrarEdit(); renderCaja();
+  try { if (typeof renderIngresos === 'function') renderIngresos(); } catch(e){}
+  try { aricToast('Pago actualizado'); } catch(e){}
+}
 function eliminarPago(id) {
   if (!confirm('¿Eliminar este pago del registro de caja?')) return;
   const pago = CAJA.find(x => x.id === id);
@@ -17332,7 +17683,7 @@ function renderCaja() {
           ? `<button class="mini-btn" onclick="verComprobante(${p.id})" title="${esc(CAJA_ADJ[p.id].nombre)}">📄 Ver</button>`
           : `<button class="mini-btn" onclick="adjuntarA(${p.id})">＋ Adjuntar</button>`}</td>
         <td style="text-align:center"><input type="checkbox" ${p.revisado ? 'checked' : ''} ${puedeRevisar() ? `onchange="toggleRevisado(${p.id})"` : 'disabled title="Solo Ivana puede marcar como revisado"'} title="Revisado" style="accent-color:var(--sello)"></td>
-        <td><button class="tarea-del" onclick="eliminarPago(${p.id})" title="Eliminar pago">✕</button></td>
+        <td style="white-space:nowrap"><button class="cs-edit-b" onclick="cjEditarPago(${p.id})" title="Editar este pago">✎</button><button class="tarea-del" onclick="eliminarPago(${p.id})" title="Eliminar pago">✕</button></td>
       </tr>`;
     }).join('') + '</tbody>';
   }
