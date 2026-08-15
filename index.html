@@ -156,7 +156,7 @@ body.sin-jud #panelInicioContactar{grid-column:2;grid-row:1 / span 2}
 body.caja-ori #paginaCaja .page-head button{display:none}
 body.caja-ori #paginaCaja .f-col:has(#cajaDolar){display:none}
 body.caja-ori #paginaCaja .f-col:has(#cajaVistaMoneda){display:none}
-body.caja-ori #paginaCaja .grid-caja-4 .panel:not(:has(#cajaComisionesO)){display:none}
+body.caja-ori #paginaCaja .grid-caja-4{display:none}
 body.caja-ori #paginaCaja th:nth-child(6),body.caja-ori #paginaCaja td:nth-child(6){display:none}
 /* Caja societaria en modo "solo gastos": queda a la vista el formulario y las dos
    listas de gastos; todo lo que revele el balance de la caja se oculta. */
@@ -1485,13 +1485,59 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-c-abonado{flex:1;font-size:13px;color:var(--tinta);white-space:nowrap}
 .abo-c-comprob{flex:1.05;min-width:0;font-size:12px;overflow:hidden}
 .abo-c-fecha{flex:0.8;font-size:12.5px;color:var(--tinta-suave);white-space:nowrap}
-.abo-row > .abo-c-tipo{flex:1;min-width:0;cursor:text;border-radius:6px;padding:3px 6px;transition:.13s}
+.abo-row > .abo-c-nom{flex:0 0 240px;min-width:240px;max-width:240px}
+.abo-row.abo-mrow > .abo-c-nom{flex:2;min-width:0;max-width:none}
+.abo-row.pausada > .abo-c-nom{flex:1;min-width:0;max-width:none}
+.abo-row > .abo-c-tipo{flex:0 0 130px;min-width:130px;max-width:130px;cursor:text;border-radius:6px;padding:3px 6px;transition:.13s}
+.abo-row > .abo-c-tipo .abo-tipo-tx{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .abo-row > .abo-c-tipo:hover{background:var(--papel);box-shadow:inset 0 0 0 1px var(--filo)}
 .abo-tipo-tx{font-size:12px;color:var(--tinta);line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .abo-tipo-tx.vacio{color:var(--filo)}
 .abo-tipo-in{width:100%;min-width:0;border:1px solid #9db9dd;background:var(--carta);border-radius:6px;padding:4px 6px;font-family:inherit;font-size:12px;color:var(--tinta)}
 .abo-tipo-in:focus{outline:none}
 .abo-row-head > .abo-c-tipo{padding-left:6px}
+.abo-tipo-lupa{font-size:9px;opacity:.55;margin-left:4px}
+.abo-c-forma{flex:0 0 64px;min-width:64px;max-width:64px;padding:0;display:flex;align-items:center;justify-content:center;text-align:center}
+.abo-row-head > .abo-c-forma{justify-content:center}
+.abo-leyenda{flex-basis:100%;order:99;display:flex;align-items:center;gap:6px;font-size:15px;color:var(--tinta-suave);white-space:nowrap;margin-top:4px}
+.abo-leyenda .lg{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:14px;font-weight:800;margin-left:7px}
+.abo-leyenda .lg:first-child{margin-left:0}
+.abo-leyenda .lg.a{background:#eef4fc;border:1px solid #c5d5ea;color:#14294a}
+.abo-leyenda .lg.v{background:#f6f1e4;border:1px solid #e4d9bd;color:#8a6d1f}
+.abo-leyenda .lg.p{background:#f9e3df;border:1px solid #eec8c1;color:#b3372a}
+.abo-forma-btn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-size:12px;font-weight:800;width:26px;height:26px;line-height:1;padding:0;border-radius:50%;cursor:pointer;transition:.13s;border:1px solid var(--filo);background:var(--carta);color:var(--tinta)}
+.abo-forma-btn:hover{filter:brightness(.94);border-color:#14294a}
+.abo-forma-btn.a{background:#eef4fc;border-color:#c5d5ea;color:#14294a}
+.abo-forma-btn.v{background:#f6f1e4;border-color:#e4d9bd;color:#8a6d1f}
+.abo-forma-btn.p{background:#f9e3df;border-color:#eec8c1;color:#b3372a}
+.abo-forma-al{display:inline-block;margin-left:5px;background:var(--mal,#b3372a);color:#fff;font-size:9.5px;font-weight:800;width:14px;height:14px;line-height:14px;text-align:center;border-radius:50%}
+.abo-frango{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--tinta-suave);border:1px solid var(--filo);background:var(--carta);border-radius:8px;padding:4px 9px;white-space:nowrap}
+.abo-frango input{width:48px;border:1px solid var(--filo);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:12px;text-align:center;color:var(--tinta)}
+.abo-frango input:focus{outline:none;border-color:#9db9dd}
+.abo-frango-x{border:none;background:transparent;color:var(--mal,#b3372a);cursor:pointer;font-size:12px;padding:0 2px}
+.crm-abo-box{background:var(--papel);border:1px solid var(--filo);border-left:3px solid var(--oro,#c9a961);border-radius:8px;padding:11px 13px;margin-top:6px}
+.crm-abo-l1{font-size:14px;color:var(--tinta)}
+.crm-abo-l2{font-size:11.5px;color:var(--tinta-suave);margin-top:3px}
+.crm-abo-inc{font-size:12.5px;color:var(--tinta);line-height:1.45;margin-top:7px;padding-top:7px;border-top:1px dashed var(--filo)}
+.crm-abo-inc-t{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-suave);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.crm-abo-inc-tx{white-space:pre-wrap}
+.crm-abo-edit{border:none;background:transparent;color:#14294a;font-size:11px;font-weight:700;cursor:pointer;text-decoration:underline;padding:0;text-transform:none;letter-spacing:0}
+.crm-abo-ta{width:100%;border:1px solid var(--filo);border-radius:7px;padding:8px 10px;font-family:inherit;font-size:12.5px;color:var(--tinta);resize:vertical}
+.crm-abo-save{border:none;background:#14294a;color:#fff;font-family:inherit;font-size:12px;font-weight:600;padding:6px 14px;border-radius:7px;cursor:pointer}
+.crm-abo-cancel{border:1px solid var(--filo);background:var(--carta);color:var(--tinta-suave);font-family:inherit;font-size:12px;padding:6px 12px;border-radius:7px;cursor:pointer}
+.crm-abo-obs{font-size:12px;color:var(--mal,#b3372a);font-weight:600;margin-top:6px}
+.crm-abo-chip{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;vertical-align:1px}
+.crm-abo-chip.ok{background:#e7f0e6;color:#2d5016;border:1px solid #c6dcc2}
+.crm-abo-chip.parc{background:#f6f1e4;color:#8a6d1f;border:1px solid #e4d9bd}
+.crm-abo-chip.debe{background:#f9e3df;color:#b3372a;border:1px solid #eec8c1}
+.abo-inc-acc{border:1px solid var(--filo);border-radius:9px;overflow:hidden;margin:10px 0 4px;background:var(--papel)}
+.abo-inc-cab{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:transparent;border:none;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--tinta);padding:10px 13px;cursor:pointer;text-align:left}
+.abo-inc-cab:hover{background:#eef4fc}
+.abo-inc-cab-f{color:var(--tinta-suave);font-size:11px}
+.abo-inc-cuerpo{padding:0 13px 13px;border-top:1px solid var(--filo)}
+.abo-inc-box{background:var(--papel);border:1px solid var(--filo);border-left:3px solid var(--oro,#c9a961);border-radius:8px;padding:11px 13px;margin:8px 0 0}
+.abo-inc-t{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-suave);margin-bottom:5px}
+.abo-inc-tx{font-size:13px;color:var(--tinta);white-space:pre-wrap;line-height:1.45}
 .abo-c-estado{flex:1.35;min-width:118px}
 .abo-c-dl{border:1px solid var(--filo);background:var(--carta);color:#14294a;font-size:11.5px;font-weight:600;padding:5px 9px;border-radius:7px;cursor:pointer;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .abo-c-dl:hover{background:var(--papel)}
@@ -1504,7 +1550,7 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-reg:hover{background:var(--papel)}
 .abo-reg-sp{width:78px;flex:0 0 auto}
 /* Barra de búsqueda + filtro */
-.abo-buscar{display:flex;gap:10px;margin-bottom:20px}
+.abo-buscar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
 .abo-buscar-input{flex:1;padding:10px 14px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13.5px;color:var(--tinta);background:var(--carta)}
 .abo-buscar-input:focus{outline:none;border-color:#14294a}
 .abo-filtro{padding:10px 14px;border:1px solid var(--filo);border-radius:var(--radio-s,9px);font-family:var(--f-ui,inherit);font-size:13px;font-weight:600;color:var(--tinta);background:var(--carta);cursor:pointer;min-width:180px}
@@ -1779,6 +1825,8 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .abo-nv-aviso.ok{color:var(--crm-verde,#1e7a48);font-weight:600}
 .abo-nv-aviso.nueva{color:#8a6d1f;font-weight:600}
 .abo-top-acc{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.abo-sync-btn{border:1px solid var(--filo);background:var(--carta);color:#14294a;font-family:inherit;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.abo-sync-btn:hover{background:#eef4fc;border-color:#14294a}
 /* ── Panel de administración de usuarios: misma estética que el CRM ── */
 .usr-lista{display:flex;flex-direction:column;gap:9px}
 .usr-row{background:var(--carta);border:1px solid var(--filo);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:start;transition:.13s;cursor:pointer}
@@ -1885,6 +1933,14 @@ body.inicio-kevin #panelInicioContactar,body.inicio-kevin #panelInicioPacks{disp
 .fc-usd{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;color:#1e7a48}
 .fc-num.neg,.fc-usd.neg{color:#b3372a}
 .fc-pie{font-size:10.5px;color:var(--tinta-suave);margin-top:2px}
+.com-org{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.com-org.jud{background:#e8eef8;color:#1b3a6b;border:1px solid #c5d5ea}
+.com-org.soc{background:#e7f0e6;color:#2d5016;border:1px solid #c6dcc2}
+.com-org.man{background:#f6f1e4;color:#8a6d1f;border:1px solid #e4d9bd}
+.com-org.abo{background:#efe9f6;color:#4b2d78;border:1px solid #d9cdea}
+.com-cli{display:block;font-size:10.5px;color:var(--tinta-suave)}
+.com-usd-orig{display:block;font-weight:400;font-size:10px;color:var(--tinta-suave)}
+.com-auto-lock{color:var(--filo);font-size:13px}
 .mto-orig{display:block;font-weight:400;font-size:10.5px;color:var(--tinta-suave);white-space:nowrap;margin-top:1px}
 .vista-moneda{display:inline-flex;border:1px solid var(--filo);border-radius:10px;overflow:hidden;background:var(--carta);box-shadow:0 1px 3px rgba(20,41,74,.06)}
 .vista-moneda button{border:none;background:transparent;cursor:pointer;padding:7px 15px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--tinta-suave);border-right:1px solid var(--filo);line-height:1.2;text-align:left;transition:background .15s,color .15s}
@@ -2308,6 +2364,86 @@ body.locked .app{margin-left:0}
 .exp-sent-btn.ok.on{background:var(--ok,#1e7a48);color:#fff;border-color:var(--ok,#1e7a48)}
 .exp-sent-btn.mal.on{background:var(--mal,#b3372a);color:#fff;border-color:var(--mal,#b3372a)}
 .exp-sent-btn:hover{border-color:#14294a}
+
+.ing-pend-venc{ background:#fbfaf6; }
+.ing-venc-chip{ display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  background:#f6f1e4; color:#8a6d1f; border:1px solid #e4d9bd; border-radius:20px; padding:2px 8px; }
+.ing-venc-tx{ font-size:11.5px; color:var(--tinta-suave); }
+.ing-venc-aviso{ background:#f6f1e4; border:1px solid #e4d9bd; border-left:3px solid #c9a961;
+  border-radius:8px; padding:10px 13px; margin:0 0 12px; font-size:12.5px; color:var(--tinta); line-height:1.45; }
+.abo-kpi-click{ cursor:pointer; transition:.15s; }
+.abo-kpi-click:hover{ box-shadow:0 3px 14px rgba(20,41,74,.14); transform:translateY(-1px); }
+.abo-kpi-lupa{ font-size:10px; font-weight:700; color:#14294a; background:#eef4fc; border:1px solid #c5d5ea;
+  border-radius:20px; padding:2px 8px; margin-left:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:.05em; }
+.abo-temp-falta{ margin-top:12px; font-size:12.5px; color:var(--tinta-suave); background:var(--papel);
+  border:1px solid var(--filo); border-radius:8px; padding:9px 12px; }
+
+/* ── Grilla de la tabla de abonos ─────────────────────────────────
+   Todas las columnas con ancho fijo, iguales en el encabezado y en cada fila,
+   sin importar la variante (pausada, con o sin columna Factura). Antes cada
+   columna era elástica y se acomodaba según su contenido, así que ninguna
+   quedaba en la misma vertical de una fila a otra. Se excluyen las solapas
+   Actualizar montos (.abo-mrow) y Distribución (.abo-crow), que tienen otra
+   grilla propia. */
+.abo-row:not(.abo-mrow):not(.abo-crow){ gap:7px !important; padding-left:14px; padding-right:10px; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-nom{
+  flex:1 1 170px !important; min-width:130px !important; max-width:none !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-tipo{
+  flex:0 0 96px !important; min-width:96px !important; max-width:96px !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-forma{
+  flex:0 0 52px !important; min-width:52px !important; max-width:52px !important;
+  display:flex !important; align-items:center; justify-content:center; padding:0 !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-monto{
+  flex:0 0 100px !important; min-width:100px !important; max-width:100px !important; text-align:right; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-abonado{
+  flex:0 0 80px !important; min-width:80px !important; max-width:80px !important; text-align:right; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-comprob{
+  flex:0 0 76px !important; min-width:76px !important; max-width:76px !important; overflow:hidden; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-fecha{
+  flex:0 0 76px !important; min-width:76px !important; max-width:76px !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-factura{
+  flex:0 0 90px !important; min-width:90px !important; max-width:90px !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-estado{
+  flex:0 0 88px !important; min-width:88px !important; max-width:88px !important; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-row-acc,
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-reg-sp2{
+  flex:0 0 74px !important; min-width:74px !important; max-width:74px !important;
+  justify-content:flex-end; gap:5px; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > .abo-c-del{
+  flex:0 0 30px !important; min-width:30px !important; max-width:30px !important; }
+/* En pantallas angostas la tabla en pesos (que suma la columna Factura) no entra.
+   Antes se recortaba y los botones del costado quedaban afuera del cuadro; ahora
+   la sección se desplaza en horizontal y no se pierde nada. */
+.abo-row:not(.abo-mrow):not(.abo-crow){ box-sizing:border-box; }
+.abo-row:not(.abo-mrow):not(.abo-crow) > *{ box-sizing:border-box; min-width:0; }
+#paginaAbonos .abo-sec{ overflow-x:auto; }
+#paginaAbonos .abo-sec > .abo-row{ min-width:min-content; }
+/* El encabezado no debe partir sus títulos ni pisar la columna de al lado */
+.abo-row-head > div{ white-space:nowrap !important; overflow:hidden !important;
+  text-overflow:ellipsis; font-size:9.5px !important; letter-spacing:.05em !important; }
+.abo-row-head > .abo-c-monto, .abo-row-head > .abo-c-abonado{ text-align:right; }
+/* El select de Quién factura entra en su columna */
+.abo-row:not(.abo-mrow) > .abo-c-factura select{ width:100%; max-width:100%; }
+
+/* Botón de cobro: un signo $ en vez de la palabra, para ganar ancho.
+   Con cara de billete: verde, con un filete claro por dentro. */
+.abo-reg-bill{ width:34px !important; height:28px !important; padding:0 !important;
+  border-radius:6px !important; font-size:15px !important; font-weight:800 !important;
+  display:inline-flex !important; align-items:center; justify-content:center; flex:0 0 auto;
+  color:#fff !important; border:1px solid #17683d !important;
+  background:linear-gradient(180deg,#2e9d63,#1e7a48) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35), 0 1px 2px rgba(12,20,15,.22) !important;
+  letter-spacing:0; transition:filter .13s, transform .13s; }
+.abo-reg-bill:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.abo-reg-bill:active{ transform:translateY(0); }
+/* Ya cobrado: el billete queda tenue, para que resalte el que falta */
+.abo-reg-bill.hecho{ background:linear-gradient(180deg,#f2f7f3,#e7f0e6) !important;
+  color:#1e7a48 !important; border:1px solid #bcd6c4 !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7) !important; }
+.abo-wa-mini{ flex:0 0 auto; }
+/* Leyenda de las iniciales: 35% más grande */
+.abo-leyenda{ font-size:15px !important; gap:7px; }
+.abo-leyenda .lg{ width:26px !important; height:26px !important; font-size:14px !important; margin-left:8px; }
 </style>
 </head>
 <body>
@@ -2946,6 +3082,7 @@ body.locked .app{margin-left:0}
       <div id="cajaSubA">
       <div class="abo-kpis cj-kpis" id="cajaTiles"></div>
 
+
       <div class="panel cb-panel" style="margin-top:16px">
         <div class="panel-h"><h3>🔎 Búsqueda histórica</h3><span class="mini">en todos los pagos registrados, sin importar el mes</span></div>
         <div class="panel-b">
@@ -2987,6 +3124,16 @@ body.locked .app{margin-left:0}
               <button class="btn-ghost" onclick="document.getElementById('cajaAdjInput').click()" id="cjAdjBtn">📎 Adjuntar foto / PDF</button>
             </div>
             <label class="check-row" style="margin:0 0 8px"><input type="checkbox" id="cjComOri"> Comisión de Ori</label>
+          </div>
+          <div class="f-row" style="margin:10px 0 0;align-items:end" id="cjComisionWrap">
+            <div class="f-col" style="flex:0 0 250px"><label>Asignar comisión a</label>
+              <select id="cjComisionPara">
+                <option value="">— Sin comisión —</option>
+                <option value="naza">Naza</option>
+                <option value="sofig">Sofi G</option>
+                <option value="sofit">Sofi T</option>
+              </select></div>
+            <div class="f-col"><div class="cuota-hint" style="margin:0">Igual que en societaria: cada 200 USD de venta = $10.000. En planes de cuotas se imputa en la 1ª cuota, sobre el total del plan. Es opcional: si no corresponde, dejalo en «Sin comisión».</div></div>
           </div>
           <div class="lq-rubros" style="grid-template-columns:1fr 1fr;margin:10px 0 0">
             <label class="lq-rubro">
@@ -3043,14 +3190,6 @@ body.locked .app{margin-left:0}
           <div class="panel-h"><h3>Clientes que más abonaron</h3><span class="mini">ranking por cliente</span></div>
           <div id="cajaRankingClientes"></div>
         </div>
-        <div class="panel">
-          <div class="panel-h"><h3>Comisiones de Kevin</h3></div>
-          <div class="panel-b" id="cajaComisionesK"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-h"><h3>Comisiones de Ori</h3></div>
-          <div class="panel-b" id="cajaComisionesO"></div>
-        </div>
       </div>
       <!-- Reuniones de Kevin: se cargan y cobran en el módulo Reuniones -->
       <div class="panel lista-amplia" style="margin-top:16px" id="panelReuJud">
@@ -3060,6 +3199,11 @@ body.locked .app{margin-left:0}
           <div style="overflow-x:auto"><table class="tabla-caja" id="reuJudTabla"></table></div>
           <div class="panel-empty" id="reuJudVacia" style="display:none">Ninguna reunión con cobro registrado este mes.</div>
         </div>
+      </div>
+
+      <div class="panel lista-amplia" style="margin-top:16px" id="panelCajaCom">
+        <div class="panel-h"><h3>Comisiones del equipo</h3><span class="mini" id="cjComMini"></span></div>
+        <div style="padding:14px 16px" id="cjComBody"></div>
       </div>
 
       </div>
@@ -3112,7 +3256,7 @@ body.locked .app{margin-left:0}
 
       <div class="abo-subtabs" id="csSubtabs" style="margin-top:16px">
         <button class="on" data-csv="mov" onclick="csIrVista('mov')">Movimientos</button>
-        <button data-csv="com" onclick="csIrVista('com')" id="csTabCom">Comisiones de trámites</button>
+        <button data-csv="com" onclick="csIrVista('com')" id="csTabCom">Comisiones</button>
         <button data-csv="fondo" onclick="csIrVista('fondo')">Fondo de gastos</button>
       </div>
 
@@ -6361,11 +6505,14 @@ function filaAExpediente(f) {
 function pagoAFila(p) {
   return { id: p.id, fecha: p.fecha ?? null, cliente: p.cliente ?? null, concepto: p.concepto ?? null,
     monto: p.monto ?? 0, moneda: p.moneda ?? 'ARS', metodo: p.metodo ?? null, receptor: p.receptor ?? null,
-    comision_ori: !!p.comisionOri, revisado: !!p.revisado, cliente_id: p.clienteId ?? null, plan_id: p.planId ?? null, nro_cuota: p.nroCuota ?? null, adjunto_path: (CAJA_ADJ[p.id] && CAJA_ADJ[p.id].path) || null };
+    comision_ori: !!p.comisionOri,
+    comision_para: (typeof SB_TIENE_JUD_COM_PARA !== 'undefined' && SB_TIENE_JUD_COM_PARA) ? (p.comisionPara || null) : undefined,
+    revisado: !!p.revisado, cliente_id: p.clienteId ?? null, plan_id: p.planId ?? null, nro_cuota: p.nroCuota ?? null, adjunto_path: (CAJA_ADJ[p.id] && CAJA_ADJ[p.id].path) || null };
 }
 function filaAPago(f) {
   return { id: f.id, fecha: f.fecha, cliente: f.cliente, concepto: f.concepto, monto: Number(f.monto),
-    moneda: f.moneda, metodo: f.metodo, receptor: f.receptor, comisionOri: !!f.comision_ori, revisado: !!f.revisado, clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null };
+    moneda: f.moneda, metodo: f.metodo, receptor: f.receptor, comisionOri: !!f.comision_ori,
+    comisionPara: f.comision_para || '', revisado: !!f.revisado, clienteId: f.cliente_id || null, planId: f.plan_id || null, nroCuota: f.nro_cuota || null };
 }
 
 
@@ -6391,6 +6538,10 @@ var SB_TIENE_FONDO_DE = false;
 var SB_TIENE_GASTOS_PEND = false;
 var SB_TIENE_GASTOS_PAGOS = false;
 var SB_TIENE_CAJA_DEST = false;
+var SB_TIENE_JUD_COM_PARA = false;
+var SB_TIENE_APODO = false;
+var SB_TIENE_ABO_CLI = false;
+var SB_TIENE_ABO_EXTRAS = false;
 function clienteAFila(c) {
   const f = {
     id: c.id, entidad: c.entidad || '', tipo: c.tipo || null, estado: c.estado || null,
@@ -6414,6 +6565,7 @@ function clienteAFila(c) {
   // corrió el SQL, se omiten y quedan guardados en el dispositivo, sin romper nada.
   if (SB_TIENE_VENCIMIENTOS) f.vencimientos = c.vencimientos || [];
   if (SB_TIENE_PROVINCIA) f.provincia = c.provincia || null;
+  if (SB_TIENE_APODO) f.apodo = c.apodo || null;
   return f;
 }
 function filaACliente(f) {
@@ -6421,7 +6573,7 @@ function filaACliente(f) {
     id: f.id, entidad: f.entidad || '', tipo: f.tipo || 'AC', estado: f.estado || '',
     cuit: f.cuit || '', registro: f.registro || '', encargada: f.encargada || '',
     referente: f.referente || '', telefono: f.telefono || '', mail: f.mail || '', driveLink: f.drive_link || '',
-    provincia: f.provincia || '',
+    provincia: f.provincia || '', apodo: f.apodo || '',
     reproTienen: f.repro_tienen || 'no_aplica', reproFechaSol: f.repro_fecha_sol || '',
     repro3132Fecha: f.repro_3132_fecha || '', repro3132Exp: f.repro_3132_exp || '',
     repro1780Fecha: f.repro_1780_fecha || '', repro1780Exp: f.repro_1780_exp || '',
@@ -6550,6 +6702,14 @@ async function __sbCargarTodoInterno() {
       SB_TIENE_GASTOS_PAGOS = true;
     if (rCajaSoc && rCajaSoc.length && Object.prototype.hasOwnProperty.call(rCajaSoc[0], 'caja_dest'))
       SB_TIENE_CAJA_DEST = true;
+    if (rCaja && rCaja.length && Object.prototype.hasOwnProperty.call(rCaja[0], 'comision_para'))
+      SB_TIENE_JUD_COM_PARA = true;
+    if (rClientes && rClientes.length && Object.prototype.hasOwnProperty.call(rClientes[0], 'apodo'))
+      SB_TIENE_APODO = true;
+    if (rAboCli && rAboCli.length && Object.prototype.hasOwnProperty.call(rAboCli[0], 'cliente_id'))
+      SB_TIENE_ABO_CLI = true;
+    if (rAboCli && rAboCli.length && Object.prototype.hasOwnProperty.call(rAboCli[0], 'incluye'))
+      SB_TIENE_ABO_EXTRAS = true;
     try {
       const rCom = await sbSelect('com_manual').catch(() => null);
       if (Array.isArray(rCom)) { CS_COM = rCom.map(filaAComManual); saveComManual(); }
@@ -6939,6 +7099,33 @@ let ABONOS = [];
 let ABONOS_MES = null; // 'YYYY-MM' que se está viendo; null = mes actual
 let ABONOS_Q = '';       // búsqueda por nombre
 let ABONOS_FILTRO = 'todos'; // 'todos' | 'pagaron' | 'pendientes'
+let ABONOS_F_FORMA = '';     // '' | 'adelantado' | 'vencido'
+let ABONOS_F_DIA_D = '';     // rango de días de cobro: desde
+let ABONOS_F_DIA_H = '';     // hasta
+function abonoFormaDe(c){ return (c && c.formaPago === 'vencido') ? 'vencido' : 'adelantado'; }
+// ¿El cliente cobró dentro del rango de días elegido? Mira la fecha real de cobro.
+function abonoCobroEnRango(c, ym, d1, d2){
+  const desde = Number(d1) || 0, hasta = Number(d2) || 0;
+  if (!desde && !hasta) return true;
+  const p = abonoPagoDe(c, ym);
+  const par = (p && p.parciales) ? p.parciales : [];
+  if (!par.length) return false;
+  return par.some(x => {
+    const f = x.fecha || '';
+    if (f.slice(0,7) !== ym) return false;
+    const dia = Number(f.slice(8,10)) || 0;
+    if (!dia) return false;
+    if (desde && dia < desde) return false;
+    if (hasta && dia > hasta) return false;
+    return true;
+  });
+}
+function abonoFiltrarForma(v){ ABONOS_F_FORMA = v || ''; abonoAplicarFiltroVivo(); }
+function abonoFiltrarDia(cual, v){
+  const n = v === '' ? '' : Math.max(1, Math.min(31, Number(v) || 0));
+  if (cual === 'd') ABONOS_F_DIA_D = n; else ABONOS_F_DIA_H = n;
+  abonoAplicarFiltroVivo();
+}
 let ABONOS_SUBTAB = 'cobros'; // 'cobros' | 'montos' | 'inflacion'
 function abonoIrSubtab(t){ ABONOS_SUBTAB = t; renderAbonos(); }
 const ABONOS_COLAPSO_KEY = 'jc-abonos-colapso-v1';
@@ -6968,6 +7155,8 @@ function abonoAplicarFiltroVivo(){
           if(ABONOS_FILTRO==='pagaron' && !pago) ok=false;
           if(ABONOS_FILTRO==='pendientes' && pago) ok=false;
         }
+        if(ok && ABONOS_F_FORMA && abonoFormaDe(c) !== ABONOS_F_FORMA) ok = false;
+        if(ok && (ABONOS_F_DIA_D || ABONOS_F_DIA_H) && !abonoCobroEnRango(c, ym, ABONOS_F_DIA_D, ABONOS_F_DIA_H)) ok = false;
       }
       row.style.display = ok ? '' : 'none';
       if(ok) visibles++;
@@ -7203,10 +7392,20 @@ function abonoIrMesActual(){ ABONOS_MES = null; renderAbonos(); }
 // ── Persistencia de abonos en Supabase ──
 // Supabase es la fuente de verdad; el navegador queda como copia local.
 function abonoClienteFila(c){
-  return { id: Number(c.id), nombre: c.nombre || '', moneda: c.moneda || 'ARS',
+  const f = { id: Number(c.id), nombre: c.nombre || '', moneda: c.moneda || 'ARS',
            monto: Number(c.monto) || 0, tipo: c.tipo || '', estado: c.estado || 'activo',
            factura: c.factura || '', monto_hist: Array.isArray(c.montoHist) ? c.montoHist : [],
            avisado_monto: c.avisadoMonto || '', ult_ajuste_infl: c.ultAjusteInfl || '' };
+  // Vínculo con la ficha del CRM
+  if (typeof SB_TIENE_ABO_CLI !== 'undefined' && SB_TIENE_ABO_CLI)
+    f.cliente_id = (c.clienteId === null || c.clienteId === undefined || c.clienteId === '') ? null : Number(c.clienteId);
+  // Qué incluye, forma de pago y su observación
+  if (typeof SB_TIENE_ABO_EXTRAS !== 'undefined' && SB_TIENE_ABO_EXTRAS){
+    f.incluye = c.incluye || '';
+    f.forma_pago = c.formaPago === 'vencido' ? 'vencido' : 'adelantado';
+    f.forma_pago_obs = c.formaPagoObs || '';
+  }
+  return f;
 }
 function sbPushAbonoCli(cliId){
   if (!(typeof SB_ON !== 'undefined' && SB_ON)) return;
@@ -7244,6 +7443,10 @@ function abonosDesdeNube(clientes, pagos){
     base.montoHist = Array.isArray(f.monto_hist) ? f.monto_hist : [];
     base.avisadoMonto = f.avisado_monto || '';
     base.ultAjusteInfl = f.ult_ajuste_infl || '';
+    base.clienteId = (f.cliente_id === null || f.cliente_id === undefined) ? null : Number(f.cliente_id);
+    base.incluye = f.incluye || '';
+    base.formaPago = f.forma_pago === 'vencido' ? 'vencido' : 'adelantado';
+    base.formaPagoObs = f.forma_pago_obs || '';
     base.pagos = [];
     porId[id] = base;
   });
@@ -7314,6 +7517,116 @@ function abonoEditarTipo(id, celda){
   });
   celda.innerHTML = ''; celda.appendChild(inp);
   inp.focus(); inp.select();
+}
+// ── Qué incluye el abono (texto libre) ──
+// Se abre al tocar el tipo: muestra el detalle y deja editarlo en el momento.
+function abonoVerIncluye(cliId){
+  const c = abonoBuscarCli(cliId); if (!c) return;
+  let ov = document.getElementById('abonoIncluyeOv');
+  if (!ov){
+    ov = document.createElement('div');
+    ov.id = 'abonoIncluyeOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) abonoCerrarIncluye(); });
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = `<div class="abo-reg-card" style="width:560px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${esc(c.nombre.toUpperCase())}</div>
+        <div class="abo-reg-sub">${esc(c.tipo || 'Sin tipo')} · qué incluye este abono</div></div>
+      <button class="abo-reg-x" onclick="abonoCerrarIncluye()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-col"><label>Tipo</label>
+        <input id="aboIncTipo" type="text" maxlength="40" value="${esc(c.tipo || '')}" placeholder="Ej: Abono especial"></div>
+      <div class="f-col" style="margin-top:10px"><label>Servicios incluidos</label>
+        <textarea id="aboIncTx" rows="7" placeholder="Escribí acá todo lo que incluye este abono.">${esc(c.incluye || '')}</textarea></div>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      <button class="abo-reg-cancel" onclick="abonoCerrarIncluye()">Cerrar</button>
+      <button class="abo-reg" onclick="abonoGuardarIncluye(${c.id})">Guardar</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+  setTimeout(()=>{ const t = document.getElementById('aboIncTx'); if (t) t.focus(); }, 60);
+}
+function abonoCerrarIncluye(){
+  const ov = document.getElementById('abonoIncluyeOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+function abonoIncToggle(){
+  const cu = document.getElementById('aboIncCuerpo'), fl = document.getElementById('aboIncFlecha');
+  if (!cu) return;
+  const abierto = cu.style.display !== 'none';
+  cu.style.display = abierto ? 'none' : '';
+  if (fl) fl.textContent = abierto ? '▾' : '▴';
+  if (!abierto) setTimeout(()=>{ const t = document.getElementById('aboIncTx'); if (t) t.focus(); }, 40);
+}
+function abonoGuardarIncluye(cliId){
+  const c = abonoBuscarCli(cliId); if (!c) return;
+  const t = document.getElementById('aboIncTipo'), x = document.getElementById('aboIncTx');
+  c.tipo = t ? (t.value || '').trim() : c.tipo;
+  c.incluye = x ? (x.value || '').trim() : c.incluye;
+  saveAbonos(); sbPushAbonoCli(cliId);
+  try { aricToast('Detalle guardado'); } catch(e){}
+  // Si se editó desde la ventana suelta, se cierra; desde la ficha se queda abierta
+  if (document.getElementById('abonoIncluyeOv')) abonoCerrarIncluye();
+  else if (typeof abonoPintarRegistro === 'function' && ABONO_REG_CLI === cliId) abonoPintarRegistro();
+  renderAbonos();
+}
+// ── Forma de pago y su observación fija ──
+function abonoEditarForma(cliId){
+  const c = abonoBuscarCli(cliId); if (!c) return;
+  let ov = document.getElementById('abonoFormaOv');
+  if (!ov){
+    ov = document.createElement('div');
+    ov.id = 'abonoFormaOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) abonoCerrarForma(); });
+    document.body.appendChild(ov);
+  }
+  const f = abonoFormaDe(c);
+  ov.innerHTML = `<div class="abo-reg-card" style="width:520px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${esc(c.nombre.toUpperCase())}</div>
+        <div class="abo-reg-sub">forma de pago</div></div>
+      <button class="abo-reg-x" onclick="abonoCerrarForma()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="cs-destino">
+        <label class="cs-dest-op ${f === 'adelantado' ? 'sel' : ''}">
+          <input type="radio" name="aboForma" value="adelantado" ${f === 'adelantado' ? 'checked' : ''} onchange="abonoFormaPintar()">
+          <span class="cs-dest-tx"><b>Adelantado</b><small>paga el mes en curso</small></span></label>
+        <label class="cs-dest-op ${f === 'vencido' ? 'sel' : ''}">
+          <input type="radio" name="aboForma" value="vencido" ${f === 'vencido' ? 'checked' : ''} onchange="abonoFormaPintar()">
+          <span class="cs-dest-tx"><b>Mes vencido</b><small>paga el mes ya transcurrido</small></span></label>
+      </div>
+      <div class="f-col" style="margin-top:12px"><label>Observación (queda fija)</label>
+        <textarea id="aboFormaObs" rows="3" placeholder="Ej: paga siempre el 15, aunque sea adelantado.">${esc(c.formaPagoObs || '')}</textarea>
+        <span class="crm-hint-min">Si escribís algo acá, la columna queda marcada en rojo en el listado.</span></div>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      <button class="abo-reg-cancel" onclick="abonoCerrarForma()">Cancelar</button>
+      <button class="abo-reg" onclick="abonoGuardarForma(${c.id})">Guardar</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+}
+function abonoFormaPintar(){
+  document.querySelectorAll('#abonoFormaOv .cs-dest-op').forEach(l => {
+    const r = l.querySelector('input'); l.classList.toggle('sel', !!(r && r.checked));
+  });
+}
+function abonoCerrarForma(){
+  const ov = document.getElementById('abonoFormaOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+function abonoGuardarForma(cliId){
+  const c = abonoBuscarCli(cliId); if (!c) return;
+  const r = document.querySelector('#abonoFormaOv input[name="aboForma"]:checked');
+  c.formaPago = (r && r.value === 'vencido') ? 'vencido' : 'adelantado';
+  const o = document.getElementById('aboFormaObs');
+  c.formaPagoObs = o ? (o.value || '').trim() : '';
+  saveAbonos(); sbPushAbonoCli(cliId);
+  abonoCerrarForma(); renderAbonos();
 }
 function abonoSetFactura(cliId, val){
   const c = abonoBuscarCli(cliId); if(!c) return;
@@ -7487,9 +7800,9 @@ function renderIngresos(){
       </div>
     </div>
     ${hayGastos?`<div class="ing-gastos-box">
-      <div class="ing-gastos-h">Qué se descontó</div>
+      <div class="ing-gastos-h">Resumen de gastos</div>
       <div class="ing-gastos-grid">
-        <div class="ing-gasto-it"><span class="lbl">Gastos incluidos en cobros</span><span class="val">$ ${Math.round(g.incArs).toLocaleString('es-AR')}${g.incUsd?(' · US$ '+Math.round(g.incUsd).toLocaleString('es-AR')):''}</span></div>
+        <div class="ing-gasto-it pass" title="Plata que adelantó el cliente para cubrir gastos: suma a los ingresos del mes. Lo que se gaste de verdad se resta como gasto ordinario o de escribanía"><span class="lbl">Gastos adelantados por clientes <span class="ing-pass-chip">suman al ingreso</span></span><span class="val">$ ${Math.round(g.incArs).toLocaleString('es-AR')}${g.incUsd?(' · US$ '+Math.round(g.incUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios</span><span class="val">$ ${Math.round(g.ordArs).toLocaleString('es-AR')}${g.ordUsd?(' · US$ '+Math.round(g.ordUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos de escribanía</span><span class="val">$ ${Math.round(g.escArs).toLocaleString('es-AR')}${g.escUsd?(' · US$ '+Math.round(g.escUsd).toLocaleString('es-AR')):''}</span></div>
         <div class="ing-gasto-it"><span class="lbl">Gastos ordinarios del estudio</span><span class="val">$ ${Math.round(g.estFijosArs).toLocaleString('es-AR')}${g.estFijosUsd?(' · US$ '+Math.round(g.estFijosUsd).toLocaleString('es-AR')):''}</span></div>
@@ -7614,12 +7927,21 @@ function renderIngresosPendiente(cont, subtabs){
     </div>`;
   }).join('') : '<div class="abo-sec-vacio">No hay cuotas pendientes registradas.</div>';
 
-  const aboHtml = p.aboPend.length ? p.aboPend.map(a=>`<div class="abo-row">
+  // Los que pagan a mes vencido no están en falta: su abono se cobra el mes siguiente.
+  // Se ordenan al final y se aclara, para no leerlos como deuda.
+  const aboOrd = p.aboPend.slice().sort((a,b)=> (a.vencido?1:0) - (b.vencido?1:0));
+  const aboHtml = aboOrd.length ? aboOrd.map(a=>`<div class="abo-row${a.vencido?' ing-pend-venc':''}">
       <div class="ing-pend-mes"><span class="abo-c-nom-t">${esc(a.nombre.toUpperCase())}</span></div>
-      <div class="ing-pend-n">${a.estado==='parcial'?'Pagó una parte':'Sin pagar'}</div>
+      <div class="ing-pend-n">${a.vencido
+        ? `<span class="ing-venc-chip">Mes vencido</span> <span class="ing-venc-tx">se cobra en ${abonoMesCorto(abonoMesSiguiente(p.ym), p.ym)}</span>`
+        : (a.estado==='parcial'?'Pagó una parte':'Sin pagar')}</div>
       <div class="ing-pend-ars">${a.moneda!=='USD'?('$ '+fmt(a.falta)):'—'}</div>
       <div class="ing-pend-usd">${a.moneda==='USD'?('US$ '+fmt(a.falta)):'—'}</div>
     </div>`).join('') : `<div class="abo-sec-vacio">Todos los abonos de ${mesLbl.toLowerCase()} están cobrados.</div>`;
+  const vencAviso = (p.aboVencArs || p.aboVencUsd) ? `<div class="ing-venc-aviso">
+      De este total, <b>${p.aboVencArs?('$ '+fmt(p.aboVencArs)):''}${(p.aboVencArs&&p.aboVencUsd)?' · ':''}${p.aboVencUsd?('US$ '+fmt(p.aboVencUsd)):''}</b>
+      son clientes que pagan <b>a mes vencido</b>: no están atrasados, ese abono se cobra en ${abonoMesCorto(abonoMesSiguiente(p.ym), p.ym)}.
+    </div>` : '';
 
   cont.innerHTML = `
     <div class="abo-top"><div>
@@ -7651,7 +7973,7 @@ function renderIngresosPendiente(cont, subtabs){
         <span class="abo-sec-tw"><span class="abo-caret ${cerrAbonos?'closed':''}">▾</span> Abonos sin cobrar · ${mesLbl}</span>
         <span class="abo-sec-count">$ ${fmt(p.aboPendArs)}${p.aboPendUsd?(' · US$ '+fmt(p.aboPendUsd)):''}</span>
       </div>
-      ${cerrAbonos ? '' : `<div class="abo-row abo-row-head">
+      ${cerrAbonos ? '' : `${vencAviso}<div class="abo-row abo-row-head">
         <div class="ing-pend-mes">Cliente</div><div class="ing-pend-n">Estado</div>
         <div class="ing-pend-ars">Pesos</div><div class="ing-pend-usd">Dólares</div>
       </div>${aboHtml}`}
@@ -9650,7 +9972,10 @@ function ingresosDelMes(ym){
     const g = socGastosCobradoEnMes(m, ym); if(!g) return;
     const gm = socGastosMon(m);
     if (gm === 'USD') gincUsd += g; else gincArs += g;
-    // Si vienen en su propia moneda todavía no están sumados al bruto: se agregan acá
+    // SÍ suman al bruto: es plata que entró al estudio. Lo que se gastó de verdad se
+    // resta después, como gasto ordinario o de escribanía. Si el cliente adelantó
+    // 100.000 y el trámite costó 25.000, los 75.000 que sobran quedan a favor.
+    // (En el formato viejo, sin gastosMon, el monto ya venía con los gastos adentro.)
     if (m.gastosMon){ if (gm === 'USD') socUsd += g; else socArs += g; }
   });
   // Gastos que salen (ordinarios y de escribanía)
@@ -9688,10 +10013,11 @@ function ingresosDelMes(ym){
   const brutoUsd = judUsd + socUsd + wlUsd + aboUsd;
   // Gastos de funcionamiento del estudio (fijos + extraordinarios del mes)
   const ge = (typeof gastosDelMes === 'function') ? gastosDelMes(ym) : { totalArs:0, totalUsd:0, fijosArs:0, fijosUsd:0, varArs:0, varUsd:0 };
-  // Neto real: al bruto le sacamos los gastos incluidos en los cobros,
-  // los gastos de la caja societaria y los gastos de funcionamiento.
-  const gastosArs = gincArs + gOrdArs + gEscArs + ge.totalArs;
-  const gastosUsd = gincUsd + gOrdUsd + gEscUsd + ge.totalUsd;
+  // Neto: al bruto (que ya incluye los adelantos de gastos cobrados) se le restan
+  // solo los gastos que efectivamente paga el estudio — ordinarios, de escribanía
+  // y de funcionamiento. Lo que sobra de un adelanto queda a favor.
+  const gastosArs = gOrdArs + gEscArs + ge.totalArs;
+  const gastosUsd = gOrdUsd + gEscUsd + ge.totalUsd;
   return {
     jud: { ars: judArs, usd: judUsd, n: jud.length },
     soc: { ars: socArs, usd: socUsd, n: socIn.length },
@@ -9855,18 +10181,27 @@ function ingresosPendientes(ym){
   // Abonos impagos o parciales del mes en curso
   const aboPend = [];
   let aboPendArs = 0, aboPendUsd = 0;
+  // Aparte: lo de los clientes que pagan a mes vencido, que no es deuda
+  let aboVencArs = 0, aboVencUsd = 0;
   (typeof ABONOS !== 'undefined' ? ABONOS : []).filter(c=>c.estado==='activo').forEach(c => {
     // Un abono que arranca después del mes que se mira todavía no se debe
     if (abonoMontoVigente(c, mesVer) <= 0) return;
     const st = abonoEstadoMes(c, mesVer);
     if(st.estado === 'pagado') return;
-    aboPend.push({ nombre:c.nombre, moneda:c.moneda, falta:st.falta, estado:st.estado });
-    if(c.moneda==='USD') aboPendUsd += st.falta; else aboPendArs += st.falta;
+    // Los de mes vencido todavía no deben nada: ese abono se cobra el mes que viene
+    aboPend.push({ nombre:c.nombre, moneda:c.moneda, falta:st.falta, estado:st.estado,
+                   vencido: abonoFormaDe(c) === 'vencido' });
+    if (abonoFormaDe(c) === 'vencido'){
+      if(c.moneda==='USD') aboVencUsd += st.falta; else aboVencArs += st.falta;
+    } else {
+      if(c.moneda==='USD') aboPendUsd += st.falta; else aboPendArs += st.falta;
+    }
   });
   const meses = Object.values(porMes).sort((a,b)=> a.ym.localeCompare(b.ym));
   const cuotasArs = cuotas.filter(c=>c.moneda!=='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
   const cuotasUsd = cuotas.filter(c=>c.moneda==='USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
   return { ym: mesVer, meses, cuotas, cuotasArs, cuotasUsd, aboPend, aboPendArs, aboPendUsd,
+           aboVencArs, aboVencUsd,
            totalArs: cuotasArs + aboPendArs, totalUsd: cuotasUsd + aboPendUsd };
 }
 
@@ -9983,6 +10318,11 @@ function renderAbonos(){
       </div>
       <div class="abo-top-acc">
       <button class="abo-nuevo-btn" onclick="abonoAbrirNuevo()">+ Nuevo abono</button>
+      ${(() => {
+        // Aparece solo mientras queden abonos sin ficha del CRM asignada
+        const sueltos = (typeof ABONOS !== 'undefined' ? ABONOS : []).filter(c => c.clienteId == null).length;
+        return sueltos ? `<button class="abo-sync-btn" onclick="abonoSincronizarCRM()" title="Ata cada abono a su ficha del CRM y lo suma como servicio contratado">🔗 Vincular ${sueltos} al CRM</button>` : '';
+      })()}
       <div class="abo-mesnav">
         <button onclick="abonoCambiarMes(-1)" title="Mes anterior">‹</button>
         <button onclick="abonoIrMesActual()" class="hoy">Mes actual</button>
@@ -10015,6 +10355,14 @@ function renderAbonos(){
         <div class="val">${(ars.total-ars.pagados)+(usd.total-usd.pagados)}</div>
         <div class="sub">clientes sin registrar pago total</div>
       </div>
+      ${(() => {
+        const t = abonoComTempranaMes(ym);
+        return `<div class="abo-kpi neutral abo-kpi-click" onclick="abonoVerTempranos()" title="Ver quiénes son">
+          <div class="lbl">Pagaron antes del ${ABO_COM_DIA}</div>
+          <div class="val">${t.n}${t.n ? '<span class="abo-kpi-lupa">ver</span>' : ''}</div>
+          <div class="sub">${t.monto ? 'comisión $ ' + fmtNumStr(t.monto) : 'sin comisión'}${t.proximo ? ' · faltan ' + (t.proximo - t.n) + ' para el próximo escalón' : ''}</div>
+        </div>`;
+      })()}
     </div>`;
 
   // Filtro por nombre y por estado de pago
@@ -10026,6 +10374,8 @@ function renderAbonos(){
       if (ABONOS_FILTRO === 'pagaron' && !pago) return false;
       if (ABONOS_FILTRO === 'pendientes' && pago) return false; // pendiente y parcial cuentan como no-pagado
     }
+    if (ABONOS_F_FORMA && abonoFormaDe(c) !== ABONOS_F_FORMA) return false;
+    if ((ABONOS_F_DIA_D || ABONOS_F_DIA_H) && !abonoCobroEnRango(c, ym, ABONOS_F_DIA_D, ABONOS_F_DIA_H)) return false;
     return true;
   };
 
@@ -10054,11 +10404,13 @@ function renderAbonos(){
     // Fecha (del último parcial)
     const ultFecha = parciales.length ? parciales[parciales.length-1].fecha : '';
     const fechaTxt = ultFecha ? formatFechaCorta(ultFecha) : '—';
-    const btnLabel = parciales.length ? 'Registrar / editar' : 'Registrar';
+    const btnTitulo = parciales.length ? 'Ver o editar los pagos de este mes' : 'Registrar el pago de este mes';
     return `<div class="abo-row ${st.estado==='pagado'?'pg':st.estado==='parcial'?'parc':''}" data-cli="${c.id}">
       <div class="abo-c-nom"><span class="abo-c-nom-t" onclick="abonoAbrirRegistro(${c.id})" title="${esc(c.nombre)}">${esc(abonoNombreCorto(c.nombre).toUpperCase())}</span>${abonoEtiquetaCaja(c)}</div>
-      <div class="abo-c-tipo" onclick="event.stopPropagation();abonoEditarTipo(${c.id}, this)" title="Tocá para editar el tipo">
-        <span class="abo-tipo-tx${c.tipo ? '' : ' vacio'}" title="${esc(c.tipo || '')}">${esc(abonoNombreCorto(c.tipo) || '—')}</span></div>
+      <div class="abo-c-tipo">
+        <span class="abo-tipo-tx${c.tipo ? '' : ' vacio'}" onclick="event.stopPropagation();abonoVerIncluye(${c.id})" title="Tocá para ver o editar qué incluye">${esc(abonoNombreCorto(c.tipo) || '—')}${c.incluye ? '<span class="abo-tipo-lupa">▾</span>' : ''}</span></div>
+      <div class="abo-c-forma">
+        <button type="button" class="abo-forma-btn${c.formaPagoObs ? ' p' : abonoFormaDe(c) === 'vencido' ? ' v' : ' a'}" onclick="event.preventDefault();event.stopPropagation();abonoEditarForma(${c.id})" title="${abonoFormaDe(c) === 'vencido' ? 'Mes vencido' : 'Adelantado'}${c.formaPagoObs ? ' · ' + esc(c.formaPagoObs) : ''}">${c.formaPagoObs ? 'P' : abonoFormaDe(c) === 'vencido' ? 'V' : 'A'}</button></div>
       <div class="abo-c-monto">${montoTxt}</div>
       <div class="abo-c-abonado">${abonadoTxt}</div>
       <div class="abo-c-comprob">${comprobCell}</div>
@@ -10072,7 +10424,7 @@ function renderAbonos(){
       <div class="abo-c-estado">${estadoHtml}</div>
       <div class="abo-row-acc">
         ${st.estado!=='pagado' ? `<button class="abo-wa-mini" onclick="abonoReclamarPago(${c.id})" title="Reclamar pago por WhatsApp"><img src="${WA_LOGO_B64}" class="wa-ico" alt="WhatsApp"></button>` : ''}
-        <button class="abo-reg" onclick="abonoAbrirRegistro(${c.id})">${btnLabel}</button>
+        <button class="abo-reg abo-reg-bill${parciales.length ? ' hecho' : ''}" onclick="abonoAbrirRegistro(${c.id})" title="${btnTitulo}" aria-label="${btnTitulo}">$</button>
       </div>
       <div class="abo-c-del"><button class="abo-del-x" onclick="event.stopPropagation();abonoEliminar(${c.id})" title="Eliminar este abono">✕</button></div>
     </div>`;
@@ -10082,11 +10434,12 @@ function renderAbonos(){
   const encabezadoTabla = (conFactura) => `<div class="abo-row abo-row-head">
       <div class="abo-c-nom">Cliente</div>
       <div class="abo-c-tipo">Tipo</div>
+      <div class="abo-c-forma">Pago</div>
       <div class="abo-c-monto">Abono</div>
       <div class="abo-c-abonado">Abonado</div>
-      <div class="abo-c-comprob">Comprobante</div>
+      <div class="abo-c-comprob">Comprob.</div>
       <div class="abo-c-fecha">Fecha</div>
-      ${conFactura ? '<div class="abo-c-factura">Quién factura</div>' : ''}
+      ${conFactura ? '<div class="abo-c-factura">Factura</div>' : ''}
       <div class="abo-c-estado">Estado</div>
       <div class="abo-reg-sp2"></div>
       <div class="abo-c-del"></div>
@@ -10133,6 +10486,19 @@ function renderAbonos(){
         <option value="pagaron" ${ABONOS_FILTRO==='pagaron'?'selected':''}>Ya pagaron</option>
         <option value="pendientes" ${ABONOS_FILTRO==='pendientes'?'selected':''}>Pendiente de pago</option>
       </select>
+      <select class="abo-filtro" onchange="abonoFiltrarForma(this.value)" title="Forma de pago">
+        <option value="" ${!ABONOS_F_FORMA?'selected':''}>Toda forma de pago</option>
+        <option value="adelantado" ${ABONOS_F_FORMA==='adelantado'?'selected':''}>Adelantado</option>
+        <option value="vencido" ${ABONOS_F_FORMA==='vencido'?'selected':''}>Mes vencido</option>
+      </select>
+      <div class="abo-frango" title="Filtra por el día en que entró la plata">
+        <span>Cobrado del día</span>
+        <input type="number" min="1" max="31" placeholder="1" value="${ABONOS_F_DIA_D||''}" oninput="abonoFiltrarDia('d', this.value)">
+        <span>al</span>
+        <input type="number" min="1" max="31" placeholder="31" value="${ABONOS_F_DIA_H||''}" oninput="abonoFiltrarDia('h', this.value)">
+        ${(ABONOS_F_DIA_D||ABONOS_F_DIA_H) ? `<button class="abo-frango-x" onclick="ABONOS_F_DIA_D='';ABONOS_F_DIA_H='';renderAbonos()" title="Quitar el filtro de días">✕</button>` : ''}
+      </div>
+      <span class="abo-leyenda">En la columna <b>Pago</b>: <b class="lg a">A</b> adelantado · <b class="lg v">V</b> mes vencido · <b class="lg p">P</b> personalizado, tiene una observación</span>
     </div>`;
 
   cont.innerHTML = cabecera
@@ -10339,7 +10705,7 @@ function renderAbonosMontos(cont){
   const seccion = (titulo, lista)=> lista.length ? `
     <div class="abo-sec">
       <div class="abo-sec-h" style="cursor:default"><span class="abo-sec-tw">${titulo}</span><span class="abo-sec-count">${lista.length}</span></div>
-      <div class="abo-row abo-row-head">
+      <div class="abo-row abo-mrow abo-row-head">
         <div class="abo-c-nom">Cliente</div>
         <div class="abo-m-actual">Monto actual</div>
         <div class="abo-m-nuevo">Pasa a pagar</div>
@@ -10474,7 +10840,7 @@ function abonoNuevoPct(){
 function abonoAbrirNuevo(){
   const body = document.getElementById('abonoNuevoBody'); if(!body) return;
   const ym = abonoMesActual();
-  ABONO_NUEVO = { moneda:'ARS', caja:'abono' };
+  ABONO_NUEVO = { moneda:'ARS', caja:'abono', formaPago:'adelantado', clienteId:null };
   body.innerHTML = `
     <div class="abo-reg-head">
       <div>
@@ -10503,6 +10869,13 @@ function abonoAbrirNuevo(){
           <label>Monto mensual</label>
           <div class="ina-money"><span id="abonoNuevoSimb">$</span>
             <input type="text" inputmode="numeric" id="abonoNuevoMonto" placeholder="0" oninput="abonoFmtInput(this)"></div>
+        </div>
+      </div>
+      <div class="abo-reg-fld">
+        <label>Forma de pago</label>
+        <div class="abo-seg" id="abonoNuevoForma">
+          <button type="button" class="on" data-v="adelantado" onclick="abonoNuevoSeg('formaPago','adelantado')">Adelantado</button>
+          <button type="button" data-v="vencido" onclick="abonoNuevoSeg('formaPago','vencido')">Mes vencido</button>
         </div>
       </div>
       <div class="abo-reg-fld">
@@ -10536,10 +10909,11 @@ function abonoAbrirNuevo(){
   setTimeout(()=>{ const i = document.getElementById('abonoNuevoNombre'); if(i) i.focus(); }, 60);
 }
 // Los tres selectores del formulario son botones, no desplegables
-let ABONO_NUEVO = { moneda:'ARS', caja:'abono' };
+let ABONO_NUEVO = { moneda:'ARS', caja:'abono', formaPago:'adelantado', clienteId:null };
 function abonoNuevoSeg(campo, valor){
   ABONO_NUEVO[campo] = valor;
-  const cont = document.getElementById(campo === 'moneda' ? 'abonoNuevoMoneda' : 'abonoNuevoCaja');
+  const cont = document.getElementById(campo === 'moneda' ? 'abonoNuevoMoneda'
+    : campo === 'formaPago' ? 'abonoNuevoForma' : 'abonoNuevoCaja');
   if (cont) cont.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === valor));
   if (campo === 'moneda') abonoNuevoSimbolo();
   if (campo === 'caja') abonoNuevoPct();
@@ -10548,7 +10922,7 @@ function abonoNuevoSeg(campo, valor){
 // ── Búsqueda de cliente en el CRM, igual que en las cajas ──
 let __aboSugSel = -1;
 function aboSugItems(q){
-  const crm = cjClientesSugeridos(q || '').map(r => ({ n: r.cli.entidad, via: r.via }));
+  const crm = cjClientesSugeridos(q || '').map(r => ({ n: r.cli.entidad, via: r.via, id: r.cli.id, apodo: r.cli.apodo || '' }));
   const nq = __normBusqueda(q || '').trim();
   const yaHay = new Set(crm.map(c => c.n.trim().toUpperCase()));
   let abo = [...new Set(ABONOS.map(c => (c.nombre || '').trim()).filter(Boolean))]
@@ -10561,11 +10935,12 @@ function aboSugRender(){
   const box = document.getElementById('aboSugBox');
   if (!inp || !box) return;
   abonoNuevoChequearCRM();
+  ABONO_NUEVO.clienteId = null;    // si vuelve a escribir, hay que reelegir
   const items = aboSugItems(inp.value);
   __aboSugSel = -1;
   if (!items.length){ box.style.display = 'none'; return; }
   box.innerHTML = items.map((c, i) => `<div class="cj-sug-it" data-i="${i}" onmousedown="event.preventDefault();aboSugElegir(${i})">
-    <span class="n">${esc(c.n)}${c.via ? `<small class="via">referente: ${esc(c.via)}</small>` : ''}</span>
+    <span class="n">${esc(c.n)}${c.via ? `<small class="via">${c.apodo && c.via === c.apodo ? 'apodo' : 'referente'}: ${esc(c.via)}</small>` : ''}</span>
   </div>`).join('');
   box.__items = items;
   box.style.display = 'block';
@@ -10574,7 +10949,9 @@ function aboSugElegir(i){
   const box = document.getElementById('aboSugBox');
   const inp = document.getElementById('abonoNuevoNombre');
   if (!box || !box.__items || !box.__items[i]) return;
-  inp.value = box.__items[i].n;
+  const it = box.__items[i];
+  inp.value = it.n;
+  ABONO_NUEVO.clienteId = it.id != null ? it.id : null;   // ficha elegida del CRM
   box.style.display = 'none';
   abonoNuevoChequearCRM();
 }
@@ -10631,6 +11008,7 @@ function abonoCrearNuevo(){
   const rep = ABONOS.find(c => (c.nombre||'').trim().toLowerCase() === nombre.toLowerCase());
   if(rep && !confirm('Ya hay un abono cargado a nombre de «'+rep.nombre+'».\n\n¿Lo agregás igual?')) return;
   const c = { id: abonoNuevoId(), nombre, moneda, monto: 0, tipo: '', estado: 'activo', pagos: [],
+              formaPago: ABONO_NUEVO.formaPago === 'vencido' ? 'vencido' : 'adelantado', incluye: '', formaPagoObs: '',
               montoHist: monto ? [{ desde, monto }] : [] };
   ABONOS.push(c);
   saveAbonos();
@@ -10639,10 +11017,152 @@ function abonoCrearNuevo(){
   // Si el cliente no estaba en el CRM se le crea la ficha, igual que al cobrar en una caja
   let ficha = null;
   try { ficha = crmAsegurarFicha(nombre, 'Abono mensual', hoyISO(), 'abo'); } catch(e){}
+  // y queda atado por id, para que la ficha muestre el abono
+  try {
+    abonoVincularCRM(c, ABONO_NUEVO.clienteId != null ? ABONO_NUEVO.clienteId : (ficha && ficha.cli ? ficha.cli.id : null));
+    saveAbonos(); sbPushAbonoCli(c.id);
+  } catch(e){}
   abonoCerrarNuevo();
   ABONOS_MES = null;
   renderAbonos();
   aricToast(ficha && ficha.creada ? 'Abono creado · ficha nueva en el CRM' : 'Abono creado');
+}
+// Editar desde la ficha del CRM lo que incluye el abono, sin salir de la ficha
+function crmAboEditarIncluye(aboId){
+  const a = (typeof abonoBuscarCli === 'function') ? abonoBuscarCli(aboId) : null;
+  if (!a) return;
+  const cont = document.getElementById('crmAboInc');
+  if (!cont) return;
+  cont.innerHTML = `<div class="crm-abo-inc-t">Qué incluye</div>
+    <textarea id="crmAboIncTx" rows="5" class="crm-abo-ta" placeholder="Escribí acá todo lo que incluye este abono.">${esc(a.incluye || '')}</textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:7px">
+      <button class="crm-abo-cancel" onclick="crmAboCancelarIncluye()">Cancelar</button>
+      <button class="crm-abo-save" onclick="crmAboGuardarIncluye(${a.id})">Guardar</button>
+    </div>`;
+  const t = document.getElementById('crmAboIncTx'); if (t) t.focus();
+}
+function crmAboGuardarIncluye(aboId){
+  const a = (typeof abonoBuscarCli === 'function') ? abonoBuscarCli(aboId) : null;
+  if (!a) return;
+  const t = document.getElementById('crmAboIncTx');
+  a.incluye = t ? (t.value || '').trim() : a.incluye;
+  saveAbonos(); sbPushAbonoCli(a.id);
+  try { aricToast('Detalle del abono guardado'); } catch(e){}
+  crmAboCancelarIncluye();
+  if (typeof renderAbonos === 'function') { try { renderAbonos(); } catch(e){} }
+}
+function crmAboCancelarIncluye(){
+  // Repinta la ficha abierta para volver al modo lectura
+  try {
+    const ov = document.getElementById('crmFichaOverlay');
+    const id = ov && ov.dataset ? ov.dataset.cliId : null;
+    if (id != null && typeof refrescarFicha === 'function'){ refrescarFicha(Number(id)); return; }
+  } catch(e){}
+  const cont = document.getElementById('crmAboInc');
+  if (cont) cont.innerHTML = '<div class="crm-abo-inc-t">Qué incluye</div><div class="crm-abo-inc-tx"><i>guardado</i></div>';
+}
+// Abono de un cliente del CRM (por id, con respaldo por nombre para los viejos)
+function abonoDeCliente(clienteId){
+  if (typeof ABONOS === 'undefined' || clienteId == null) return null;
+  let a = ABONOS.find(c => c.clienteId != null && String(c.clienteId) === String(clienteId));
+  if (a) return a;
+  const cli = (typeof CLIENTES !== 'undefined' ? CLIENTES : []).find(x => String(x.id) === String(clienteId));
+  if (!cli) return null;
+  const n = __normBusqueda(cli.entidad || '');
+  return ABONOS.find(c => __normBusqueda(c.nombre || '') === n) || null;
+}
+// ── Vínculo del abono con la ficha del CRM ──
+// El abono deja de ser un nombre suelto: queda atado al cliente por id, y en la
+// ficha aparece como servicio contratado, igual que hace ARICCAME.
+function abonoEtiquetaServicio(c){
+  return 'Abono mensual' + (c && c.incluye ? '' : '');
+}
+function abonoVincularCRM(cliAbono, clienteId){
+  if (!cliAbono) return null;
+  if (typeof CLIENTES === 'undefined' || !Array.isArray(CLIENTES)) return null;
+  let cli = null;
+  if (clienteId != null) cli = CLIENTES.find(x => String(x.id) === String(clienteId));
+  if (!cli && cliAbono.clienteId != null) cli = CLIENTES.find(x => String(x.id) === String(cliAbono.clienteId));
+  if (!cli){
+    const r = (typeof crmBuscarCliente === 'function') ? crmBuscarCliente(cliAbono.nombre) : null;
+    if (r) cli = r.cli;
+  }
+  if (!cli) return null;
+  cliAbono.clienteId = cli.id;
+  // Servicio contratado en la ficha, sin duplicar
+  if (!cli.servicios) cli.servicios = [];
+  const etiqueta = 'Abono mensual';
+  const yaEsta = cli.servicios.some(s => __normBusqueda(s.concepto || '') === __normBusqueda(etiqueta));
+  if (!yaEsta){
+    cli.servicios.unshift({ concepto: etiqueta, fecha: hoyISO(), abono: true });
+    if (typeof saveClientesLocal === 'function') saveClientesLocal();
+    if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  }
+  return cli;
+}
+// Equivalencias que pasó Kevin: el abono está cargado con un nombre corto y en el
+// CRM la entidad figura con su razón social completa. El buscador por nombre no las
+// une solo, así que van a mano.
+const ABONO_ALIAS_CRM = [
+  { abo: 'biocan',            crm: 'BIOCANN S.R.L.' },
+  { abo: 'matias malibu',     crm: 'MALIBU ASOCIACIÓN CIVIL' },
+  { abo: 'leo cruz verde',    crm: 'ASOCIACIÓN CIVIL CRUZ VERDE DE CANNABIS MEDICINAL' },
+  { abo: 'semishop',          crm: 'ASOCIACIÓN CIVIL CANNABIS SANTA MARIA' },
+  { abo: 'cosecha libre',     crm: 'AC COSECHA LIBRE' }
+];
+// Busca la ficha por la tabla de equivalencias, comparando sin acentos ni mayúsculas
+function abonoFichaPorAlias(nombreAbono){
+  const n = __normBusqueda(nombreAbono || '');
+  if (!n) return null;
+  const al = ABONO_ALIAS_CRM.find(a => n.includes(__normBusqueda(a.abo)));
+  if (!al) return null;
+  const objetivo = __normBusqueda(al.crm);
+  return (typeof CLIENTES !== 'undefined' ? CLIENTES : [])
+    .find(x => __normBusqueda(x.entidad || '') === objetivo) || null;
+}
+// Migración: ata cada abono a su ficha. Primero por equivalencia, después por
+// nombre, y si no existe la ficha la crea con Ori como encargada.
+// Devuelve { ok, alias, creados, sinFicha }.
+function abonoSincronizarCRM(silencioso){
+  if (typeof ABONOS === 'undefined') return { ok: 0, alias: 0, creados: [], sinFicha: [] };
+  let ok = 0, alias = 0; const creados = [], sinFicha = [];
+  ABONOS.forEach(c => {
+    if (c.clienteId != null && CLIENTES.some(x => String(x.id) === String(c.clienteId))){
+      if (abonoVincularCRM(c, c.clienteId)) ok++;
+      return;
+    }
+    // 1) equivalencia manual
+    const porAlias = abonoFichaPorAlias(c.nombre);
+    if (porAlias){
+      abonoVincularCRM(c, porAlias.id); ok++; alias++; sbPushAbonoCli(c.id);
+      return;
+    }
+    // 2) por nombre, como antes
+    let cli = abonoVincularCRM(c, null);
+    if (cli){ ok++; sbPushAbonoCli(c.id); return; }
+    // 3) no está en el CRM: se crea la ficha, con Ori como encargada
+    try {
+      const f = crmAsegurarFicha(c.nombre, 'Abono mensual', hoyISO(), 'abo');
+      cli = f && f.cli ? f.cli : null;
+      if (cli){
+        if (!cli.encargada) cli.encargada = 'Ori';
+        abonoVincularCRM(c, cli.id);
+        saveClientesLocal(); sbPushCliente(cli); sbPushAbonoCli(c.id);
+        ok++; creados.push(c.nombre || '(sin nombre)');
+        return;
+      }
+    } catch(e){}
+    sinFicha.push(c.nombre || '(sin nombre)');
+  });
+  if (ok) saveAbonos();
+  if (!silencioso){
+    let msg = 'Abonos vinculados al CRM: ' + ok;
+    if (alias) msg += '\n· ' + alias + ' por las equivalencias de nombre';
+    if (creados.length) msg += '\n· ' + creados.length + ' fichas nuevas, con Ori como encargada:\n   ' + creados.join('\n   ');
+    if (sinFicha.length) msg += '\n\nQuedaron sin resolver (' + sinFicha.length + '):\n   ' + sinFicha.join('\n   ');
+    alert(msg);
+  }
+  return { ok, alias, creados, sinFicha };
 }
 // Baja definitiva: se lleva el abono, sus pagos y su regla de distribución.
 function abonoEliminar(cliId){
@@ -10722,12 +11242,29 @@ function abonoPintarRegistro(){
     <div class="abo-reg-head">
       <div>
         <div class="abo-reg-cli">${esc(c.nombre)}</div>
-        <div class="abo-reg-sub">${esc(abonoMesLabel(ym))} · abono ${c.moneda === 'USD' ? 'en dólares' : 'en pesos'}</div>
+        <div class="abo-reg-sub">${esc(abonoMesLabel(ym))} · abono ${c.moneda === 'USD' ? 'en dólares' : 'en pesos'} · ${abonoFormaDe(c) === 'vencido' ? 'mes vencido' : 'adelantado'}</div>
       </div>
       <button class="abo-reg-x" onclick="abonoCerrarRegistro()">✕</button>
     </div>
     <div class="abo-reg-body">
       <div class="abo-reg-resumen">${resumen}</div>
+
+      <!-- Qué incluye el abono: se despliega tocando el título y se edita acá mismo -->
+      <div class="abo-inc-acc" id="aboIncAcc">
+        <button type="button" class="abo-inc-cab" onclick="abonoIncToggle()">
+          <span class="abo-inc-cab-t">${esc(c.tipo || 'Sin tipo')} · qué incluye este abono</span>
+          <span class="abo-inc-cab-f" id="aboIncFlecha">▾</span>
+        </button>
+        <div class="abo-inc-cuerpo" id="aboIncCuerpo" style="display:none">
+          <div class="abo-reg-fld"><label>Tipo de abono</label>
+            <input type="text" id="aboIncTipo" maxlength="40" value="${esc(c.tipo || '')}" placeholder="Ej: Abono especial"></div>
+          <div class="abo-reg-fld" style="margin-top:8px"><label>Servicios incluidos</label>
+            <textarea id="aboIncTx" rows="5" placeholder="Escribí acá todo lo que incluye este abono.">${esc(c.incluye || '')}</textarea></div>
+          <div style="display:flex;justify-content:flex-end;margin-top:8px">
+            <button class="abo-reg" onclick="abonoGuardarIncluye(${c.id})">Guardar detalle</button>
+          </div>
+        </div>
+      </div>
 
       <div class="abo-pp-lista">${listaParc}</div>
 
@@ -14693,6 +15230,189 @@ function comisionSocDe(m, dolarRef){
 }
 
 
+// ── Comisión de Sofi G por abonos cobrados temprano ──
+// Se cuentan los abonos que quedaron SALDADOS COMPLETOS con fecha hasta el día 10
+// del mes. Entran todos, incluidos los de actas. Escalones puros, sin proporcional:
+// menos de 10 no paga, de 10 a 19 son $27.000 y de 20 en adelante $64.000.
+const ABO_COM_DIA = 10;
+const ABO_COM_ESCALA = [ { desde: 20, monto: 64000 }, { desde: 10, monto: 27000 } ];
+const ABO_COM_PERSONA = 'sofig';
+// ¿Este abono quedó saldado completo dentro de los primeros 10 días del mes?
+function abonoSaldadoTemprano(c, ym, dia){
+  return !!abonoDetalleTemprano(c, ym, dia);
+}
+// Devuelve el detalle si el abono entra en la cuenta del mes, o null si no.
+// Lo que manda es la FECHA EN QUE ENTRÓ LA PLATA, no el mes del abono: un pago
+// del 4 de agosto que salda el abono de julio suma para la comisión de agosto.
+function abonoDetalleTemprano(c, ym, dia){
+  const tope = dia || ABO_COM_DIA;
+  if (!c || c.estado === 'pausado') return null;
+  // Meses del abono que recibieron plata dentro de los primeros días de ym
+  const mesesTocados = [];
+  (c.pagos || []).forEach(p => {
+    const hayCobro = (p.parciales || []).some(x => {
+      const f = x.fecha || '';
+      return f.slice(0,7) === ym && (Number(f.slice(8,10)) || 0) <= tope;
+    });
+    if (hayCobro) mesesTocados.push(p.mes);
+  });
+  if (!mesesTocados.length) return null;
+  // De esos, alguno tiene que haber quedado SALDADO con lo cobrado hasta el día tope
+  for (const mes of mesesTocados.sort()){
+    const objetivo = abonoMontoVigente(c, mes) || 0;
+    if (objetivo <= 0) continue;
+    const p = abonoPagoDe(c, mes);
+    let acum = 0, ultima = '';
+    (p && p.parciales ? p.parciales : []).forEach(x => {
+      const f = x.fecha || '';
+      if (!f) return;
+      const mf = f.slice(0,7), d = Number(f.slice(8,10)) || 0;
+      if (mf > ym) return;                          // lo que entró después no cuenta
+      if (mf === ym && d > tope) return;            // dentro del mes, solo hasta el día tope
+      acum += Number(x.monto) || 0;
+      if (f > ultima) ultima = f;
+    });
+    if (acum + 0.5 >= objetivo)
+      return { cli: c, mesAbono: mes, fechaPago: ultima, monto: acum,
+               moneda: c.moneda || 'ARS',
+               atrasado: mes < ym };   // abono de un mes anterior, pagado ahora
+  }
+  return null;
+}
+function abonoMesSiguiente(ym){
+  let [y,m] = String(ym).split('-').map(Number);
+  m++; if (m > 12){ m = 1; y++; }
+  return y + '-' + String(m).padStart(2,'0');
+}
+// Detalle de quiénes componen el contador del mes
+function abonoVerTempranos(){
+  const ym = abonoMesActual();
+  const t = abonoComTempranaMes(ym);
+  let ov = document.getElementById('abonoTempOv');
+  if (!ov){
+    ov = document.createElement('div');
+    ov.id = 'abonoTempOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) abonoCerrarTempranos(); });
+    document.body.appendChild(ov);
+  }
+  const esc2 = s => esc(String(s || ''));
+  const filas = t.lista.map(x => `<tr>
+      <td><b>${esc2(x.cli.nombre.toUpperCase())}</b></td>
+      <td>${formatFechaCorta(x.fechaPago)}</td>
+      <td>${abonoMesCorto(x.mesAbono, ym)}</td>
+      <td class="monto">${x.moneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(Math.round(x.monto))}</td>
+    </tr>`).join('');
+  ov.innerHTML = `<div class="abo-reg-card" style="width:620px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">Pagaron antes del ${ABO_COM_DIA}</div>
+        <div class="abo-reg-sub">${esc2(mesLargo(ym))} · ${t.n} abono${t.n !== 1 ? 's' : ''} · comisión ${t.monto ? '$ ' + fmtNumStr(t.monto) : 'todavía no llega al primer escalón'}</div></div>
+      <button class="abo-reg-x" onclick="abonoCerrarTempranos()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="cuota-hint" style="margin:0 0 12px">Cuenta la <b>fecha en que entró la plata</b>, no el mes al que se imputó: un pago del ${ABO_COM_DIA > 9 ? '4' : '4'} de ${abonoMesCorto(ym, ym)} que salda un abono atrasado también suma. Escalones: 10 o más = $ ${fmtNumStr(ABO_COM_ESCALA[1].monto)} · 20 o más = $ ${fmtNumStr(ABO_COM_ESCALA[0].monto)}.</div>
+      ${t.n ? `<div style="overflow-x:auto"><table class="tabla-caja">
+        <thead><tr><th>Cliente</th><th style="width:110px">Pagó el</th><th style="width:150px">Abono de</th><th style="width:120px;text-align:right">Monto</th></tr></thead>
+        <tbody>${filas}</tbody></table></div>`
+        : `<div class="panel-empty">Todavía nadie pagó dentro de los primeros ${ABO_COM_DIA} días de ${mesLargo(ym)}.</div>`}
+      ${t.proximo ? `<div class="abo-temp-falta">Faltan <b>${t.proximo - t.n}</b> para llegar a ${t.proximo} y cobrar $ ${fmtNumStr(t.proximo === 20 ? ABO_COM_ESCALA[0].monto : ABO_COM_ESCALA[1].monto)}.</div>` : ''}
+    </div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+}
+function abonoCerrarTempranos(){
+  const ov = document.getElementById('abonoTempOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+// Cuántos abonos pagaron en fecha, y cuánto le corresponde por eso
+function abonoComTempranaMes(ym){
+  const lista = (typeof ABONOS !== 'undefined' ? ABONOS : [])
+    .map(c => abonoDetalleTemprano(c, ym))
+    .filter(Boolean)
+    .sort((a,b) => (a.fechaPago||'').localeCompare(b.fechaPago||''));
+  const n = lista.length;
+  const esc = ABO_COM_ESCALA.find(e => n >= e.desde);
+  return { n, monto: esc ? esc.monto : 0, lista,
+           proximo: n < 10 ? 10 : (n < 20 ? 20 : null) };
+}
+function abonoComTempranaDe(pid, ym){
+  if (pid !== ABO_COM_PERSONA) return [];
+  const r = abonoComTempranaMes(ym);
+  if (!r.monto) return [];
+  return [{ id: 'abo-' + ym, fecha: ym + '-' + String(ABO_COM_DIA).padStart(2,'0'),
+            concepto: r.n + ' abonos cobrados antes del ' + ABO_COM_DIA,
+            cliente: '', monto: r.monto, moneda: 'ARS', origen: 'abonos', auto: true }];
+}
+function abonoComTempranaTotal(pid, ym){
+  return pid === ABO_COM_PERSONA ? abonoComTempranaMes(ym).monto : 0;
+}
+// ── Comisión de un pago de la CAJA JUDICIAL para Naza / Sofi G / Sofi T ──
+// Misma regla que en societaria: cada 200 USD de venta = $10.000, y en planes se
+// imputa una sola vez, en la 1ª cuota, sobre el total del plan. Es opcional: sin
+// persona asignada no hay comisión. No toca las comisiones de Kevin y Ori.
+function comJudVentaUsd(p, dolarRef){
+  if (p.planId != null){
+    const plan = (typeof planPorId === 'function') ? planPorId(p.planId) : null;
+    if (plan){
+      const total = (plan.montos || []).map(Number).reduce((a,b)=> a + (b||0), 0);
+      if ((plan.moneda || 'ARS') === 'USD') return total;
+      const dd = (p.dolarDia && p.dolarDia > 0) ? p.dolarDia : dolarRef;
+      return dd > 0 ? total / dd : 0;
+    }
+  }
+  const base = Number(p.monto) || 0;
+  if (p.moneda === 'USD') return base;
+  const dd = (p.dolarDia && p.dolarDia > 0) ? p.dolarDia : dolarRef;
+  return dd > 0 ? base / dd : 0;
+}
+function comisionJudDe(p, dolarRef){
+  if (!p || !p.comisionPara) return 0;
+  if (p.planId != null && Number(p.nroCuota) !== 1) return 0;
+  return comSocEscalon(comJudVentaUsd(p, dolarRef));
+}
+// Comisiones de una persona en la caja judicial, como filas para la tabla
+function comJudDe(pid, ym, dolarRef){
+  if (typeof CAJA === 'undefined') return [];
+  const d = dolarRef || (typeof equipoDolarRef === 'function' ? equipoDolarRef() : 0);
+  return CAJA
+    .filter(p => p.comisionPara === pid && (!ym || (p.fecha||'').slice(0,7) === ym))
+    .map(p => ({ id: p.id, fecha: p.fecha || '', concepto: p.concepto || p.cliente || '—',
+                 cliente: p.cliente || '', monto: comisionJudDe(p, d), moneda: 'ARS',
+                 origen: 'jud', auto: true }))
+    .filter(x => x.monto > 0)
+    .sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+}
+function comJudTotalMes(pid, ym, dolarRef){
+  return comJudDe(pid, ym, dolarRef).reduce((a,x)=> a + x.monto, 0);
+}
+// Comisiones automáticas de la caja societaria, mismo formato
+function comSocAutoDe(pid, ym, dolarRef){
+  if (typeof CAJASOC === 'undefined') return [];
+  const d = dolarRef || (typeof equipoDolarRef === 'function' ? equipoDolarRef() : 0);
+  return CAJASOC
+    .filter(m => m.comisionPara === pid && (!ym || (m.fecha||'').slice(0,7) === ym))
+    .map(m => ({ id: m.id, fecha: m.fecha || '', concepto: m.concepto || m.contraparte || '—',
+                 cliente: m.contraparte || '', monto: comisionSocDe(m, d), moneda: 'ARS',
+                 origen: 'soc', auto: true }))
+    .filter(x => x.monto > 0)
+    .sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+}
+// TODAS las comisiones de una persona en el mes, de los tres orígenes, juntas.
+// Es la misma lista que se muestra en las dos cajas y la que suma en Sueldos.
+function comTodasDe(pid, ym, dolarRef){
+  const d = dolarRef || (typeof equipoDolarRef === 'function' ? equipoDolarRef() : 0);
+  const manuales = (typeof comManualDe === 'function' ? comManualDe(pid, ym) : [])
+    .map(c => ({ id: c.id, fecha: c.fecha || '', concepto: c.concepto || '—', cliente: '',
+                 monto: (c.moneda === 'USD' ? (Number(c.monto)||0) * d : (Number(c.monto)||0)),
+                 montoOrig: Number(c.monto)||0, moneda: c.moneda || 'ARS',
+                 origen: 'manual', auto: false }));
+  const temprana = (typeof abonoComTempranaDe === 'function') ? abonoComTempranaDe(pid, ym) : [];
+  return [...comJudDe(pid, ym, d), ...comSocAutoDe(pid, ym, d), ...manuales, ...temprana]
+    .sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+}
+function comTodasTotalMes(pid, ym, dolarRef){
+  return comTodasDe(pid, ym, dolarRef).reduce((a,x)=> a + (x.monto||0), 0);
+}
+
 // ═══════════ COMISIONES MANUALES Y FONDO DE GASTOS (caja societaria) ═══════════
 // Dos registros que van juntos porque comparten las mismas cuatro personas.
 // Las comisiones manuales se suman a las automáticas y bajan el neto del estudio.
@@ -15004,6 +15724,10 @@ function renderComManual(){
   const tArs = filas.filter(c => c.moneda !== 'USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
   const tUsd = filas.filter(c => c.moneda === 'USD').reduce((a,c)=>a+(Number(c.monto)||0),0);
   const puede = csPuedeCargar();
+  // Todo junto: judicial + societaria automática + trámites cargados a mano
+  const dolarRef = (typeof equipoDolarRef === 'function') ? equipoDolarRef() : 0;
+  const todas = comTodasDe(pid, mes, dolarRef);
+  const totalTodo = todas.reduce((a,x)=> a + (x.monto||0), 0);
 
   // Vista de conjunto: cuánto lleva cada una este mes
   const tablero = csVeTodasLasPersonas() ? `
@@ -15046,19 +15770,30 @@ function renderComManual(){
       </div>
     </div>` : ''}
     <div class="panel" style="margin-top:16px">
-      <div class="panel-h"><h3>Detalle del mes</h3><span class="mini">${esc(csPersonaNombre(pid))} · ${mesLargo(mes)}</span></div>
-      ${filas.length ? `<div style="overflow-x:auto"><table class="tabla-caja"><thead><tr>
-          <th style="width:110px">Fecha</th><th>Concepto</th><th style="width:150px;text-align:right">Monto</th>${puede ? '<th style="width:46px"></th>' : ''}
+      <div class="panel-h"><h3>Todas las comisiones del mes</h3><span class="mini">${esc(csPersonaNombre(pid))} · ${mesLargo(mes)} · es lo que suma en Sueldos</span></div>
+      ${todas.length ? `<div style="overflow-x:auto"><table class="tabla-caja"><thead><tr>
+          <th style="width:110px">Fecha</th><th style="width:120px">Origen</th><th>Concepto</th><th style="width:150px;text-align:right">Monto</th>${puede ? '<th style="width:46px"></th>' : ''}
         </tr></thead><tbody>
-        ${filas.map(c => `<tr>
+        ${todas.map(c => `<tr>
           <td>${fmtFechaCortaCRM(c.fecha)}</td>
-          <td>${esc(c.concepto || '—')}</td>
-          <td class="monto${c.moneda === 'USD' ? ' usd' : ''}">${csFmtMon(c.monto, c.moneda)}</td>
-          ${puede ? `<td style="text-align:center"><button class="x-del" onclick="comManualBorrar(${c.id})" title="Eliminar">✕</button></td>` : ''}
+          <td>${comOrigenChip(c.origen)}</td>
+          <td>${esc(c.concepto || '—')}${c.cliente && c.cliente !== c.concepto ? ` <span class="com-cli">${esc(c.cliente)}</span>` : ''}</td>
+          <td class="monto">${csFmtMon(c.monto, 'ARS')}${c.moneda === 'USD' ? `<span class="com-usd-orig">cargada como u$s ${fmtNumStr(c.montoOrig)}</span>` : ''}</td>
+          ${puede ? `<td style="text-align:center">${c.origen === 'manual' ? `<button class="x-del" onclick="comManualBorrar(${c.id})" title="Eliminar">✕</button>` : '<span class="com-auto-lock" title="Sale del pago cargado en la caja: se saca desasignando la comisión ahí">—</span>'}</td>` : ''}
         </tr>`).join('')}
-        </tbody></table></div>`
-        : `<div class="panel-empty">Sin comisiones manuales para ${esc(csPersonaNombre(pid))} en ${mesLargo(mes)}.</div>`}
+        </tbody><tfoot><tr>
+          <td colspan="3" style="text-align:right;font-weight:700;padding-top:8px">Total del mes:</td>
+          <td class="monto" style="font-weight:800;padding-top:8px">$ ${fmtNumStr(Math.round(totalTodo))}</td>
+          ${puede ? '<td></td>' : ''}
+        </tr></tfoot></table></div>`
+        : `<div class="panel-empty">Sin comisiones para ${esc(csPersonaNombre(pid))} en ${mesLargo(mes)}.</div>`}
     </div>`;
+}
+function comOrigenChip(o){
+  if (o === 'jud')    return '<span class="com-org jud">Judicial</span>';
+  if (o === 'soc')    return '<span class="com-org soc">Societaria</span>';
+  if (o === 'abonos') return '<span class="com-org abo">Abonos</span>';
+  return '<span class="com-org man">Trámite</span>';
 }
 function comManualGuardar(){
   if (!csPuedeCargar()) return;
@@ -16243,6 +16978,7 @@ function registrarPago() {
     metodo: document.getElementById('cjMetodo').value,
     receptor: document.getElementById('cjReceptor').value.trim(),
     comisionOri: document.getElementById('cjComOri').checked,
+    comisionPara: (document.getElementById('cjComisionPara') || {}).value || '',
     revisado: false
   };
   // Cuotas: si el pago es parte de un plan, crear/actualizar el plan y linkear
@@ -16279,6 +17015,7 @@ function registrarPago() {
   }
   ['cjCliente','cjConcepto','cjMonto','cjReceptor'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('cjComOri').checked = false;
+  const cjcp = document.getElementById('cjComisionPara'); if (cjcp) cjcp.value = '';
   cjResetCuota('jud');
   const b = document.getElementById('cjAdjBtn'); if (b) b.textContent = '📎 Adjuntar foto / PDF';
   document.getElementById('cajaMes').value = fecha.slice(0, 7);
@@ -16439,9 +17176,106 @@ function mesLargo(mes) {
 function montoTxt(p) {
   return (p.moneda === 'USD' ? 'u$s ' : '$ ') + fmtNumStr(p.monto);
 }
+// Comisiones de Kevin y Ori: se calculan por porcentaje sobre cada pago judicial
+// (Kevin 10 %, o 5 % y 5 % si el pago lleva «comisión de Ori»). Se listan con el
+// mismo formato que las demás para tener una sola tabla en vez de tres.
+function comKevOriDe(pid, ym, dolarRef){
+  if (typeof CAJA === 'undefined' || typeof comisionesDe !== 'function') return [];
+  const d = dolarRef || (typeof equipoDolarRef === 'function' ? equipoDolarRef() : 0);
+  return CAJA
+    .filter(p => !ym || (p.fecha||'').slice(0,7) === ym)
+    .map(p => {
+      const c = comisionesDe(p);
+      const bruto = pid === 'ori' ? c.o : c.k;
+      if (!(bruto > 0)) return null;
+      const pct = pid === 'ori' ? '5 %' : (p.comisionOri ? '5 %' : '10 %');
+      return { id: p.id, fecha: p.fecha || '', concepto: p.concepto || p.cliente || '—',
+               cliente: p.cliente || '', monto: p.moneda === 'USD' ? bruto * d : bruto,
+               montoOrig: bruto, moneda: p.moneda || 'ARS',
+               origen: 'jud', pct, auto: true };
+    })
+    .filter(Boolean)
+    .sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+}
+function comKevOriTotalMes(pid, ym, dolarRef){
+  return comKevOriDe(pid, ym, dolarRef).reduce((a,x)=> a + (x.monto||0), 0);
+}
+// Filas de comisión de cualquier persona del equipo, venga de donde venga
+function comDeCualquiera(pid, ym, dolarRef){
+  return (pid === 'kevin' || pid === 'ori')
+    ? comKevOriDe(pid, ym, dolarRef)
+    : comTodasDe(pid, ym, dolarRef);
+}
+function comTotalDeCualquiera(pid, ym, dolarRef){
+  return comDeCualquiera(pid, ym, dolarRef).reduce((a,x)=> a + (x.monto||0), 0);
+}
+// Personas que aparecen en la tabla de la caja judicial
+const CJ_COM_GENTE = [
+  { id:'kevin', nombre:'Kevin' },
+  { id:'ori',   nombre:'Ori' },
+  { id:'naza',  nombre:'Naza' },
+  { id:'sofig', nombre:'Sofi G' },
+  { id:'sofit', nombre:'Sofi T' }
+];
+// Comisiones de Naza / Sofi G / Sofi T en la caja judicial. Muestra las tres
+// fuentes juntas (judicial, societaria automática y trámites), igual que en
+// societaria: es una sola realidad vista desde dos módulos.
+let CJ_PERS_COM = 'kevin';
+function cjComIr(pid){ CJ_PERS_COM = pid; renderCajaCom(); }
+function renderCajaCom(){
+  const body = document.getElementById('cjComBody');
+  const mini = document.getElementById('cjComMini');
+  const panel = document.getElementById('panelCajaCom');
+  if (!body) return;
+  // El perfil de Ori ve el panel, pero solo su propia comisión
+  const modoOri = typeof perfilActual === 'function' && perfilActual().cajaJud === 'ori';
+  if (panel) panel.style.display = '';
+  const mes = (document.getElementById('cajaMes') || {}).value || hoyISO().slice(0,7);
+  const dolarRef = (typeof equipoDolarRef === 'function') ? equipoDolarRef() : 0;
+  const gente = modoOri ? CJ_COM_GENTE.filter(p => p.id === 'ori') : CJ_COM_GENTE;
+  if (modoOri) CJ_PERS_COM = 'ori';
+  if (!gente.some(p => p.id === CJ_PERS_COM)) CJ_PERS_COM = gente[0].id;
+  const pid = CJ_PERS_COM;
+  const filas = comDeCualquiera(pid, mes, dolarRef);
+  const total = filas.reduce((a,x)=> a + (x.monto||0), 0);
+  if (mini) mini.textContent = mesLargo(mes) + ' · todas las comisiones del equipo';
+  const tablero = gente.map(p => {
+    const t = comTotalDeCualquiera(p.id, mes, dolarRef);
+    const n = comDeCualquiera(p.id, mes, dolarRef).length;
+    return `<button type="button" class="fondo-card ${p.id === pid ? 'on' : ''}" onclick="cjComIr('${p.id}')">
+      <span class="fc-nom">${esc(p.nombre)}</span>
+      <span class="fc-num">$ ${fmtNumStr(Math.round(t))}</span>
+      <span class="fc-pie">${n} comisi${n === 1 ? 'ón' : 'ones'}</span>
+    </button>`;
+  }).join('');
+  const esPct = (pid === 'kevin' || pid === 'ori');
+  const nombrePid = (gente.find(p => p.id === pid) || {}).nombre || pid;
+  body.innerHTML = `
+    <div class="cuota-hint" style="margin:0 0 12px">${esPct
+      ? (modoOri
+          ? 'Comisión sobre los cobros marcados con «Comisión de Ori»: <b>5 %</b> de cada uno.'
+          : 'Comisión por porcentaje sobre cada cobro de esta caja: <b>Kevin 10 %</b>, o <b>5 % y 5 %</b> cuando el pago se marca como «Comisión de Ori».')
+      : 'La comisión se asigna al registrar el pago, con el selector «Asignar comisión a». Cada 200 USD de venta = $10.000, y en planes se imputa en la 1ª cuota. Se ven las tres fuentes juntas.'}</div>
+    <div class="fondo-tablero" style="margin-bottom:14px">${tablero}</div>
+    ${filas.length ? `<div style="overflow-x:auto"><table class="tabla-caja"><thead><tr>
+        <th style="width:110px">Fecha</th><th style="width:120px">${esPct ? '%' : 'Origen'}</th><th>Concepto</th><th style="width:150px;text-align:right">Monto</th>
+      </tr></thead><tbody>
+      ${filas.map(c => `<tr>
+        <td>${fmtFechaCortaCRM(c.fecha)}</td>
+        <td>${esPct ? `<span class="com-org jud">${c.pct}</span>` : comOrigenChip(c.origen)}</td>
+        <td>${esc(c.concepto || '—')}${c.cliente && c.cliente !== c.concepto ? ` <span class="com-cli">${esc(c.cliente)}</span>` : ''}</td>
+        <td class="monto">${csFmtMon(c.monto, 'ARS')}${c.moneda === 'USD' ? `<span class="com-usd-orig">u$s ${fmtNumStr(Math.round(c.montoOrig))} pesificados</span>` : ''}</td>
+      </tr>`).join('')}
+      </tbody><tfoot><tr>
+        <td colspan="3" style="text-align:right;font-weight:700;padding-top:8px">Total del mes:</td>
+        <td class="monto" style="font-weight:800;padding-top:8px">$ ${fmtNumStr(Math.round(total))}</td>
+      </tr></tfoot></table></div>`
+      : `<div class="panel-empty">Sin comisiones para ${esc(nombrePid)} en ${mesLargo(mes)}.</div>`}`;
+}
 function renderCaja() {
   const mesEl = document.getElementById('cajaMes');
   if (!mesEl) return;
+  try { renderCajaCom(); } catch(e){}
   setTimeout(() => { try { panelColPreparar('paginaCaja'); panelColAplicar(); } catch(e){} }, 0);
   if (!mesEl.value) mesEl.value = hoyISO().slice(0, 7);
   const mes = mesEl.value;
@@ -16541,14 +17375,6 @@ function renderCaja() {
     ? rankCliente.slice(0, 8).map((r, i) => filaRank(r, i, maxCliente)).join('')
     : '<div class="panel-empty">Sin pagos este mes.</div>';
 
-  document.getElementById('cajaComisionesK').innerHTML = `
-    <div class="res-row"><span class="k">Pesos</span><span class="v">$ ${fmtNumStr(t.kArs)}</span></div>
-    <div class="res-row"><span class="k">Dólares</span><span class="v">u$s ${fmtNumStr(t.kUsd)}</span></div>
-    ${dolar > 0 ? `<div class="res-row res-total"><span class="k">Total pesificado</span><span class="v">$ ${fmtNumStr(kPes)}</span></div>` : ''}`;
-  document.getElementById('cajaComisionesO').innerHTML = `
-    <div class="res-row"><span class="k">Pesos</span><span class="v">$ ${fmtNumStr(t.oArs)}</span></div>
-    <div class="res-row"><span class="k">Dólares</span><span class="v">u$s ${fmtNumStr(t.oUsd)}</span></div>
-    ${dolar > 0 ? `<div class="res-row res-total"><span class="k">Total pesificado</span><span class="v">$ ${fmtNumStr(oPes)}</span></div>` : ''}`;
   renderCuotasPendientes('');
 }
 // ═══════════ SUELDO DE KEVIN (submódulo de la caja judicial) ═══════════
@@ -16859,7 +17685,11 @@ function equipoComisionesMes(pid, ym){
     const auto = CAJASOC
       .filter(m => (m.fecha||'').slice(0,7) === ym && m.comisionPara === p.comSoc)
       .reduce((a,m)=> a + (comisionSocDe(m, dolar) || 0), 0);
-    return auto + comManualTotalMes(p.id, ym, dolar);
+    // Ahora también pueden tener comisión en la caja judicial
+    const jud = (typeof comJudTotalMes === 'function') ? comJudTotalMes(p.comSoc || p.id, ym, dolar) : 0;
+    // Y la comisión por abonos cobrados antes del día 10 (solo Sofi G)
+    const abo = (typeof abonoComTempranaTotal === 'function') ? abonoComTempranaTotal(p.comSoc || p.id, ym) : 0;
+    return auto + jud + abo + comManualTotalMes(p.id, ym, dolar);
   }
   // Brenda no tiene comisión automática, pero sí puede tener manuales
   return comManualTotalMes(p.id, ym, dolar);
@@ -17557,6 +18387,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--sello)!important;box-
 
 /* Modal cabeceras genéricas (agenda/caja/expedientes) */
 .modal-cab,.modal h2,.modal h3{font-family:var(--f-display);font-weight:600}
+
 
 </style></head><body><div class="hoja">
 <div class="cab">
@@ -19593,16 +20424,21 @@ function clientePorId(id) { return (CLIENTES || []).find(c => c.id === id); }
 function cjPuntajeCliente(c, q, qt){
   const ent = __normBusqueda(c.entidad || '').trim();
   const ref = __normBusqueda(c.referente || '').trim();
+  const apo = __normBusqueda(c.apodo || '').trim();          // apodo interno del CRM
   if (!q) return { punt: 0, via: '' };
   if (ent.startsWith(q)) return { punt: 100 - (ent.length - q.length) / 100, via: '' };
+  if (apo && apo.startsWith(q)) return { punt: 90 - (apo.length - q.length) / 100, via: c.apodo };
   if (ref && ref.startsWith(q)) return { punt: 80 - (ref.length - q.length) / 100, via: c.referente };
   if (ent.includes(q)) return { punt: 60, via: '' };
+  if (apo && apo.includes(q)) return { punt: 55, via: c.apodo };
   if (ref && ref.includes(q)) return { punt: 50, via: c.referente };
   // Palabra suelta: "caparra" contra el referente "JUAN CAPARRA"
   if (qt && qt.length){
     const et = (typeof crmTokens === 'function') ? crmTokens(c.entidad) : [];
     const rt = (typeof crmTokens === 'function') ? crmTokens(c.referente) : [];
+    const at = (typeof crmTokens === 'function') ? crmTokens(c.apodo) : [];
     if (et.length && qt.every(t => et.includes(t))) return { punt: 45, via: '' };
+    if (at.length && qt.every(t => at.includes(t))) return { punt: 42, via: c.apodo };
     if (rt.length && qt.every(t => rt.includes(t))) return { punt: 40, via: c.referente };
   }
   return null;
@@ -19772,12 +20608,15 @@ function crmBuscarCliente(nombre){
     const ent = __normBusqueda(c.entidad || '').trim();
     const ref = __normBusqueda(c.referente || '').trim();
     let punt = 0, motivo = '';
+    const apo = __normBusqueda(c.apodo || '').trim();
     if (ent && ent === q){ punt = 100; motivo = 'entidad'; }
+    else if (apo && apo === q){ punt = 95; motivo = 'apodo'; }   // apodo interno
     else if (ref && ref === q){ punt = 90; motivo = 'referente'; }
     else if (qt.length){
       // Todas las palabras significativas del pago tienen que aparecer en el nombre
-      const et = crmTokens(c.entidad), rt = crmTokens(c.referente);
+      const et = crmTokens(c.entidad), rt = crmTokens(c.referente), at = crmTokens(c.apodo);
       if (et.length && qt.every(t => et.includes(t))){ punt = 70 - Math.abs(et.length - qt.length); motivo = 'entidad'; }
+      else if (at.length && qt.every(t => at.includes(t))){ punt = 65 - Math.abs(at.length - qt.length); motivo = 'apodo'; }
       else if (rt.length && qt.every(t => rt.includes(t))){ punt = 60 - Math.abs(rt.length - qt.length); motivo = 'referente'; }
     }
     if (punt && (!mejor || punt > mejor.punt)) mejor = { cli: c, motivo, punt };
@@ -20118,7 +20957,8 @@ function clientesFiltrados() {
     // así escribiendo "carlos molina" aparece la ficha de su asociación.
     if (t) arr = arr.filter(c =>
       __normBusqueda(c.entidad).includes(t) ||
-      __normBusqueda(c.referente || '').includes(t)
+      __normBusqueda(c.referente || '').includes(t) ||
+      __normBusqueda(c.apodo || '').includes(t)      // apodo interno
     );
   }
   if (f.tipo) arr = arr.filter(c => (c.tipo || '') === f.tipo);
@@ -20342,7 +21182,7 @@ function abrirNuevoCliente(prefill) {
   // Prefill opcional (ej: desde caja con el nombre ya escrito)
   ov.querySelector('#nc_entidad').value = (prefill && prefill.entidad) || '';
   ['tipo','estado','cuit','registro','encargada','referente','telefono','mail','driveLink','provincia',
-   'reproTienen','reproFechaSol','reproAprobFecha','packTipo','packSituacion','packEstadoTxt','packVence',
+   'apodo','reproTienen','reproFechaSol','reproAprobFecha','packTipo','packSituacion','packEstadoTxt','packVence',
    'docPendiente_sel','docPendienteQue','proximoContacto','proximoNota','bitaNota','observaciones'].forEach(k => {
     const el = ov.querySelector('#nc_' + k); if (el) el.value = '';
   });
@@ -20366,7 +21206,7 @@ function guardarNuevoCliente() {
   const gc = id => { const el = ov.querySelector('#nc_' + id); return el ? el.checked : false; };
   const datos = {
     entidad, tipo: g('tipo'), estado: g('estado'), cuit: g('cuit'), registro: g('registro'),
-    encargada: g('encargada'), referente: g('referente'), telefono: g('telefono'),
+    encargada: g('encargada'), referente: g('referente'), apodo: g('apodo'), telefono: g('telefono'),
     mail: g('mail'), driveLink: g('driveLink'), provincia: g('provincia'),
     reproTienen: g('reproTienen'), reproFechaSol: g('reproFechaSol'), reproAprobFecha: g('reproAprobFecha'),
     packTipo: g('packTipo'), packSituacion: g('packSituacion') || 'vigente', packEstadoTxt: g('packEstadoTxt'), packVence: fechaAISO(g('packVence')) || '',
@@ -20416,6 +21256,7 @@ function htmlFormNuevoCliente() {
           <div class="crm-fld"><label>Registro</label><select id="nc_registro"><option value="IGJ">IGJ</option><option value="DPPJ">DPPJ</option><option value="INAES">INAES</option><option value="Otro">Otro</option></select></div>
           <div class="crm-fld"><label>Encargada</label><select id="nc_encargada">${opcionesEncargada('')}</select></div>
           <div class="crm-fld"><label>Referente</label><input id="nc_referente" placeholder="Nombre del referente"></div>
+          <div class="crm-fld"><label>Apodo interno</label><input id="nc_apodo" placeholder="Ej: Semishop"><span class="crm-hint-min">solo para buscar; en pantalla siempre va el nombre real</span></div>
           <div class="crm-fld"><label>Provincia</label><input id="nc_provincia" placeholder="Ej: Buenos Aires"></div>
           <div class="crm-fld"><label>Teléfono</label><input id="nc_telefono" placeholder="+54 9 11 ..."></div>
           <div class="crm-fld"><label>Mail</label><input id="nc_mail" placeholder="cliente@mail.com"></div>
@@ -20580,7 +21421,7 @@ function guardarSeccion(id, sec) {
   const cambios = {};
 
   if (sec === 'identidad') {
-    ['entidad', 'tipo', 'estado', 'cuit', 'registro', 'encargada', 'referente', 'telefono', 'mail', 'driveLink', 'provincia'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
+    ['entidad', 'tipo', 'estado', 'cuit', 'registro', 'encargada', 'referente', 'apodo', 'telefono', 'mail', 'driveLink', 'provincia'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
   } else if (sec === 'repro') {
     ['reproTienen', 'reproFechaSol', 'repro3132Fecha', 'repro3132Exp', 'repro1780Fecha', 'repro1780Exp', 'reproComplFecha', 'reproAmparoFecha', 'reproAprobFecha'].forEach(k => { const v = g(k); if (v !== undefined) cambios[k] = v.trim(); });
     const amp = gc('reproAmparo'); if (amp !== undefined) cambios.reproAmparo = amp;
@@ -21128,6 +21969,7 @@ function accIdentidad(c, editar) {
       <div class="crm-fld"><label>Registro</label><select id="f_registro">${REGISTRO_OP.map(r => `<option${c.registro === r ? ' selected' : ''}>${r}</option>`).join('')}</select></div>
       <div class="crm-fld"><label>Encargada</label><select id="f_encargada">${opcionesEncargada(c.encargada || '')}</select></div>
       <div class="crm-fld"><label>Referente</label><input id="f_referente" value="${esc(c.referente || '')}"></div>
+      <div class="crm-fld"><label>Apodo interno</label><input id="f_apodo" value="${esc(c.apodo || '')}" placeholder="Ej: Semishop"></div>
       <div class="crm-fld"><label>Teléfono</label><input id="f_telefono" value="${esc(c.telefono || '')}"></div>
       <div class="crm-fld"><label>Mail</label><input id="f_mail" value="${esc(c.mail || '')}"></div>
       <div class="crm-fld"><label>Provincia</label><input id="f_provincia" value="${esc(c.provincia || '')}" placeholder="Ej: Buenos Aires"></div>
@@ -21138,6 +21980,7 @@ function accIdentidad(c, editar) {
     body = `<div class="crm-datos">
       <div class="crm-dato"><span>Encargada</span><b>${c.encargada ? esc(c.encargada) : '<span style=\'color:var(--crm-rojo)\'>Sin asignar</span>'}</b></div>
       <div class="crm-dato"><span>Referente</span><b>${val(c.referente)}</b></div>
+      <div class="crm-dato"><span>Apodo interno</span><b>${val(c.apodo)}</b></div>
       <div class="crm-dato"><span>Teléfono</span><b>${val(c.telefono)}</b></div>
       <div class="crm-dato"><span>Mail</span><b>${val(c.mail)}</b></div>
       <div class="crm-dato"><span>Provincia</span><b>${val(c.provincia)}</b></div>
@@ -21263,6 +22106,31 @@ function accPagos(c) {
       ${pagos.map(p => `<tr><td>${fD(p.fecha)}</td><td>${esc(p.concepto || p.detalle || '\u2014')}</td><td class="r">${fmtMonto(p)}</td></tr>`).join('')}
       <tr class="crm-pago-total"><td colspan="2">Total</td><td class="r">${totArs ? '$ ' + fmtN(totArs) : ''}${totArs && totUsd ? ' · ' : ''}${totUsd ? 'u$s ' + fmtN(totUsd) : ''}${!totArs && !totUsd ? '$ 0' : ''}</td></tr></tbody></table>`
     : '<div class="crm-vacio">Todavía no hay pagos atribuidos a este cliente. Se suman solos desde Caja.</div>';
+
+  // Abono mensual vinculado: estado del mes, monto y qué incluye
+  const abo = (typeof abonoDeCliente === 'function') ? abonoDeCliente(c.id) : null;
+  if (abo){
+    const ymA = (typeof abonoMesActual === 'function') ? abonoMesActual() : '';
+    const st = (typeof abonoEstadoMes === 'function') ? abonoEstadoMes(abo, ymA) : null;
+    const vig = (typeof abonoMontoVigente === 'function') ? (abonoMontoVigente(abo, ymA) || 0) : 0;
+    const sim = abo.moneda === 'USD' ? 'u$s ' : '$ ';
+    const chip = !st ? '' : st.estado === 'pagado'
+      ? '<span class="crm-abo-chip ok">Pagado</span>'
+      : st.estado === 'parcial'
+        ? `<span class="crm-abo-chip parc">Parcial · falta ${sim}${fmtN(Math.round(st.falta))}</span>`
+        : '<span class="crm-abo-chip debe">Pendiente</span>';
+    body += `<div class="crm-serv-label">Abono mensual</div>
+      <div class="crm-abo-box">
+        <div class="crm-abo-l1"><b>${sim}${fmtN(Math.round(vig))}</b> por mes ${chip}</div>
+        <div class="crm-abo-l2">${esc(abo.tipo || 'Sin tipo')} · ${abo.formaPago === 'vencido' ? 'mes vencido' : 'adelantado'}${abo.estado === 'pausado' ? ' · <b>pausado</b>' : ''}</div>
+        <div class="crm-abo-inc" id="crmAboInc">
+          <div class="crm-abo-inc-t">Qué incluye
+            <button type="button" class="crm-abo-edit" onclick="crmAboEditarIncluye(${abo.id})">editar</button></div>
+          <div class="crm-abo-inc-tx">${abo.incluye ? esc(abo.incluye) : '<i>sin detalle cargado</i>'}</div>
+        </div>
+        ${abo.formaPagoObs ? `<div class="crm-abo-obs">⚠ ${esc(abo.formaPagoObs)}</div>` : ''}
+      </div>`;
+  }
 
   // Bloque de servicios contratados
   body += `<div class="crm-serv-label">Servicios contratados</div>`;
