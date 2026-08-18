@@ -2596,6 +2596,35 @@ body.locked .app{margin-left:0}
 /* Cancelar: en rojo y a la derecha de Guardar */
 .abo-reg-cancel.rojo{border-color:#e4c4c0;color:var(--mal,#b3372a);background:var(--carta)}
 .abo-reg-cancel.rojo:hover{background:#faf0ee;border-color:var(--mal,#b3372a)}
+
+/* ── Bitácora del CRM: nota multilínea que crece y edición en línea ── */
+.crm-bita-ta{flex:1;min-width:180px;padding:8px 10px;border:1px solid var(--filo);
+  border-radius:7px;font-size:12.5px;font-family:inherit;line-height:1.5;
+  resize:none;overflow-y:auto;max-height:260px;box-sizing:border-box}
+.crm-bita-ta:focus{outline:none;border-color:var(--sello)}
+.crm-bita-alta{align-items:flex-start}
+.crm-bita-alta input[type=date]{flex:0 0 auto}
+.crm-bita-alta .crm-btn-guardar{flex:0 0 auto}
+.crm-bita{align-items:flex-start}
+.crm-bita-nota{flex:1;white-space:pre-wrap;word-break:break-word}
+.crm-bita-lapiz{flex:0 0 auto;border:1px solid transparent;background:none;cursor:pointer;
+  padding:2px 7px;border-radius:6px;font-size:13px;color:var(--tinta-suave);transition:.13s;line-height:1.5}
+.crm-bita:hover .crm-bita-lapiz{border-color:var(--filo);background:var(--carta)}
+.crm-bita-lapiz:hover{color:var(--sello);border-color:var(--sello);background:#fff}
+.crm-bita.editando{gap:10px;background:var(--carta);border:1px dashed var(--sello);
+  border-radius:10px;padding:12px;margin:6px 0}
+.crm-bita-fecha-ed{flex:0 0 auto;padding:7px 9px;border:1px solid var(--filo);
+  border-radius:7px;font-size:12px;font-family:inherit}
+.crm-bita-ed{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.crm-bita-ed-btns{display:flex;gap:8px;flex-wrap:wrap}
+.crm-bita-cancel,.crm-bita-borrar{font-size:12px;font-weight:600;font-family:inherit;
+  border:1px solid var(--filo);background:var(--carta);border-radius:7px;
+  padding:7px 12px;cursor:pointer;transition:.13s}
+.crm-bita-cancel{color:var(--tinta)}
+.crm-bita-cancel:hover{background:#fff;border-color:var(--sello)}
+.crm-bita-borrar{color:var(--mal,#b3372a);border-color:#e4c4c0;margin-left:auto}
+.crm-bita-borrar:hover{background:var(--mal,#b3372a);color:#fff;border-color:var(--mal,#b3372a)}
+
 </style>
 </head>
 <body>
@@ -22975,14 +23004,101 @@ function reuRowHTML(r) {
 }
 
 // ── Bitácora: agregar nota ──
+// El campo de la nota es un textarea que crece solo: muchas notas ocupan
+// varios renglones y con un input de una línea no se veía lo que se escribía.
+function crmAutoAlto(el){
+  if (!el) return;
+  const alto = el.style.height;
+  el.style.height = 'auto';
+  // Si el bloque todavía no está visible, scrollHeight vuelve 0: en ese caso se
+  // deja lo que había y manda el atributo rows, que ya viene calculado del texto.
+  if (!el.scrollHeight){ el.style.height = alto; return; }
+  el.style.height = Math.min(Math.max(el.scrollHeight, 38), 260) + 'px';
+}
+// Renglones que va a ocupar un texto, para dimensionar el textarea antes de pintarlo
+function crmFilasDe(txt, ancho){
+  const t = String(txt || '');
+  if (!t) return 1;
+  const cols = ancho || 60;
+  const n = t.split('\n').reduce((acc, l) => acc + Math.max(1, Math.ceil(l.length / cols)), 0);
+  return Math.min(Math.max(n, 2), 10);
+}
 function crmAgregarNota(id) {
   const ov = document.getElementById('crmFichaOverlay');
   const fecha = ov.querySelector('#f_bitaFecha').value || hoyISO();
-  const nota = ov.querySelector('#f_bitaNota').value.trim();
-  if (!nota) { ov.querySelector('#f_bitaNota').focus(); return; }
+  const campo = ov.querySelector('#f_bitaNota');
+  const nota = campo.value.trim();
+  if (!nota) { campo.focus(); return; }
   agregarNotaBitacora(id, fecha, nota);
   refrescarFicha(id);
   renderCRM();
+}
+
+// ── Bitácora: editar una nota ya cargada ──
+// La lista se muestra ordenada por fecha, así que el índice de la vista no
+// sirve para ubicar la nota. Se usa una clave estable (fecha + texto original).
+var CRM_BITA_EDIT = null;   // { cli, i }  ← i es el índice dentro de cli.bitacora
+function crmBitaFila(id, b, i){
+  const editando = CRM_BITA_EDIT && CRM_BITA_EDIT.cli === id && CRM_BITA_EDIT.i === i;
+  if (editando){
+    return `<div class="crm-bita editando">
+      <input type="date" class="crm-bita-fecha-ed" id="f_bitaEdFecha" value="${esc(b.fecha || '')}">
+      <div class="crm-bita-ed">
+        <textarea id="f_bitaEdNota" class="crm-bita-ta" rows="${crmFilasDe(b.nota, 62)}" oninput="crmAutoAlto(this)" onfocus="crmAutoAlto(this)">${esc(b.nota || '')}</textarea>
+        <div class="crm-bita-ed-btns">
+          <button class="crm-btn-guardar" onclick="crmBitaGuardar(${id})">Guardar</button>
+          <button class="crm-bita-cancel" onclick="crmBitaCancelar(${id})">Cancelar</button>
+          <button class="crm-bita-borrar" onclick="crmBitaBorrar(${id})">Eliminar</button>
+        </div>
+      </div></div>`;
+  }
+  return `<div class="crm-bita">
+    <div class="crm-bita-fecha">${fmtFechaCortaCRM(b.fecha)}</div>
+    <div class="crm-bita-nota">${esc(b.nota)}</div>
+    <button class="crm-bita-lapiz" title="Editar esta nota" onclick="crmBitaEditar(${id}, ${i})">\u270e</button>
+  </div>`;
+}
+function crmBitaEditar(id, i){
+  CRM_BITA_EDIT = { cli: id, i: i };
+  refrescarFicha(id);
+  const ajustar = () => {
+    const ta = document.getElementById('f_bitaEdNota');
+    if (!ta) return;
+    crmAutoAlto(ta); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+    // Segunda pasada por si en el primer intento el bloque todavía no estaba pintado
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => crmAutoAlto(ta));
+  };
+  setTimeout(ajustar, 40);
+}
+function crmBitaCancelar(id){ CRM_BITA_EDIT = null; refrescarFicha(id); }
+function crmBitaGuardar(id){
+  if (!CRM_BITA_EDIT) return;
+  const cli = clientePorId(id); if (!cli) return;
+  const i = CRM_BITA_EDIT.i;
+  if (!cli.bitacora || !cli.bitacora[i]){ CRM_BITA_EDIT = null; refrescarFicha(id); return; }
+  const ov = document.getElementById('crmFichaOverlay');
+  const fecha = (ov.querySelector('#f_bitaEdFecha') || {}).value || cli.bitacora[i].fecha;
+  const nota = ((ov.querySelector('#f_bitaEdNota') || {}).value || '').trim();
+  if (!nota){ const ta = ov.querySelector('#f_bitaEdNota'); if (ta) ta.focus(); return; }
+  cli.bitacora[i] = { fecha: fecha, nota: nota };
+  cli.ultimoContacto = calcularUltimoContacto(cli);
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  CRM_BITA_EDIT = null;
+  refrescarFicha(id); renderCRM();
+}
+function crmBitaBorrar(id){
+  if (!CRM_BITA_EDIT) return;
+  const cli = clientePorId(id); if (!cli) return;
+  const i = CRM_BITA_EDIT.i;
+  if (!cli.bitacora || !cli.bitacora[i]) return;
+  if (!confirm('¿Eliminar esta nota de la bitácora?')) return;
+  cli.bitacora.splice(i, 1);
+  cli.ultimoContacto = calcularUltimoContacto(cli);
+  saveClientesLocal();
+  if (typeof sbPushCliente === 'function') sbPushCliente(cli);
+  CRM_BITA_EDIT = null;
+  refrescarFicha(id); renderCRM();
 }
 
 // ── Próximo contacto: marcar contactado / agendar en Calendar ──
@@ -23616,14 +23732,18 @@ function accPagos(c) {
 
 function accBitacora(c) {
   const id = c.id;
-  const bita = (c.bitacora || []).slice().sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''));
-  const resumen = bita.length ? `${bita.length} · última ${fmtFechaCortaCRM(bita[0].fecha)}` : 'sin registros';
+  // Se ordena por fecha para mostrar, pero cada fila se queda con su índice real
+  // dentro de c.bitacora: es lo único que identifica la nota sin ambigüedad, y
+  // evita meter el texto (que ahora puede tener saltos de línea) en un onclick.
+  const bita = (c.bitacora || []).map((b, i) => ({ b: b, i: i }))
+    .sort((x, y) => (y.b.fecha || '').localeCompare(x.b.fecha || ''));
+  const resumen = bita.length ? `${bita.length} · última ${fmtFechaCortaCRM(bita[0].b.fecha)}` : 'sin registros';
   const hoy = (typeof hoyISO === 'function') ? hoyISO() : '';
   const body = `<div class="crm-editor">
       <div class="crm-editor-t">Anotar un nuevo contacto</div>
-      <div class="crm-editor-row"><input id="f_bitaFecha" type="date" value="${hoy}"><input id="f_bitaNota" placeholder="¿Qué hablaron?…" style="flex:1"><button class="crm-btn-guardar" onclick="crmAgregarNota(${id})">+ Agregar</button></div>
+      <div class="crm-editor-row crm-bita-alta"><input id="f_bitaFecha" type="date" value="${hoy}"><textarea id="f_bitaNota" class="crm-bita-ta" rows="2" placeholder="¿Qué hablaron?…" oninput="crmAutoAlto(this)" onfocus="crmAutoAlto(this)"></textarea><button class="crm-btn-guardar" onclick="crmAgregarNota(${id})">+ Agregar</button></div>
     </div>
-    ${bita.length ? bita.map(b => `<div class="crm-bita"><div class="crm-bita-fecha">${fmtFechaCortaCRM(b.fecha)}</div><div class="crm-bita-nota">${esc(b.nota)}</div></div>`).join('') : '<div class="crm-vacio">Sin registros de contacto.</div>'}`;
+    ${bita.length ? bita.map(x => crmBitaFila(id, x.b, x.i)).join('') : '<div class="crm-vacio">Sin registros de contacto.</div>'}`;
   return `<div class="${accCls(id,'bitacora',false)}">${accHead(id, 'bitacora', 'BITÁCORA DE CONTACTOS', resumen, false)}<div class="acc-body">${body}</div></div>`;
 }
 
