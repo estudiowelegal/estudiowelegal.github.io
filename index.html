@@ -2374,6 +2374,84 @@ body.locked .app{margin-left:0}
 .cs-edit-b{ border:none; background:transparent; color:#14294a; font-size:14px; cursor:pointer;
   padding:4px 6px; border-radius:6px; }
 .cs-edit-b:hover{ background:#eef4fc; }
+/* INASE · padrón y trámites */
+.ina-falta{color:var(--tinta-suave);font-style:italic}
+.ina-ult{font-size:11.5px;color:var(--tinta-suave);margin-top:2px}
+.ina-cats{display:flex;gap:5px;flex-wrap:wrap}
+.ina-cat-op{display:inline-flex;align-items:center;justify-content:center;width:34px;height:32px;border:1px solid var(--filo);
+  border-radius:8px;background:var(--carta);font-size:12.5px;font-weight:700;color:var(--tinta-suave);cursor:pointer;transition:.13s}
+.ina-cat-op:hover{border-color:#9db9dd}
+.ina-cat-op.on{background:#14294a;border-color:#14294a;color:#fff}
+.ina-cat-op input{display:none}
+.ina-busca-cli{position:relative}
+.ina-sug{position:absolute;left:0;right:0;top:100%;z-index:40;background:var(--carta);border:1px solid var(--filo);
+  border-radius:9px;box-shadow:0 10px 28px rgba(12,20,15,.16);max-height:230px;overflow-y:auto;margin-top:3px}
+.ina-sug-it{padding:8px 12px;cursor:pointer;font-size:13px}
+.ina-sug-it:hover{background:#eef4fc}
+.ina-sug-it small{display:block;font-size:11px;color:var(--tinta-suave)}
+.ina-sug-vacio{padding:10px 12px;font-size:12px;color:var(--tinta-suave);font-style:italic}
+.ina-cli-elegido{font-size:13px;color:var(--tinta);margin-top:6px}
+.ina-nuevo-cli{border:none;background:transparent;color:#14294a;font-family:inherit;font-size:12px;font-weight:600;
+  cursor:pointer;padding:4px 0;text-decoration:underline}
+.ina-card-ancha{width:min(940px, 96vw)}
+.ina-card-ancha .abo-reg-body{overflow-x:hidden}
+.ina-card-ancha .f-row{flex-wrap:wrap}
+.ina-cuenta{font-size:12px;color:var(--tinta-suave);margin:14px 0 8px}
+.ina-chk{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--filo);border-radius:10px;
+  padding:10px 13px;margin-top:8px;cursor:pointer;background:var(--carta);transition:.13s}
+.ina-chk:hover{border-color:#9db9dd;background:#f6f9fd}
+.ina-chk.on{border-color:#14294a;background:#eef4fc;box-shadow:0 1px 6px rgba(20,41,74,.10)}
+.ina-chk input{margin-top:2px;width:16px;height:16px;accent-color:#14294a;flex:0 0 auto}
+.ina-chk b{font-size:13px;color:var(--tinta);display:block}
+.ina-chk small{display:block;font-size:11px;color:var(--tinta-suave);margin-top:1px}
+.ina-cat-mini{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;
+  margin-right:3px;border-radius:5px;background:#eef4fc;border:1px solid #c5d5ea;color:#14294a;font-size:11px;font-weight:700}
+#itNuevoCli{background:var(--papel);border:1px solid var(--filo);border-radius:10px;padding:4px 14px 14px;margin-top:8px;overflow-x:hidden}
+#itNuevoCli .f-row{flex-wrap:wrap}
+#itNuevoCli .f-col{min-width:150px}
+.ina-adj{border:1px solid var(--filo);background:var(--carta);color:#14294a;font-family:inherit;font-size:10.5px;
+  font-weight:700;padding:2px 7px;border-radius:6px;cursor:pointer;margin-right:3px}
+.ina-adj:hover{background:#eef4fc;border-color:#14294a}
+.ina-barra{display:flex;gap:10px;align-items:center;margin-top:14px}
+.ina-barra .abo-buscar-input{flex:1}
+.ina-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--filo-suave);cursor:pointer;transition:background .12s}
+.ina-row:hover{background:#f6f9fd}
+.ina-row-head{background:#fbfaf6;cursor:default;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--tinta-suave);padding:9px 16px}
+.ina-row-head:hover{background:#fbfaf6}
+.ina-c-nom{flex:1 1 240px;min-width:0;font-size:13.5px;font-weight:700;color:var(--tinta)}
+.ina-c-nom small{display:block;font-size:11px;font-weight:400;color:var(--tinta-suave);margin-top:1px}
+.ina-c-tel{flex:0 0 130px;font-size:12.5px;color:var(--tinta)}
+.ina-c-usu{flex:0 0 120px;font-size:12px}
+.ina-c-usu code{background:var(--papel);border:1px solid var(--filo);border-radius:5px;padding:2px 6px;font-size:11.5px}
+.ina-c-cat{flex:0 0 54px}
+.ina-cat{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#eef4fc;border:1px solid #c5d5ea;color:#14294a;font-size:12px;font-weight:800}
+.ina-c-serv{flex:0 0 190px;font-size:12.5px;color:var(--tinta)}
+.ina-c-serv small{display:block;font-size:11px;color:var(--tinta-suave)}
+.ina-c-ir{flex:0 0 20px;text-align:right;color:var(--filo);font-size:18px}
+.ina-volver{border:none;background:transparent;color:#14294a;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:6px 0;margin-top:12px}
+.ina-volver:hover{text-decoration:underline}
+.ina-pass{font-family:ui-monospace,monospace;letter-spacing:1px}
+.ina-ojo{border:none;background:transparent;color:#14294a;font-size:11px;font-weight:700;cursor:pointer;text-decoration:underline;padding:0 4px}
+.ina-notas{margin-top:10px;padding:10px 12px;background:var(--papel);border:1px solid var(--filo);border-radius:8px;font-size:12.5px;white-space:pre-wrap}
+.ina-est{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap}
+.ina-est.ok{background:#e7f0e6;color:#2d5016;border:1px solid #c6dcc2}
+.ina-est.no{background:#f9e3df;color:#b3372a;border:1px solid #eec8c1}
+.ina-est.esp{background:#f6f1e4;color:#8a6d1f;border:1px solid #e4d9bd}
+.ina-est.pend{background:#eef1f7;color:var(--sello);border:1px solid #d8e0ee}
+.ina-pago{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px}
+.ina-pago.ok{background:#e7f0e6;color:#2d5016}
+.ina-pago.no{background:#f9e3df;color:#b3372a}
+.ina-pago.med{background:#f6f1e4;color:#8a6d1f}
+.ina-mto{display:block;font-size:10.5px;color:var(--tinta-suave)}
+.ina-obs2{display:block;font-size:10.5px;color:var(--tinta-suave);font-style:italic;margin-top:2px}
+.ina-resumen{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ina-serv-fila{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+.ina-serv-fila select{flex:0 0 180px}
+.ina-serv-fila .ina-serv-anio{flex:0 0 70px;text-align:center}
+.ina-serv-fila .ina-serv-det{flex:1}
+.ina-add{border:1px dashed var(--filo);background:transparent;color:#14294a;font-family:inherit;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;width:100%;margin-top:4px}
+.ina-add:hover{background:#eef4fc;border-color:#14294a}
+
 /* Neto por caja */
 .nc-intro{background:var(--papel);border:1px solid var(--filo);border-left:3px solid var(--oro,#c9a961);border-radius:8px;padding:11px 14px;margin:14px 0;font-size:12.5px;color:var(--tinta);line-height:1.5}
 .nc-sw{display:inline-flex;border:1px solid var(--filo);border-radius:10px;overflow:hidden;background:var(--carta);margin-bottom:16px}
@@ -2473,6 +2551,18 @@ body.locked .app{margin-left:0}
 /* Leyenda de las iniciales: 35% más grande */
 .abo-leyenda{ font-size:15px !important; gap:7px; }
 .abo-leyenda .lg{ width:26px !important; height:26px !important; font-size:14px !important; margin-left:8px; }
+
+/* ── Comprobantes descargables (ARICCAME) y carpeta de Drive (INASE) ── */
+.aric-comp-b{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;font-size:12px;
+  font-weight:600;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aric-comp-b:hover{text-decoration:underline}
+.aric-docs{display:flex;flex-direction:column;gap:6px}
+.aric-doc-line{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 9px;border:1px solid var(--linea,#e3e0d6);border-radius:6px;background:#fff}
+.aric-doc-lbl{font-size:12px;color:var(--tinta,#1a241d);font-weight:600}
+.ina-drive-b{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:6px;
+  border:1px solid #062240;background:#fff;color:#062240;font-size:12px;font-weight:600;cursor:pointer}
+.ina-drive-b:hover{background:#062240;color:#fff}
 </style>
 </head>
 <body>
@@ -4322,7 +4412,11 @@ body.locked .app{margin-left:0}
         <div class="doble-filete"></div>
         <div class="crm-mini-wrap"><span id="inaseMini" class="crm-mini"></span></div>
       </div>
-      <div id="inaseSubtabs"></div>
+      <div class="abo-subtabs" id="inaseTabs">
+        <button class="on" data-inv="tramites" onclick="inaseIrVista('tramites')">Trámites</button>
+        <button data-inv="clientes" onclick="inaseIrVista('clientes')">Clientes</button>
+      </div>
+      <div id="inaseSubtabs" style="display:none"></div>
       <div id="inasePanel"></div>
     </div>
   </div>
@@ -6571,6 +6665,8 @@ var SB_TIENE_JUD_COM_PARA = false;
 var SB_TIENE_APODO = false;
 var SB_TIENE_ABO_CLI = false;
 var SB_TIENE_ABO_EXTRAS = false;
+var SB_TIENE_ARIC_DOCS = false;   // aric_licencias.docs (jsonb)
+var SB_TIENE_INA_DRIVE = false;   // inase_clientes.drive (text)
 function clienteAFila(c) {
   const f = {
     id: c.id, entidad: c.entidad || '', tipo: c.tipo || null, estado: c.estado || null,
@@ -6655,7 +6751,7 @@ async function __sbCargarTodoInterno() {
     }
   } catch(e){}
   try {
-    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag, rReu] = await Promise.all([
+    const [rCasos, rExp, rCaja, rCfg, rTareas, rClientes, rCajaSoc, rInaCli, rInaTra, rPlanes, rAric, rCnbCli, rSueCfg, rSuePag, rGastos, rAboCli, rAboPag, rReu] = await Promise.all([
       sbSelect('casos').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('expedientes').catch(e => { sbAvisarError(e); return null; }),
       sbSelect('caja').catch(e => { sbAvisarError(e); return null; }),
@@ -6663,6 +6759,8 @@ async function __sbCargarTodoInterno() {
       sbSelect('tareas').catch(() => null),
       sbSelect('clientes').catch(() => null),
       sbSelect('caja_soc').catch(() => null),
+      sbSelect('inase_clientes').catch(() => null),
+      sbSelect('inase_tramites').catch(() => null),
       sbSelect('planes_cuotas').catch(() => null),
       sbSelect('aric_licencias').catch(() => null),
       sbSelect('cannabis_clientes').catch(() => null),
@@ -6678,7 +6776,34 @@ async function __sbCargarTodoInterno() {
     if (rPlanes) { PLANES = rPlanes.map(filaAPlan); savePlanesLocal(); }
 
     // Licencias ARICCAME (tabla nueva; si no existe todavía, se queda con lo local)
-    if (rAric && rAric.length) { ARIC = aricDeFilas(rAric); saveAricLocal(); }
+    if (rAric && rAric.length) {
+      // Rescate: las licencias que se iniciaron antes de que la documentación viajara
+      // con la licencia todavía tienen los docs en la ficha local. Los guardamos antes
+      // de pisar ARIC con lo de la nube y los volvemos a colgar de la licencia.
+      const docsViejos = {};
+      (ARIC||[]).forEach(c => {
+        if (c && c.docs && Object.keys(c.docs).length && (c.licencias||[]).length)
+          docsViejos[aricNorm(c.nombre||'')] = c.docs;
+      });
+      ARIC = aricDeFilas(rAric);
+      if (Object.keys(docsViejos).length){
+        ARIC.forEach(c => {
+          const d = docsViejos[aricNorm(c.nombre||'')]; if(!d) return;
+          (c.licencias||[]).forEach(l => {
+            if (l.docs && Object.keys(l.docs).length) return;
+            l.docs = JSON.parse(JSON.stringify(d));
+            const ar = l.docs['comprob_arancel'];
+            if (ar && ar.adjunto && !l.comprobante){
+              l.arancel = l.arancel || 'Pagó';
+              l.comprobante = ar.nombre || 'comprobante de arancel';
+              l.comprobantePath = ar.path || ''; l.comprobanteUrl = ar.url || '';
+            }
+            sbPushAric(c, l);
+          });
+        });
+      }
+      saveAricLocal();
+    }
 
     // Abonos (tablas abonos_clientes y abonos_pagos)
     if (rAboCli && rAboCli.length) {
@@ -6724,6 +6849,8 @@ async function __sbCargarTodoInterno() {
     // omitía la columna y el dato se perdía al recargar (pasó con gastos_mon).
     const sbTiene = (filas, col) => Array.isArray(filas) &&
       filas.some(f => f && Object.prototype.hasOwnProperty.call(f, col));
+    if (Array.isArray(rInaCli)) { INA_CLI = rInaCli.map(filaAInaCli); saveInaseCli(); }
+    if (Array.isArray(rInaTra)) { INA_TRA = rInaTra.map(filaAInaTra); saveInaseTra(); }
     if (sbTiene(rCajaSoc, 'cargado_por'))
       SB_TIENE_CARGADO_POR = true;
     if (sbTiene(rCajaSoc, 'gastos_mon'))
@@ -6744,6 +6871,10 @@ async function __sbCargarTodoInterno() {
       SB_TIENE_ABO_CLI = true;
     if (sbTiene(rAboCli, 'incluye'))
       SB_TIENE_ABO_EXTRAS = true;
+    if (sbTiene(rAric, 'docs'))
+      SB_TIENE_ARIC_DOCS = true;
+    if (sbTiene(rInaCli, 'drive'))
+      SB_TIENE_INA_DRIVE = true;
     try {
       const rCom = await sbSelect('com_manual').catch(() => null);
       if (Array.isArray(rCom)) { CS_COM = rCom.map(filaAComManual); saveComManual(); }
@@ -11674,7 +11805,7 @@ function aricAFilas(){
   return filas;
 }
 function aricUnaFila(c, l){
-  return {
+  const f = {
     id: l.id, submodulo: c.submodulo || 'canamo',
     cliente_nombre: c.nombre || '', cuit: c.cuit || '', clave: c.clave || '', drive: c.drive || '',
     cliente_id: c.clienteId || null,
@@ -11684,6 +11815,10 @@ function aricUnaFila(c, l){
     arancel: l.arancel || '', comprobante: l.comprobante || '', comprobante_path: l.comprobantePath || '',
     coment: l.coment || '', subs_detalle: l.subsDetalle || '', hist: l.hist || [], dj: l.dj || [], pagos: l.pagosAnuales || []
   };
+  // La documentación que venía de la etapa "Documentación pendiente" viaja con la
+  // licencia. Si la columna todavía no existe en la base, se omite y no rompe el upsert.
+  if (typeof SB_TIENE_ARIC_DOCS !== 'undefined' && SB_TIENE_ARIC_DOCS) f.docs = l.docs || {};
+  return f;
 }
 // Reconstruye el modelo agrupado por cliente a partir de filas planas
 function aricDeFilas(filas){
@@ -11717,7 +11852,8 @@ function aricDeFilas(filas){
       fechaSubsPedido:f.fecha_subs_pedido||'', arancel:f.arancel||'', comprobante:f.comprobante||'',
       comprobantePath:f.comprobante_path||'',
       coment:f.coment||'', subsDetalle:f.subs_detalle||'', hist:Array.isArray(f.hist)?f.hist:[], dj:Array.isArray(f.dj)?f.dj:[],
-      pagosAnuales:Array.isArray(f.pagos)?f.pagos:[]
+      pagosAnuales:Array.isArray(f.pagos)?f.pagos:[],
+      docs:(f.docs&&typeof f.docs==='object')?f.docs:{}
     });
   });
   return grupos.map(g=>g.ficha);
@@ -11927,7 +12063,17 @@ function cannabisConfirmarIniciar(){
     fechaAprob:'', fechaRechazo:'', fechaCancel:'', fechaSubsPedido:'',
     arancel:'', comprobante:'', comprobantePath:'', coment:'',
     hist:['Licencia iniciada '+new Date().toLocaleDateString('es-AR')+' — documentación completa'],
-    dj:[], pagosAnuales:[] };
+    dj:[], pagosAnuales:[], docs:{} };
+  // La documentación presentada se replica en la licencia: si no, al borrar la fila de
+  // cannabis_clientes se perdían las referencias a los archivos del bucket.
+  nueva.docs = JSON.parse(JSON.stringify(c.docs || {}));
+  const arancelDoc = nueva.docs['comprob_arancel'];
+  if (arancelDoc && arancelDoc.adjunto){
+    nueva.arancel = 'Pagó';
+    nueva.comprobante = arancelDoc.nombre || 'comprobante de arancel';
+    nueva.comprobantePath = arancelDoc.path || '';
+    nueva.comprobanteUrl = arancelDoc.url || '';
+  }
   c.licencias = c.licencias || [];
   c.licencias.push(nueva);
   // Ahora el cliente pasa a vivir en aric_licencias; sacamos su fila de cannabis_clientes
@@ -12426,7 +12572,7 @@ function aricPintarDrawer(){
   <option value="pago" ${aricNorm(l.arancel).includes('pag')?'selected':''}>Pagado</option>
   <option value="nc" ${aricNorm(l.arancel).includes('no corresponde')?'selected':''}>No corresponde</option></select></div>
   <div class="aric-fld full" id="aricWrapComprob" style="${aricNorm(l.arancel).includes('pag')?'':'display:none'}"><label>Comprobante de pago</label>
-  <div class="aric-comprob">${l.comprobante?`<span class="aric-comprob-ok">📎 ${aricEsc(l.comprobante)}</span> <button class="aric-btn-ghost" style="padding:4px 10px" onclick="aricQuitarComprob()">Quitar</button>`:`<input type="file" id="aeComprob" accept="image/*,application/pdf" onchange="aricOnComprob(this)">`}</div></div>
+  <div class="aric-comprob">${l.comprobante?`<button class="aric-btn-ghost aric-comp-b" onclick="aricVerComprob()">📎 ${aricEsc(l.comprobante)}</button> <button class="aric-btn-ghost" style="padding:4px 10px" onclick="aricQuitarComprob()">Quitar</button>`:`<input type="file" id="aeComprob" accept="image/*,application/pdf" onchange="aricOnComprob(this)">`}</div></div>
   </div></div>
   ${ARIC_VIEW==='canamo'?`<div class="aric-sec"><h4>Declaraciones juradas</h4>
   ${l.estado!=='aprobada'?'<div class="aric-djnabox">Todavía no corresponde presentar DJ: la licencia no está aprobada.</div>':''}
@@ -12435,6 +12581,7 @@ function aricPintarDrawer(){
   const et=d.presentada?'<span class="ok">✓ '+aricFdmy(d.fecha)+'</span>':(v==='vencida'?'<span class="pend">○ vencida</span>':v==='soon'?'<span class="soon">○ por vencer</span>':'<span style="color:var(--tinta-suave)">○ futura</span>');
   return `<div class="aric-djline"><span>${d.sem} ${d.anio}</span>${et}</div>`;}).join('')||'<span style="color:var(--tinta-suave);font-size:12px">Sin DJ registradas</span>'}</div>
   </div>`:''}
+  ${aricDocsSecHTML(l)}
   <div class="aric-sec"><h4>Historial</h4>
   <div class="aric-tl">${(l.hist||[]).map((h,hi)=>`<div class="aric-tlitem"><span class="aric-tltxt">${aricEsc(h)}</span><span class="aric-tlacc"><button class="aric-tlbtn" title="Editar" onclick="aricEditarNota(${hi})">✎</button><button class="aric-tlbtn aric-tlbtn-del" title="Borrar" onclick="aricBorrarNota(${hi})">✕</button></span></div>`).join('')||'<div class="aric-tlitem" style="color:var(--tinta-suave)">Sin entradas</div>'}</div>
   <div class="aric-tladd"><input id="aeNota" placeholder="Agregar entrada al historial..."><button class="aric-btn" style="padding:6px 12px" onclick="aricAddNota()">+</button></div></div>
@@ -12593,7 +12740,34 @@ let ARIC_WA_MSG='';
 function aricToggleComprob(){ const w=document.getElementById('aricWrapComprob'); if(w) w.style.display=document.getElementById('aeAr').value==='pago'?'':'none'; }
 function aricOnComprob(inp){ const f=inp.files&&inp.files[0]; if(!f) return;
   const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l._comprobFile=f; l._comprobPend=f.name; aricToast('Comprobante listo: '+f.name); }
-function aricQuitarComprob(){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.comprobante=''; l.comprobantePath=''; l._comprobPend=''; l._comprobFile=null; aricPintarDrawer(); }
+function aricQuitarComprob(){ const l=ARIC_EDIT.licencias[ARIC_EDITLIC]; l.comprobante=''; l.comprobantePath=''; l.comprobanteUrl=''; l._comprobPend=''; l._comprobFile=null; aricPintarDrawer(); }
+// Descarga del comprobante de arancel: antes solo se mostraba el nombre del archivo.
+function aricVerComprob(){
+  const l=ARIC_EDIT&&ARIC_EDIT.licencias[ARIC_EDITLIC]; if(!l) return;
+  if(!l.comprobantePath && !l.comprobanteUrl){ aricToast('El archivo no está en la nube: volvé a adjuntarlo'); return; }
+  sbAbrirArchivo({ path:l.comprobantePath, url:l.comprobanteUrl, nombre:l.comprobante }, { nombre:l.comprobante });
+}
+// Documentación que traía el cliente desde la etapa "Documentación pendiente"
+function aricDocLabel(k){ const d=(typeof CANNABIS_DOCS!=='undefined'?CANNABIS_DOCS:[]).find(x=>x.key===k); return d?d.label:k; }
+function aricDocsSecHTML(l){
+  const docs = l.docs || {};
+  const keys = Object.keys(docs).filter(k => docs[k] && docs[k].adjunto);
+  if(!keys.length) return '';
+  const filas = keys.map(k => {
+    const d = docs[k];
+    const puede = !!(d.path || d.url);
+    return `<div class="aric-doc-line"><span class="aric-doc-lbl">${aricEsc(aricDocLabel(k))}</span>
+      ${puede ? `<button class="aric-btn-ghost aric-comp-b" onclick="aricVerDocLic('${k}')">📎 ${aricEsc(d.nombre||'archivo')}</button>`
+              : `<span class="aric-stpend">${aricEsc(d.nombre||'sin archivo')}</span>`}</div>`;
+  }).join('');
+  return `<div class="aric-sec"><h4>Documentación presentada</h4><div class="aric-docs">${filas}</div></div>`;
+}
+function aricVerDocLic(key){
+  const l=ARIC_EDIT&&ARIC_EDIT.licencias[ARIC_EDITLIC]; if(!l||!l.docs) return;
+  const d=l.docs[key]; if(!d) return;
+  if(!d.path && !d.url){ aricToast('El archivo no está en la nube: volvé a adjuntarlo'); return; }
+  sbAbrirArchivo({ path:d.path, url:d.url, nombre:d.nombre }, { nombre:d.nombre });
+}
 
 async function aricGuardarDrawer(){
   const c=ARIC_EDIT, l=c.licencias[ARIC_EDITLIC];
@@ -12736,18 +12910,124 @@ function aricPagosHTML(){
   const filas=aricData().map(c=>{const l=c.licencias[0]; if(!l) return '';
     const pg=(l.pagosAnuales||[]).find(x=>x.anio===a);
     const est=pg?'<span class="aric-stok">✓ Pagado '+aricFdmy(pg.fecha)+'</span>':'<span class="aric-stpend">○ Pendiente</span>';
+    const comp = pg
+      ? ((pg.comprobantePath||pg.comprobanteUrl)
+          ? `<button class="aric-btn-ghost aric-comp-b" onclick="aricVerPagoAnual('${l.id}',${a})">📎 ${aricEsc(pg.comprobante||'comprobante')}</button>`
+          : `<span class="aric-stpend">sin comprobante</span>`)
+      : '—';
     return `<tr><td class="aric-td-cli" style="font-weight:600">${aricEsc(c.nombre)}</td><td class="aric-mono">${l.exp||'—'}</td>
-    <td>${est}</td><td>${pg?`<span class="aric-mono">📎 ${aricEsc(pg.comprobante||'—')}</span>`:`<span class="aric-lnk" onclick="aricMarcarPagoAnual('${l.id}',${a})">registrar →</span>`}</td></tr>`;}).join('');
+    <td>${est}</td><td>${comp}</td>
+    <td style="text-align:right"><span class="aric-lnk" onclick="aricAbrirPagoAnual('${l.id}',${a})">${pg?'editar':'registrar'} →</span></td></tr>`;}).join('');
   return `<div class="aric-pergrid">${cards}</div>
   <div class="aric-panel"><div class="aric-panelh"><h3>Pago anual ${a}</h3><span class="mini">ventana junio–julio</span></div>
-  <div style="overflow-x:auto"><table class="aric-tabla"><thead><tr><th>Cliente</th><th>Expediente</th><th>Estado</th><th>Comprobante</th></tr></thead>
-  <tbody>${filas||'<tr><td colspan=4 class=aric-empty>Sin licencias</td></tr>'}</tbody></table></div></div>`;
+  <div style="overflow-x:auto"><table class="aric-tabla"><thead><tr><th>Cliente</th><th>Expediente</th><th>Estado</th><th>Comprobante VEP</th><th style="width:92px"></th></tr></thead>
+  <tbody>${filas||'<tr><td colspan=5 class=aric-empty>Sin licencias</td></tr>'}</tbody></table></div></div>`;
 }
-function aricMarcarPagoAnual(lid,anio){
+// Registrar / editar el pago anual del VEP. Antes tomaba la fecha del día y escribía
+// un nombre de archivo inventado, sin dejar adjuntar nada ni corregirlo después.
+var ARIC_PAGO_CTX = null;   // { lid, anio }
+var ARIC_PAGO_FILE = null;  // archivo elegido, todavía sin subir
+
+function aricPagoDe(l, anio){ return (l.pagosAnuales||[]).find(x => +x.anio === +anio) || null; }
+// "1.250.000" → 1250000 (el input usa abonoFmtInput)
+function aricNumDe(txt){ const n=parseFloat(String(txt||'').replace(/\./g,'').replace(',','.')); return isFinite(n)?n:0; }
+
+function aricAbrirPagoAnual(lid, anio){
+  const r = aricBuscarLic(lid); if(!r) return;
+  ARIC_PAGO_CTX = { lid, anio }; ARIC_PAGO_FILE = null;
+  const pg = aricPagoDe(r.l, anio) || {};
+  const hayComp = !!(pg.comprobantePath || pg.comprobanteUrl);
+  let ov = document.getElementById('aricPagoOv');
+  if(!ov){
+    ov = document.createElement('div'); ov.id='aricPagoOv'; ov.className='crm-modal-ov';
+    ov.addEventListener('click', e => { if(e.target===ov) aricCerrarPagoAnual(); });
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = `<div class="abo-reg-card" style="width:520px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${aricEsc(r.c.nombre)}</div>
+      <div class="abo-reg-sub">Pago anual ${anio} · VEP</div></div>
+      <button class="abo-reg-x" onclick="aricCerrarPagoAnual()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-row">
+        <div class="f-col"><label>Fecha del pago</label>
+          <input type="date" id="apFecha" value="${pg.fecha||''}"></div>
+        <div class="f-col" style="flex:0 0 180px"><label>Importe <span class="crm-hint-min">opcional</span></label>
+          <input type="text" inputmode="numeric" id="apMonto" oninput="abonoFmtInput(this)" value="${pg.monto?fmtNumStr(pg.monto):''}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px"><div class="f-col">
+        <label>Comprobante del VEP</label>
+        ${hayComp
+          ? `<div class="aric-comprob"><button class="aric-btn-ghost aric-comp-b" onclick="aricVerPagoAnual('${lid}',${anio})">📎 ${aricEsc(pg.comprobante||'comprobante')}</button>
+             <button class="aric-btn-ghost" style="padding:4px 10px" onclick="aricQuitarCompPago()">Reemplazar</button></div>`
+          : `<input type="file" id="apArch" accept="image/*,application/pdf" onchange="aricOnCompPago(this)">`}
+      </div></div>
+      <div class="f-row" style="margin-top:10px"><div class="f-col"><label>Observación <span class="crm-hint-min">opcional</span></label>
+        <input type="text" id="apObs" value="${aricEsc(pg.obs||'')}" placeholder="Ej: lo pagó el cliente"></div></div>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      ${aricPagoDe(r.l,anio) ? `<button class="abo-reg-cancel" style="color:var(--mal,#b3372a)" onclick="aricBorrarPagoAnual()">Eliminar pago</button>` : ''}
+      <button class="abo-reg-cancel" onclick="aricCerrarPagoAnual()">Cancelar</button>
+      <button class="abo-reg" onclick="aricGuardarPagoAnual()">Guardar</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display='flex';
+  setTimeout(()=>{ const f=document.getElementById('apFecha'); if(f) f.focus(); }, 50);
+}
+function aricCerrarPagoAnual(){ const ov=document.getElementById('aricPagoOv');
+  if(ov){ ov.classList.remove('on'); ov.style.display='none'; } ARIC_PAGO_CTX=null; ARIC_PAGO_FILE=null; }
+function aricOnCompPago(inp){ const f=inp.files&&inp.files[0]; if(!f) return;
+  ARIC_PAGO_FILE=f; aricToast('Comprobante listo: '+f.name); }
+function aricQuitarCompPago(){
+  if(!ARIC_PAGO_CTX) return;
+  const ctx=ARIC_PAGO_CTX;
+  const r=aricBuscarLic(ctx.lid); if(!r) return;
+  const pg=aricPagoDe(r.l, ctx.anio); if(!pg) return;
+  pg.comprobante=''; pg.comprobantePath=''; pg.comprobanteUrl='';
+  saveAricLocal(); sbPushAric(r.c,r.l);
+  aricAbrirPagoAnual(ctx.lid, ctx.anio);
+}
+async function aricGuardarPagoAnual(){
+  if(!ARIC_PAGO_CTX) return;
+  const lid=ARIC_PAGO_CTX.lid, anio=ARIC_PAGO_CTX.anio;
   const r=aricBuscarLic(lid); if(!r) return;
-  const f=new Date().toISOString().slice(0,10);
-  r.l.pagosAnuales=r.l.pagosAnuales||[]; r.l.pagosAnuales.push({anio,fecha:f,comprobante:'comprobante_'+anio+'.pdf'});
-  saveAricLocal(); sbPushAric(r.c,r.l); renderAric(); aricToast('Pago anual '+anio+' registrado');
+  const fecha=(document.getElementById('apFecha')||{}).value||'';
+  if(!fecha){ aricToast('Cargá la fecha del pago'); return; }
+  const monto=aricNumDe((document.getElementById('apMonto')||{}).value||'');
+  const obs=((document.getElementById('apObs')||{}).value||'').trim();
+  r.l.pagosAnuales = r.l.pagosAnuales || [];
+  let pg = aricPagoDe(r.l, anio);
+  if(!pg){ pg={ anio:+anio, fecha:'', comprobante:'', comprobantePath:'' }; r.l.pagosAnuales.push(pg); }
+  pg.fecha=fecha; pg.monto=monto||''; pg.obs=obs;
+  if(ARIC_PAGO_FILE){
+    try{
+      const nombre='aric-pago-'+r.l.id+'-'+anio+'-'+Date.now()+'-'+ARIC_PAGO_FILE.name.replace(/[^\w.\-]/g,'_');
+      const path=await sbUploadFile('aric', nombre, ARIC_PAGO_FILE);
+      pg.comprobantePath=path; pg.comprobante=ARIC_PAGO_FILE.name;
+      pg.comprobanteUrl=(typeof sbPubUrl==='function')?sbPubUrl(path):'';
+    }catch(e){ sbAvisarError(e); }
+    ARIC_PAGO_FILE=null;
+  }
+  r.l.pagosAnuales.sort((x,y)=>(+x.anio)-(+y.anio));
+  saveAricLocal(); sbPushAric(r.c,r.l);
+  aricCerrarPagoAnual(); renderAric(); aricToast('Pago anual '+anio+' guardado');
+}
+function aricBorrarPagoAnual(){
+  if(!ARIC_PAGO_CTX) return;
+  const lid=ARIC_PAGO_CTX.lid, anio=ARIC_PAGO_CTX.anio;
+  const r=aricBuscarLic(lid); if(!r) return;
+  if(!confirm('¿Borrar el pago anual '+anio+'?')) return;
+  r.l.pagosAnuales=(r.l.pagosAnuales||[]).filter(x=>+x.anio!==+anio);
+  saveAricLocal(); sbPushAric(r.c,r.l);
+  aricCerrarPagoAnual(); renderAric(); aricToast('Pago eliminado');
+}
+function aricVerPagoAnual(lid, anio){
+  const r=aricBuscarLic(lid); if(!r) return;
+  const pg=aricPagoDe(r.l, anio); if(!pg) return;
+  if(!pg.comprobantePath && !pg.comprobanteUrl){ aricToast('Ese pago no tiene comprobante adjunto'); return; }
+  sbAbrirArchivo({ path:pg.comprobantePath, url:pg.comprobanteUrl, nombre:pg.comprobante },
+                 { nombre: pg.comprobante || ('VEP-'+anio) });
 }
 
 // ═══ MODAL NUEVA LICENCIA (con match CRM) ═══
@@ -19678,7 +19958,658 @@ function inaseTagClase(v){
   if (/PENDIENTE|TRÁMITE|TRAMITE|PRIMERA VEZ|PRESENTAD/.test(t)) return 'warn';
   return '';
 }
+// ══════════════ INASE · padrón de clientes ══════════════
+// Padrón propio, sin mezclar con el CRM general. Una ficha por persona con sus
+// datos de contacto, credenciales de INASE y el historial de servicios con el año.
+let INA_CLI = [], INA_TRA = [];
+let INASE_VISTA = 'tramites', INA_Q = '', INA_FICHA = null;
+const INA_TIPOS = ['Renovación anual','Alta / inscripción','Cambio de ingeniero','Agrega predio','Traslado de predio'];
+const INA_CATS = ['A','B','C','D','E','F','G','H'];
+// Un cliente puede tener varias categorías a la vez: se guardan separadas por coma
+function inaCats(v){
+  if (Array.isArray(v)) return v.filter(Boolean);
+  return String(v || '').split(/[,\s/]+/).map(x => x.trim().toUpperCase()).filter(x => INA_CATS.includes(x));
+}
+function inaCatsTxt(v){ return inaCats(v).join(', '); }
+const INA_CLI_KEY = 'jc-inase-cli-v1', INA_TRA_KEY = 'jc-inase-tra-v1';
+
+function loadInaseCli(){
+  if (typeof appBloqueada === 'function' && appBloqueada()){ INA_CLI = []; INA_TRA = []; return; }
+  try { INA_CLI = JSON.parse(appStore.getItem(INA_CLI_KEY) || '[]'); } catch(e){ INA_CLI = []; }
+  try { INA_TRA = JSON.parse(appStore.getItem(INA_TRA_KEY) || '[]'); } catch(e){ INA_TRA = []; }
+}
+function saveInaseCli(){ try { appStore.setItem(INA_CLI_KEY, JSON.stringify(INA_CLI)); } catch(e){} }
+function saveInaseTra(){ try { appStore.setItem(INA_TRA_KEY, JSON.stringify(INA_TRA)); } catch(e){} }
+function inaCliFila(c){
+  const f = { id:Number(c.id), nombre:c.nombre||'', telefono:c.telefono||null, mail:c.mail||null,
+           usuario:c.usuario||null, password:c.password||null, categoria:c.categoria||null,
+           personeria:c.personeria||null, alias:c.alias||null, notas:c.notas||null,
+           servicios: Array.isArray(c.servicios) ? c.servicios : [] };
+  if (typeof SB_TIENE_INA_DRIVE !== 'undefined' && SB_TIENE_INA_DRIVE) f.drive = c.drive || null;
+  return f;
+}
+function inaTraFila(t){
+  return { id:Number(t.id), cliente_id:t.clienteId ?? null, cliente:t.cliente||'', tipo:t.tipo||'',
+           periodo:t.periodo||null, categoria:t.categoria||null, hon_estado:t.honEstado||null,
+           hon_monto:t.honMonto ?? null, vep_estado:t.vepEstado||null, vep_monto:t.vepMonto ?? null,
+           hon_moneda:t.honMoneda||'ARS', vep_moneda:t.vepMoneda||'ARS', ing_moneda:t.ingMoneda||'ARS',
+           ing_estado:t.ingEstado||null, ing_monto:t.ingMonto ?? null,
+           mail_enviado: !!t.mailEnviado, ult_contacto:t.ultContacto||null, estado:t.estado||null,
+           obs:t.obs||null, adj_path:t.adjPath||null,
+           adj_hon:t.adjHon||null, adj_vep:t.adjVep||null, adj_ing:t.adjIng||null, fecha:t.fecha||null };
+}
+function filaAInaCli(f){
+  return { id:Number(f.id), nombre:f.nombre||'', telefono:f.telefono||'', mail:f.mail||'',
+           usuario:f.usuario||'', password:f.password||'', categoria:f.categoria||'',
+           personeria:f.personeria||'', alias:f.alias||'', notas:f.notas||'', drive:f.drive||'',
+           servicios: Array.isArray(f.servicios) ? f.servicios : [] };
+}
+
+// ── Carpeta de Drive del cliente ──
+// El campo propio manda; si está vacío, se busca el link dentro de los datos migrados
+// (quedó pegado en notas, otros nombres o mail según la hoja del Excel de origen).
+const INA_DRIVE_RX = /https?:\/\/(?:drive|docs)\.google\.com\/[^\s,;"'<>)\]]+/i;
+function inaDriveDe(c){
+  if (!c) return '';
+  if (c.drive && INA_DRIVE_RX.test(c.drive)) return c.drive.match(INA_DRIVE_RX)[0];
+  if (c.drive) return c.drive;
+  const campos = [c.notas, c.alias, c.mail, c.telefono, c.usuario, c.password];
+  for (const t of campos){
+    const m = String(t||'').match(INA_DRIVE_RX);
+    if (m) return m[0];
+  }
+  const s = (c.servicios||[]).map(x=>x&&x.detalle).join(' ');
+  const m2 = s.match(INA_DRIVE_RX);
+  return m2 ? m2[0] : '';
+}
+function inaAbrirDrive(id){
+  const c = inaCliPorId(id); const u = inaDriveDe(c);
+  if (!u){ try{ aricToast('Este cliente no tiene carpeta de Drive cargada'); }catch(e){} return; }
+  window.open(u, '_blank', 'noopener');
+}
+function filaAInaTra(f){
+  return { id:Number(f.id), clienteId:f.cliente_id ?? null, cliente:f.cliente||'', tipo:f.tipo||'',
+           periodo:f.periodo||'', categoria:f.categoria||'', honEstado:f.hon_estado||'',
+           honMonto:f.hon_monto ?? '', vepEstado:f.vep_estado||'', vepMonto:f.vep_monto ?? '',
+           honMoneda:f.hon_moneda||'ARS', vepMoneda:f.vep_moneda||'ARS', ingMoneda:f.ing_moneda||'ARS',
+           ingEstado:f.ing_estado||'', ingMonto:f.ing_monto ?? '',
+           mailEnviado: !!f.mail_enviado, ultContacto:f.ult_contacto||'', estado:f.estado||'',
+           obs:f.obs||'', adjPath:f.adj_path||'',
+           adjHon:f.adj_hon||'', adjVep:f.adj_vep||'', adjIng:f.adj_ing||'', fecha:f.fecha||'' };
+}
+function sbPushInaCli(c){ if (SB_ON) sbUpsert('inase_clientes', inaCliFila(c)).catch(sbAvisarError); }
+function sbPushInaTra(t){ if (SB_ON) sbUpsert('inase_tramites', inaTraFila(t)).catch(sbAvisarError); }
+function inaseIrVista(v){ INASE_VISTA = v; INA_FICHA = null; renderInase(); }
+function inaBuscar(q){ INA_Q = q || ''; __paginas['inase'] = 0; renderInaseClientes(); }
+function inaCliPorId(id){ return INA_CLI.find(c => String(c.id) === String(id)); }
+function inaNuevoId(){ return Date.now(); }
+
 function renderInase(){
+  const tabs = document.getElementById('inaseTabs');
+  if (tabs) tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.inv === INASE_VISTA));
+  const viejo = document.getElementById('inaseSubtabs');
+  if (viejo) viejo.style.display = INASE_VISTA === 'legacy' ? '' : 'none';
+  if (INASE_VISTA === 'clientes') return renderInaseClientes();
+  if (INASE_VISTA === 'tramites') return renderInaseTramites();
+  return renderInaseLegacy();
+}
+// ── Listado de clientes + ficha ──
+function inaFiltrados(){
+  const q = __normBusqueda(INA_Q).trim();
+  let l = INA_CLI.slice();
+  if (q) l = l.filter(c =>
+    __normBusqueda(c.nombre).includes(q) || __normBusqueda(c.alias||'').includes(q) ||
+    __normBusqueda(c.usuario||'').includes(q) || (c.telefono||'').includes(q));
+  return l.sort((a,b) => (a.nombre||'').toUpperCase().localeCompare((b.nombre||'').toUpperCase()));
+}
+function renderInaseClientes(){
+  const cont = document.getElementById('inasePanel');
+  if (!cont) return;
+  if (!INA_CLI.length) loadInaseCli();
+  const l = inaFiltrados();
+  const mini = document.getElementById('inaseMini');
+  if (mini) mini.textContent = INA_CLI.length + ' cliente' + (INA_CLI.length !== 1 ? 's' : '') + ' en el padrón';
+  // De a una página por vez, como el CRM: no tiene sentido pintar 150 fichas juntas
+  const { slice, controles } = paginar('inase', l, 'renderInaseClientes');
+  const fila = c => {
+    const s = (c.servicios||[]).slice().sort((a,b)=> (b.anio||0)-(a.anio||0));
+    const ult = s[0];
+    const cats = inaCats(c.categoria);
+    const tram = INA_TRA.filter(t => String(t.clienteId) === String(c.id)).length;
+    return `<div class="crm-row" onclick="inaVerFicha(${c.id})">
+      <div class="crm-main">
+        <div class="crm-nombre"><span class="crm-ent">${esc(c.nombre)}</span>
+          ${cats.map(x => `<span class="tag ac">Cat. ${x}</span>`).join('')}
+          ${c.personeria ? `<span class="tag-enc">${esc(c.personeria)}</span>` : ''}
+        </div>
+        <div class="crm-sub">
+          ${c.telefono ? `<span>${esc(c.telefono)}</span>` : ''}
+          ${c.mail ? `<span>${esc(c.mail)}</span>` : ''}
+          ${c.usuario ? `<span>Usuario ${esc(c.usuario)}</span>` : '<span class="ina-falta">sin usuario cargado</span>'}
+        </div>
+        ${c.alias ? `<div class="crm-nota">También figura como ${esc(c.alias)}</div>` : ''}
+      </div>
+      <div class="crm-right">
+        <div class="ult">${s.length ? s.length + ' servicio' + (s.length!==1?'s':'') : 'sin servicios'}</div>
+        ${ult ? `<div class="ina-ult">Último: ${esc(ult.tipo)}${ult.anio ? ' · ' + ult.anio : ''}</div>` : ''}
+        ${tram ? `<div class="ina-ult">${tram} trámite${tram!==1?'s':''} cargado${tram!==1?'s':''}</div>` : ''}
+      </div>
+    </div>`;
+  };
+  cont.innerHTML = `
+    <div class="ina-barra">
+      <input type="text" class="abo-buscar-input" id="inaBuscaCli" placeholder="Buscar por nombre, usuario o teléfono..." value="${esc(INA_Q)}" oninput="inaBuscar(this.value)">
+      <button class="abo-nuevo-btn" onclick="inaEditarCliente(null)">+ Nuevo cliente</button>
+    </div>
+    <div class="ina-cuenta">${l.length} de ${INA_CLI.length} clientes</div>
+    <div class="crm-lista">
+      ${slice.map(fila).join('') || '<div class="panel-empty">No hay clientes que coincidan.</div>'}
+    </div>
+    ${controles}`;
+  inaFocoBusqueda('inaBuscaCli');
+}
+// La ficha se abre en una ventana, igual que en el CRM: no se pierde el listado
+// Al repintar el panel el input se reemplaza y el cursor se va: se devuelve el
+// foco y la posición para poder escribir de corrido.
+function inaFocoBusqueda(id){
+  const el = document.getElementById(id);
+  if (!el || !INA_Q) return;
+  el.focus();
+  try { el.setSelectionRange(el.value.length, el.value.length); } catch(e){}
+}
+function inaVerFicha(id){
+  const c = inaCliPorId(id); if (!c) return;
+  let ov = document.getElementById('inaFichaOv');
+  if (!ov){
+    ov = document.createElement('div'); ov.id = 'inaFichaOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) inaCerrarFicha(); });
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = renderInaseFicha(c);
+  ov.classList.add('on'); ov.style.display = 'flex';
+  ov.dataset.cliId = id;
+}
+function inaCerrarFicha(){
+  const ov = document.getElementById('inaFichaOv');
+  if (ov){ ov.classList.remove('on'); ov.style.display = 'none'; }
+}
+// Escape cierra lo que esté abierto en INASE, de arriba hacia abajo.
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const visible = id => { const el = document.getElementById(id);
+    return !!el && !!el.style.display && el.style.display !== 'none'; };
+  if (visible('inaTraOv')) { inaCerrarTra(); return; }
+  if (visible('inaCliOv')) { inaCerrarCli(); return; }
+  if (visible('inaFichaOv')) { inaCerrarFicha(); return; }
+});
+function inaRefrescarFicha(){
+  const ov = document.getElementById('inaFichaOv');
+  if (ov && ov.style.display !== 'none' && ov.dataset.cliId){
+    const c = inaCliPorId(ov.dataset.cliId);
+    if (c) ov.innerHTML = renderInaseFicha(c);
+  }
+}
+function renderInaseFicha(c){
+  if (!c) return '';
+  const s = (c.servicios||[]).slice().sort((a,b)=> (a.anio||0)-(b.anio||0));
+  const tr = INA_TRA.filter(t => String(t.clienteId) === String(c.id))
+                    .sort((a,b)=> (b.fecha||'').localeCompare(a.fecha||''));
+  const dato = (l,v,extra='') => `<div class="crm-dato"><span>${l}</span><b>${v ? esc(v) : '—'}${extra}</b></div>`;
+  return `<div class="abo-reg-card" style="width:720px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${esc(c.nombre)}</div>
+        <div class="abo-reg-sub">${inaCats(c.categoria).map(x=>'Cat. '+x).join(' · ') || 'Sin categoría'}${c.personeria ? ' · ' + esc(c.personeria) : ''}</div></div>
+      <button class="abo-reg-x" onclick="inaCerrarFicha()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+    <div class="panel">
+      <div class="panel-h"><h3>Ficha</h3>
+        <span class="mini"><button class="cs-edit-b" onclick="inaEditarCliente(${c.id})" title="Editar">✎ Editar</button></span></div>
+      <div style="padding:14px 16px">
+        <div class="crm-datos">
+          ${dato('Teléfono', c.telefono)}
+          ${dato('Mail', c.mail)}
+          ${dato('Categorías', inaCatsTxt(c.categoria))}
+          ${dato('Personería', c.personeria)}
+          ${dato('Usuario INASE', c.usuario)}
+          <div class="crm-dato"><span>Contraseña</span><b>${c.password
+            ? `<span class="ina-pass" id="inaPass">••••••••</span> <button class="ina-ojo" onclick="inaVerPass(${c.id})">ver</button>`
+            : '—'}</b></div>
+          ${c.alias ? dato('Otros nombres', c.alias) : ''}
+          <div class="crm-dato"><span>Carpeta de Drive</span><b>${inaDriveDe(c)
+            ? `<button class="ina-drive-b" onclick="inaAbrirDrive(${c.id})">📁 Abrir carpeta</button>`
+            : '—'}</b></div>
+        </div>
+        ${c.notas ? `<div class="ina-notas">${esc(c.notas)}</div>` : ''}
+      </div>
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <div class="panel-h"><h3>Servicios contratados</h3><span class="mini">${s.length}</span></div>
+      <div style="padding:12px 16px">
+        ${s.length ? `<div style="overflow-x:auto"><table class="tabla-caja">
+          <thead><tr><th>Servicio</th><th style="width:80px">Año</th><th>Detalle</th><th>Estado</th></tr></thead>
+          <tbody>${s.map(x => `<tr><td><b>${esc(x.tipo)}</b></td><td>${x.anio || '—'}</td>
+            <td>${esc(x.detalle || '')}</td><td>${esc(x.estado || '')}</td></tr>`).join('')}</tbody></table></div>`
+          : '<div class="panel-empty">Sin servicios registrados.</div>'}
+      </div>
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <div class="panel-h"><h3>Trámites cargados</h3>
+        <span class="mini"><button class="abo-nuevo-btn" style="padding:5px 12px;font-size:12px" onclick="inaEditarTramite(null, ${c.id})">+ Nuevo trámite</button></span></div>
+      <div style="padding:12px 16px">
+        ${tr.length ? inaTablaTramites(tr, false) : '<div class="panel-empty">Todavía no se le cargó ningún trámite.</div>'}
+      </div>
+    </div>
+    </div>
+  </div>`;
+}
+function inaVerPass(id){
+  const c = inaCliPorId(id); const el = document.getElementById('inaPass');
+  if (!c || !el) return;
+  const oculto = el.textContent.indexOf('•') === 0;
+  el.textContent = oculto ? c.password : '••••••••';
+  el.nextElementSibling.textContent = oculto ? 'ocultar' : 'ver';
+}
+// ── Trámites ──  campos calcados de la hoja "RENOVACIÓN ABRIL 2026 RES 121/2026"
+const INA_EST_PAGO = ['', 'Pagó', 'Debe', 'Parcial', 'No corresponde'];
+const INA_ESTADOS = ['', 'Pendiente', 'En trámite', 'Esperando VEP', 'Esperando respuesta', 'Finalizado', 'No renueva'];
+function inaEstClase(e){
+  const s = (e||'').toLowerCase();
+  if (s.indexOf('finaliz') === 0) return 'ok';
+  if (s.indexOf('no renueva') === 0) return 'no';
+  if (s.indexOf('esperando') === 0) return 'esp';
+  return 'pend';
+}
+function inaTablaTramites(lista, conCliente){
+  const chip = (v) => v ? `<span class="ina-pago ${v==='Pagó'?'ok':(v==='Debe'?'no':'med')}">${esc(v)}</span>` : '—';
+  return `<div style="overflow-x:auto"><table class="tabla-caja">
+    <thead><tr>
+      ${conCliente ? '<th>Cliente</th>' : ''}
+      <th>Trámite</th><th style="width:110px">Período</th><th style="width:60px">Cat.</th>
+      <th style="width:100px">Honorarios</th><th style="width:90px">VEP</th><th style="width:90px">Ingeniero</th>
+      <th style="width:100px">Ú. contacto</th>
+      <th>Estado</th><th style="width:110px">Comprobantes</th><th style="width:70px"></th>
+    </tr></thead><tbody>
+    ${lista.map(t => `<tr>
+      ${conCliente ? `<td><b>${esc(t.cliente || '')}</b></td>` : ''}
+      <td>${esc(t.tipo)}</td>
+      <td>${esc(t.periodo || '—')}</td>
+      <td>${inaCats(t.categoria).map(x => `<span class="ina-cat-mini">${x}</span>`).join('') || '—'}</td>
+      <td>${chip(t.honEstado)}${t.honMonto ? `<small class="ina-mto">${t.honMoneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(t.honMonto)}</small>` : ''}</td>
+      <td>${chip(t.vepEstado)}${t.vepMonto ? `<small class="ina-mto">${t.vepMoneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(t.vepMonto)}</small>` : ''}</td>
+      <td>${chip(t.ingEstado)}${t.ingMonto ? `<small class="ina-mto">${t.ingMoneda === 'USD' ? 'u$s ' : '$ '}${fmtNumStr(t.ingMonto)}</small>` : ''}</td>
+      <td>${t.ultContacto ? formatFechaCorta(t.ultContacto) : '—'}</td>
+      <td><span class="ina-est ${inaEstClase(t.estado)}">${esc(t.estado || 'Pendiente')}</span>
+        ${t.obs ? `<small class="ina-obs2">${esc(t.obs)}</small>` : ''}</td>
+      <td>${[['adjHon','Hon'],['adjVep','VEP'],['adjIng','Ing'],['adjPath','Doc']]
+        .filter(([k]) => t[k]).map(([k,lbl]) => `<button class="ina-adj" onclick="inaVerAdj('${esc(t[k])}')" title="Ver comprobante de ${lbl}">${lbl}</button>`).join('') || '—'}</td>
+      <td style="white-space:nowrap"><button class="cs-edit-b" onclick="inaEditarTramite(${t.id})" title="Editar">✎</button><button class="tarea-del" onclick="inaBorrarTramite(${t.id})" title="Eliminar">✕</button></td>
+    </tr>`).join('')}
+    </tbody></table></div>`;
+}
+function renderInaseTramites(){
+  const cont = document.getElementById('inasePanel');
+  if (!cont) return;
+  if (!INA_CLI.length) loadInaseCli();
+  const q = __normBusqueda(INA_Q).trim();
+  let l = INA_TRA.slice().sort((a,b)=> (b.fecha||'').localeCompare(a.fecha||''));
+  if (q) l = l.filter(t => __normBusqueda(t.cliente||'').includes(q) || __normBusqueda(t.tipo||'').includes(q)
+                        || __normBusqueda(t.periodo||'').includes(q));
+  const mini = document.getElementById('inaseMini');
+  if (mini) mini.textContent = INA_TRA.length + ' trámite' + (INA_TRA.length !== 1 ? 's' : '') + ' cargado' + (INA_TRA.length !== 1 ? 's' : '');
+  const porEstado = {};
+  INA_TRA.forEach(t => { const e = t.estado || 'Pendiente'; porEstado[e] = (porEstado[e]||0)+1; });
+  cont.innerHTML = `
+    <div class="ina-barra">
+      <input type="text" class="abo-buscar-input" id="inaBuscaTra" placeholder="Buscar por cliente, trámite o período..." value="${esc(INA_Q)}" oninput="INA_Q=this.value;renderInaseTramites()">
+      <button class="abo-nuevo-btn" onclick="inaEditarTramite(null)">+ Nuevo trámite</button>
+    </div>
+    ${Object.keys(porEstado).length ? `<div class="ina-resumen">${Object.entries(porEstado)
+      .map(([e,n]) => `<span class="ina-est ${inaEstClase(e)}">${esc(e)} <b>${n}</b></span>`).join('')}</div>` : ''}
+    <div class="panel lista-amplia" style="margin-top:14px">
+      <div class="panel-h"><h3>Trámites y renovaciones</h3><span class="mini">${l.length} de ${INA_TRA.length}</span></div>
+      <div style="padding:12px 16px">
+        ${l.length ? inaTablaTramites(l, true) : '<div class="panel-empty">Todavía no hay trámites cargados.</div>'}
+      </div>
+    </div>`;
+  inaFocoBusqueda('inaBuscaTra');
+}
+function inaVerAdj(path){
+  // sbUrlFirmada espera la ruta completa, con el bucket adelante
+  const p = String(path||'').indexOf('/') > 0 ? path : 'inase/' + path;
+  if (typeof sbUrlFirmada === 'function') sbUrlFirmada(p).then(u => u ? window.open(u,'_blank') : aricToast('No se pudo abrir el comprobante'));
+}
+
+// ── Alta y edición de trámites ──
+function inaEditarTramite(id, cliId){
+  const t = id != null ? INA_TRA.find(x => x.id === id) : null;
+  const nuevo = !t;
+  const cli = t ? inaCliPorId(t.clienteId) : (cliId != null ? inaCliPorId(cliId) : null);
+  const v = k => t ? esc(t[k] ?? '') : '';
+  let ov = document.getElementById('inaTraOv');
+  if (!ov){
+    ov = document.createElement('div'); ov.id = 'inaTraOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) inaCerrarTra(); });
+    document.body.appendChild(ov);
+  }
+  const opts = (arr, sel) => arr.map(x => `<option ${String(sel||'')===x?'selected':''}>${x}</option>`).join('');
+  const clientes = INA_CLI.slice().sort((a,b)=>(a.nombre||'').localeCompare(b.nombre||''));
+  ov.innerHTML = `<div class="abo-reg-card ina-card-ancha">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${nuevo ? 'Nuevo trámite' : esc(t.tipo)}</div>
+        <div class="abo-reg-sub">${cli ? esc(cli.nombre) : 'INASE'}</div></div>
+      <button class="abo-reg-x" onclick="inaCerrarTra()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-row">
+        <div class="f-col"><label>Cliente *</label>
+          <div class="ina-busca-cli">
+            <input type="text" id="itBusca" placeholder="Escribí para buscar en el padrón..." autocomplete="off"
+                   oninput="inaSugCli(this.value)" onfocus="inaSugCli(this.value)">
+            <input type="hidden" id="itCli" value="${String((t&&t.clienteId)||cliId||'')}">
+            <div class="ina-sug" id="itSug" style="display:none"></div>
+          </div>
+          <div class="ina-cli-elegido" id="itCliNom">${(() => {
+            const el = inaCliPorId((t&&t.clienteId)||cliId);
+            return el ? `<b>${esc(el.nombre)}</b> <button class="ina-ojo" onclick="inaQuitarCli()">cambiar</button>` : '';
+          })()}</div>
+          <label class="ina-chk" id="itChkNuevo">
+            <input type="checkbox" onchange="inaNuevoClienteEnTramite(this.checked)">
+            <span><b>Es un cliente nuevo</b><small>Se crea la ficha con lo que cargues acá abajo</small></span>
+          </label>
+        </div>
+        <div class="f-col" style="flex:0 0 200px"><label>Tipo de trámite *</label>
+          <select id="itTipo">${opts(INA_TIPOS, t && t.tipo)}</select></div>
+      </div>
+      <div id="itNuevoCli" style="display:none">
+        <div class="cs-grupo" style="margin-top:12px"><span class="cs-grupo-t">Datos del cliente nuevo</span></div>
+        <div class="f-row">
+          <div class="f-col"><label>Nombre o razón social *</label><input type="text" id="itnNombre"></div>
+          <div class="f-col" style="flex:0 0 170px"><label>Teléfono <span class="crm-hint-min">opcional</span></label><input type="text" id="itnTel"></div>
+        </div>
+        <div class="f-row" style="margin-top:10px">
+          <div class="f-col"><label>Mail <span class="crm-hint-min">opcional</span></label><input type="text" id="itnMail"></div>
+          <div class="f-col" style="flex:0 0 160px"><label>Usuario <span class="crm-hint-min">opcional</span></label><input type="text" id="itnUsu"></div>
+          <div class="f-col" style="flex:0 0 160px"><label>Contraseña <span class="crm-hint-min">opcional</span></label><input type="text" id="itnPass"></div>
+        </div>
+        <div class="f-row" style="margin-top:10px">
+          <div class="f-col"><label>Categorías</label>
+            <div class="ina-cats" id="itnCats">${INA_CATS.map(x =>
+              `<label class="ina-cat-op"><input type="checkbox" value="${x}"
+                 onchange="this.parentNode.classList.toggle('on', this.checked)"> ${x}</label>`).join('')}</div></div>
+          <div class="f-col" style="flex:0 0 190px"><label>Personería</label>
+            <select id="itnPers"><option></option><option>Persona humana</option><option>Persona jurídica</option></select></div>
+        </div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 200px"><label>Período o resolución</label>
+          <input type="text" id="itPeriodo" value="${v('periodo')}" placeholder="Ej: Abril 2026 · Res. 121/2026"></div>
+        <div class="f-col"><label>Categorías del trámite <span class="crm-hint-min">puede ser más de una</span></label>
+          <div class="ina-cats" id="itCats">${INA_CATS.map(x =>
+            `<label class="ina-cat-op${inaCats(t&&t.categoria).includes(x)?' on':''}">
+               <input type="checkbox" value="${x}" ${inaCats(t&&t.categoria).includes(x)?'checked':''}
+                 onchange="this.parentNode.classList.toggle('on', this.checked)"> ${x}</label>`).join('')}</div></div>
+        <div class="f-col" style="flex:0 0 150px"><label>Fecha del trámite</label>
+          <input type="date" id="itFecha" value="${t && t.fecha ? esc(t.fecha) : hoyISO()}"></div>
+      </div>
+      <div class="cs-grupo" style="margin-top:14px"><span class="cs-grupo-t">Pagos</span></div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 150px"><label>Honorarios estudio</label>
+          <select id="itHon">${opts(INA_EST_PAGO, t && t.honEstado)}</select></div>
+        <div class="f-col" style="flex:0 0 130px"><label>Monto</label>
+          <input type="text" inputmode="numeric" id="itHonM" oninput="abonoFmtInput(this)" value="${t && t.honMonto ? fmtNumStr(t.honMonto) : ''}"></div>
+        <div class="f-col" style="flex:0 0 110px"><label>Moneda</label>
+          <select id="itHonMon">
+            <option value="ARS" ${!t || t.honMoneda !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${t && t.honMoneda === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>Comprobante honorarios</label>
+          <input type="file" id="itAdjHon" class="ina-file" accept="image/*,application/pdf">
+          ${t && t.adjHon ? `<button class="mini-btn" onclick="inaVerAdj('${esc(t.adjHon)}')">ver el cargado</button>` : ''}</div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 150px"><label>VEP</label>
+          <select id="itVep">${opts(INA_EST_PAGO, t && t.vepEstado)}</select></div>
+        <div class="f-col" style="flex:0 0 130px"><label>Monto</label>
+          <input type="text" inputmode="numeric" id="itVepM" oninput="abonoFmtInput(this)" value="${t && t.vepMonto ? fmtNumStr(t.vepMonto) : ''}"></div>
+        <div class="f-col" style="flex:0 0 110px"><label>Moneda</label>
+          <select id="itVepMon">
+            <option value="ARS" ${!t || t.vepMoneda !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${t && t.vepMoneda === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>Comprobante VEP</label>
+          <input type="file" id="itAdjVep" class="ina-file" accept="image/*,application/pdf">
+          ${t && t.adjVep ? `<button class="mini-btn" onclick="inaVerAdj('${esc(t.adjVep)}')">ver el cargado</button>` : ''}</div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col" style="flex:0 0 150px"><label>Ingeniero agrónomo</label>
+          <select id="itIng">${opts(INA_EST_PAGO, t && t.ingEstado)}</select></div>
+        <div class="f-col" style="flex:0 0 130px"><label>Monto</label>
+          <input type="text" inputmode="numeric" id="itIngM" oninput="abonoFmtInput(this)" value="${t && t.ingMonto ? fmtNumStr(t.ingMonto) : ''}"></div>
+        <div class="f-col" style="flex:0 0 110px"><label>Moneda</label>
+          <select id="itIngMon">
+            <option value="ARS" ${!t || t.ingMoneda !== 'USD' ? 'selected' : ''}>$ ARS</option>
+            <option value="USD" ${t && t.ingMoneda === 'USD' ? 'selected' : ''}>u$s USD</option>
+          </select></div>
+        <div class="f-col"><label>Comprobante ingeniero</label>
+          <input type="file" id="itAdjIng" class="ina-file" accept="image/*,application/pdf">
+          ${t && t.adjIng ? `<button class="mini-btn" onclick="inaVerAdj('${esc(t.adjIng)}')">ver el cargado</button>` : ''}</div>
+      </div>
+      <div class="cuota-hint" style="margin:8px 0 0">Ninguno de los tres comprobantes es obligatorio: cargá los que tengas.</div>
+      <div class="cs-grupo" style="margin-top:14px"><span class="cs-grupo-t">Seguimiento</span></div>
+      <div class="f-row">
+        <div class="f-col" style="flex:0 0 190px"><label>Estado</label>
+          <select id="itEstado">${opts(INA_ESTADOS, t && t.estado)}</select></div>
+        <div class="f-col" style="flex:0 0 160px"><label>Último contacto</label>
+          <input type="date" id="itUlt" value="${v('ultContacto')}"></div>
+
+      </div>
+      <div class="f-row" style="margin-top:10px"><div class="f-col"><label>Observaciones</label>
+        <textarea id="itObs" rows="2">${v('obs')}</textarea></div></div>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      <button class="abo-reg-cancel" onclick="inaCerrarTra()">Cancelar</button>
+      <button class="abo-reg" id="itGuardar" onclick="inaGuardarTramite(${nuevo ? 'null' : t.id})">Guardar</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+}
+function inaCerrarTra(){ const ov = document.getElementById('inaTraOv'); if (ov){ ov.classList.remove('on'); ov.style.display='none'; } }
+// Buscador del padrón dentro del formulario de trámite
+function inaSugCli(q){
+  const box = document.getElementById('itSug'); if (!box) return;
+  const t = __normBusqueda(q || '').trim();
+  if (!t){ box.style.display = 'none'; return; }
+  const l = INA_CLI.filter(c => __normBusqueda(c.nombre).includes(t)
+                             || __normBusqueda(c.alias||'').includes(t)
+                             || __normBusqueda(c.usuario||'').includes(t)).slice(0, 8);
+  if (!l.length){
+    box.innerHTML = '<div class="ina-sug-vacio">No aparece en el padrón. Podés cargarlo como cliente nuevo.</div>';
+    box.style.display = 'block'; return;
+  }
+  box.innerHTML = l.map(c => `<div class="ina-sug-it" onmousedown="event.preventDefault();inaElegirCli(${c.id})">
+      <b>${esc(c.nombre)}</b>${c.usuario ? `<small>${esc(c.usuario)}</small>` : ''}</div>`).join('');
+  box.style.display = 'block';
+}
+function inaElegirCli(id){
+  const c = inaCliPorId(id); if (!c) return;
+  document.getElementById('itCli').value = c.id;
+  document.getElementById('itBusca').value = '';
+  document.getElementById('itSug').style.display = 'none';
+  document.getElementById('itCliNom').innerHTML = `<b>${esc(c.nombre)}</b> <button class="ina-ojo" onclick="inaQuitarCli()">cambiar</button>`;
+  const nc = document.getElementById('itNuevoCli'); if (nc) nc.style.display = 'none';
+}
+function inaQuitarCli(){
+  document.getElementById('itCli').value = '';
+  document.getElementById('itCliNom').innerHTML = '';
+  const b = document.getElementById('itBusca'); if (b){ b.value = ''; b.focus(); }
+}
+function inaNuevoClienteEnTramite(abrir){
+  const nc = document.getElementById('itNuevoCli'); if (!nc) return;
+  const chk = document.getElementById('itChkNuevo');
+  nc.style.display = abrir ? '' : 'none';
+  if (chk) chk.classList.toggle('on', !!abrir);
+  if (abrir){ inaQuitarCli(); const n = document.getElementById('itnNombre'); if (n) n.focus(); }
+}
+async function inaGuardarTramite(id){
+  const g = i => (document.getElementById(i) || {}).value || '';
+  let cliId = g('itCli');
+  // Si vino con los datos del cliente nuevo, primero se crea la ficha
+  const panelNuevo = document.getElementById('itNuevoCli');
+  if (!cliId && panelNuevo && panelNuevo.style.display !== 'none'){
+    const nom = g('itnNombre').trim();
+    if (!nom){ alert('Poné el nombre del cliente nuevo.'); return; }
+    const cats = [...document.querySelectorAll('#itnCats input:checked')].map(x => x.value).join(', ');
+    const nuevoCli = { id: inaNuevoId(), nombre: nom, telefono: g('itnTel').trim(), mail: g('itnMail').trim(),
+      usuario: g('itnUsu').trim(), password: g('itnPass').trim(), categoria: cats,
+      personeria: g('itnPers'), alias: '', notas: '', servicios: [] };
+    INA_CLI.push(nuevoCli); saveInaseCli(); sbPushInaCli(nuevoCli);
+    cliId = nuevoCli.id;
+  }
+  if (!cliId){ alert('Elegí un cliente del padrón o cargá uno nuevo.'); return; }
+  const cli = inaCliPorId(cliId);
+  const num = s => { const n = numDe(s); return isNaN(n) || !n ? null : n; };
+  const btn = document.getElementById('itGuardar');
+  if (btn){ btn.disabled = true; btn.textContent = 'Guardando…'; }
+  let t = id != null ? INA_TRA.find(x => x.id === id) : null;
+  if (!t){ t = { id: inaNuevoId() }; INA_TRA.push(t); }
+  Object.assign(t, {
+    clienteId: Number(cliId), cliente: cli ? cli.nombre : '',
+    tipo: g('itTipo'), periodo: g('itPeriodo').trim(),
+    categoria: [...document.querySelectorAll('#itCats input:checked')].map(x => x.value).join(', '),
+    fecha: g('itFecha'), honEstado: g('itHon'), honMonto: num(g('itHonM')),
+    vepEstado: g('itVep'), vepMonto: num(g('itVepM')),
+    honMoneda: g('itHonMon') === 'USD' ? 'USD' : 'ARS',
+    vepMoneda: g('itVepMon') === 'USD' ? 'USD' : 'ARS',
+    ingEstado: g('itIng'), ingMonto: num(g('itIngM')),
+    ingMoneda: g('itIngMon') === 'USD' ? 'USD' : 'ARS',
+    estado: g('itEstado') || 'Pendiente', ultContacto: g('itUlt'),
+    obs: g('itObs').trim()
+  });
+  // Los tres comprobantes, cada uno por su lado y todos opcionales
+  const subir = async (idInput, campo, etiqueta) => {
+    const f = (document.getElementById(idInput) || {}).files;
+    if (!f || !f[0]) return;
+    try {
+      const nom = 'tramite-' + t.id + '-' + etiqueta + '-' + f[0].name.replace(/[^\w.-]/g,'_');
+      const path = await sbUploadFile('inase', nom, f[0]);
+      if (path) t[campo] = path;
+    } catch(e){ try { aricToast('No se pudo subir el comprobante de ' + etiqueta); } catch(_){} }
+  };
+  await subir('itAdjHon', 'adjHon', 'honorarios');
+  await subir('itAdjVep', 'adjVep', 'vep');
+  await subir('itAdjIng', 'adjIng', 'ingeniero');
+  saveInaseTra(); sbPushInaTra(t);
+  inaCerrarTra(); renderInase(); inaRefrescarFicha();
+  try { aricToast(id != null ? 'Trámite actualizado' : 'Trámite cargado'); } catch(e){}
+}
+function inaBorrarTramite(id){
+  const t = INA_TRA.find(x => x.id === id); if (!t) return;
+  if (!confirm('¿Eliminar el trámite «' + (t.tipo||'') + '» de ' + (t.cliente||'') + '?')) return;
+  INA_TRA = INA_TRA.filter(x => x.id !== id);
+  saveInaseTra();
+  if (SB_ON) sbDelete('inase_tramites', id).catch(sbAvisarError);
+  renderInase();
+}
+// ── Alta y edición de clientes ──
+function inaEditarCliente(id){
+  const c = id != null ? inaCliPorId(id) : null;
+  const nuevo = !c;
+  const v = (k) => c ? esc(c[k] || '') : '';
+  let ov = document.getElementById('inaCliOv');
+  if (!ov){
+    ov = document.createElement('div'); ov.id = 'inaCliOv'; ov.className = 'crm-modal-ov';
+    ov.addEventListener('click', e => { if (e.target === ov) inaCerrarCli(); });
+    document.body.appendChild(ov);
+  }
+  const serv = (c && c.servicios || []).slice().sort((a,b)=>(a.anio||0)-(b.anio||0));
+  ov.innerHTML = `<div class="abo-reg-card" style="width:640px">
+    <div class="abo-reg-head">
+      <div><div class="abo-reg-cli">${nuevo ? 'Nuevo cliente INASE' : esc(c.nombre)}</div>
+        <div class="abo-reg-sub">${nuevo ? 'Se suma al padrón' : 'Editar ficha'}</div></div>
+      <button class="abo-reg-x" onclick="inaCerrarCli()">✕</button>
+    </div>
+    <div class="abo-reg-body">
+      <div class="f-row"><div class="f-col"><label>Nombre o razón social *</label>
+        <input type="text" id="icNombre" value="${v('nombre')}" placeholder="Nombre completo"></div></div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col"><label>Teléfono</label><input type="text" id="icTel" value="${v('telefono')}"></div>
+        <div class="f-col"><label>Mail</label><input type="text" id="icMail" value="${v('mail')}"></div>
+      </div>
+      <div class="cs-grupo" style="margin-top:14px"><span class="cs-grupo-t">Acceso a INASE</span></div>
+      <div class="f-row">
+        <div class="f-col"><label>Usuario</label><input type="text" id="icUsu" value="${v('usuario')}" placeholder="Ej: 13700cabmn"></div>
+        <div class="f-col"><label>Contraseña</label><input type="text" id="icPass" value="${v('password')}"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px">
+        <div class="f-col"><label>Categorías <span class="crm-hint-min">puede tener más de una</span></label>
+          <div class="ina-cats" id="icCats">${INA_CATS.map(x =>
+            `<label class="ina-cat-op${inaCats(c&&c.categoria).includes(x)?' on':''}">
+               <input type="checkbox" value="${x}" ${inaCats(c&&c.categoria).includes(x)?'checked':''}
+                 onchange="this.parentNode.classList.toggle('on', this.checked)"> ${x}</label>`).join('')}</div></div>
+        <div class="f-col" style="flex:0 0 190px"><label>Personería</label>
+          <select id="icPers">${['','Persona humana','Persona jurídica'].map(x=>`<option ${c&&c.personeria===x?'selected':''}>${x}</option>`).join('')}</select></div>
+        <div class="f-col"><label>Otros nombres</label><input type="text" id="icAlias" value="${v('alias')}" placeholder="Cómo figura en otros lados"></div>
+      </div>
+      <div class="f-row" style="margin-top:10px"><div class="f-col"><label>Carpeta de Drive (link)</label>
+        <input type="text" id="icDrive" value="${esc(inaDriveDe(c)||'')}" placeholder="https://drive.google.com/drive/u/..."></div></div>
+      <div class="f-row" style="margin-top:10px"><div class="f-col"><label>Notas</label>
+        <textarea id="icNotas" rows="2">${v('notas')}</textarea></div></div>
+      <div class="cs-grupo" style="margin-top:14px"><span class="cs-grupo-t">Servicios contratados</span></div>
+      <div id="icServLista">${serv.map((s,i)=>inaServFila(s,i)).join('')}</div>
+      <button class="ina-add" onclick="inaAgregarServ()">+ Agregar servicio</button>
+    </div>
+    <div class="abo-reg-foot"><div class="abo-reg-foot-r" style="margin-left:auto">
+      ${nuevo ? '' : `<button class="abo-reg-cancel" style="color:var(--mal,#b3372a)" onclick="inaBorrarCliente(${c.id})">Eliminar</button>`}
+      <button class="abo-reg-cancel" onclick="inaCerrarCli()">Cancelar</button>
+      <button class="abo-reg" onclick="inaGuardarCliente(${nuevo ? 'null' : c.id})">Guardar</button>
+    </div></div>
+  </div>`;
+  ov.classList.add('on'); ov.style.display = 'flex';
+  setTimeout(()=>{ const n = document.getElementById('icNombre'); if (n && nuevo) n.focus(); }, 50);
+}
+function inaServFila(s, i){
+  return `<div class="ina-serv-fila" data-i="${i}">
+    <select class="ina-serv-tipo">${INA_TIPOS.map(t=>`<option ${s&&s.tipo===t?'selected':''}>${t}</option>`).join('')}</select>
+    <input type="text" class="ina-serv-anio" placeholder="Año" maxlength="4" value="${s&&s.anio?s.anio:''}">
+    <input type="text" class="ina-serv-det" placeholder="Detalle (opcional)" value="${s?esc(s.detalle||''):''}">
+    <button class="x-del" onclick="this.parentNode.remove()" title="Quitar">✕</button>
+  </div>`;
+}
+function inaAgregarServ(){
+  const cont = document.getElementById('icServLista');
+  if (cont) cont.insertAdjacentHTML('beforeend', inaServFila(null, cont.children.length));
+}
+function inaCerrarCli(){ const ov = document.getElementById('inaCliOv'); if (ov){ ov.classList.remove('on'); ov.style.display='none'; } }
+function inaGuardarCliente(id){
+  const g = i => (document.getElementById(i) || {}).value || '';
+  const nombre = g('icNombre').trim();
+  if (!nombre){ alert('Poné al menos el nombre.'); return; }
+  const servicios = [...document.querySelectorAll('#icServLista .ina-serv-fila')].map(f => ({
+    tipo: f.querySelector('.ina-serv-tipo').value,
+    anio: parseInt(f.querySelector('.ina-serv-anio').value, 10) || null,
+    detalle: f.querySelector('.ina-serv-det').value.trim(), estado: ''
+  })).filter(s => s.tipo);
+  let c = id != null ? inaCliPorId(id) : null;
+  if (!c){ c = { id: inaNuevoId(), servicios: [] }; INA_CLI.push(c); }
+  const cats = [...document.querySelectorAll('#icCats input:checked')].map(x => x.value).join(', ');
+  Object.assign(c, { nombre, telefono:g('icTel').trim(), mail:g('icMail').trim(),
+    usuario:g('icUsu').trim(), password:g('icPass').trim(), categoria:cats,
+    personeria:g('icPers'), alias:g('icAlias').trim(), notas:g('icNotas').trim(),
+    drive:g('icDrive').trim(), servicios });
+  saveInaseCli(); sbPushInaCli(c);
+  inaCerrarCli(); renderInase(); inaRefrescarFicha();
+  try { aricToast(id != null ? 'Ficha actualizada' : 'Cliente agregado al padrón'); } catch(e){}
+}
+function inaBorrarCliente(id){
+  const c = inaCliPorId(id); if (!c) return;
+  if (!confirm('¿Eliminar del padrón a ' + c.nombre + '? Sus trámites quedan, pero sin ficha asociada.')) return;
+  INA_CLI = INA_CLI.filter(x => x.id !== id);
+  saveInaseCli();
+  if (SB_ON) sbDelete('inase_clientes', id).catch(sbAvisarError);
+  inaCerrarCli(); inaCerrarFicha(); renderInase();
+}
+function renderInaseLegacy(){
   const cont = document.getElementById('inasePanel');
   if (!cont) return;
   const pag = document.getElementById('paginaInase');
@@ -20011,6 +20942,8 @@ function purgarCacheLocal() {
   try { vaciarArr(ABONOS); } catch (e) {}
   try { vaciarArr(ARIC); } catch (e) {}
   try { vaciarArr(INASE); } catch (e) {}
+  try { vaciarArr(INA_CLI); } catch (e) {}
+  try { vaciarArr(INA_TRA); } catch (e) {}
   try { vaciarArr(REUNIONES); } catch (e) {}
   try { vaciarArr(CS_COM); } catch (e) {}
   try { vaciarArr(CS_FONDO); } catch (e) {}
