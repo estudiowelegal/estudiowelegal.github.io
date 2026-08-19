@@ -16354,17 +16354,20 @@ function renderComManual(){
   // Vista de conjunto: cuánto lleva cada una este mes
   const tablero = csVeTodasLasPersonas() ? `
     <div class="panel" style="margin-bottom:16px">
-      <div class="panel-h"><h3>Comisiones del equipo</h3><span class="mini">cargadas en ${mesLargo(mes).toLowerCase()}</span></div>
+      <div class="panel-h"><h3>Comisiones del equipo</h3><span class="mini">total de ${mesLargo(mes).toLowerCase()}</span></div>
       <div class="fondo-tablero">
         ${CS_PERSONAS.map(p => {
-          const f = comManualDe(p.id, mes);
-          const a = f.filter(c => c.moneda !== 'USD').reduce((x,c)=>x+(Number(c.monto)||0),0);
-          const u = f.filter(c => c.moneda === 'USD').reduce((x,c)=>x+(Number(c.monto)||0),0);
+          // Las cápsulas tienen que mostrar lo MISMO que la tabla de abajo y que
+          // Sueldos: judicial + societaria automática + trámites a mano + abonos
+          // tempranos. Antes contaban solo las cargadas a mano, así que a quien
+          // tenía únicamente comisiones automáticas le mostraban cero.
+          const t = comTodasDe(p.id, mes, dolarRef);
+          const total = t.reduce((x, c) => x + (c.monto || 0), 0);
+          const aMano = t.filter(c => c.origen === 'manual').length;
           return `<button type="button" class="fondo-card ${p.id === pid ? 'on' : ''}" onclick="comManualIr('${p.id}')">
             <span class="fc-nom">${esc(p.nombre)}</span>
-            <span class="fc-num">${csFmtMon(a, 'ARS')}</span>
-            ${u ? `<span class="fc-usd">${csFmtMon(u, 'USD')}</span>` : ''}
-            <span class="fc-pie">${f.length} cargada${f.length !== 1 ? 's' : ''}</span>
+            <span class="fc-num">${csFmtMon(total, 'ARS')}</span>
+            <span class="fc-pie">${t.length} comisi${t.length !== 1 ? 'ones' : 'ón'}${aMano ? ' · ' + aMano + ' a mano' : ''}</span>
           </button>`;
         }).join('')}
       </div>
