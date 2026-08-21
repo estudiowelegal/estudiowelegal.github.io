@@ -7001,12 +7001,13 @@ async function __sbCargarTodoInterno() {
     if (cfg.reuniones_cfg) { try { appStore.setItem(REU_CFG_KEY, cfg.reuniones_cfg); } catch(e){} }
     // Turno de la rotación de encargadas, para que la rueda siga igual en todas las máquinas
     if (cfg.encargada_turno != null) { try { appStore.setItem(ENC_TURNO_KEY, String(cfg.encargada_turno)); } catch(e){} }
-    // El valor de la nube puede traer una resolución de UMA ya superada. Se vuelve a
-    // aplicar la actualización acá, que ahora sí tiene sesión para poder subirla.
-    try { sembrarUmaSiFalta(); if (typeof cargarUmaCampo === 'function') cargarUmaCampo(); } catch(e){}
     // Trimestre de ajuste por inflación en curso (compartido por abonos y sueldos)
     if (cfg.infl_ancla && /^\d{4}-\d{2}$/.test(cfg.infl_ancla)) { try { appStore.setItem(INFL_ANCLA_KEY, cfg.infl_ancla); } catch(e){} }
     if (cfg.uma) appStore.setItem(UMA_KEY, cfg.uma);
+    // Recién ahora se contrasta con la resolución vigente: si la nube trae una
+    // superada, se pisa y se sube la nueva. Antes esto corría ANTES de leer
+    // cfg.uma, así que el valor viejo de la nube volvía a ganar.
+    try { sembrarUmaSiFalta(); if (typeof cargarUmaCampo === 'function') cargarUmaCampo(); } catch(e){}
     // Feriados y ferias: lo que está en la nube manda (es compartido por todo el estudio)
     if (cfg.feriados) {
       try { const arr = JSON.parse(cfg.feriados); if (Array.isArray(arr)) { FERIADOS = arr; appStore.setItem(FER_KEY, cfg.feriados); __ferSet = null; } } catch (e) {}
@@ -14137,10 +14138,10 @@ function calcularPlazo() {
 const UMA_META_KEY = 'jc-uma-meta-v1';
 let __umaEstado = '';
 const UMA_FUENTE = 'https://www.cpacf.org.ar/noticia/5201/valores-uma-pjn-ley-27423';
-const UMA_SEED = { monto: 102076, res: 'Res 1785/26', fecha: '03/08/2026' };
+const UMA_SEED = { monto: 104220, res: 'Res 1930/26', fecha: '03/08/2026' };
 // Valores que este mismo archivo sembró en versiones anteriores. Si el guardado es
 // uno de estos, quedó viejo y se pisa con el nuevo; un valor cargado a mano no se toca.
-const UMA_SEEDS_VIEJOS = [98112, 100173];
+const UMA_SEEDS_VIEJOS = [98112, 100173, 102076];
 function sembrarUmaSiFalta() {
   const v = parseFloat(appStore.getItem(UMA_KEY));
   let meta = {};
@@ -14173,7 +14174,8 @@ function pintarUmaVigente(estado) {
   if (v > 0) {
     const res = meta.res ? ` conforme <b>${esc(meta.res)}</b>` : '';
     const fe = meta.fecha ? ` (${esc(meta.fecha)})` : '';
-    box.innerHTML = `Valor actual del UMA: <b>${fmtARS.format(v)}</b>${res}${fe}.`;
+    const monto = Number.isInteger(v) ? '$' + fmtNumStr(v) : fmtARS.format(v);
+    box.innerHTML = `Valor actual del UMA: <b>${monto}</b>${res}${fe}.`;
   } else {
     box.classList.add('err');
     box.textContent = 'No se pudo obtener el valor del UMA. Cargalo a mano en el campo de abajo.';
